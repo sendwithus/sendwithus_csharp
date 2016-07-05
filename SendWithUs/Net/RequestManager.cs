@@ -62,7 +62,7 @@ namespace SendWithUs
                 client.BaseAddress = GetBaseAddress();
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Add(SendWithUs.SWU_API_HEADER, SendWithUs.ApiKey);
-                //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 var uri = BuildURI(resource);
                 var serializer = new JavaScriptSerializer();
                 var contentString = serializer.Serialize(content);
@@ -90,7 +90,7 @@ namespace SendWithUs
                 client.BaseAddress = GetBaseAddress();
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Add(SendWithUs.SWU_API_HEADER, SendWithUs.ApiKey);
-                //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 var uri = BuildURI(resource);
                 var serializer = new JavaScriptSerializer();
                 var contentString = serializer.Serialize(content);
@@ -117,7 +117,7 @@ namespace SendWithUs
                 client.BaseAddress = GetBaseAddress();
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Add(SendWithUs.SWU_API_HEADER, SendWithUs.ApiKey);
-                //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 var uri = BuildURI(resource);
                 var response = await client.DeleteAsync(uri);
 
