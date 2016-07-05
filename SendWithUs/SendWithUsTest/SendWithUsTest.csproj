@@ -53,7 +53,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="SendWithUsTest.cs" />
+    <Compile Include="Helpers\TestValidation.cs" />
+    <Compile Include="Tests\TemplateTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
