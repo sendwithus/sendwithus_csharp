@@ -35,10 +35,7 @@ namespace SendWithUs
             using (var client = new HttpClient())
             {
                 // Send the GET request
-                client.BaseAddress = GetBaseAddress();
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Add(SendWithUs.SWU_API_HEADER, SendWithUs.ApiKey);
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                ConfigureHttpClient(client);
                 var uri = BuildURI(resource);
                 var response = await client.GetAsync(uri);
 
@@ -59,15 +56,9 @@ namespace SendWithUs
             using (var client = new HttpClient())
             {
                 // Send the PUT request
-                client.BaseAddress = GetBaseAddress();
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Add(SendWithUs.SWU_API_HEADER, SendWithUs.ApiKey);
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                ConfigureHttpClient(client);
                 var uri = BuildURI(resource);
-                var serializer = new JavaScriptSerializer();
-                var contentString = serializer.Serialize(content);
-                var httpContent = new StringContent(contentString);
-                httpContent.Headers.ContentType = new MediaTypeWithQualityHeaderValue("application/json");
+                var httpContent = SerializeContent(content);
                 var response = await client.PutAsync(uri, httpContent);
 
                 // Convert the response to a string, validate it, and return it
@@ -87,15 +78,9 @@ namespace SendWithUs
             using (var client = new HttpClient())
             {
                 // Send the PUT request
-                client.BaseAddress = GetBaseAddress();
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Add(SendWithUs.SWU_API_HEADER, SendWithUs.ApiKey);
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                ConfigureHttpClient(client);
                 var uri = BuildURI(resource);
-                var serializer = new JavaScriptSerializer();
-                var contentString = serializer.Serialize(content);
-                var httpContent = new StringContent(contentString);
-                httpContent.Headers.ContentType = new MediaTypeWithQualityHeaderValue("application/json");
+                var httpContent = SerializeContent(content);
                 var response = await client.PostAsync(uri, httpContent);
 
                 // Convert the response to a string, validate it, and return it
@@ -114,10 +99,7 @@ namespace SendWithUs
             using (var client = new HttpClient())
             {
                 // Send the DELETE request
-                client.BaseAddress = GetBaseAddress();
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Add(SendWithUs.SWU_API_HEADER, SendWithUs.ApiKey);
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                ConfigureHttpClient(client);
                 var uri = BuildURI(resource);
                 var response = await client.DeleteAsync(uri);
 
@@ -140,6 +122,32 @@ namespace SendWithUs
                 throw new SendWithUsException(response.StatusCode, responseContent);
             }
             return responseContent;
+        }
+
+        /// <summary>
+        /// Sets the base address, Accept type, API key, and password for the HTTP Client
+        /// </summary>
+        /// <param name="client">The client to prepare to setup</param>
+        private static void ConfigureHttpClient (HttpClient client)
+        { 
+            client.BaseAddress = GetBaseAddress();
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.Add(SendWithUs.SWU_API_HEADER, SendWithUs.ApiKey);
+        }
+
+        /// <summary>
+        /// JSON serializes the given object into an StringContent to send it in an HTTP request
+        /// </summary>
+        /// <param name="content">The content to serialize</param>
+        /// <returns>A StringContent containing the JSON serialized object</returns>
+        private static StringContent SerializeContent(object content)
+        {
+            var serializer = new JavaScriptSerializer();
+            var contentString = serializer.Serialize(content);
+            var stringContent = new StringContent(contentString);
+            stringContent.Headers.ContentType = new MediaTypeWithQualityHeaderValue("application/json");
+            return stringContent;
         }
     }
 }
