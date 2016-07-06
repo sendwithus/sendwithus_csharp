@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using SendWithUs;
+using Sendwithus;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Net;
 
-namespace SendWithUsTest
+namespace SendwithusTest
 {
     [TestClass]
     public class TemplateTest
@@ -31,12 +31,12 @@ namespace SendWithUsTest
         {
             // Make the API call
             Trace.WriteLine("GET /templates with invalid API Key");
-            SendWithUs.SendWithUs.ApiKey = "";
+            Sendwithus.Sendwithus.ApiKey = "";
             try
             {
                 var response = await Template.GetTemplatesAsync();
             }
-            catch (SendWithUsException exception)
+            catch (SendwithusException exception)
             {
                 // Make sure the response was HTTP 403 Forbidden
                 TestValidation.ValidateException(exception, HttpStatusCode.Forbidden);
@@ -52,7 +52,7 @@ namespace SendWithUsTest
         {
             // Make the API call
             Trace.WriteLine("GET /templates");
-            SendWithUs.SendWithUs.ApiKey = API_KEY_TEST;
+            Sendwithus.Sendwithus.ApiKey = API_KEY_TEST;
             var response = await Template.GetTemplatesAsync();
 
             // Validate the response
@@ -68,7 +68,7 @@ namespace SendWithUsTest
         {
             // Make the API call
             Trace.WriteLine(String.Format("GET /templates/{0}", DEFAULT_TEMPLATE_ID));
-            SendWithUs.SendWithUs.ApiKey = API_KEY_TEST;
+            Sendwithus.Sendwithus.ApiKey = API_KEY_TEST;
             var response = await Template.GetTemplateAsync(DEFAULT_TEMPLATE_ID);
 
             // Validate the response
@@ -84,13 +84,13 @@ namespace SendWithUsTest
         {
             // Make the API call
             Trace.WriteLine(String.Format("GET /templates/{0} with invalid ID", INVALID_TEMPLATE_ID));
-            SendWithUs.SendWithUs.ApiKey = API_KEY_TEST;
+            Sendwithus.Sendwithus.ApiKey = API_KEY_TEST;
             try
             {
                 var response = await Template.GetTemplateAsync(INVALID_TEMPLATE_ID);
                 Assert.Fail("Failed to throw exception");
             }
-            catch (SendWithUsException exception)
+            catch (SendwithusException exception)
             {
                 // Make sure the response was HTTP 400 Bad Request 
                 TestValidation.ValidateException(exception, HttpStatusCode.BadRequest);
@@ -106,7 +106,7 @@ namespace SendWithUsTest
         {
             // Make the API call
             Trace.WriteLine(String.Format("GET /templates/{0}/locales/{1}", DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE));
-            SendWithUs.SendWithUs.ApiKey = API_KEY_TEST;
+            Sendwithus.Sendwithus.ApiKey = API_KEY_TEST;
             var response = await Template.GetTemplateAsync(DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE);
 
             // Validate the response
@@ -122,13 +122,13 @@ namespace SendWithUsTest
         {
             // Make the API call
             Trace.WriteLine(String.Format("GET /templates/{0}/locales/{1} with invalid locale", DEFAULT_TEMPLATE_ID, INVALID_LOCALE));
-            SendWithUs.SendWithUs.ApiKey = API_KEY_TEST;
+            Sendwithus.Sendwithus.ApiKey = API_KEY_TEST;
             try
             {
                 var response = await Template.GetTemplateAsync(DEFAULT_TEMPLATE_ID, INVALID_LOCALE);
                 Assert.Fail("Failed to throw exception");
             }
-            catch (SendWithUsException exception)
+            catch (SendwithusException exception)
             {
                 // Make sure the response was HTTP 400 Bad Request
                 TestValidation.ValidateException(exception, HttpStatusCode.BadRequest);
@@ -144,7 +144,7 @@ namespace SendWithUsTest
         {
             // Make the API call
             Trace.WriteLine(String.Format("GET /templates/{0}/versions", DEFAULT_TEMPLATE_ID));
-            SendWithUs.SendWithUs.ApiKey = API_KEY_TEST;
+            Sendwithus.Sendwithus.ApiKey = API_KEY_TEST;
             var response = await Template.GetTemplateVersionsAsync(DEFAULT_TEMPLATE_ID);
 
             // Validate the response
@@ -160,7 +160,7 @@ namespace SendWithUsTest
         {
             // Make the API call
             Trace.WriteLine(String.Format("GET /templates/{0}/locales/{1}/versions", DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE));
-            SendWithUs.SendWithUs.ApiKey = API_KEY_TEST;
+            Sendwithus.Sendwithus.ApiKey = API_KEY_TEST;
             var response = await Template.GetTemplateVersionsAsync(DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE);
 
             // Validate the response
@@ -176,7 +176,7 @@ namespace SendWithUsTest
         {
             // Make the API call
             Trace.WriteLine(String.Format("GET /templates/{0}/versions/{1}", DEFAULT_TEMPLATE_ID, DEFAULT_VERSION_ID));
-            SendWithUs.SendWithUs.ApiKey = API_KEY_TEST;
+            Sendwithus.Sendwithus.ApiKey = API_KEY_TEST;
             var response = await Template.GetTemplateVersionAsync(DEFAULT_TEMPLATE_ID, DEFAULT_VERSION_ID);
 
             // Validate the response
@@ -192,7 +192,7 @@ namespace SendWithUsTest
         {
             // Make the API call
             Trace.WriteLine(String.Format("GET /templates/{0}/locales/{1}/versions/{2}", DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE, DEFAULT_VERSION_ID));
-            SendWithUs.SendWithUs.ApiKey = API_KEY_TEST;
+            Sendwithus.Sendwithus.ApiKey = API_KEY_TEST;
             var response = await Template.GetTemplateVersionAsync(DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE, DEFAULT_VERSION_ID);
 
             // Validate the response
@@ -208,7 +208,7 @@ namespace SendWithUsTest
         {
             // Make the API call
             Trace.WriteLine(String.Format("PUT /templates/{0}/versions/{1}", DEFAULT_TEMPLATE_ID, DEFAULT_VERSION_ID));
-            SendWithUs.SendWithUs.ApiKey = API_KEY_TEST;
+            Sendwithus.Sendwithus.ApiKey = API_KEY_TEST;
             var updatedTemplateVersion = new Template.TemplateVersion();
             updatedTemplateVersion.name = "New Version";
             updatedTemplateVersion.subject = "edited!";
@@ -229,7 +229,7 @@ namespace SendWithUsTest
         {
             // Make the API call
             Trace.WriteLine(String.Format("PUT /templates/{0}/locales/{1}/versions/{2}", DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE, DEFAULT_VERSION_ID));
-            SendWithUs.SendWithUs.ApiKey = API_KEY_TEST;
+            Sendwithus.Sendwithus.ApiKey = API_KEY_TEST;
             var updatedTemplateVersion = new Template.TemplateVersion();
             updatedTemplateVersion.name = "New Version";
             updatedTemplateVersion.subject = "edited!";
@@ -250,7 +250,7 @@ namespace SendWithUsTest
         {
             // Make the API call
             Trace.WriteLine(String.Format("PUT /templates/"));
-            SendWithUs.SendWithUs.ApiKey = API_KEY_TEST;
+            Sendwithus.Sendwithus.ApiKey = API_KEY_TEST;
             var newTemplateVersion = new Template.TemplateVersion();
             newTemplateVersion.name = "New Template";
             newTemplateVersion.subject = "This is a new template!";
@@ -286,7 +286,7 @@ namespace SendWithUsTest
 
             // Make the API call
             Trace.WriteLine(String.Format("PUT /templates/"));
-            SendWithUs.SendWithUs.ApiKey = API_KEY_TEST;
+            Sendwithus.Sendwithus.ApiKey = API_KEY_TEST;
             var templateVersion = new Template.TemplateVersion();
             templateVersion.name = "Published French Version";
             templateVersion.subject = "Ce est un nouveau modèle!";
@@ -307,7 +307,7 @@ namespace SendWithUsTest
         {
             // Make the API call
             Trace.WriteLine(String.Format("POST /templates/{0}/versions", DEFAULT_TEMPLATE_ID));
-            SendWithUs.SendWithUs.ApiKey = API_KEY_TEST;
+            Sendwithus.Sendwithus.ApiKey = API_KEY_TEST;
             var templateVersion = new Template.TemplateVersion();
             templateVersion.name = "New Template Version";
             templateVersion.subject = "New Version!";
@@ -328,7 +328,7 @@ namespace SendWithUsTest
         {
             // Make the API call
             Trace.WriteLine(String.Format("POST /templates/{0}/locales/{1}/versions", DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE));
-            SendWithUs.SendWithUs.ApiKey = API_KEY_TEST;
+            Sendwithus.Sendwithus.ApiKey = API_KEY_TEST;
             var templateVersion = new Template.TemplateVersion();
             templateVersion.name = "New Template Version";
             templateVersion.subject = "New Version!";
@@ -361,7 +361,7 @@ namespace SendWithUsTest
 
             // Make the API call
             Trace.WriteLine(String.Format("DELETE /templates/{0}", templateId));
-            SendWithUs.SendWithUs.ApiKey = API_KEY_TEST;
+            Sendwithus.Sendwithus.ApiKey = API_KEY_TEST;
             var response = await Template.DeleteTemplate(templateId);
 
             // Validate the response
@@ -391,7 +391,7 @@ namespace SendWithUsTest
 
             // Make the API call
             Trace.WriteLine(String.Format("DELETE /templates/{0}/locales/{1}", templateId, DEFAULT_LOCALE));
-            SendWithUs.SendWithUs.ApiKey = API_KEY_TEST;
+            Sendwithus.Sendwithus.ApiKey = API_KEY_TEST;
             var response = await Template.DeleteTemplate(templateId, DEFAULT_LOCALE);
 
             // Validate the response

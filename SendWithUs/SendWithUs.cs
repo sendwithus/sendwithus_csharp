@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 /**
- * SendWithUs API interface.
+ * sendwithus API interface.
  * 
  * Reference: https://github.com/sendwithus/sendwithus_java
  * 
@@ -14,16 +14,16 @@ using System.Threading.Tasks;
  *  Github: chennig
  */
 
-namespace SendWithUs
+namespace Sendwithus
 {
     /// <summary>
-    /// Contains the SendWithUs API settings
+    /// Contains the sendwithus API settings
     /// </summary>
-    public abstract class SendWithUs
+    public abstract class Sendwithus
     {
         public const string API_VERSION = "v1";
         public const string API_PASSWORD = ""; // API uses an empty string as the password
-        public const string CLIENT_VERSION = "1.9.0";
+        public const string CLIENT_VERSION = "1.0.0";
         public const string CLIENT_LANGUAGE = "csharp";
         public const string API_PROTO = "https";
         public const string API_HOST = "api.sendwithus.com";

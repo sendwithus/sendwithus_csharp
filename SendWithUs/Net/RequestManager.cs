@@ -8,20 +8,20 @@ using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 
 
-namespace SendWithUs
+namespace Sendwithus
 {
     public abstract class RequestManager
     {
         public static Uri GetBaseAddress()
         {
-            var uriString = String.Format(@"{0}://{1}:{2}", SendWithUs.API_PROTO,
-                    SendWithUs.API_HOST, SendWithUs.API_PORT);
+            var uriString = String.Format(@"{0}://{1}:{2}", Sendwithus.API_PROTO,
+                    Sendwithus.API_HOST, Sendwithus.API_PORT);
             return new Uri(uriString);
         }
 
         public static string BuildURI(string resource)
         {
-            return String.Format("/api/{0}/{1}", SendWithUs.API_VERSION, resource);
+            return String.Format("/api/{0}/{1}", Sendwithus.API_VERSION, resource);
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace SendWithUs
         /// </summary>
         /// <param name="resource">The resource identifier for the resource to be called (after /api/<version>/)</param>
         /// <returns>The response content in the form of a JSON string</returns>
-        /// <exception cref="SendWithUsException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
         public static async Task<string> SendGetRequestAsync(string resource)
         {   
             using (var client = new HttpClient())
@@ -50,7 +50,7 @@ namespace SendWithUs
         /// <param name="resource">The resource identifier for the resource to be called (after /api/<version>/)</param>
         /// <param name="content">The object to be sent with the PUT request. Will be converted to JSON in this function</param>
         /// <returns>The response content in the form of a JSON string</returns>
-        /// <exception cref="SendWithUsException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
         public static async Task<string> SendPutRequestAsync(string resource, object content)
         {
             using (var client = new HttpClient())
@@ -72,7 +72,7 @@ namespace SendWithUs
         /// <param name="resource">The resource identifier for the resource to be called (after /api/<version></version>/)</param>
         /// <param name="content">The object to be sent with the POST request. Will be converted to JSON in this function</param>
         /// <returns>The response content in the form of a JSON string</returns>
-        /// <exception cref="SendWithUsException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
         public static async Task<string> SendPostRequestAsync(string resource, object content)
         {
             using (var client = new HttpClient())
@@ -93,7 +93,7 @@ namespace SendWithUs
         /// </summary>
         /// <param name="resource">The resource identifier for the resource to be called (after /api/<version></version>/)</param>
         /// <returns>The response content in the form of a JSON string</returns>
-        /// <exception cref="SendWithUsException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
         public static async Task<string> SendDeleteRequestAsync(string resource)
         {
             using (var client = new HttpClient())
@@ -113,13 +113,13 @@ namespace SendWithUs
         /// </summary>
         /// <param name="response">The HTTP response</param>
         /// <returns>The response content as a string</returns>
-        /// /// <exception cref="SendWithUsException">Thrown when the API response status code is not success</exception>
+        /// /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
         private static async Task<string> ExtractAndValidateResponseContentAsync(HttpResponseMessage response)
         {
             var responseContent = await response.Content.ReadAsStringAsync();
             if (response.IsSuccessStatusCode == false)
             {
-                throw new SendWithUsException(response.StatusCode, responseContent);
+                throw new SendwithusException(response.StatusCode, responseContent);
             }
             return responseContent;
         }
@@ -133,7 +133,7 @@ namespace SendWithUs
             client.BaseAddress = GetBaseAddress();
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            client.DefaultRequestHeaders.Add(SendWithUs.SWU_API_HEADER, SendWithUs.ApiKey);
+            client.DefaultRequestHeaders.Add(Sendwithus.SWU_API_HEADER, Sendwithus.ApiKey);
         }
 
         /// <summary>

@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SendWithUs;
+using Sendwithus;
 using System.Web.Script.Serialization;
 using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Net;
 
-namespace SendWithUsTest
+namespace SendwithusTest
 {
     public abstract class TestValidation
     {
@@ -34,7 +34,7 @@ namespace SendWithUsTest
         /// </summary>
         /// <param name="exception">The exception to validate</param>
         /// <param name="stausCode">The expected exception status code</param>
-        public static void ValidateException(SendWithUsException exception, HttpStatusCode expectedStatusCode)
+        public static void ValidateException(SendwithusException exception, HttpStatusCode expectedStatusCode)
         {
             // Print the exception details
             Trace.Write("Exception Status Code: ");

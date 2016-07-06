@@ -5,13 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net;
 
-namespace SendWithUs
+namespace Sendwithus
 {
-    public class SendWithUsException : System.Exception
+    public class SendwithusException : System.Exception
     {
         public HttpStatusCode StatusCode;
 
-        public SendWithUsException(HttpStatusCode statusCode, string message) : base(message)
+        public SendwithusException(HttpStatusCode statusCode, string message) : base(message)
         {
             StatusCode = statusCode;
         }

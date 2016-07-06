@@ -58,9 +58,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SendWithUs.csproj">
+    <ProjectReference Include="..\Sendwithus.csproj">
       <Project>{e63b982d-d5e3-4f46-9096-e1bd8f72afba}</Project>
-      <Name>SendWithUs</Name>
+      <Name>Sendwithus</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

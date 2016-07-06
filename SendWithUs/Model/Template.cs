@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 
-namespace SendWithUs
+namespace Sendwithus
 {
     /// <summary>
-    /// SendWithUs Template class
+    /// sendwithus Template class
     /// </summary>
     public class Template
     {
@@ -38,7 +38,7 @@ namespace SendWithUs
         /// GET /templates
         /// </summary>
         /// <returns>A list of all the templates associated with the account</returns>
-        /// /// <exception cref="SendWithUsException">Thrown when the API response status code is not success</exception>
+        /// /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
         public static async Task<List<Template>> GetTemplatesAsync()
         {
             // Send the GET request
@@ -56,7 +56,7 @@ namespace SendWithUs
         /// </summary>
         /// <param name="templateID">The ID of the template</param>
         /// <returns>The template with the given ID</returns>
-        /// <exception cref="SendWithUsException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
         public static async Task<Template> GetTemplateAsync(string templateID)
         {
             // Send the GET request
@@ -76,7 +76,7 @@ namespace SendWithUs
         /// <param name="templateID">The ID of the template</param>
         /// <param name="locale"></param>
         /// <returns>The template with the given ID and locale</returns>
-        /// <exception cref="SendWithUsException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
         public static async Task<Template> GetTemplateAsync(string templateID, string locale)
         {
             // Send the GET request
@@ -95,7 +95,7 @@ namespace SendWithUs
         /// </summary>
         /// <param name="templateID">The ID of the template</param>
         /// <returns>The template versions associated with the given ID</returns>
-        /// <exception cref="SendWithUsException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
         public static async Task<List<TemplateVersion>> GetTemplateVersionsAsync(string templateID)
         {
             // Send the GET request
@@ -115,7 +115,7 @@ namespace SendWithUs
         /// <param name="templateID">The ID of the template</param>
         /// <param name="locale">The locale of the template</param>
         /// <returns>The template versions associated with the given ID and locale</returns>
-        /// <exception cref="SendWithUsException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
         public static async Task<List<TemplateVersion>> GetTemplateVersionsAsync(string templateID, string locale)
         {
             // Send the GET request
@@ -135,7 +135,7 @@ namespace SendWithUs
         /// <param name="templateID">The ID of the template</param>
         /// <param name="versionID">The ID of the version</param>
         /// <returns>The template version associated with the given ID</returns>
-        /// <exception cref="SendWithUsException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
         public static async Task<TemplateVersion> GetTemplateVersionAsync(string templateID, string versionID)
         {
             // Send the GET request
@@ -156,7 +156,7 @@ namespace SendWithUs
         /// <param name="locale">The locale of the template</param>
         /// <param name="versionID">The ID of the version</param>
         /// <returns>The template version associated with the given ID</returns>
-        /// <exception cref="SendWithUsException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
         public static async Task<TemplateVersion> GetTemplateVersionAsync(string templateID, string locale, string versionID)
         {
             // Send the GET request
@@ -176,7 +176,7 @@ namespace SendWithUs
         /// <param name="templateID">The ID of the template</param>
         /// <param name="versionID">The ID of the version</param>
         /// <returns>The template version associated with the given ID</returns>
-        /// <exception cref="SendWithUsException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
         public static async Task<TemplateVersion> UpdateTemplateVersionAsync(string templateID, string versionID, TemplateVersion updatedTemplateVersion)
         {
             // Send the PUT request
@@ -198,7 +198,7 @@ namespace SendWithUs
         /// <param name="versionID">The ID of the version</param>
         /// <param name="updatedTemplateVersion">The updated template version</param>
         /// <returns>The template version associated with the given ID</returns>
-        /// <exception cref="SendWithUsException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
         public static async Task<TemplateVersion> UpdateTemplateVersionAsync(string templateID, string locale, string versionID, TemplateVersion updatedTemplateVersion)
         {
             // Send the PUT request
@@ -220,7 +220,7 @@ namespace SendWithUs
         /// <param name="versionID">The ID of the version</param>
         /// <param name="updatedTemplateVersion">The updated template version</param>
         /// <returns>The new template</returns>
-        /// <exception cref="SendWithUsException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
         public static async Task<Template> CreateTemplateAsync(TemplateVersion newTemplateVersion)
         {
             // Send the POST request
@@ -241,7 +241,7 @@ namespace SendWithUs
         /// <param name="locale">The locale to add</param>
         /// <param name="templateVersion">The template version</param>
         /// <returns>The template with the updated locale</returns>
-        /// <exception cref="SendWithUsException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
         public static async Task<Template> AddLocaleToTemplate(string templateID, string locale, TemplateVersion templateVersion)
         {
             templateVersion.locale = locale;
@@ -262,7 +262,7 @@ namespace SendWithUs
         /// <param name="templateID">The ID of the template to add the version to</param>
         /// <param name="templateVersion">The new template verison to add</param>
         /// <returns>The newly created template version</returns>
-        /// <exception cref="SendWithUsException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
         public static async Task<TemplateVersion> CreateTemplateVersion(string templateID, TemplateVersion templateVersion)
         {
             // Send the POST request
@@ -282,7 +282,7 @@ namespace SendWithUs
         /// <param name="templateID">The ID of the template to add the version to</param>
         /// <param name="templateVersion">The new template verison to add</param>
         /// <returns>The newly created template version</returns>
-        /// <exception cref="SendWithUsException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
         public static async Task<TemplateVersion> CreateTemplateVersion(string templateID, string locale, TemplateVersion templateVersion)
         {
             // Send the POST request
@@ -301,7 +301,7 @@ namespace SendWithUs
         /// </summary>
         /// <param name="templateID">The ID of the template to delete</param>
         /// <returns>The status of the api call</returns>
-        /// <exception cref="SendWithUsException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
         public static async Task<ApiStatus> DeleteTemplate(string templateID)
         {
             // Send the POST request
@@ -321,7 +321,7 @@ namespace SendWithUs
         /// <param name="templateID">The ID of the template to delete</param>
         /// <param name="locale">The locale of the template to delete</param>
         /// <returns>The status of the api call</returns>
-        /// <exception cref="SendWithUsException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
         public static async Task<ApiStatus> DeleteTemplate(string templateID, string locale)
         {
             // Send the POST request
@@ -338,7 +338,7 @@ namespace SendWithUs
 
 
         /// <summary>
-        /// SendWithUs Template Version
+        /// sendwithus Template Version
         /// </summary>
         public class TemplateVersion
         {
@@ -355,7 +355,7 @@ namespace SendWithUs
         }
 
         /// <summary>
-        /// SendWithUs API Status
+        /// sendwithus API Status
         /// </summary>
         public class ApiStatus
         {
