@@ -10,8 +10,6 @@ namespace Sendwithus
 {
     public class Email
     {
-        public const string EMAIL_RESOURCE = "send";
-
         public string template { get; set; } // The template ID
         public Dictionary<string, object> template_data { get; }
         public EmailRecipient recipient { get; set; }
@@ -57,7 +55,7 @@ namespace Sendwithus
         public async Task<EmailResponse> Send()
         {
             // Send the POST request
-            var resource = String.Format("{0}", EMAIL_RESOURCE);
+            var resource = "send";
             var jsonResponse = await RequestManager.SendPostRequestAsync(resource, this);
 
             // Convert the JSON result into an object

@@ -12,7 +12,6 @@ namespace Sendwithus
     /// </summary>
     public class Template
     {
-        private const string TEMPLATES_RESOURCE = "templates";
         public const string DEFAULT_LOCALE = "en-US";
 
         // all lowercase to match expected JSON format (case-sensitive on server side)
@@ -40,7 +39,8 @@ namespace Sendwithus
         public static async Task<List<Template>> GetTemplatesAsync()
         {
             // Send the GET request
-            var jsonResponse = await RequestManager.SendGetRequestAsync(TEMPLATES_RESOURCE);
+            var resource = "templates";
+            var jsonResponse = await RequestManager.SendGetRequestAsync(resource);
             
             // Convert the JSON result into an object
             var serializer = new JavaScriptSerializer();
@@ -58,7 +58,7 @@ namespace Sendwithus
         public static async Task<Template> GetTemplateAsync(string templateID)
         {
             // Send the GET request
-            var resource = String.Format("{0}/{1}", TEMPLATES_RESOURCE, templateID);
+            var resource = String.Format("templates/{0}", templateID);
             var jsonResponse = await RequestManager.SendGetRequestAsync(resource);
 
             // Convert the JSON result into an object
@@ -78,7 +78,7 @@ namespace Sendwithus
         public static async Task<Template> GetTemplateAsync(string templateID, string locale)
         {
             // Send the GET request
-            var resource = String.Format("{0}/{1}/locales/{2}", TEMPLATES_RESOURCE, templateID, locale);
+            var resource = String.Format("templates/{0}/locales/{1}", templateID, locale);
             var jsonResponse = await RequestManager.SendGetRequestAsync(resource);
 
             // Convert the JSON result into an object
@@ -97,7 +97,7 @@ namespace Sendwithus
         public static async Task<List<TemplateVersion>> GetTemplateVersionsAsync(string templateID)
         {
             // Send the GET request
-            var resource = String.Format("{0}/{1}/versions", TEMPLATES_RESOURCE, templateID);
+            var resource = String.Format("templates/{0}/versions", templateID);
             var jsonResponse = await RequestManager.SendGetRequestAsync(resource);
 
             // Convert the JSON result into an object
@@ -117,7 +117,7 @@ namespace Sendwithus
         public static async Task<List<TemplateVersion>> GetTemplateVersionsAsync(string templateID, string locale)
         {
             // Send the GET request
-            var resource = String.Format("{0}/{1}/locales/{2}/versions", TEMPLATES_RESOURCE, templateID, locale);
+            var resource = String.Format("templates/{0}/locales/{1}/versions", templateID, locale);
             var jsonResponse = await RequestManager.SendGetRequestAsync(resource);
 
             // Convert the JSON result into an object
@@ -137,7 +137,7 @@ namespace Sendwithus
         public static async Task<TemplateVersion> GetTemplateVersionAsync(string templateID, string versionID)
         {
             // Send the GET request
-            var resource = String.Format("{0}/{1}/versions/{2}", TEMPLATES_RESOURCE, templateID, versionID);
+            var resource = String.Format("templates/{0}/versions/{1}", templateID, versionID);
             var jsonResponse = await RequestManager.SendGetRequestAsync(resource);
 
             // Convert the JSON result into an object
@@ -158,7 +158,7 @@ namespace Sendwithus
         public static async Task<TemplateVersion> GetTemplateVersionAsync(string templateID, string locale, string versionID)
         {
             // Send the GET request
-            var resource = String.Format("{0}/{1}/locales/{2}/versions/{3}", TEMPLATES_RESOURCE, templateID, locale, versionID);
+            var resource = String.Format("templates/{0}/locales/{1}/versions/{2}", templateID, locale, versionID);
             var jsonResponse = await RequestManager.SendGetRequestAsync(resource);
 
             // Convert the JSON result into an object
@@ -178,7 +178,7 @@ namespace Sendwithus
         public static async Task<TemplateVersion> UpdateTemplateVersionAsync(string templateID, string versionID, TemplateVersion updatedTemplateVersion)
         {
             // Send the PUT request
-            var resource = String.Format("{0}/{1}/versions/{2}", TEMPLATES_RESOURCE, templateID, versionID);
+            var resource = String.Format("templates/{0}/versions/{1}", templateID, versionID);
             var jsonResponse = await RequestManager.SendPutRequestAsync(resource, updatedTemplateVersion);
 
             // Convert the JSON result into an object
@@ -200,7 +200,7 @@ namespace Sendwithus
         public static async Task<TemplateVersion> UpdateTemplateVersionAsync(string templateID, string locale, string versionID, TemplateVersion updatedTemplateVersion)
         {
             // Send the PUT request
-            var resource = String.Format("{0}/{1}/locales/{2}/versions/{3}", TEMPLATES_RESOURCE, templateID, locale, versionID);
+            var resource = String.Format("templates/{0}/locales/{1}/versions/{2}", templateID, locale, versionID);
             var jsonResponse = await RequestManager.SendPutRequestAsync(resource, updatedTemplateVersion);
 
             // Convert the JSON result into an object
@@ -222,7 +222,7 @@ namespace Sendwithus
         public static async Task<Template> CreateTemplateAsync(TemplateVersion newTemplateVersion)
         {
             // Send the POST request
-            var resource = String.Format("{0}", TEMPLATES_RESOURCE);
+            var resource = "templates";
             var jsonResponse = await RequestManager.SendPostRequestAsync(resource, newTemplateVersion);
 
             // Convert the JSON result into an object
@@ -244,7 +244,7 @@ namespace Sendwithus
         {
             templateVersion.locale = locale;
             // Send the POST request
-            var resource = String.Format("{0}/{1}/locales", TEMPLATES_RESOURCE, templateID);
+            var resource = String.Format("templates/{0}/locales", templateID);
             var jsonResponse = await RequestManager.SendPostRequestAsync(resource, templateVersion);
 
             // Convert the JSON result into an object
@@ -264,7 +264,7 @@ namespace Sendwithus
         public static async Task<TemplateVersion> CreateTemplateVersion(string templateID, TemplateVersion templateVersion)
         {
             // Send the POST request
-            var resource = String.Format("{0}/{1}/versions", TEMPLATES_RESOURCE, templateID);
+            var resource = String.Format("templates/{0}/versions", templateID);
             var jsonResponse = await RequestManager.SendPostRequestAsync(resource, templateVersion);
 
             // Convert the JSON result into an object
@@ -284,7 +284,7 @@ namespace Sendwithus
         public static async Task<TemplateVersion> CreateTemplateVersion(string templateID, string locale, TemplateVersion templateVersion)
         {
             // Send the POST request
-            var resource = String.Format("{0}/{1}/locales/{2}/versions", TEMPLATES_RESOURCE, templateID, locale);
+            var resource = String.Format("templates/{0}/locales/{1}/versions", templateID, locale);
             var jsonResponse = await RequestManager.SendPostRequestAsync(resource, templateVersion);
 
             // Convert the JSON result into an object
@@ -303,7 +303,7 @@ namespace Sendwithus
         public static async Task<SendwithusApiStatus> DeleteTemplate(string templateID)
         {
             // Send the POST request
-            var resource = String.Format("{0}/{1}", TEMPLATES_RESOURCE, templateID);
+            var resource = String.Format("templates/{0}", templateID);
             var jsonResponse = await RequestManager.SendDeleteRequestAsync(resource);
 
             // Convert the JSON result into an object
@@ -323,7 +323,7 @@ namespace Sendwithus
         public static async Task<SendwithusApiStatus> DeleteTemplate(string templateID, string locale)
         {
             // Send the POST request
-            var resource = String.Format("{0}/{1}/locales/{2}", TEMPLATES_RESOURCE, templateID, locale);
+            var resource = String.Format("templates/{0}/locales/{1}", templateID, locale);
             var jsonResponse = await RequestManager.SendDeleteRequestAsync(resource);
 
             // Convert the JSON result into an object
