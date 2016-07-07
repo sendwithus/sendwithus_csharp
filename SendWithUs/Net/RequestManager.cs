@@ -134,6 +134,8 @@ namespace Sendwithus
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             client.DefaultRequestHeaders.Add(Sendwithus.SWU_API_HEADER, Sendwithus.ApiKey);
+            var clientStub = String.Format("{0}-{1}", Sendwithus.CLIENT_LANGUAGE, Sendwithus.CLIENT_VERSION);
+            client.DefaultRequestHeaders.Add(Sendwithus.SWU_CLIENT_HEADER, clientStub);
         }
 
         /// <summary>
