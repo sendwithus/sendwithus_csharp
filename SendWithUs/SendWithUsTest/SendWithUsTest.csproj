@@ -54,6 +54,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Helpers\TestValidation.cs" />
+    <Compile Include="Tests\EmailTest.cs" />
     <Compile Include="Tests\TemplateTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

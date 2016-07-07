@@ -41,10 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Exception\SendWithUsException.cs" />
+    <Compile Include="Exception\SendwithusException.cs" />
+    <Compile Include="Model\Email.cs" />
     <Compile Include="Model\Template.cs" />
     <Compile Include="Net\RequestManager.cs" />
-    <Compile Include="SendWithUs.cs" />
+    <Compile Include="Sendwithus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
