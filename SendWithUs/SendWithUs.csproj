@@ -7,8 +7,8 @@
     <ProjectGuid>{E63B982D-D5E3-4F46-9096-E1BD8F72AFBA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SendWithUs</RootNamespace>
-    <AssemblyName>SendWithUs</AssemblyName>
+    <RootNamespace>Sendwithus</RootNamespace>
+    <AssemblyName>Sendwithus</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -43,6 +43,11 @@
   <ItemGroup>
     <Compile Include="Exception\SendwithusException.cs" />
     <Compile Include="Model\Email.cs" />
+    <Compile Include="Model\Helpers\EmailFileData.cs" />
+    <Compile Include="Model\Helpers\EmailRecipient.cs" />
+    <Compile Include="Model\Helpers\EmailResponse.cs" />
+    <Compile Include="Model\Helpers\EmailSender.cs" />
+    <Compile Include="Model\Helpers\EmailSummary.cs" />
     <Compile Include="Model\Template.cs" />
     <Compile Include="Net\RequestManager.cs" />
     <Compile Include="Sendwithus.cs" />

@@ -12,9 +12,7 @@ namespace Sendwithus
     /// </summary>
     public class Template
     {
-
         private const string TEMPLATES_RESOURCE = "templates";
-
         public const string DEFAULT_LOCALE = "en-US";
 
         // all lowercase to match expected JSON format (case-sensitive on server side)
@@ -302,7 +300,7 @@ namespace Sendwithus
         /// <param name="templateID">The ID of the template to delete</param>
         /// <returns>The status of the api call</returns>
         /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
-        public static async Task<ApiStatus> DeleteTemplate(string templateID)
+        public static async Task<SendwithusApiStatus> DeleteTemplate(string templateID)
         {
             // Send the POST request
             var resource = String.Format("{0}/{1}", TEMPLATES_RESOURCE, templateID);
@@ -310,7 +308,7 @@ namespace Sendwithus
 
             // Convert the JSON result into an object
             var serializer = new JavaScriptSerializer();
-            var response = serializer.Deserialize<ApiStatus>(jsonResponse);
+            var response = serializer.Deserialize<SendwithusApiStatus>(jsonResponse);
             return response;
         }
 
@@ -322,7 +320,7 @@ namespace Sendwithus
         /// <param name="locale">The locale of the template to delete</param>
         /// <returns>The status of the api call</returns>
         /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
-        public static async Task<ApiStatus> DeleteTemplate(string templateID, string locale)
+        public static async Task<SendwithusApiStatus> DeleteTemplate(string templateID, string locale)
         {
             // Send the POST request
             var resource = String.Format("{0}/{1}/locales/{2}", TEMPLATES_RESOURCE, templateID, locale);
@@ -330,37 +328,8 @@ namespace Sendwithus
 
             // Convert the JSON result into an object
             var serializer = new JavaScriptSerializer();
-            var response = serializer.Deserialize<ApiStatus>(jsonResponse);
+            var response = serializer.Deserialize<SendwithusApiStatus>(jsonResponse);
             return response;
-        }
-
-
-
-
-        /// <summary>
-        /// sendwithus Template Version
-        /// </summary>
-        public class TemplateVersion
-        {
-            // all lowercase to match expected JSON format (case-sensitive on server side)
-            public string name { get; set; }
-            public string id { get; set; }
-            public string created { get; set; }
-            public string modified { get; set; }
-            public string html { get; set; }
-            public string text { get; set; }
-            public string subject { get; set; }
-            public string locale { get; set; }
-            public bool published { get; set; }
-        }
-
-        /// <summary>
-        /// sendwithus API Status
-        /// </summary>
-        public class ApiStatus
-        {
-            public string status { get; set; }
-            public bool success { get; set; }
         }
     }
 }

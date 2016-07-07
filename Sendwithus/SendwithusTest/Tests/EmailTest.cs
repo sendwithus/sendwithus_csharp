@@ -72,10 +72,10 @@ namespace SendwithusTest
             var email = BuildBarebonesEmail();
 
             // Configure all of the optional data
-            email.cc.Add(new Email.EmailRecipient(DEFAULT_CC_EMAIL_ADDRESS_1, DEFAULT_EMAIL_NAME));
-            email.cc.Add(new Email.EmailRecipient(DEFAULT_CC_EMAIL_ADDRESS_2, DEFAULT_EMAIL_NAME));
-            email.bcc.Add(new Email.EmailRecipient(DEFAULT_BCC_EMAIL_ADDRESS_1, DEFAULT_EMAIL_NAME));
-            email.bcc.Add(new Email.EmailRecipient(DEFAULT_BCC_EMAIL_ADDRESS_2, DEFAULT_EMAIL_NAME));
+            email.cc.Add(new EmailRecipient(DEFAULT_CC_EMAIL_ADDRESS_1, DEFAULT_EMAIL_NAME));
+            email.cc.Add(new EmailRecipient(DEFAULT_CC_EMAIL_ADDRESS_2, DEFAULT_EMAIL_NAME));
+            email.bcc.Add(new EmailRecipient(DEFAULT_BCC_EMAIL_ADDRESS_1, DEFAULT_EMAIL_NAME));
+            email.bcc.Add(new EmailRecipient(DEFAULT_BCC_EMAIL_ADDRESS_2, DEFAULT_EMAIL_NAME));
             email.sender.address = DEFAULT_SENDER_EMAIL_ADDRESS;
             email.sender.reply_to = DEFAULT_REPLY_TO_EMAIL_ADDRESS;
             email.sender.name = DEFAULT_SENDER_NAME;
@@ -85,8 +85,8 @@ namespace SendwithusTest
             email.headers.Add(DEFAULT_HEADER_NAME, DEFAULT_HEADER_VALUE);
             email.inline.id = DEFAULT_INLINE_ID;
             email.inline.data = DEFAULT_INLINE_DATA;
-            email.files.Add(new Email.FileData(DEFAULT_FILE_NAME_1, DEFAULT_FILE_DATA));
-            email.files.Add(new Email.FileData(DEFAULT_FILE_NAME_2, DEFAULT_FILE_DATA));
+            email.files.Add(new EmailFileData(DEFAULT_FILE_NAME_1, DEFAULT_FILE_DATA));
+            email.files.Add(new EmailFileData(DEFAULT_FILE_NAME_2, DEFAULT_FILE_DATA));
             email.version_name = DEFAULT_VERSION_NAME;
 
             // Make the API call
@@ -138,13 +138,13 @@ namespace SendwithusTest
             templateData.Add("link", link);
 
             // Construct the sender and recipients
-            var recipient = new Email.EmailRecipient(DEFAULT_RECIPIENT_EMAIL_ADDRESS);
-            var cc = new List<Email.EmailRecipient>();
-            cc.Add(new Email.EmailRecipient(DEFAULT_CC_EMAIL_ADDRESS_1));
-            cc.Add(new Email.EmailRecipient(DEFAULT_CC_EMAIL_ADDRESS_2));
-            var bcc = new List<Email.EmailRecipient>();
-            bcc.Add(new Email.EmailRecipient(DEFAULT_BCC_EMAIL_ADDRESS_1));
-            bcc.Add(new Email.EmailRecipient(DEFAULT_BCC_EMAIL_ADDRESS_2));
+            var recipient = new EmailRecipient(DEFAULT_RECIPIENT_EMAIL_ADDRESS);
+            var cc = new List<EmailRecipient>();
+            cc.Add(new EmailRecipient(DEFAULT_CC_EMAIL_ADDRESS_1));
+            cc.Add(new EmailRecipient(DEFAULT_CC_EMAIL_ADDRESS_2));
+            var bcc = new List<EmailRecipient>();
+            bcc.Add(new EmailRecipient(DEFAULT_BCC_EMAIL_ADDRESS_1));
+            bcc.Add(new EmailRecipient(DEFAULT_BCC_EMAIL_ADDRESS_2));
 
             // Construct and return the email
             return new Email(DEFAULT_TEMPLATE_ID, templateData, recipient);
