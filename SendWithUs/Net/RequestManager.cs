@@ -75,7 +75,7 @@ namespace Sendwithus
         /// <param name="content">The object to be sent with the POST request. Will be converted to JSON in this function</param>
         /// <returns>The response content in the form of a JSON string</returns>
         /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
-        public static async Task<string> SendPostRequestAsync(string resource, object content)
+        public static async Task<string> SendPostRequestAsync(string resource, object content = null)
         {
             using (var client = new HttpClient())
             {
