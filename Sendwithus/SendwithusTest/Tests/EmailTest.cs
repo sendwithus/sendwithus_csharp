@@ -10,6 +10,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace SendwithusTest
 {
+    /// <summary>
+    /// Unit testing class for the Email API calls
+    /// </summary>
     [TestClass]
     public class EmailTest
     {

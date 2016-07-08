@@ -32,6 +32,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -48,6 +49,12 @@
     <Compile Include="Model\Helpers\EmailResponse.cs" />
     <Compile Include="Model\Helpers\EmailSender.cs" />
     <Compile Include="Model\Helpers\EmailSummary.cs" />
+    <Compile Include="Model\Helpers\LogEvent.cs" />
+    <Compile Include="Model\Helpers\LogIdParameter.cs" />
+    <Compile Include="Model\Helpers\LogResendResponse.cs" />
+    <Compile Include="Model\Helpers\SendwithusApiStatus.cs" />
+    <Compile Include="Model\Helpers\TemplateVersion.cs" />
+    <Compile Include="Model\Log.cs" />
     <Compile Include="Model\Template.cs" />
     <Compile Include="Net\RequestManager.cs" />
     <Compile Include="Sendwithus.cs" />

@@ -6,8 +6,8 @@
     <ProjectGuid>{4AFCDA1E-019F-4185-A232-B5FE6228F92F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SendWithUsTest</RootNamespace>
-    <AssemblyName>SendWithUsTest</AssemblyName>
+    <RootNamespace>SendwithusTest</RootNamespace>
+    <AssemblyName>SendwithusTest</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -57,6 +57,7 @@
     <Compile Include="Tests\EmailTest.cs" />
     <Compile Include="Tests\TemplateTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tests\LogTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Sendwithus.csproj">

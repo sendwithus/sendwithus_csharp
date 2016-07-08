@@ -29,7 +29,6 @@ namespace Sendwithus
             locale = DEFAULT_LOCALE;
         }
 
-
         /// <summary>
         /// Get all the templates associated with the account.
         /// GET /templates
@@ -170,6 +169,7 @@ namespace Sendwithus
         /// <summary>
         /// Update a Template Version.
         /// PUT /templates/(:template_id)/versions/(:version_id)
+        /// NOTE - At least one of html or text must be specified in the TemplateVersion
         /// </summary>
         /// <param name="templateID">The ID of the template</param>
         /// <param name="versionID">The ID of the version</param>

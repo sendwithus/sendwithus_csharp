@@ -9,6 +9,9 @@ using System.Net;
 
 namespace SendwithusTest
 {
+    /// <summary>
+    /// Unit testing class for the Template API calls
+    /// </summary>
     [TestClass]
     public class TemplateTest
     {
@@ -209,7 +212,7 @@ namespace SendwithusTest
             // Make the API call
             Trace.WriteLine(String.Format("PUT /templates/{0}/versions/{1}", DEFAULT_TEMPLATE_ID, DEFAULT_VERSION_ID));
             Sendwithus.Sendwithus.ApiKey = API_KEY_TEST;
-            var updatedTemplateVersion = new Template.TemplateVersion();
+            var updatedTemplateVersion = new TemplateVersion();
             updatedTemplateVersion.name = "New Version";
             updatedTemplateVersion.subject = "edited!";
             updatedTemplateVersion.html = "<html><head></head><body><h1>UPDATE</h1></body></html>";
@@ -230,7 +233,7 @@ namespace SendwithusTest
             // Make the API call
             Trace.WriteLine(String.Format("PUT /templates/{0}/locales/{1}/versions/{2}", DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE, DEFAULT_VERSION_ID));
             Sendwithus.Sendwithus.ApiKey = API_KEY_TEST;
-            var updatedTemplateVersion = new Template.TemplateVersion();
+            var updatedTemplateVersion = new TemplateVersion();
             updatedTemplateVersion.name = "New Version";
             updatedTemplateVersion.subject = "edited!";
             updatedTemplateVersion.html = "<html><head></head><body><h1>UPDATE</h1></body></html>";
@@ -251,7 +254,7 @@ namespace SendwithusTest
             // Make the API call
             Trace.WriteLine(String.Format("PUT /templates/"));
             Sendwithus.Sendwithus.ApiKey = API_KEY_TEST;
-            var newTemplateVersion = new Template.TemplateVersion();
+            var newTemplateVersion = new TemplateVersion();
             newTemplateVersion.name = "New Template";
             newTemplateVersion.subject = "This is a new template!";
             newTemplateVersion.html = "<html><head></head><body><h1>NEW TEMPLATE</h1></body></html>";
@@ -287,7 +290,7 @@ namespace SendwithusTest
             // Make the API call
             Trace.WriteLine(String.Format("PUT /templates/"));
             Sendwithus.Sendwithus.ApiKey = API_KEY_TEST;
-            var templateVersion = new Template.TemplateVersion();
+            var templateVersion = new TemplateVersion();
             templateVersion.name = "Published French Version";
             templateVersion.subject = "Ce est un nouveau modèle!";
             templateVersion.html = "<html><head></head><body><h1>Nouveau modèle!</h1></body></html>";
@@ -308,7 +311,7 @@ namespace SendwithusTest
             // Make the API call
             Trace.WriteLine(String.Format("POST /templates/{0}/versions", DEFAULT_TEMPLATE_ID));
             Sendwithus.Sendwithus.ApiKey = API_KEY_TEST;
-            var templateVersion = new Template.TemplateVersion();
+            var templateVersion = new TemplateVersion();
             templateVersion.name = "New Template Version";
             templateVersion.subject = "New Version!";
             templateVersion.html = "<html><head></head><body><h1>NEW TEMPLATE VERSION</h1></body></html>";
@@ -329,7 +332,7 @@ namespace SendwithusTest
             // Make the API call
             Trace.WriteLine(String.Format("POST /templates/{0}/locales/{1}/versions", DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE));
             Sendwithus.Sendwithus.ApiKey = API_KEY_TEST;
-            var templateVersion = new Template.TemplateVersion();
+            var templateVersion = new TemplateVersion();
             templateVersion.name = "New Template Version";
             templateVersion.subject = "New Version!";
             templateVersion.html = "<html><head></head><body><h1>NEW TEMPLATE VERSION</h1></body></html>";

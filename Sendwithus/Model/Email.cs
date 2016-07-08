@@ -8,6 +8,9 @@ using System.Web.Script.Serialization;
 
 namespace Sendwithus
 {
+    /// <summary>
+    /// sendwithus Email class
+    /// </summary>
     public class Email
     {
         public string template { get; set; } // The template ID

@@ -6,6 +6,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
+using System.ServiceModel.Dispatcher;
 
 
 namespace Sendwithus
@@ -30,13 +31,14 @@ namespace Sendwithus
         /// <param name="resource">The resource identifier for the resource to be called (after /api/<version>/)</param>
         /// <returns>The response content in the form of a JSON string</returns>
         /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
-        public static async Task<string> SendGetRequestAsync(string resource)
-        {   
+        public static async Task<string> SendGetRequestAsync(string resource, Dictionary<string, object> queryParameters = null)
+        {
             using (var client = new HttpClient())
             {
                 // Send the GET request
                 ConfigureHttpClient(client);
-                var uri = BuildURI(resource);
+                var queryString = ConvertQueryParametersToQueryString(queryParameters);
+                var uri = String.Format("{0}{1}", BuildURI(resource), queryString);
                 var response = await client.GetAsync(uri);
 
                 // Convert the response to a string, validate it, and return it
@@ -150,6 +152,45 @@ namespace Sendwithus
             var stringContent = new StringContent(contentString);
             stringContent.Headers.ContentType = new MediaTypeWithQualityHeaderValue("application/json");
             return stringContent;
+        }
+
+
+        /// <summary>
+        /// Converts the given object into a query parameter string
+        /// </summary>
+        /// <param name="parameters">A list of parameters to convert to a query string.
+        /// All objects must be of types that are supported by the JsonQueryStringConverter class.</param>
+        /// <returns>The query string</returns>
+        private static string ConvertQueryParametersToQueryString(Dictionary<string, object> parameters)
+        {
+            if (parameters == null)
+            {
+                return String.Empty;
+            }
+
+            // Build the query parameter string
+            var converter = new JsonQueryStringConverter();
+            var queryString = new StringBuilder();
+            bool isFirstItem = true;
+            foreach (KeyValuePair<string, object> parameter in parameters)
+            {
+                if (isFirstItem == true)
+                {
+                    queryString.Append("?");
+                    isFirstItem = false;
+                }
+                else
+                {
+                    queryString.Append("&");
+                }
+                queryString.Append(parameter.Key);
+                queryString.Append("=");
+                if (converter.CanConvert(parameter.GetType()))
+                { 
+                    queryString.Append(converter.ConvertValueToString(parameter.Value, parameter.GetType()));
+                }
+            }
+            return queryString.ToString();
         }
     }
 }
