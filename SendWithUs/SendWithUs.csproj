@@ -44,11 +44,23 @@
   <ItemGroup>
     <Compile Include="Exception\SendwithusException.cs" />
     <Compile Include="Model\Email.cs" />
+    <Compile Include="Model\EspAccount.cs" />
     <Compile Include="Model\Helpers\EmailFileData.cs" />
     <Compile Include="Model\Helpers\EmailRecipient.cs" />
     <Compile Include="Model\Helpers\EmailResponse.cs" />
     <Compile Include="Model\Helpers\EmailSender.cs" />
     <Compile Include="Model\Helpers\EmailSummary.cs" />
+    <Compile Include="Model\Helpers\EspAccountAddAccountRequest.cs" />
+    <Compile Include="Model\Helpers\EspAccountCredientialsSmtp.cs" />
+    <Compile Include="Model\Helpers\EspAccountCredientialsDyn.cs" />
+    <Compile Include="Model\Helpers\EspAccountCredientialsMailjet.cs" />
+    <Compile Include="Model\Helpers\EspAccountCredientialsSes.cs" />
+    <Compile Include="Model\Helpers\EspAccountCredientialsPostmark.cs" />
+    <Compile Include="Model\Helpers\EspAccountCredientialsMandrill.cs" />
+    <Compile Include="Model\Helpers\EspAccountCredientialsMailgun.cs" />
+    <Compile Include="Model\Helpers\EspAccountCredientialsSendgrid.cs" />
+    <Compile Include="Model\Helpers\EspAccountResponse.cs" />
+    <Compile Include="Model\Helpers\IEspAccountCredentials.cs" />
     <Compile Include="Model\Helpers\LogEvent.cs" />
     <Compile Include="Model\Helpers\LogIdParameter.cs" />
     <Compile Include="Model\Helpers\LogResendResponse.cs" />

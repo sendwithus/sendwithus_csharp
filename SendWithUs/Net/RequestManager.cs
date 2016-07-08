@@ -185,7 +185,14 @@ namespace Sendwithus
                 }
                 queryString.Append(parameter.Key);
                 queryString.Append("=");
-                if (converter.CanConvert(parameter.GetType()))
+
+                // Handle the "esp_type" parameter separately as it must be sent without quotations "" around the value
+                if (parameter.Key == "esp_type")
+                {
+                    queryString.Append(parameter.Value.ToString());
+                }
+                // Otherwise, convert the value into a JSON string
+                else if (converter.CanConvert(parameter.GetType()))
                 { 
                     queryString.Append(converter.ConvertValueToString(parameter.Value, parameter.GetType()));
                 }
