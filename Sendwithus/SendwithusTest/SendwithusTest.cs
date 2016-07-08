@@ -15,6 +15,7 @@ namespace SendwithusTest
     {
         public const string API_KEY_TEST = "test_3e7ae15aeb9b8a4b50bce7138c88d81c696edd0d";
         public const string API_KEY_PRODUCTION = "live_3cb190a9c3df0defbd0c0ab56e34f3b1747eedfa";
+        private static Random random = new Random();
 
         /// <summary>
         /// Validates the response from an API call
@@ -47,6 +48,20 @@ namespace SendwithusTest
 
             // Check the exception's status code
             Assert.AreEqual(expectedStatusCode, exception.StatusCode);
+        }
+
+        /// <summary>
+        /// Generates a random string of a fixed length.
+        /// To be used for creating unique object names.
+        /// Uses capital letters and numbers 0-9
+        /// </summary>
+        /// <param name="length">The length of the random string</param>
+        /// <returns>A random string of alphanumeric characters</returns>
+        public static string RandomString(int length)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, length)
+              .Select(s => s[random.Next(s.Length)]).ToArray());
         }
     }
 }

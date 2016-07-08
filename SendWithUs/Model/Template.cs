@@ -300,7 +300,7 @@ namespace Sendwithus
         /// <param name="templateID">The ID of the template to delete</param>
         /// <returns>The status of the api call</returns>
         /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
-        public static async Task<SendwithusApiStatus> DeleteTemplate(string templateID)
+        public static async Task<GenericApiCallStatus> DeleteTemplate(string templateID)
         {
             // Send the POST request
             var resource = String.Format("templates/{0}", templateID);
@@ -308,7 +308,7 @@ namespace Sendwithus
 
             // Convert the JSON result into an object
             var serializer = new JavaScriptSerializer();
-            var response = serializer.Deserialize<SendwithusApiStatus>(jsonResponse);
+            var response = serializer.Deserialize<GenericApiCallStatus>(jsonResponse);
             return response;
         }
 
@@ -320,7 +320,7 @@ namespace Sendwithus
         /// <param name="locale">The locale of the template to delete</param>
         /// <returns>The status of the api call</returns>
         /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
-        public static async Task<SendwithusApiStatus> DeleteTemplate(string templateID, string locale)
+        public static async Task<GenericApiCallStatus> DeleteTemplate(string templateID, string locale)
         {
             // Send the POST request
             var resource = String.Format("templates/{0}/locales/{1}", templateID, locale);
@@ -328,7 +328,7 @@ namespace Sendwithus
 
             // Convert the JSON result into an object
             var serializer = new JavaScriptSerializer();
-            var response = serializer.Deserialize<SendwithusApiStatus>(jsonResponse);
+            var response = serializer.Deserialize<GenericApiCallStatus>(jsonResponse);
             return response;
         }
     }

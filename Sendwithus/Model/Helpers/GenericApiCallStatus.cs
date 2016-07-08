@@ -9,12 +9,12 @@ namespace Sendwithus
     /// <summary>
     /// sendwithus API Status
     /// </summary>
-    public class SendwithusApiStatus
+    public class GenericApiCallStatus
     {
         public string status { get; set; }
         public bool success { get; set; }
 
-        public SendwithusApiStatus()
+        public GenericApiCallStatus()
         {
             this.status = String.Empty;
             this.success = false;

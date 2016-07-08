@@ -25,11 +25,11 @@ namespace SendwithusTest
         private static List<string> NewTemplateIds = new List<string>();
 
         /// <summary>
-        /// Tests an invalid API Key
+        /// Tests the GET /templates with an invalid API Key
         /// </summary>
         /// <returns>The asynchronous task</returns>
         [TestMethod]
-        public async Task TestInvalidApiKeyAsync()
+        public async Task TestGetTeamplatesWithInvalidApiKeyAsync()
         {
             // Make the API call
             Trace.WriteLine("GET /templates with invalid API Key");
