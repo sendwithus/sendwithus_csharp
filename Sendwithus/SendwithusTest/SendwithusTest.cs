@@ -46,7 +46,7 @@ namespace SendwithusTest
             Trace.WriteLine(exception.Message);
 
             // Check the exception's status code
-            Assert.AreEqual(exception.StatusCode, expectedStatusCode);
+            Assert.AreEqual(expectedStatusCode, exception.StatusCode);
         }
     }
 }
