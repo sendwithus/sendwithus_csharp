@@ -16,8 +16,6 @@ namespace SendwithusTest
     [TestClass]
     public class EmailTest
     {
-        private const string API_KEY_TEST = "test_3e7ae15aeb9b8a4b50bce7138c88d81c696edd0d";
-        private const string API_KEY_PRODUCTION = "live_3cb190a9c3df0defbd0c0ab56e34f3b1747eedfa";
         private const string ESP_ACCOUNT = "esp_EsgkbqQdDg7F3ncbz9EHW7";
         private const string DEFAULT_TEMPLATE_ID = "tem_yn2viZ8Gm2uaydMK9pgR2B";
         private const string INVALID_TEMPLATE_ID = "invalid_template_id";
@@ -51,14 +49,14 @@ namespace SendwithusTest
         public async Task TestSendEmailWithOnlyRequiredParametersAsync()
         {
             Trace.WriteLine("POST /send");
-            Sendwithus.Sendwithus.ApiKey = API_KEY_PRODUCTION;
+            Sendwithus.Sendwithus.ApiKey = SendwithusTest.API_KEY_PRODUCTION;
 
             // Make the API call
             var email = BuildBarebonesEmail();
             var response = await email.Send();
 
             // Validate the response
-            TestValidation.ValidateResponse(response);
+            SendwithusTest.ValidateResponse(response);
         }
 
         /// <summary>
@@ -69,7 +67,7 @@ namespace SendwithusTest
         public async Task TestSendEmailWithAllParametersAsync()
         {
             Trace.WriteLine("POST /send");
-            Sendwithus.Sendwithus.ApiKey = API_KEY_PRODUCTION;
+            Sendwithus.Sendwithus.ApiKey = SendwithusTest.API_KEY_PRODUCTION;
 
             // Construct the email
             var email = BuildBarebonesEmail();
@@ -96,7 +94,7 @@ namespace SendwithusTest
             var response = await email.Send();
 
             // Validate the response
-            TestValidation.ValidateResponse(response);
+            SendwithusTest.ValidateResponse(response);
         }
 
         /// <summary>
@@ -107,7 +105,7 @@ namespace SendwithusTest
         public async Task TestSendEmailWithInvalidTemplateId()
         {
             Trace.WriteLine("POST /send with an invalid template ID");
-            Sendwithus.Sendwithus.ApiKey = API_KEY_TEST;
+            Sendwithus.Sendwithus.ApiKey = SendwithusTest.API_KEY_TEST;
 
             // Constuct the email
             Email email = BuildBarebonesEmail();
@@ -120,7 +118,7 @@ namespace SendwithusTest
             catch (SendwithusException exception)
             {
                 // Make sure the response was HTTP 400 Bad Request 
-                TestValidation.ValidateException(exception, HttpStatusCode.BadRequest);
+                SendwithusTest.ValidateException(exception, HttpStatusCode.BadRequest);
             }
         }
 

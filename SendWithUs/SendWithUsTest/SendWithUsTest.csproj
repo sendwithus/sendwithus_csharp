@@ -53,8 +53,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Helpers\TestValidation.cs" />
+    <Compile Include="SendwithusTest.cs" />
     <Compile Include="Tests\EmailTest.cs" />
+    <Compile Include="Tests\SnippetTest.cs" />
     <Compile Include="Tests\TemplateTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\LogTest.cs" />
