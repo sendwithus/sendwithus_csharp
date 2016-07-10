@@ -1,0 +1,8 @@
+language: csharp
+solution: Sendwithus.sln
+install:
+  - nuget restore Sendwithus.sln
+  - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
+script:
+  - xbuild /p:Configuration=Release Sendwithus.sln
+  - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./SendwithusClientTest.Tests/bin/Release/SendwithusClientTest.Tests.dll
