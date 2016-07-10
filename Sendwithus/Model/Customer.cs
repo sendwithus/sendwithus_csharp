@@ -94,8 +94,8 @@ namespace Sendwithus
         /// GET /customers/matt@sendwithus.com/logs?count={count}&created_lt={timestamp}&created_gt={timestamp}
         /// </summary>
         /// <param name="emailAddress">The customer's email address</param>
-        /// <returns></returns>
-        public static async Task<CustomerEmailLogsResponse> GetCustomerEmailLogsAsync(string emailAddress, Dictionary<string, object> queryParameters = null)
+        /// <returns>A response containing the status of the API call and the logs that match the request parameters</returns>
+        public static async Task<CustomerEmailLogsResponse> GetCustomerEmailLogsAsync(string emailAddress, Dictionary<string, object> queryParameters)
         {
             // Send the GET request
             var resource = String.Format("customers/{0}/logs", emailAddress);
@@ -104,6 +104,17 @@ namespace Sendwithus
             // Convert the JSON result into an object
             var serializer = new JavaScriptSerializer();
             return serializer.Deserialize<CustomerEmailLogsResponse>(jsonResponse);
+        }
+
+        /// <summary>
+        /// Get email logs for a Customer
+        /// GET /customers/matt@sendwithus.com without any query parameters
+        /// </summary>
+        /// <param name="emailAddress">The customer's email address</param>
+        /// <returns>A response containing the status of the API call and the logs that match the request parameters</returns>
+        public static async Task<CustomerEmailLogsResponse> GetCustomerEmailLogsAsync(string emailAddress)
+        {
+            return await GetCustomerEmailLogsAsync(emailAddress, null);
         }
 
         /// <summary>

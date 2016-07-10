@@ -19,8 +19,8 @@ namespace SendwithusTest
         private const int DEFAULT_COUNT = 5;
         private const int DEFAULT_OFFSET = 1;
         private const string INVALID_COUNT = "12345";
-        private const UInt64 LOG_CREATED_AFTER_TIME = 1234567890;
-        private const UInt64 LOG_CREATED_BEFORE_TIME = 9876543210;
+        private const Int64 LOG_CREATED_AFTER_TIME = 1234567890;
+        private const Int64 LOG_CREATED_BEFORE_TIME = 9876543210;
         
 
         /// <summary>
@@ -31,13 +31,13 @@ namespace SendwithusTest
         public async Task TestGetLogsWithNoParametersAsync()
         {
             Trace.WriteLine("GET /logs");
-            Sendwithus.Sendwithus.ApiKey = SendwithusTest.API_KEY_TEST;
+            Sendwithus.SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Make the API call
             var response = await Log.GetLogsAsync();
 
             // Validate the response
-            SendwithusTest.ValidateResponse(response);
+            SendwithusClientTest.ValidateResponse(response);
         }
 
 
@@ -49,7 +49,7 @@ namespace SendwithusTest
         public async Task TestGetLogsWithAllParametersAsync()
         {
             Trace.WriteLine("GET /logs");
-            Sendwithus.Sendwithus.ApiKey = SendwithusTest.API_KEY_TEST;
+            Sendwithus.SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Build the query parameters
             Dictionary<string, object> queryParameters = new Dictionary<string, object>();
@@ -64,7 +64,7 @@ namespace SendwithusTest
             var response = await Log.GetLogsAsync(queryParameters);
 
             // Validate the response
-            SendwithusTest.ValidateResponse(response);
+            SendwithusClientTest.ValidateResponse(response);
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace SendwithusTest
         public async Task TestGetLogsWithInvalidCountAsync()
         {
             Trace.WriteLine("GET /logs");
-            Sendwithus.Sendwithus.ApiKey = SendwithusTest.API_KEY_TEST;
+            Sendwithus.SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Build the query parameters
             Dictionary<string, object> queryParameters = new Dictionary<string, object>();
@@ -90,7 +90,7 @@ namespace SendwithusTest
             catch (SendwithusException exception)
             {
                 // Make sure the response was HTTP 500 Internal Server Error
-                SendwithusTest.ValidateException(exception, HttpStatusCode.InternalServerError);
+                SendwithusClientTest.ValidateException(exception, HttpStatusCode.InternalServerError);
             }
         }
 
@@ -102,13 +102,13 @@ namespace SendwithusTest
         public async Task TestGetLogAsync()
         {
             Trace.WriteLine(String.Format("GET /logs/{0}", DEFAULT_LOG_ID));
-            Sendwithus.Sendwithus.ApiKey = SendwithusTest.API_KEY_TEST;
+            Sendwithus.SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Make the API call
             var response = await Log.GetLogAsync(DEFAULT_LOG_ID);
 
             // Validate the response
-            SendwithusTest.ValidateResponse(response);
+            SendwithusClientTest.ValidateResponse(response);
         }
 
         /// <summary>
@@ -119,13 +119,13 @@ namespace SendwithusTest
         public async Task TestGetLogEventsAsync()
         {
             Trace.WriteLine(String.Format("GET /logs/{0}/events", DEFAULT_LOG_ID));
-            Sendwithus.Sendwithus.ApiKey = SendwithusTest.API_KEY_TEST;
+            Sendwithus.SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Make the API call
             var response = await Log.GetLogEventsAsync(DEFAULT_LOG_ID);
 
             // Validate the response
-            SendwithusTest.ValidateResponse(response);
+            SendwithusClientTest.ValidateResponse(response);
         }
 
         /// <summary>
@@ -136,13 +136,13 @@ namespace SendwithusTest
         public async Task TestResendLogAsync()
         {
             Trace.WriteLine("POST /resend");
-            Sendwithus.Sendwithus.ApiKey = SendwithusTest.API_KEY_TEST;
+            Sendwithus.SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Make the API call
             var response = await Log.ResendLogAsync(DEFAULT_LOG_ID);
 
             // Validate the response
-            SendwithusTest.ValidateResponse(response);
+            SendwithusClientTest.ValidateResponse(response);
         }
     }
 }

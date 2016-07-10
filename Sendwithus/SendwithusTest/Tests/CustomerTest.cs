@@ -19,8 +19,8 @@ namespace SendwithusTest
         public const string INVALID_CUSTOMER_EMAIL_ADDRESS = "invalid_email_address";
         public const string DEFAULT_CUSTOMER_LOCALE = "de-DE";
         public const string DEFAULT_GROUP_ID = "grp_7zpRYpExEBPpd6dGvyAfcT";
-        private const UInt64 LOG_CREATED_AFTER_TIME = 1234567890;
-        private const UInt64 LOG_CREATED_BEFORE_TIME = 9876543210;
+        private const Int64 LOG_CREATED_AFTER_TIME = 1234567890;
+        private const Int64 LOG_CREATED_BEFORE_TIME = 9876543210;
 
         /// <summary>
         /// Tests the API call GET /customers/customer@example.com
@@ -31,11 +31,11 @@ namespace SendwithusTest
         {
             // Make the API call
             Trace.WriteLine(String.Format("GET /customers/{0}", DEFAULT_CUSTOMER_EMAIL_ADDRESS));
-            Sendwithus.Sendwithus.ApiKey = SendwithusTest.API_KEY_TEST;
+            Sendwithus.SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
             var response = await Customer.GetCustomerAsync(DEFAULT_CUSTOMER_EMAIL_ADDRESS);
 
             // Validate the response
-            SendwithusTest.ValidateResponse(response);
+            SendwithusClientTest.ValidateResponse(response);
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace SendwithusTest
         {
             // Make the API call
             Trace.WriteLine(String.Format("GET /customers/{0}", INVALID_CUSTOMER_EMAIL_ADDRESS));
-            Sendwithus.Sendwithus.ApiKey = SendwithusTest.API_KEY_TEST;
+            Sendwithus.SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
             try
             {
                 var response = await Customer.GetCustomerAsync(INVALID_CUSTOMER_EMAIL_ADDRESS);
@@ -56,7 +56,7 @@ namespace SendwithusTest
             catch (SendwithusException exception)
             {
                 // Make sure the response was HTTP 400 Bad Request
-                SendwithusTest.ValidateException(exception, HttpStatusCode.BadRequest);
+                SendwithusClientTest.ValidateException(exception, HttpStatusCode.BadRequest);
             }
         }
 
@@ -69,7 +69,7 @@ namespace SendwithusTest
         {
             
             Trace.WriteLine("POST /customers");
-            Sendwithus.Sendwithus.ApiKey = SendwithusTest.API_KEY_TEST;
+            Sendwithus.SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Build the new customer
             var customer = new Customer(NEW_CUSTOMER_EMAIL_ADDRESS);
@@ -82,7 +82,7 @@ namespace SendwithusTest
             var response = await Customer.CreateOrUpdateCustomerAsync(customer);
 
             // Validate the response
-            SendwithusTest.ValidateResponse(response);
+            SendwithusClientTest.ValidateResponse(response);
         }
 
         /// <summary>
@@ -93,13 +93,13 @@ namespace SendwithusTest
         public async Task TestDeleteCustomerAsync()
         {
             Trace.WriteLine(String.Format("DELETE /customers",NEW_CUSTOMER_EMAIL_ADDRESS));
-            Sendwithus.Sendwithus.ApiKey = SendwithusTest.API_KEY_TEST;
+            Sendwithus.SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Make the API call
             var response = await Customer.DeleteCustomerAsync(NEW_CUSTOMER_EMAIL_ADDRESS);
 
             // Validate the response
-            SendwithusTest.ValidateResponse(response);
+            SendwithusClientTest.ValidateResponse(response);
         }
 
         /// <summary>
@@ -111,11 +111,11 @@ namespace SendwithusTest
         {
             // Make the API call
             Trace.WriteLine(String.Format("GET /customers/{0}/logs", DEFAULT_CUSTOMER_EMAIL_ADDRESS));
-            Sendwithus.Sendwithus.ApiKey = SendwithusTest.API_KEY_TEST;
+            Sendwithus.SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
             var response = await Customer.GetCustomerEmailLogsAsync(DEFAULT_CUSTOMER_EMAIL_ADDRESS);
 
             // Validate the response
-            SendwithusTest.ValidateResponse(response);
+            SendwithusClientTest.ValidateResponse(response);
         }
 
         /// <summary>
@@ -127,7 +127,7 @@ namespace SendwithusTest
         {
             
             Trace.WriteLine(String.Format("GET /customers/{0}/logs", DEFAULT_CUSTOMER_EMAIL_ADDRESS));
-            Sendwithus.Sendwithus.ApiKey = SendwithusTest.API_KEY_TEST;
+            Sendwithus.SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Build the query parameters
             var queryParameters = new Dictionary<string, object>();
@@ -139,7 +139,7 @@ namespace SendwithusTest
             var response = await Customer.GetCustomerEmailLogsAsync(DEFAULT_CUSTOMER_EMAIL_ADDRESS, queryParameters);
 
             // Validate the response
-            SendwithusTest.ValidateResponse(response);
+            SendwithusClientTest.ValidateResponse(response);
         }
 
         /// <summary>
@@ -151,11 +151,11 @@ namespace SendwithusTest
         {
             // Make the API call
             Trace.WriteLine(String.Format("POST /customers/{0}/groups/{1}", DEFAULT_CUSTOMER_EMAIL_ADDRESS, DEFAULT_GROUP_ID));
-            Sendwithus.Sendwithus.ApiKey = SendwithusTest.API_KEY_TEST;
+            Sendwithus.SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
             var response = await Customer.AddCustomerToGroupAsync(DEFAULT_CUSTOMER_EMAIL_ADDRESS, DEFAULT_GROUP_ID);
 
             // Validate the response
-            SendwithusTest.ValidateResponse(response);
+            SendwithusClientTest.ValidateResponse(response);
         }
 
         /// <summary>
@@ -167,11 +167,11 @@ namespace SendwithusTest
         {
             // Make the API call
             Trace.WriteLine(String.Format("DELETE /customers/{0}/groups/{1}", DEFAULT_CUSTOMER_EMAIL_ADDRESS, DEFAULT_GROUP_ID));
-            Sendwithus.Sendwithus.ApiKey = SendwithusTest.API_KEY_TEST;
+            Sendwithus.SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
             var response = await Customer.RemoveCustomerFromGroupAsync(DEFAULT_CUSTOMER_EMAIL_ADDRESS, DEFAULT_GROUP_ID);
 
             // Validate the response
-            SendwithusTest.ValidateResponse(response);
+            SendwithusClientTest.ValidateResponse(response);
         }
     }
 }

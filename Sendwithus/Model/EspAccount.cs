@@ -37,7 +37,7 @@ namespace Sendwithus
         /// <param name="queryParameters">The query parameters.  Options include:
         /// esp_type (optional) – Filter response to only return ESP accounts of a certain type</param>
         /// <returns>A list of all the ESP accounts</returns>
-        public static async Task<Collection<EspAccount>> GetAccountsAsync(Dictionary<string, object> queryParameters = null)
+        public static async Task<Collection<EspAccount>> GetAccountsAsync(Dictionary<string, object> queryParameters)
         {
             // Send the GET request
             var resource = "esp_accounts";
@@ -46,6 +46,15 @@ namespace Sendwithus
             // Convert the JSON result into an object
             var serializer = new JavaScriptSerializer();
             return serializer.Deserialize<Collection<EspAccount>>(jsonResponse);
+        }
+
+        /// <summary>
+        /// Gets all the ESP accounts without any query parametesr
+        /// </summary>
+        /// <returns>A list of all the ESP accounts</returns>
+        public static async Task<Collection<EspAccount>> GetAccountsAsync()
+        {
+            return await GetAccountsAsync(null);
         }
 
         /// <summary>

@@ -20,7 +20,7 @@ namespace Sendwithus
     /// <summary>
     /// Contains the sendwithus API settings
     /// </summary>
-    public abstract class Sendwithus
+    public abstract class SendwithusClient
     {
         public const string API_VERSION = "v1";
         public const string API_PASSWORD = ""; // API uses an empty string as the password
@@ -34,8 +34,8 @@ namespace Sendwithus
         public const int DEFAULT_RETRY_COUNT = 3;
         public const int DEFAULT_TIMEOUT_MILLISECONDS = 10000; // TODO: check against other APIs to confirm default
 
-        public static string ApiKey;
-        public static int RetryCount = DEFAULT_RETRY_COUNT;
-        public static int TimeoutDurationMilliseconds;
+        public static string ApiKey { get; set; }
+        public static int RetryCount { get; set; } = DEFAULT_RETRY_COUNT;
+        public static int TimeoutDurationMilliseconds { get; set; } = DEFAULT_TIMEOUT_MILLISECONDS;
     }
 }

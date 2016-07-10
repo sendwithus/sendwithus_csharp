@@ -7,22 +7,48 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 using System.ServiceModel.Dispatcher;
+using System.Globalization;
 
 
 namespace Sendwithus
 {
     public abstract class RequestManager
     {
-        public static Uri GetBaseAddress()
+        public static Uri BaseAddress
         {
-            var uriString = String.Format(@"{0}://{1}:{2}", Sendwithus.API_PROTO,
-                    Sendwithus.API_HOST, Sendwithus.API_PORT);
-            return new Uri(uriString);
+            get
+            { 
+                var uriString = String.Format(CultureInfo.InvariantCulture, @"{0}://{1}:{2}", SendwithusClient.API_PROTO,
+                        SendwithusClient.API_HOST, SendwithusClient.API_PORT);
+                return new Uri(uriString);
+            }
         }
 
-        public static string BuildURI(string resource)
+        public static string BuildFullResourceString(string resource)
         {
-            return String.Format("/api/{0}/{1}", Sendwithus.API_VERSION, resource);
+            return String.Format(CultureInfo.InvariantCulture, "/api/{0}/{1}", SendwithusClient.API_VERSION, resource);            
+        }
+
+        /// <summary>
+        /// Sends an HTTP GET request and returns the reponse as a JSON string
+        /// </summary>
+        /// <param name="resource">The resource identifier for the resource to be called (after /api/<version>/)</param>
+        /// <param name="queryParameters">The query parameters to use with the API call</param>
+        /// <returns>The response content in the form of a JSON string</returns>
+        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        public static async Task<string> SendGetRequestAsync(string resource, Dictionary<string, object> queryParameters)
+        {
+            using (var client = new HttpClient())
+            {
+                // Send the GET request
+                ConfigureHttpClient(client);
+                var queryString = ConvertQueryParametersToQueryString(queryParameters);
+                var uri = String.Format("{0}{1}", BuildFullResourceString(resource), queryString);
+                var response = await client.GetAsync(uri);
+
+                // Convert the response to a string, validate it, and return it
+                return await ExtractAndValidateResponseContentAsync(response);
+            }
         }
 
         /// <summary>
@@ -31,19 +57,9 @@ namespace Sendwithus
         /// <param name="resource">The resource identifier for the resource to be called (after /api/<version>/)</param>
         /// <returns>The response content in the form of a JSON string</returns>
         /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
-        public static async Task<string> SendGetRequestAsync(string resource, Dictionary<string, object> queryParameters = null)
+        public static async Task<string> SendGetRequestAsync(string resource)
         {
-            using (var client = new HttpClient())
-            {
-                // Send the GET request
-                ConfigureHttpClient(client);
-                var queryString = ConvertQueryParametersToQueryString(queryParameters);
-                var uri = String.Format("{0}{1}", BuildURI(resource), queryString);
-                var response = await client.GetAsync(uri);
-
-                // Convert the response to a string, validate it, and return it
-                return await ExtractAndValidateResponseContentAsync(response);
-            }
+            return await SendGetRequestAsync(resource, null);
         }
 
         /// <summary>
@@ -59,7 +75,7 @@ namespace Sendwithus
             {
                 // Send the PUT request
                 ConfigureHttpClient(client);
-                var uri = BuildURI(resource);
+                var uri = BuildFullResourceString(resource);
                 var httpContent = SerializeContent(content);
                 var response = await client.PutAsync(uri, httpContent);
 
@@ -75,19 +91,30 @@ namespace Sendwithus
         /// <param name="content">The object to be sent with the POST request. Will be converted to JSON in this function</param>
         /// <returns>The response content in the form of a JSON string</returns>
         /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
-        public static async Task<string> SendPostRequestAsync(string resource, object content = null)
+        public static async Task<string> SendPostRequestAsync(string resource, object content)
         {
             using (var client = new HttpClient())
             {
                 // Send the PUT request
                 ConfigureHttpClient(client);
-                var uri = BuildURI(resource);
+                var uri = BuildFullResourceString(resource);
                 var httpContent = SerializeContent(content);
                 var response = await client.PostAsync(uri, httpContent);
 
                 // Convert the response to a string, validate it, and return it
                 return await ExtractAndValidateResponseContentAsync(response);    
             }
+        }
+
+        /// <summary>
+        /// Sends an HTTP POST request and returns the reponse as a JSON string
+        /// </summary>
+        /// <param name="resource">The resource identifier for the resource to be called (after /api/<version></version>/)</param>
+        /// <returns>The response content in the form of a JSON string</returns>
+        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        public static async Task<string> SendPostRequestAsync(string resource)
+        {
+            return await SendPostRequestAsync(resource, null);
         }
 
         /// <summary>
@@ -102,7 +129,7 @@ namespace Sendwithus
             {
                 // Send the DELETE request
                 ConfigureHttpClient(client);
-                var uri = BuildURI(resource);
+                var uri = BuildFullResourceString(resource);
                 var response = await client.DeleteAsync(uri);
 
                 // Convert the response to a string, validate it, and return it
@@ -131,13 +158,13 @@ namespace Sendwithus
         /// </summary>
         /// <param name="client">The client to prepare to setup</param>
         private static void ConfigureHttpClient (HttpClient client)
-        { 
-            client.BaseAddress = GetBaseAddress();
+        {
+            client.BaseAddress = RequestManager.BaseAddress;
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            client.DefaultRequestHeaders.Add(Sendwithus.SWU_API_HEADER, Sendwithus.ApiKey);
-            var clientStub = String.Format("{0}-{1}", Sendwithus.CLIENT_LANGUAGE, Sendwithus.CLIENT_VERSION);
-            client.DefaultRequestHeaders.Add(Sendwithus.SWU_CLIENT_HEADER, clientStub);
+            client.DefaultRequestHeaders.Add(SendwithusClient.SWU_API_HEADER, SendwithusClient.ApiKey);
+            var clientStub = String.Format(CultureInfo.InvariantCulture, "{0}-{1}", SendwithusClient.CLIENT_LANGUAGE, SendwithusClient.CLIENT_VERSION);
+            client.DefaultRequestHeaders.Add(SendwithusClient.SWU_CLIENT_HEADER, clientStub);
         }
 
         /// <summary>
@@ -149,9 +176,11 @@ namespace Sendwithus
         {
             var serializer = new JavaScriptSerializer();
             var contentString = serializer.Serialize(content);
-            var stringContent = new StringContent(contentString);
-            stringContent.Headers.ContentType = new MediaTypeWithQualityHeaderValue("application/json");
-            return stringContent;
+            using (var stringContent = new StringContent(contentString))
+            {
+                stringContent.Headers.ContentType = new MediaTypeWithQualityHeaderValue("application/json");
+                return stringContent;
+            }
         }
 
 

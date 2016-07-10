@@ -19,10 +19,16 @@ namespace Sendwithus
         /// </summary>
         /// <param name="address">The email address of the recipient</param>
         /// <param name="name">The name of the recipient (optional)</param>
-        public EmailRecipient(string address, string name = "")
+        public EmailRecipient(string address, string name)
         {
             this.address = address;
             this.name = name;
         }
+
+        /// <summary>
+        /// Constructor for a new email recipient
+        /// </summary>
+        /// <param name="address">The email address of the recipient</param>
+        public EmailRecipient(string address) : this(address, "") { }
     }
 }

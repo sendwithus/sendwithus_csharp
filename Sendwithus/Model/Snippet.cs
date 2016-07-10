@@ -17,7 +17,7 @@ namespace Sendwithus
         public string id { get; set; }
         public string name { get; set; }
         public string body { get; set; }
-        public UInt64 created { get; set; }
+        public Int64 created { get; set; }
 
         /// <summary>
         /// Default constructor

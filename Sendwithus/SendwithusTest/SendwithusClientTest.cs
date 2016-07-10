@@ -9,9 +9,10 @@ using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Net;
 
+[assembly: CLSCompliant(true)]
 namespace SendwithusTest
 {
-    public abstract class SendwithusTest
+    public abstract class SendwithusClientTest
     {
         public const string API_KEY_TEST = "test_3e7ae15aeb9b8a4b50bce7138c88d81c696edd0d";
         public const string API_KEY_PRODUCTION = "live_3cb190a9c3df0defbd0c0ab56e34f3b1747eedfa";
@@ -40,6 +41,12 @@ namespace SendwithusTest
         /// <param name="stausCode">The expected exception status code</param>
         public static void ValidateException(SendwithusException exception, HttpStatusCode expectedStatusCode)
         {
+            // Make sure the exception parameter isn't null
+            if (exception == null)
+            {
+                throw new ArgumentNullException("exception");
+            }
+
             // Print the exception details
             Trace.Write("Exception Status Code: ");
             Trace.WriteLine(exception.StatusCode.ToString());

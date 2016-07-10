@@ -31,13 +31,13 @@ namespace SendwithusTest
         public async Task TestGetSnippetsAsync()
         {
             Trace.WriteLine("GET /snippets");
-            Sendwithus.Sendwithus.ApiKey = SendwithusTest.API_KEY_TEST;
+            Sendwithus.SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Make the API call
             var response = await Snippet.GetSnippetsAsync();
 
             // Validate the response
-            SendwithusTest.ValidateResponse(response);
+            SendwithusClientTest.ValidateResponse(response);
         }
 
         /// <summary>
@@ -48,13 +48,13 @@ namespace SendwithusTest
         public async Task TestGetSnippetAsync()
         {
             Trace.WriteLine(String.Format("GET /snippets/{0}", DEFAULT_SNIPPET_ID));
-            Sendwithus.Sendwithus.ApiKey = SendwithusTest.API_KEY_TEST;
+            Sendwithus.SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Make the API call
             var response = await Snippet.GetSnippetAsync(DEFAULT_SNIPPET_ID);
 
             // Validate the response
-            SendwithusTest.ValidateResponse(response);
+            SendwithusClientTest.ValidateResponse(response);
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace SendwithusTest
         public async Task TestGetSnippetWithInvalidIDAsync()
         {
             Trace.WriteLine("GET /snippets with an invalid ID");
-            Sendwithus.Sendwithus.ApiKey = SendwithusTest.API_KEY_TEST;
+            Sendwithus.SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Make the API call
             try
@@ -76,7 +76,7 @@ namespace SendwithusTest
             catch (SendwithusException exception)
             {
                 // Make sure the response was HTTP 400 Bad Request
-                SendwithusTest.ValidateException(exception, HttpStatusCode.BadRequest);
+                SendwithusClientTest.ValidateException(exception, HttpStatusCode.BadRequest);
             }
         }
 
@@ -88,14 +88,14 @@ namespace SendwithusTest
         public async Task TestCreateSnippetAsync()
         {
             Trace.WriteLine("POST /snippets");
-            Sendwithus.Sendwithus.ApiKey = SendwithusTest.API_KEY_TEST;
+            Sendwithus.SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Make the API call
-            var uniqueName = String.Format("{0}-{1}", NEW_SNIPPET_NAME, SendwithusTest.RandomString(UNIQUE_ID_LENGTH));
+            var uniqueName = String.Format("{0}-{1}", NEW_SNIPPET_NAME, SendwithusClientTest.RandomString(UNIQUE_ID_LENGTH));
             var response = await Snippet.CreateSnippetAsync(uniqueName, NEW_SNIPPET_BODY);
 
             // Validate the response
-            SendwithusTest.ValidateResponse(response);
+            SendwithusClientTest.ValidateResponse(response);
 
             // Save the snippet ID for use in a future DELETE call
             NewSnippetIds.Add(response.snippet.id);
@@ -109,14 +109,14 @@ namespace SendwithusTest
         public async Task TestUpdateSnippetAsync()
         {
             Trace.WriteLine("POST /snippets");
-            Sendwithus.Sendwithus.ApiKey = SendwithusTest.API_KEY_TEST;
+            Sendwithus.SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Make the API call
-            var uniqueName = String.Format("{0}-{1}", NEW_SNIPPET_NAME, SendwithusTest.RandomString(UNIQUE_ID_LENGTH));
+            var uniqueName = String.Format("{0}-{1}", NEW_SNIPPET_NAME, SendwithusClientTest.RandomString(UNIQUE_ID_LENGTH));
             var response = await Snippet.UpdateSnippetAsync(DEFAULT_SNIPPET_ID, uniqueName, NEW_SNIPPET_BODY);
 
             // Validate the response
-            SendwithusTest.ValidateResponse(response);
+            SendwithusClientTest.ValidateResponse(response);
         }
 
         /// <summary>
@@ -137,13 +137,13 @@ namespace SendwithusTest
                 Assert.Fail("No new templates available to add a locale to");
             }
             Trace.WriteLine(String.Format("DELETE /snippets/{0}", snippetId));
-            Sendwithus.Sendwithus.ApiKey = SendwithusTest.API_KEY_TEST;
+            Sendwithus.SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Make the API call
             var response = await Snippet.DeleteSnippetAsync(snippetId);
 
             // Validate the response
-            SendwithusTest.ValidateResponse(response);
+            SendwithusClientTest.ValidateResponse(response);
         }
     }
 }

@@ -11,8 +11,8 @@ namespace Sendwithus
     /// </summary>
     public class EmailFileData
     {
-        public string id;
-        public string data;
+        public string id { get; set; }
+        public string data { get; set; }
 
         public EmailFileData()
         {

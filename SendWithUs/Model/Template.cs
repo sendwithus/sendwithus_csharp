@@ -20,8 +20,8 @@ namespace Sendwithus
         public string name { get; set; }
         public string locale { get; set; }
         public string created { get; set; }
-        public Collection<TemplateVersion> versions;
-        public Collection<string> tags;
+        public Collection<TemplateVersion> versions { get; }
+        public Collection<string> tags { get; }
 
         /// <summary>
         /// Create an empty Template

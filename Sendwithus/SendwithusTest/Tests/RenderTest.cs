@@ -27,7 +27,7 @@ namespace SendwithusTest
         public async Task TestRenderTemplateWithOnlyRequiredParametersAsync()
         {
             Trace.WriteLine("POST /render");
-            Sendwithus.Sendwithus.ApiKey = SendwithusTest.API_KEY_PRODUCTION;
+            Sendwithus.SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_PRODUCTION;
 
             // Make the API call
             var templateData = new Dictionary<string, object>();
@@ -36,7 +36,7 @@ namespace SendwithusTest
             var response = await renderTemplate.RenderTemplateAsync();
 
             // Validate the response
-            SendwithusTest.ValidateResponse(response);
+            SendwithusClientTest.ValidateResponse(response);
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace SendwithusTest
         public async Task TestRenderTemplateWithAllParametersAsync()
         {
             Trace.WriteLine("POST /render");
-            Sendwithus.Sendwithus.ApiKey = SendwithusTest.API_KEY_PRODUCTION;
+            Sendwithus.SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_PRODUCTION;
 
             // Make the API call
             var templateData = new Dictionary<string, object>();
@@ -59,7 +59,7 @@ namespace SendwithusTest
             var response = await renderTemplate.RenderTemplateAsync();
 
             // Validate the response
-            SendwithusTest.ValidateResponse(response);
+            SendwithusClientTest.ValidateResponse(response);
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace SendwithusTest
         public async Task TestRenderTemplateWithInvalidIdAsync()
         {
             Trace.WriteLine("POST /render");
-            Sendwithus.Sendwithus.ApiKey = SendwithusTest.API_KEY_PRODUCTION;
+            Sendwithus.SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_PRODUCTION;
 
             // Build the object
             var templateData = new Dictionary<string, object>();
@@ -86,7 +86,7 @@ namespace SendwithusTest
             catch (SendwithusException exception)
             {
                 // Make sure the response was HTTP 400 Bad Request 
-                SendwithusTest.ValidateException(exception, HttpStatusCode.BadRequest);
+                SendwithusClientTest.ValidateException(exception, HttpStatusCode.BadRequest);
             }
         }
     }

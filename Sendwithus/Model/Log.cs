@@ -15,7 +15,7 @@ namespace Sendwithus
     {
         public string Object { get; set; } // capitalized because "object" is a C# datatype
         public string id { get; set; }
-        public UInt64 created { get; set; }
+        public Int64 created { get; set; }
         public string recipient_name { get; set; }
         public string recipient_address { get; set; }
         public string status { get; set; }
@@ -36,7 +36,7 @@ namespace Sendwithus
         /// created_lt(optional) – Return logs created strictly before the given Unix Timestamp.
         /// created_lte (optional) – Return logs created on or before the given Unix Timestamp.</param>
         /// <returns>A list of all the logs that match the given filters</returns>
-        public static async Task<Collection<Log>> GetLogsAsync(Dictionary<string, object> queryParameters = null)
+        public static async Task<Collection<Log>> GetLogsAsync(Dictionary<string, object> queryParameters)
         {
             // Send the GET request
             var resource = "logs";
@@ -45,6 +45,16 @@ namespace Sendwithus
             // Convert the JSON result into an object
             var serializer = new JavaScriptSerializer();
             return serializer.Deserialize<Collection<Log>>(jsonResponse);
+        }
+
+        /// <summary>
+        /// Get all the logs associated with the account without any query parameters
+        /// GET /logs
+        /// </summary>
+        /// <returns>A list of all the logs that match the given filters</returns>
+        public static async Task<Collection<Log>> GetLogsAsync()
+        {
+            return await GetLogsAsync(null);
         }
 
         /// <summary>

@@ -54,7 +54,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="SendwithusTest.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="SendwithusClientTest.cs" />
     <Compile Include="Tests\CustomerTest.cs" />
     <Compile Include="Tests\EmailTest.cs" />
     <Compile Include="Tests\RenderTest.cs" />

@@ -50,14 +50,14 @@ namespace SendwithusTest
         public async Task TestSendEmailWithOnlyRequiredParametersAsync()
         {
             Trace.WriteLine("POST /send");
-            Sendwithus.Sendwithus.ApiKey = SendwithusTest.API_KEY_PRODUCTION;
+            Sendwithus.SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_PRODUCTION;
 
             // Make the API call
             var email = BuildBarebonesEmail();
             var response = await email.Send();
 
             // Validate the response
-            SendwithusTest.ValidateResponse(response);
+            SendwithusClientTest.ValidateResponse(response);
         }
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace SendwithusTest
         public async Task TestSendEmailWithAllParametersAsync()
         {
             Trace.WriteLine("POST /send");
-            Sendwithus.Sendwithus.ApiKey = SendwithusTest.API_KEY_PRODUCTION;
+            Sendwithus.SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_PRODUCTION;
 
             // Construct the email
             var email = BuildBarebonesEmail();
@@ -95,7 +95,7 @@ namespace SendwithusTest
             var response = await email.Send();
 
             // Validate the response
-            SendwithusTest.ValidateResponse(response);
+            SendwithusClientTest.ValidateResponse(response);
         }
 
         /// <summary>
@@ -106,7 +106,7 @@ namespace SendwithusTest
         public async Task TestSendEmailWithInvalidTemplateId()
         {
             Trace.WriteLine("POST /send with an invalid template ID");
-            Sendwithus.Sendwithus.ApiKey = SendwithusTest.API_KEY_TEST;
+            Sendwithus.SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Constuct the email
             Email email = BuildBarebonesEmail();
@@ -119,7 +119,7 @@ namespace SendwithusTest
             catch (SendwithusException exception)
             {
                 // Make sure the response was HTTP 400 Bad Request 
-                SendwithusTest.ValidateException(exception, HttpStatusCode.BadRequest);
+                SendwithusClientTest.ValidateException(exception, HttpStatusCode.BadRequest);
             }
         }
 
@@ -127,7 +127,7 @@ namespace SendwithusTest
         /// Creates an email object with only the required parameters
         /// </summary>
         /// <returns></returns>
-        private Email BuildBarebonesEmail()
+        private static Email BuildBarebonesEmail()
         {
             // Construct the template data
             var templateData = new Dictionary<string, object>();
