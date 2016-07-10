@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,7 @@ namespace Sendwithus
     {
         public bool success { get; set; }
         public string status { get; set; }
-        public List<Log> logs { get; }
+        public Collection<Log> logs { get; }
 
         /// <summary>
         /// default Constructor
@@ -22,7 +23,7 @@ namespace Sendwithus
         {
             success = false;
             status = String.Empty;
-            logs = new List<Log>();
+            logs = new Collection<Log>();
         }
     }
 }

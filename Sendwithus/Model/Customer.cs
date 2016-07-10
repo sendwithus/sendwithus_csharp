@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,9 +15,9 @@ namespace Sendwithus
     {
         public string email { get; set; }
         public Dictionary<string, object> data { get; }
-        public UInt64 created { get; set; }
+        public Int64 created { get; set; }
         public string locale { get; set; }
-        public List<string> groups { get; }
+        public Collection<string> groups { get; }
 
         /// <summary>
         /// Default constructor
@@ -33,7 +34,7 @@ namespace Sendwithus
             data = new Dictionary<string, object>();
             created = 0;
             locale = String.Empty;
-            groups = new List<string>();
+            groups = new Collection<string>();
         }
 
         /// <summary>

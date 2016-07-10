@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,7 @@ namespace Sendwithus
     {
         public string Object { get; set; }
         public string id { get; set; }
-        public UInt64 created { get; set; }
+        public Int64 created { get; set; }
         public string esp_type { get; set; }
         public string name { get; set; }
 
@@ -36,7 +37,7 @@ namespace Sendwithus
         /// <param name="queryParameters">The query parameters.  Options include:
         /// esp_type (optional) – Filter response to only return ESP accounts of a certain type</param>
         /// <returns>A list of all the ESP accounts</returns>
-        public static async Task<List<EspAccount>> GetAccountsAsync(Dictionary<string, object> queryParameters = null)
+        public static async Task<Collection<EspAccount>> GetAccountsAsync(Dictionary<string, object> queryParameters = null)
         {
             // Send the GET request
             var resource = "esp_accounts";
@@ -44,7 +45,7 @@ namespace Sendwithus
 
             // Convert the JSON result into an object
             var serializer = new JavaScriptSerializer();
-            return serializer.Deserialize<List<EspAccount>>(jsonResponse);
+            return serializer.Deserialize<Collection<EspAccount>>(jsonResponse);
         }
 
         /// <summary>

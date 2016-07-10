@@ -14,6 +14,7 @@ using System.Threading.Tasks;
  *  Github: chennig
  */
 
+[assembly: CLSCompliant(true)]
 namespace Sendwithus
 {
     /// <summary>
@@ -33,8 +34,8 @@ namespace Sendwithus
         public const int DEFAULT_RETRY_COUNT = 3;
         public const int DEFAULT_TIMEOUT_MILLISECONDS = 10000; // TODO: check against other APIs to confirm default
 
-        public static volatile string ApiKey;
-        public static volatile int RetryCount = DEFAULT_RETRY_COUNT;
-        public static volatile int TimeoutDurationMilliseconds;
+        public static string ApiKey;
+        public static int RetryCount = DEFAULT_RETRY_COUNT;
+        public static int TimeoutDurationMilliseconds;
     }
 }

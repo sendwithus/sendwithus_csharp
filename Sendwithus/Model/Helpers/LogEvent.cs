@@ -12,7 +12,7 @@ namespace Sendwithus
     public class LogEvent
     {
         public string Object { get; set; } // capitalized because "object" is a C# datatype
-        public UInt64 created { get; set; }
+        public Int64 created { get; set; }
         public string status { get; set; }
         public string status_message { get; set; }
 

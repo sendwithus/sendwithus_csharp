@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.Linq;
 using System.Diagnostics;
@@ -22,7 +23,7 @@ namespace SendwithusTest
         private const string ALTERNATE_LOCALE = "fr-FR";
         private const string INVALID_LOCALE = "invalid_locale";
 
-        private static List<string> NewTemplateIds = new List<string>();
+        private static Collection<string> NewTemplateIds = new Collection<string>();
 
         /// <summary>
         /// Tests the GET /templates with an invalid API Key

@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 using Sendwithus;
 using System.Net;
 using System.Collections.Generic;
@@ -20,7 +21,7 @@ namespace SendwithusTest
         private const string NEW_SNIPPET_BODY = "<h1>Welcome!</h1>";
         private const int UNIQUE_ID_LENGTH = 10;
 
-        private static List<string> NewSnippetIds = new List<string>();
+        private static Collection<string> NewSnippetIds = new Collection<string>();
 
         /// <summary>
         /// Tests the API call GET /snippets

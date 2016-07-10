@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -35,7 +36,7 @@ namespace Sendwithus
         /// GET /snippets
         /// </summary>
         /// <returns>A list of all the snippets</returns>
-        public static async Task<List<Snippet>> GetSnippetsAsync()
+        public static async Task<Collection<Snippet>> GetSnippetsAsync()
         {
             // Send the GET request
             var resource = "snippets";
@@ -43,7 +44,7 @@ namespace Sendwithus
 
             // Convert the JSON result into an object
             var serializer = new JavaScriptSerializer();
-            return serializer.Deserialize<List<Snippet>>(jsonResponse);
+            return serializer.Deserialize<Collection<Snippet>>(jsonResponse);
         }
 
         /// <summary>
@@ -52,7 +53,7 @@ namespace Sendwithus
         /// </summary>
         /// /// <param name="snippetId">The ID of the snippet to get</param>
         /// <returns>The snippet with the given ID</returns>
-        public static async Task<List<Snippet>> GetSnippetAsync(string snippetId)
+        public static async Task<Collection<Snippet>> GetSnippetAsync(string snippetId)
         {
             // Send the GET request
             var resource = String.Format("snippets/{0}", snippetId);
@@ -60,7 +61,7 @@ namespace Sendwithus
 
             // Convert the JSON result into an object
             var serializer = new JavaScriptSerializer();
-            return serializer.Deserialize<List<Snippet>>(jsonResponse);
+            return serializer.Deserialize<Collection<Snippet>>(jsonResponse);
         }
 
         /// <summary>

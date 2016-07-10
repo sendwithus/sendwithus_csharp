@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -35,7 +36,7 @@ namespace Sendwithus
         /// created_lt(optional) – Return logs created strictly before the given Unix Timestamp.
         /// created_lte (optional) – Return logs created on or before the given Unix Timestamp.</param>
         /// <returns>A list of all the logs that match the given filters</returns>
-        public static async Task<List<Log>> GetLogsAsync(Dictionary<string, object> queryParameters = null)
+        public static async Task<Collection<Log>> GetLogsAsync(Dictionary<string, object> queryParameters = null)
         {
             // Send the GET request
             var resource = "logs";
@@ -43,7 +44,7 @@ namespace Sendwithus
 
             // Convert the JSON result into an object
             var serializer = new JavaScriptSerializer();
-            return serializer.Deserialize<List<Log>>(jsonResponse);
+            return serializer.Deserialize<Collection<Log>>(jsonResponse);
         }
 
         /// <summary>
@@ -69,7 +70,7 @@ namespace Sendwithus
         /// </summary>
         /// <param name="logID">The ID of the log to retrieve the events</param>
         /// <returns>The events of the given log ID</returns>
-        public static async Task<List<LogEvent>> GetLogEventsAsync(string logID)
+        public static async Task<Collection<LogEvent>> GetLogEventsAsync(string logID)
         {
             // Send the GET request
             var resource = String.Format("logs/{0}/events", logID);
@@ -77,7 +78,7 @@ namespace Sendwithus
 
             // Convert the JSON result into an object
             var serializer = new JavaScriptSerializer();
-            return serializer.Deserialize<List<LogEvent>>(jsonResponse);
+            return serializer.Deserialize<Collection<LogEvent>>(jsonResponse);
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -140,10 +141,10 @@ namespace SendwithusTest
 
             // Construct the sender and recipients
             var recipient = new EmailRecipient(DEFAULT_RECIPIENT_EMAIL_ADDRESS);
-            var cc = new List<EmailRecipient>();
+            var cc = new Collection<EmailRecipient>();
             cc.Add(new EmailRecipient(DEFAULT_CC_EMAIL_ADDRESS_1));
             cc.Add(new EmailRecipient(DEFAULT_CC_EMAIL_ADDRESS_2));
-            var bcc = new List<EmailRecipient>();
+            var bcc = new Collection<EmailRecipient>();
             bcc.Add(new EmailRecipient(DEFAULT_BCC_EMAIL_ADDRESS_1));
             bcc.Add(new EmailRecipient(DEFAULT_BCC_EMAIL_ADDRESS_2));
 

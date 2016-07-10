@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,13 +17,13 @@ namespace Sendwithus
         public string template { get; set; } // The template ID
         public Dictionary<string, object> template_data { get; }
         public EmailRecipient recipient { get; set; }
-        public List<EmailRecipient> cc { get; }
-        public List<EmailRecipient> bcc { get; }
+        public Collection<EmailRecipient> cc { get; }
+        public Collection<EmailRecipient> bcc { get; }
         public EmailSender sender { get; set; }
-        public List<string> tags { get; }
+        public Collection<string> tags { get; }
         public Dictionary<string, string> headers { get; }  // TODO: Confirm that this is the right representation for headers (looks like it is from the python library's usage)
         public EmailFileData inline { get; set; }   // TODO: is this the right representation of inline?  Should it be a list of EmailFileData? Are other fields possibe beyond ID and Data?
-        public List<EmailFileData> files { get; }
+        public Collection<EmailFileData> files { get; }
         public string esp_account { get; set; }
         public string locale { get; set; }
         public string version_name { get; set; }
@@ -41,12 +42,12 @@ namespace Sendwithus
             this.template_data = template_data;
             this.recipient = recipient;
             sender = new EmailSender();
-            cc = new List<EmailRecipient>();
-            bcc = new List<EmailRecipient>();
-            tags = new List<string>();
+            cc = new Collection<EmailRecipient>();
+            bcc = new Collection<EmailRecipient>();
+            tags = new Collection<string>();
             headers = new Dictionary<string, string>();
             inline = new EmailFileData();   // TODO: is this the right representation of inline?  Should it be a list of EmailFileData? Are other fields possibe beyond ID and Data?
-            files = new List<EmailFileData>();
+            files = new Collection<EmailFileData>();
         }
 
         /// <summary>
