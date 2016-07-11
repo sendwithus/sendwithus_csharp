@@ -5,6 +5,5 @@ Release/
 *.nupkg
 *.exe
 *.dll
-packages/
 obj/
 TestResults/
