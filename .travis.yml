@@ -3,6 +3,7 @@ solution: Sendwithus/SendwithusClient.sln
 install:
   - nuget restore Sendwithus/SendwithusClient.sln
   - nuget install xunit.runners -Version 1.9.2 -OutputDirectory testrunner
+  - nuget install MSBuildTasks -Version 1.5.0.196 -OutputDirectory packages
 script:
   - xbuild /p:Configuration=Release Sendwithus/SendwithusClient.sln
   - mono ./testrunner/xunit.runners.1.9.2/tools/xunit.console.clr4.exe ./Sendwithus/SendwithusClient/SendwithusClientTest/bin/Release/SendwithusClientTests.dll
