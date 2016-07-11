@@ -198,10 +198,17 @@ namespace SendwithusTest.Tests
             var addAccountRequest = new EspAccountAddAccountRequest("My SES Account", "ses", credentials);
 
             // Make the API call
-            var response = await EspAccount.AddAccountAsync(addAccountRequest);
-
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+            try
+            {
+                var response = await EspAccount.AddAccountAsync(addAccountRequest);
+            }
+            catch (SendwithusException exception)
+            {
+                // Make sure the response was HTTP 400 Bad Request (because of an authorization error)
+                // This means that we formatted the API call correctly and only failed because we don't
+                // have proper authorization credentials to test an SES account
+                SendwithusClientTest.ValidateException(exception, HttpStatusCode.BadRequest);
+            }
         }
 
         // <summary>
@@ -241,10 +248,17 @@ namespace SendwithusTest.Tests
             var addAccountRequest = new EspAccountAddAccountRequest("My DYN Account", "dyn", credentials);
 
             // Make the API call
-            var response = await EspAccount.AddAccountAsync(addAccountRequest);
-
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+            try
+            {
+                var response = await EspAccount.AddAccountAsync(addAccountRequest);
+            }
+            catch (SendwithusException exception)
+            {
+                // Make sure the response was HTTP 400 Bad Request (because of an authorization error)
+                // This means that we formatted the API call correctly and only failed because we don't
+                // have proper authorization credentials to test a DYN account
+                SendwithusClientTest.ValidateException(exception, HttpStatusCode.BadRequest);
+            }
         }
 
         // <summary>
