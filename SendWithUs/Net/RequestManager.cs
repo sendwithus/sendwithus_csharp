@@ -95,7 +95,7 @@ namespace Sendwithus
         {
             using (var client = new HttpClient())
             {
-                // Send the PUT request
+                // Send the POST request
                 ConfigureHttpClient(client);
                 var uri = BuildFullResourceString(resource);
                 var httpContent = SerializeContent(content);
@@ -176,11 +176,9 @@ namespace Sendwithus
         {
             var serializer = new JavaScriptSerializer();
             var contentString = serializer.Serialize(content);
-            using (var stringContent = new StringContent(contentString))
-            {
-                stringContent.Headers.ContentType = new MediaTypeWithQualityHeaderValue("application/json");
-                return stringContent;
-            }
+            var stringContent = new StringContent(contentString);
+            stringContent.Headers.ContentType = new MediaTypeWithQualityHeaderValue("application/json");
+            return stringContent;
         }
 
 

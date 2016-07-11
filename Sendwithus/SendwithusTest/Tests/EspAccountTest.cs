@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 using System.Threading.Tasks;
 using Sendwithus;
 using System.Net;
@@ -11,7 +11,6 @@ namespace SendwithusTest.Tests
     /// <summary>
     /// Unit tests for the sendwithus EspAccount API calls
     /// </summary>
-    [TestClass]
     public class EspAccountTest
     {
         private const string DEFAULT_ESP_ACCOUNT_ID = "esp_e3ut7pFtWttcN4HNoQ8Vgm";
@@ -38,7 +37,7 @@ namespace SendwithusTest.Tests
         /// Tests the API call GET /esp_accounts without any parameters
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Fact]
         public async Task TestGetEspAccountsWithoutParametersAsync()
         {
             Trace.WriteLine("GET /esp_accounts");
@@ -55,7 +54,7 @@ namespace SendwithusTest.Tests
         /// Tests the API call GET /esp_accounts with all parameters
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Fact]
         public async Task TestGetEspAccountsWithAllParametersAsync()
         {
             Trace.WriteLine("GET /esp_accounts");
@@ -76,7 +75,7 @@ namespace SendwithusTest.Tests
         /// Tests the API call GET /esp_accounts with an invalid parameter
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Fact]
         public async Task TestGetEspAccountsWithInvalidParameterAsync()
         {
             Trace.WriteLine("GET /esp_accounts");
@@ -90,7 +89,7 @@ namespace SendwithusTest.Tests
             try
             {
                 var response = await EspAccount.GetAccountsAsync(queryParameters);
-                Assert.Fail("Failed to throw exception");
+                Assert.True(false, "Failed to throw exception");
             }
             catch (SendwithusException exception)
             {
@@ -103,7 +102,7 @@ namespace SendwithusTest.Tests
         /// Tests the API call POST /esp_accounts with a sendgrid account
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Fact]
         public async Task TestAddAccountSendgridAsync()
         {
             Trace.WriteLine("POST /esp_accounts");
@@ -124,7 +123,7 @@ namespace SendwithusTest.Tests
         /// Tests the API call POST /esp_accounts with a mailgun account
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Fact]
         public async Task TestAddAccountMailgunAsync()
         {
             Trace.WriteLine("POST /esp_accounts");
@@ -145,7 +144,7 @@ namespace SendwithusTest.Tests
         /// Tests the API call POST /esp_accounts with a mandrill account
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Fact]
         public async Task TestAddAccountMandrillAsync()
         {
             Trace.WriteLine("POST /esp_accounts");
@@ -166,7 +165,7 @@ namespace SendwithusTest.Tests
         /// Tests the API call POST /esp_accounts with a postmark account
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Fact]
         public async Task TestAddAccountPostmarkAsync()
         {
             Trace.WriteLine("POST /esp_accounts");
@@ -188,7 +187,7 @@ namespace SendwithusTest.Tests
         /// Expected to fail on authorization as proper SES credentials aren't included here
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Fact]
         public async Task TestAddAccountSesAsync()
         {
             Trace.WriteLine("POST /esp_accounts");
@@ -209,7 +208,7 @@ namespace SendwithusTest.Tests
         /// Tests the API call POST /esp_accounts with a Mailjet account
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Fact]
         public async Task TestAddAccountMailjetAsync()
         {
             Trace.WriteLine("POST /esp_accounts");
@@ -231,7 +230,7 @@ namespace SendwithusTest.Tests
         /// Expected to fail on authorization as proper DYN credentials aren't included here
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Fact]
         public async Task TestAddAccountDynAsync()
         {
             Trace.WriteLine("POST /esp_accounts");
@@ -252,7 +251,7 @@ namespace SendwithusTest.Tests
         /// Tests the API call POST /esp_accounts with an SMTP account
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Fact]
         public async Task TestAddAccountSmtpAsync()
         {
             Trace.WriteLine("POST /esp_accounts");
@@ -273,7 +272,7 @@ namespace SendwithusTest.Tests
         /// Tests the API call PUT /esp_accounts/set_default
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Fact]
         public async Task TestSetDefaultEspAccountAsync()
         {
             Trace.WriteLine("PUT /esp_accounts/set_default");

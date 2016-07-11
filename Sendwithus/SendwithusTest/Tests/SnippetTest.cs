@@ -1,5 +1,5 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using Sendwithus;
@@ -12,7 +12,6 @@ namespace SendwithusTest
     /// <summary>
     /// Unit testing class for the Snippet API calls
     /// </summary>
-    [TestClass]
     public class SnippetTest
     {
         private const string DEFAULT_SNIPPET_ID = "snp_bn8c87iXuFWdtYLGJrBAWW";
@@ -27,7 +26,7 @@ namespace SendwithusTest
         /// Tests the API call GET /snippets
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Fact]
         public async Task TestGetSnippetsAsync()
         {
             Trace.WriteLine("GET /snippets");
@@ -44,7 +43,7 @@ namespace SendwithusTest
         /// Tests the API call GET /snippets/(:id)
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Fact]
         public async Task TestGetSnippetAsync()
         {
             Trace.WriteLine(String.Format("GET /snippets/{0}", DEFAULT_SNIPPET_ID));
@@ -61,7 +60,7 @@ namespace SendwithusTest
         /// Tests the API call GET /snippets/(:id) with an invalid ID
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Fact]
         public async Task TestGetSnippetWithInvalidIDAsync()
         {
             Trace.WriteLine("GET /snippets with an invalid ID");
@@ -71,7 +70,7 @@ namespace SendwithusTest
             try
             {
                 var response = await Snippet.GetSnippetAsync(INVALID_SNIPPET_ID);
-                Assert.Fail("Failed to throw exception");
+                Assert.True(false, "Failed to throw exception");
             }
             catch (SendwithusException exception)
             {
@@ -84,7 +83,7 @@ namespace SendwithusTest
         /// Tests the API call POST /snippets
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Fact]
         public async Task TestCreateSnippetAsync()
         {
             Trace.WriteLine("POST /snippets");
@@ -105,7 +104,7 @@ namespace SendwithusTest
         /// Tests the API call PUT /snippets/(:id)
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Fact]
         public async Task TestUpdateSnippetAsync()
         {
             Trace.WriteLine("POST /snippets");
@@ -123,7 +122,7 @@ namespace SendwithusTest
         /// Tests the API call DELETE /snippets/(:id)
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Fact]
         public async Task TestDeleteSnippetAsync()
         {
             // Get the ID of a newly added snippet that can be deleted
@@ -134,7 +133,7 @@ namespace SendwithusTest
             }
             else
             {
-                Assert.Fail("No new templates available to add a locale to");
+                Assert.True(false, "No new templates available to add a locale to");
             }
             Trace.WriteLine(String.Format("DELETE /snippets/{0}", snippetId));
             Sendwithus.SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;

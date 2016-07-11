@@ -7,14 +7,13 @@ using Sendwithus;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Net;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace SendwithusTest
 {
     /// <summary>
     /// Unit testing class for the Email API calls
     /// </summary>
-    [TestClass]
     public class EmailTest
     {
         private const string ESP_ACCOUNT = "esp_EsgkbqQdDg7F3ncbz9EHW7";
@@ -46,7 +45,7 @@ namespace SendwithusTest
         /// Tests the API call POST /send with only the required email parameters set
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Fact]
         public async Task TestSendEmailWithOnlyRequiredParametersAsync()
         {
             Trace.WriteLine("POST /send");
@@ -64,7 +63,7 @@ namespace SendwithusTest
         /// Tests the API call POST /send with all email parameters set
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Fact]
         public async Task TestSendEmailWithAllParametersAsync()
         {
             Trace.WriteLine("POST /send");
@@ -102,7 +101,7 @@ namespace SendwithusTest
         /// Tests the POST /send API call with an invalid template ID
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Fact]
         public async Task TestSendEmailWithInvalidTemplateId()
         {
             Trace.WriteLine("POST /send with an invalid template ID");
@@ -114,7 +113,7 @@ namespace SendwithusTest
             try
             {
                 var response = await email.Send();
-                Assert.Fail("Failed to throw exception");
+                Assert.True(false, "Failed to throw exception");
             }
             catch (SendwithusException exception)
             {

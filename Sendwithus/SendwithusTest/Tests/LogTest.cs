@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 using System.Threading.Tasks;
 using Sendwithus;
 using System.Net;
@@ -12,7 +12,6 @@ namespace SendwithusTest
     /// <summary>
     /// Unit testing class for the Log API calls
     /// </summary>
-    [TestClass]
     public class LogTest
     {
         private const string DEFAULT_LOG_ID = "log_88be2c0f8b5c6d3933dd578b6a0f13e5";
@@ -27,7 +26,7 @@ namespace SendwithusTest
         /// Tests the API call GET /logs without any parameters
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Fact]
         public async Task TestGetLogsWithNoParametersAsync()
         {
             Trace.WriteLine("GET /logs");
@@ -45,7 +44,7 @@ namespace SendwithusTest
         /// Tests the API call GET /logs with all parameters included
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Fact]
         public async Task TestGetLogsWithAllParametersAsync()
         {
             Trace.WriteLine("GET /logs");
@@ -71,7 +70,7 @@ namespace SendwithusTest
         /// Tests the API call GET /logs with an invalid count number (passes a string instead of an int)
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Fact]
         public async Task TestGetLogsWithInvalidCountAsync()
         {
             Trace.WriteLine("GET /logs");
@@ -85,7 +84,7 @@ namespace SendwithusTest
             try
             {
                 var response = await Log.GetLogsAsync(queryParameters);
-                Assert.Fail("Failed to throw exception");
+                Assert.True(false, "Failed to throw exception");
             }
             catch (SendwithusException exception)
             {
@@ -98,7 +97,7 @@ namespace SendwithusTest
         /// Tests the API call GET /logs/(:log_id)
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Fact]
         public async Task TestGetLogAsync()
         {
             Trace.WriteLine(String.Format("GET /logs/{0}", DEFAULT_LOG_ID));
@@ -115,7 +114,7 @@ namespace SendwithusTest
         /// Tests the API call GET /logs/(:log_id)/events
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Fact]
         public async Task TestGetLogEventsAsync()
         {
             Trace.WriteLine(String.Format("GET /logs/{0}/events", DEFAULT_LOG_ID));
@@ -132,7 +131,7 @@ namespace SendwithusTest
         /// Tests the API call POST /resend
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Fact]
         public async Task TestResendLogAsync()
         {
             Trace.WriteLine("POST /resend");

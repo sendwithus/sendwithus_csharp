@@ -1,17 +1,16 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Sendwithus;
 using System.Net;
 using System.Collections.Generic;
+using Xunit;
 
 namespace SendwithusTest
 {
     /// <summary>
     /// Unit testing class for the Customer API calls
     /// </summary>
-    [TestClass]
     public class CustomerTest
     {
         public const string DEFAULT_CUSTOMER_EMAIL_ADDRESS = "sendwithus.test@gmail.com";
@@ -26,7 +25,7 @@ namespace SendwithusTest
         /// Tests the API call GET /customers/customer@example.com
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Fact]
         public async Task TestGetCustomerAsync()
         {
             // Make the API call
@@ -42,7 +41,7 @@ namespace SendwithusTest
         /// Tests the API call GET /customers/customer@example.com with an invalid email address
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Fact]
         public async Task TestGetCustomerWithInvalidEmailAddressAsync()
         {
             // Make the API call
@@ -51,7 +50,7 @@ namespace SendwithusTest
             try
             {
                 var response = await Customer.GetCustomerAsync(INVALID_CUSTOMER_EMAIL_ADDRESS);
-                Assert.Fail("Failed to throw exception");
+                Assert.True(false, "Failed to throw exception");
             }
             catch (SendwithusException exception)
             {
@@ -64,7 +63,7 @@ namespace SendwithusTest
         /// Tests the API call POST /customers
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Fact]
         public async Task TestCreateOrUpdateCustomerAsync()
         {
             
@@ -89,7 +88,7 @@ namespace SendwithusTest
         /// Tests the API call DELETE /customers/(:email)
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Fact]
         public async Task TestDeleteCustomerAsync()
         {
             Trace.WriteLine(String.Format("DELETE /customers",NEW_CUSTOMER_EMAIL_ADDRESS));
@@ -106,7 +105,7 @@ namespace SendwithusTest
         /// Tests the API call GET /customers/matt@sendwithus.com/logs?count={count}&created_lt={timestamp}&created_gt={timestamp} with no parameters
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Fact]
         public async Task TestGetCustomerEmailLogsWithNoParametersAsync()
         {
             // Make the API call
@@ -122,7 +121,7 @@ namespace SendwithusTest
         /// Tests the API call GET /customers/matt@sendwithus.com/logs?count={count}&created_lt={timestamp}&created_gt={timestamp} with all parameters
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Fact]
         public async Task TestGetCustomerEmailLogsWithAllParametersAsync()
         {
             
@@ -146,7 +145,7 @@ namespace SendwithusTest
         /// Tests the API call POST /customers/(:email)/groups/(:group_id)
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Fact]
         public async Task TestAddCustomerToGroupAsync()
         {
             // Make the API call
@@ -162,7 +161,7 @@ namespace SendwithusTest
         /// Tests the API call DELETE /customers/(:email)/groups/(:group_id)
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Fact]
         public async Task TestRemoveCustomerFromGroupAsync()
         {
             // Make the API call

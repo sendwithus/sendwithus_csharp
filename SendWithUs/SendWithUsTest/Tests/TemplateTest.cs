@@ -5,7 +5,7 @@ using System.Linq;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Sendwithus;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 using System.Net;
 
 namespace SendwithusTest
@@ -13,7 +13,6 @@ namespace SendwithusTest
     /// <summary>
     /// Unit testing class for the Template API calls
     /// </summary>
-    [TestClass]
     public class TemplateTest
     {
         private const string DEFAULT_TEMPLATE_ID = "tem_SxZKpxJSHPbYDWRSQnAQUR";
@@ -29,7 +28,7 @@ namespace SendwithusTest
         /// Tests the GET /templates with an invalid API Key
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Fact]
         public async Task TestGetTeamplatesWithInvalidApiKeyAsync()
         {
             // Make the API call
@@ -50,7 +49,7 @@ namespace SendwithusTest
         /// Tests the GET /templates API call
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Fact]
         public async Task TestGetTemplatesAsync()
         {
             // Make the API call
@@ -66,7 +65,7 @@ namespace SendwithusTest
         /// Tests the GET /templates/(:template_id) API call
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Fact]
         public async Task TestGetTemplateByIdAsync()
         {
             // Make the API call
@@ -82,7 +81,7 @@ namespace SendwithusTest
         /// Tests the GET /templates/(:template_id) API call with an invalid ID
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Fact]
         public async Task TestGetTemplateByIdInvalidIDAsync()
         {
             // Make the API call
@@ -91,7 +90,7 @@ namespace SendwithusTest
             try
             {
                 var response = await Template.GetTemplateAsync(INVALID_TEMPLATE_ID);
-                Assert.Fail("Failed to throw exception");
+                Assert.True(false, "Failed to throw exception");
             }
             catch (SendwithusException exception)
             {
@@ -104,7 +103,7 @@ namespace SendwithusTest
         /// Tests the GET /templates/(:template_id)/locales/(:locale) API call
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Fact]
         public async Task TestGetTemplateByIdAndLocaleAsync()
         {
             // Make the API call
@@ -120,7 +119,7 @@ namespace SendwithusTest
         /// Tests the GET /templates/(:template_id)/locales/(:locale) API call
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Fact]
         public async Task TestGetTemplateByIdAndLocaleInvalidLocaleAsync()
         {
             // Make the API call
@@ -129,7 +128,7 @@ namespace SendwithusTest
             try
             {
                 var response = await Template.GetTemplateAsync(DEFAULT_TEMPLATE_ID, INVALID_LOCALE);
-                Assert.Fail("Failed to throw exception");
+                Assert.True(false, "Failed to throw exception");
             }
             catch (SendwithusException exception)
             {
@@ -142,7 +141,7 @@ namespace SendwithusTest
         /// Tests the GET /templates/(:template_id)/versions API call
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Fact]
         public async Task TestGetTemplateVersionsByIdAsync()
         {
             // Make the API call
@@ -158,7 +157,7 @@ namespace SendwithusTest
         /// Tests the GET /templates/(:template_id)/locales/(:locale)/versions API call
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Fact]
         public async Task TestGetTemplateVersionsByIdAndLocaleAsync()
         {
             // Make the API call
@@ -174,7 +173,7 @@ namespace SendwithusTest
         /// Tests the GET /templates/(:template_id)/versions/(:version_id) API call
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Fact]
         public async Task TestGetTemplateVersionByIdAsync()
         {
             // Make the API call
@@ -190,7 +189,7 @@ namespace SendwithusTest
         /// Tests the GET /templates/(:template_id)/locales/(:locale)/versions/(:version_id) API call
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Fact]
         public async Task TestGetTemplateVersionByIdAndLocaleAsync()
         {
             // Make the API call
@@ -206,7 +205,7 @@ namespace SendwithusTest
         /// Tests the API call PUT /templates/(:template_id)/versions/(:version_id)
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Fact]
         public async Task TestUpdateTemplateVersionByIdAsync()
         {
             // Make the API call
@@ -227,7 +226,7 @@ namespace SendwithusTest
         /// Tests the API call PUT /templates/(:template_id)/locales/(:locale)/versions/(:version_id)
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Fact]
         public async Task TestUpdateTemplateVersionByIdAndLocaleAsync()
         {
             // Make the API call
@@ -248,7 +247,7 @@ namespace SendwithusTest
         /// Tests the API call POST /templates
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Fact]
         public async Task TestCreateTemplateAsync()
         {
             // Make the API call
@@ -272,7 +271,7 @@ namespace SendwithusTest
         /// Tests the API call POST /templates/(:template_id)/locales
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Fact]
         public async Task TestAddLocaleToTemplateAsync()
         {
             // Use the template ID of a newly created template
@@ -284,7 +283,7 @@ namespace SendwithusTest
             }
             else
             {
-                Assert.Fail("No new templates available to add a locale to");
+                Assert.True(false, "No new templates available to add a locale to");
             }
 
             // Make the API call
@@ -305,7 +304,7 @@ namespace SendwithusTest
         /// Tests the API call POST /templates/(:template_id)/versions
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Fact]
         public async Task TestCreateTemplateVersionAsync()
         {
             // Make the API call
@@ -326,7 +325,7 @@ namespace SendwithusTest
         /// Tests the API call POST /templates/(:template_id)/locales/(:locale)/versions
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Fact]
         public async Task TestCreateTemplateVersionWithLocaleAsync()
         {
             // Make the API call
@@ -347,7 +346,7 @@ namespace SendwithusTest
         /// Tests the API call DELETE /templates/(:template_id)
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Fact]
         public async Task TestDeleteTemplateAsync()
         {
             // Use a newly added Template ID for deletion
@@ -359,7 +358,7 @@ namespace SendwithusTest
             }
             else
             {
-                Assert.Fail("No template IDs available to delete");
+                Assert.True(false, "No template IDs available to delete");
             }
 
             // Make the API call
@@ -378,7 +377,7 @@ namespace SendwithusTest
         /// Tests the API call DELETE /templates/(:template_id)/locales/(:locale)
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Fact]
         public async Task TestDeleteTemplateWithLocaleAsync()
         {
             // Use a newly added Template ID for deletion
@@ -389,7 +388,7 @@ namespace SendwithusTest
             }
             else
             {
-                Assert.Fail("No template IDs available to delete");
+                Assert.True(false, "No template IDs available to delete");
             }
 
             // Make the API call

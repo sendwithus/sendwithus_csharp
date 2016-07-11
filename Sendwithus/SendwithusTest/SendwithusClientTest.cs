@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Sendwithus;
 using System.Web.Script.Serialization;
 using System.Diagnostics;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 using System.Net;
 
 [assembly: CLSCompliant(true)]
@@ -31,7 +31,7 @@ namespace SendwithusTest
             Trace.Flush();
 
             // Validate the response
-            Assert.IsNotNull(response);
+            Assert.NotNull(response);
         }
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace SendwithusTest
             Trace.WriteLine(exception.Message);
 
             // Check the exception's status code
-            Assert.AreEqual(expectedStatusCode, exception.StatusCode);
+            Assert.Equal(expectedStatusCode, exception.StatusCode);
         }
 
         /// <summary>
