@@ -32,10 +32,10 @@ namespace Sendwithus
         public const string SWU_API_HEADER = "X-SWU-API-KEY";
         public const string SWU_CLIENT_HEADER = "X-SWU-API-CLIENT";
         public const int DEFAULT_RETRY_COUNT = 3;
-        public const int DEFAULT_TIMEOUT_MILLISECONDS = 10000; // TODO: check against other APIs to confirm default
+        public const Int32 DEFAULT_TIMEOUT_MILLISECONDS = 10000; // TODO: check against other APIs to confirm default
 
         public static string ApiKey { get; set; }
         public static int RetryCount { get; set; } = DEFAULT_RETRY_COUNT;
-        public static int TimeoutDurationMilliseconds { get; set; } = DEFAULT_TIMEOUT_MILLISECONDS;
+        public static TimeSpan Timeout { get; set; } = new TimeSpan(days: 0, hours: 0, minutes: 0, seconds: 0, milliseconds: DEFAULT_TIMEOUT_MILLISECONDS);
     }
 }

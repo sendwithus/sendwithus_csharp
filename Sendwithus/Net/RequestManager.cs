@@ -154,7 +154,7 @@ namespace Sendwithus
         }
 
         /// <summary>
-        /// Sets the base address, Accept type, API key, and password for the HTTP Client
+        /// Sets the base address, Accept type, API key, client info, and timeout for the HTTP Client
         /// </summary>
         /// <param name="client">The client to prepare to setup</param>
         private static void ConfigureHttpClient (HttpClient client)
@@ -165,6 +165,7 @@ namespace Sendwithus
             client.DefaultRequestHeaders.Add(SendwithusClient.SWU_API_HEADER, SendwithusClient.ApiKey);
             var clientStub = String.Format(CultureInfo.InvariantCulture, "{0}-{1}", SendwithusClient.CLIENT_LANGUAGE, SendwithusClient.CLIENT_VERSION);
             client.DefaultRequestHeaders.Add(SendwithusClient.SWU_CLIENT_HEADER, clientStub);
+            client.Timeout = SendwithusClient.Timeout;
         }
 
         /// <summary>
