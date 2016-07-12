@@ -73,6 +73,8 @@
     <Compile Include="Model\Conversion.cs" />
     <Compile Include="Model\Customer.cs" />
     <Compile Include="Model\DripCampaign.cs" />
+    <Compile Include="Model\CustomerGroup.cs" />
+    <Compile Include="Model\Helpers\CustomerGroupResponseMultipleGroups.cs" />
     <Compile Include="Model\Helpers\DripCampaignDeactivateResponse.cs" />
     <Compile Include="Model\Helpers\DripCampaignDetails.cs" />
     <Compile Include="Model\Helpers\DripCampaignResponse.cs" />
@@ -97,6 +99,7 @@
     <Compile Include="Model\Helpers\EspAccountCredientialsMailgun.cs" />
     <Compile Include="Model\Helpers\EspAccountCredientialsSendgrid.cs" />
     <Compile Include="Model\Helpers\EspAccountResponse.cs" />
+    <Compile Include="Model\Helpers\CustomerGroupResponse.cs" />
     <Compile Include="Model\Helpers\IEspAccountCredentials.cs" />
     <Compile Include="Model\Helpers\LogEvent.cs" />
     <Compile Include="Model\Helpers\LogIdParameter.cs" />
