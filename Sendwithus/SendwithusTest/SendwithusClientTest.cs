@@ -8,6 +8,7 @@ using System.Web.Script.Serialization;
 using System.Diagnostics;
 using Xunit;
 using System.Net;
+using Xunit.Abstractions;
 
 [assembly: CLSCompliant(true)]
 namespace SendwithusTest
@@ -22,13 +23,11 @@ namespace SendwithusTest
         /// Validates the response from an API call
         /// </summary>
         /// <param name="response">The api call's response</param>
-        public static void ValidateResponse(object response)
+        public static void ValidateResponse(object response, ITestOutputHelper output)
         {
             // Print the response
             var serializer = new JavaScriptSerializer();
-            Trace.Write("Response: ");
-            Trace.WriteLine(serializer.Serialize(response));
-            Trace.Flush();
+            output.WriteLine(String.Format("Response: {0}", serializer.Serialize(response)));
 
             // Validate the response
             Assert.NotNull(response);
@@ -39,7 +38,7 @@ namespace SendwithusTest
         /// </summary>
         /// <param name="exception">The exception to validate</param>
         /// <param name="stausCode">The expected exception status code</param>
-        public static void ValidateException(SendwithusException exception, HttpStatusCode expectedStatusCode)
+        public static void ValidateException(SendwithusException exception, HttpStatusCode expectedStatusCode, ITestOutputHelper output)
         {
             // Make sure the exception parameter isn't null
             if (exception == null)
@@ -48,10 +47,8 @@ namespace SendwithusTest
             }
 
             // Print the exception details
-            Trace.Write("Exception Status Code: ");
-            Trace.WriteLine(exception.StatusCode.ToString());
-            Trace.Write("Exception Message: ");
-            Trace.WriteLine(exception.Message);
+            output.WriteLine(String.Format("Exception Status Code: {0}", exception.StatusCode.ToString()));
+            output.WriteLine(String.Format("Exception Message: {0}", exception.Message));
 
             // Check the exception's status code
             Assert.Equal(expectedStatusCode, exception.StatusCode);

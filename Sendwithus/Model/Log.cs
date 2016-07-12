@@ -100,7 +100,7 @@ namespace Sendwithus
         public static async Task<LogResendResponse> ResendLogAsync(string logId)
         {
             // Send the POST request
-            var resource = String.Format("resend");
+            var resource = "resend";
             var logIdParameter = new LogIdParameter(logId);
             var jsonResponse = await RequestManager.SendPostRequestAsync(resource, logIdParameter);
 

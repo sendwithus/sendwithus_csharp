@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Net;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace SendwithusTest
 {
@@ -41,6 +42,17 @@ namespace SendwithusTest
         private const string DEFAULT_FILE_DATA = "{BASE_64_ENCODED_FILE_DATA}";
         private const string DEFAULT_VERSION_NAME = "New Version";
 
+        readonly ITestOutputHelper Output;
+
+        /// <summary>
+        /// Default constructor with an output object - used to output messages to the Test Explorer
+        /// </summary>
+        /// <param name="output"></param>
+        public EmailTest(ITestOutputHelper output)
+        {
+            Output = output;
+        }
+
         /// <summary>
         /// Tests the API call POST /send with only the required email parameters set
         /// </summary>
@@ -48,15 +60,17 @@ namespace SendwithusTest
         [Fact]
         public async Task TestSendEmailWithOnlyRequiredParametersAsync()
         {
-            Trace.WriteLine("POST /send");
-            Sendwithus.SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_PRODUCTION;
+            Output.WriteLine("POST /send");
+
+            // Use the production API key so that the emails are actually sent
+            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_PRODUCTION;
 
             // Make the API call
             var email = BuildBarebonesEmail();
             var response = await email.Send();
 
             // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+            SendwithusClientTest.ValidateResponse(response, Output);
         }
 
         /// <summary>
@@ -66,8 +80,10 @@ namespace SendwithusTest
         [Fact]
         public async Task TestSendEmailWithAllParametersAsync()
         {
-            Trace.WriteLine("POST /send");
-            Sendwithus.SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_PRODUCTION;
+            Output.WriteLine("POST /send");
+
+            // Use the production API key so that the emails are actually sent
+            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_PRODUCTION;
 
             // Construct the email
             var email = BuildBarebonesEmail();
@@ -94,7 +110,7 @@ namespace SendwithusTest
             var response = await email.Send();
 
             // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+            SendwithusClientTest.ValidateResponse(response, Output);
         }
 
         /// <summary>
@@ -104,8 +120,8 @@ namespace SendwithusTest
         [Fact]
         public async Task TestSendEmailWithInvalidTemplateId()
         {
-            Trace.WriteLine("POST /send with an invalid template ID");
-            Sendwithus.SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
+            Output.WriteLine("POST /send with an invalid template ID");
+            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Constuct the email
             Email email = BuildBarebonesEmail();
@@ -118,7 +134,7 @@ namespace SendwithusTest
             catch (SendwithusException exception)
             {
                 // Make sure the response was HTTP 400 Bad Request 
-                SendwithusClientTest.ValidateException(exception, HttpStatusCode.BadRequest);
+                SendwithusClientTest.ValidateException(exception, HttpStatusCode.BadRequest, Output);
             }
         }
 

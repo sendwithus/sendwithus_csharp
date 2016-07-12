@@ -70,7 +70,14 @@
   <ItemGroup>
     <Compile Include="Exception\SendwithusException.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Model\Conversion.cs" />
     <Compile Include="Model\Customer.cs" />
+    <Compile Include="Model\DripCampaign.cs" />
+    <Compile Include="Model\DripCampaignDeactivateResponse.cs" />
+    <Compile Include="Model\DripCampaignDetails.cs" />
+    <Compile Include="Model\DripCampaignResponse.cs" />
+    <Compile Include="Model\DripCampaignStep.cs" />
+    <Compile Include="Model\DripCampaignSummary.cs" />
     <Compile Include="Model\Email.cs" />
     <Compile Include="Model\EspAccount.cs" />
     <Compile Include="Model\Helpers\CustomerEmailLogsResponse.cs" />

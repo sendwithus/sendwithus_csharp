@@ -75,7 +75,9 @@
   <ItemGroup>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="SendwithusClientTest.cs" />
+    <Compile Include="Tests\ConversionsTest.cs" />
     <Compile Include="Tests\CustomerTest.cs" />
+    <Compile Include="Tests\DripCampaignTest.cs" />
     <Compile Include="Tests\EmailTest.cs" />
     <Compile Include="Tests\RenderTest.cs" />
     <Compile Include="Tests\SnippetTest.cs" />
