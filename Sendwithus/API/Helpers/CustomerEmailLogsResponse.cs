@@ -14,7 +14,7 @@ namespace Sendwithus
     {
         public bool success { get; set; }
         public string status { get; set; }
-        public Collection<Log> logs { get; }
+        public Collection<Log> logs { get; set; }
 
         /// <summary>
         /// default Constructor

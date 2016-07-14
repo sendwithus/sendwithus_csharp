@@ -15,7 +15,7 @@ namespace Sendwithus
     {
         public bool success { get; set; }
         public string status { get; set; }
-        public Collection<CustomerGroup> groups { get; }
+        public Collection<CustomerGroup> groups { get; set; }
 
         /// <summary>
         /// Default constructor

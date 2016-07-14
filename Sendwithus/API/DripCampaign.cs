@@ -14,11 +14,11 @@ namespace Sendwithus
     public class DripCampaign
     {
         public EmailRecipient recipient { get; set; }
-        public Collection<EmailRecipient> cc { get;  }
-        public Collection<EmailRecipient> bcc { get; }
+        public Collection<EmailRecipient> cc { get; set; }
+        public Collection<EmailRecipient> bcc { get; set; }
         public EmailSender sender { get; set; }
-        public Dictionary<string, object> email_data { get; }
-        public Collection<string> tags { get; }
+        public Dictionary<string, object> email_data { get; set; }
+        public Collection<string> tags { get; set; }
         public string esp_account { get; set; }
         public string locale { get; set; }
 

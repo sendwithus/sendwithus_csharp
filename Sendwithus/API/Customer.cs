@@ -14,10 +14,10 @@ namespace Sendwithus
     public class Customer
     {
         public string email { get; set; }
-        public Dictionary<string, object> data { get; }
+        public Dictionary<string, object> data { get; set; }
         public Int64 created { get; set; }
         public string locale { get; set; }
-        public Collection<string> groups { get; }
+        public Collection<string> groups { get; set; }
 
         /// <summary>
         /// Default constructor

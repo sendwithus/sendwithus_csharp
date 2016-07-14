@@ -15,15 +15,15 @@ namespace Sendwithus
     public class Email
     {
         public string template { get; set; } // The template ID
-        public Dictionary<string, object> template_data { get; }
+        public Dictionary<string, object> template_data { get; set; }
         public EmailRecipient recipient { get; set; }
-        public Collection<EmailRecipient> cc { get; }
-        public Collection<EmailRecipient> bcc { get; }
+        public Collection<EmailRecipient> cc { get; set; }
+        public Collection<EmailRecipient> bcc { get; set; }
         public EmailSender sender { get; set; }
-        public Collection<string> tags { get; }
-        public Dictionary<string, string> headers { get; }  // TODO: Confirm that this is the right representation for headers (looks like it is from the python library's usage)
+        public Collection<string> tags { get; set; }
+        public Dictionary<string, string> headers { get; set; }  // TODO: Confirm that this is the right representation for headers (looks like it is from the python library's usage)
         public EmailFileData inline { get; set; }   // TODO: is this the right representation of inline?  Should it be a list of EmailFileData? Are other fields possibe beyond ID and Data?
-        public Collection<EmailFileData> files { get; }
+        public Collection<EmailFileData> files { get; set; }
         public string esp_account { get; set; }
         public string locale { get; set; }
         public string version_name { get; set; }

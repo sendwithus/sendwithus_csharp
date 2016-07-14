@@ -233,7 +233,7 @@ namespace SendwithusTest
             SendwithusClientTest.ValidateResponse(responses, Output);
 
             // Make sure we received the expected number of batch API responses
-            Assert.Equal(responses.Count, expectedResponseCount);
+            Assert.Equal(expectedResponseCount, responses.Count);
         }
 
         /// <summary>

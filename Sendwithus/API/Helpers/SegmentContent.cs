@@ -12,7 +12,7 @@ namespace Sendwithus
     public class SegmentContent
     {
         public string email_id { get; set; }
-        public Dictionary<string, object> email_data { get; }
+        public Dictionary<string, object> email_data { get; set; }
         public string esp_account { get; set; }
 
         /// <summary>
