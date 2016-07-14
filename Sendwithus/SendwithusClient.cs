@@ -36,6 +36,25 @@ namespace Sendwithus
 
         public static string ApiKey { get; set; }
         public static int RetryCount { get; set; } = DEFAULT_RETRY_COUNT;
-        public static TimeSpan Timeout { get; set; } = new TimeSpan(days: 0, hours: 0, minutes: 0, seconds: 0, milliseconds: DEFAULT_TIMEOUT_MILLISECONDS);
+
+        private static TimeSpan _timeout = new TimeSpan(days: 0, hours: 0, minutes: 0, seconds: 0, milliseconds: DEFAULT_TIMEOUT_MILLISECONDS);
+
+        /// <summary>
+        /// Sets the timeout setting for the API client to the given timeout, in milliseconds
+        /// </summary>
+        /// <param name="timeout">The new timeout to use, in milliseconds</param>
+        public static void SetTimeoutInMilliseconds(int timeout)
+        {
+            _timeout = new TimeSpan(days: 0, hours: 0, minutes: 0, seconds: 0, milliseconds: timeout);
+        }
+
+        /// <summary>
+        /// Gets the timeout setting for the API client
+        /// </summary>
+        /// <returns>The timeout setting</returns>
+        public static TimeSpan GetTimeout()
+        {
+            return _timeout;
+        }
     }
 }

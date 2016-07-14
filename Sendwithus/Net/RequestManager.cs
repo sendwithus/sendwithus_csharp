@@ -229,7 +229,7 @@ namespace Sendwithus
             client.DefaultRequestHeaders.Add(SendwithusClient.SWU_API_HEADER, SendwithusClient.ApiKey);
             var clientStub = String.Format(CultureInfo.InvariantCulture, "{0}-{1}", SendwithusClient.CLIENT_LANGUAGE, SendwithusClient.CLIENT_VERSION);
             client.DefaultRequestHeaders.Add(SendwithusClient.SWU_CLIENT_HEADER, clientStub);
-            client.Timeout = SendwithusClient.Timeout;
+            client.Timeout = SendwithusClient.GetTimeout();
         }
 
         /// <summary>
