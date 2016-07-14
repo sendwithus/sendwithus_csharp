@@ -85,29 +85,8 @@ namespace SendwithusTest
             // Use the production API key so that the emails are actually sent
             SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_PRODUCTION;
 
-            // Construct the email
-            var email = BuildBarebonesEmail();
-
-            // Configure all of the optional data
-            email.cc.Add(new EmailRecipient(DEFAULT_CC_EMAIL_ADDRESS_1, DEFAULT_EMAIL_NAME));
-            email.cc.Add(new EmailRecipient(DEFAULT_CC_EMAIL_ADDRESS_2, DEFAULT_EMAIL_NAME));
-            email.bcc.Add(new EmailRecipient(DEFAULT_BCC_EMAIL_ADDRESS_1, DEFAULT_EMAIL_NAME));
-            email.bcc.Add(new EmailRecipient(DEFAULT_BCC_EMAIL_ADDRESS_2, DEFAULT_EMAIL_NAME));
-            email.sender.address = DEFAULT_SENDER_EMAIL_ADDRESS;
-            email.sender.reply_to = DEFAULT_REPLY_TO_EMAIL_ADDRESS;
-            email.sender.name = DEFAULT_SENDER_NAME;
-            email.tags.Add(DEFAULT_TAG_1);
-            email.tags.Add(DEFAULT_TAG_2);
-            email.tags.Add(DEFAULT_TAG_3);
-            email.headers.Add(DEFAULT_HEADER_NAME, DEFAULT_HEADER_VALUE);
-            email.inline.id = DEFAULT_INLINE_ID;
-            email.inline.data = DEFAULT_INLINE_DATA;
-            email.files.Add(new EmailFileData(DEFAULT_FILE_NAME_1, DEFAULT_FILE_DATA));
-            email.files.Add(new EmailFileData(DEFAULT_FILE_NAME_2, DEFAULT_FILE_DATA));
-            email.version_name = DEFAULT_VERSION_NAME;
-
-            // Make the API call
-            var response = await email.Send();
+            // Construct and send an email with all of the optional data
+            var response = await BuildAndSendEmailWithAllParametersAsync();
 
             // Validate the response
             SendwithusClientTest.ValidateResponse(response, Output);
@@ -165,6 +144,35 @@ namespace SendwithusTest
 
             // Construct and return the email
             return new Email(DEFAULT_TEMPLATE_ID, templateData, recipient);
+        }
+
+        /// <summary>
+        /// Build and send an email with all of the parameters included
+        /// Public so that it can also be used by the BatchApiRequestTest library
+        /// </summary>
+        /// <returns>The API response to the Email Send call</returns>
+        public static async Task<EmailResponse> BuildAndSendEmailWithAllParametersAsync()
+        {
+            var email = BuildBarebonesEmail();
+            email.cc.Add(new EmailRecipient(DEFAULT_CC_EMAIL_ADDRESS_1, DEFAULT_EMAIL_NAME));
+            email.cc.Add(new EmailRecipient(DEFAULT_CC_EMAIL_ADDRESS_2, DEFAULT_EMAIL_NAME));
+            email.bcc.Add(new EmailRecipient(DEFAULT_BCC_EMAIL_ADDRESS_1, DEFAULT_EMAIL_NAME));
+            email.bcc.Add(new EmailRecipient(DEFAULT_BCC_EMAIL_ADDRESS_2, DEFAULT_EMAIL_NAME));
+            email.sender.address = DEFAULT_SENDER_EMAIL_ADDRESS;
+            email.sender.reply_to = DEFAULT_REPLY_TO_EMAIL_ADDRESS;
+            email.sender.name = DEFAULT_SENDER_NAME;
+            email.tags.Add(DEFAULT_TAG_1);
+            email.tags.Add(DEFAULT_TAG_2);
+            email.tags.Add(DEFAULT_TAG_3);
+            email.headers.Add(DEFAULT_HEADER_NAME, DEFAULT_HEADER_VALUE);
+            email.inline.id = DEFAULT_INLINE_ID;
+            email.inline.data = DEFAULT_INLINE_DATA;
+            email.files.Add(new EmailFileData(DEFAULT_FILE_NAME_1, DEFAULT_FILE_DATA));
+            email.files.Add(new EmailFileData(DEFAULT_FILE_NAME_2, DEFAULT_FILE_DATA));
+            email.version_name = DEFAULT_VERSION_NAME;
+
+            // Make the API call
+            return await email.Send();
         }
     }
 }

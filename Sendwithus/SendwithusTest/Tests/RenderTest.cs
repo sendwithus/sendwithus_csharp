@@ -65,13 +65,7 @@ namespace SendwithusTest
             SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_PRODUCTION;
 
             // Make the API call
-            var templateData = new Dictionary<string, object>();
-            templateData.Add("amount", "$12.00");
-            var renderTemplate = new Render(DEFAULT_TEMPLATE_ID, templateData);
-            renderTemplate.version_id = DEFAULT_VERSION_ID;
-            renderTemplate.locale = DEFAULT_LOCALE;
-            renderTemplate.strict = true;
-            var response = await renderTemplate.RenderTemplateAsync();
+            var response = await BuildAndSendRenderTemplateRequestWithAllParameters();
 
             // Validate the response
             SendwithusClientTest.ValidateResponse(response, Output);
@@ -105,6 +99,22 @@ namespace SendwithusTest
                 // Make sure the response was HTTP 400 Bad Request 
                 SendwithusClientTest.ValidateException(exception, HttpStatusCode.BadRequest, Output);
             }
+        }
+        
+        /// <summary>
+        /// Builds and sends a RenderTemplate request with all the parameters.
+        /// Public so that it can also be used by the BatchApiRequestTest library
+        /// </summary>
+        /// <returns></returns>
+        public static async Task<RenderTemplateResponse> BuildAndSendRenderTemplateRequestWithAllParameters()
+        {
+            var templateData = new Dictionary<string, object>();
+            templateData.Add("amount", "$12.00");
+            var renderTemplate = new Render(DEFAULT_TEMPLATE_ID, templateData);
+            renderTemplate.version_id = DEFAULT_VERSION_ID;
+            renderTemplate.locale = DEFAULT_LOCALE;
+            renderTemplate.strict = true;
+            return await renderTemplate.RenderTemplateAsync();
         }
     }
 }

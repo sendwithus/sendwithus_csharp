@@ -36,7 +36,7 @@ namespace Sendwithus
         /// </summary>
         /// <returns>A list of all the templates associated with the account</returns>
         /// /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
-        public static async Task<Collection<Template>> GetTemplatesAsync()
+        public static async Task<List<Template>> GetTemplatesAsync()
         {
             // Send the GET request
             var resource = "templates";
@@ -44,7 +44,7 @@ namespace Sendwithus
             
             // Convert the JSON result into an object
             var serializer = new JavaScriptSerializer();
-            var templateList = serializer.Deserialize<Collection<Template>>(jsonResponse);
+            var templateList = serializer.Deserialize<List<Template>>(jsonResponse);
             return templateList;
         }
 
@@ -94,7 +94,7 @@ namespace Sendwithus
         /// <param name="templateID">The ID of the template</param>
         /// <returns>The template versions associated with the given ID</returns>
         /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
-        public static async Task<Collection<TemplateVersion>> GetTemplateVersionsAsync(string templateID)
+        public static async Task<List<TemplateVersion>> GetTemplateVersionsAsync(string templateID)
         {
             // Send the GET request
             var resource = String.Format("templates/{0}/versions", templateID);
@@ -102,7 +102,7 @@ namespace Sendwithus
 
             // Convert the JSON result into an object
             var serializer = new JavaScriptSerializer();
-            var versions = serializer.Deserialize<Collection<TemplateVersion>>(jsonResponse);
+            var versions = serializer.Deserialize<List<TemplateVersion>>(jsonResponse);
             return versions;
         }
 
@@ -114,7 +114,7 @@ namespace Sendwithus
         /// <param name="locale">The locale of the template</param>
         /// <returns>The template versions associated with the given ID and locale</returns>
         /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
-        public static async Task<Collection<TemplateVersion>> GetTemplateVersionsAsync(string templateID, string locale)
+        public static async Task<List<TemplateVersion>> GetTemplateVersionsAsync(string templateID, string locale)
         {
             // Send the GET request
             var resource = String.Format("templates/{0}/locales/{1}/versions", templateID, locale);
@@ -122,7 +122,7 @@ namespace Sendwithus
 
             // Convert the JSON result into an object
             var serializer = new JavaScriptSerializer();
-            var versions = serializer.Deserialize<Collection<TemplateVersion>>(jsonResponse);
+            var versions = serializer.Deserialize<List<TemplateVersion>>(jsonResponse);
             return versions;
         }
 

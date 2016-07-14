@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 /**
  * sendwithus API interface.
  * 
- * Reference: https://github.com/sendwithus/sendwithus_java
+ * Reference: https://github.com/sendwithus/sendwithus_csharp
  * 
  * Author: Chris Hennig
  *  Email: hennig.chris@gmail.com

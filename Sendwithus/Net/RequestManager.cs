@@ -8,12 +8,20 @@ using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 using System.ServiceModel.Dispatcher;
 using System.Globalization;
+using System.Collections.ObjectModel;
 
 
 namespace Sendwithus
 {
+    /// <summary>
+    /// sendwithus RequestManager class.
+    /// Handles the HTTP calls
+    /// </summary>
     public abstract class RequestManager
     {
+        /// <summary>
+        /// The base address for a sendiwthus API call (ex. https://api.sendwithus.com:443)
+        /// </summary>
         public static Uri BaseAddress
         {
             get
@@ -24,6 +32,12 @@ namespace Sendwithus
             }
         }
 
+        /// <summary>
+        /// Builds the full resource string for a sendwithus API call.
+        /// Adds the "/api/{version}/" prefix to the given resource.
+        /// </summary>
+        /// <param name="resource">The resource to call</param>
+        /// <returns>The full resource string</returns>
         public static string BuildFullResourceString(string resource)
         {
             return String.Format(CultureInfo.InvariantCulture, "/api/{0}/{1}", SendwithusClient.API_VERSION, resource);            
@@ -36,18 +50,30 @@ namespace Sendwithus
         /// <param name="queryParameters">The query parameters to use with the API call</param>
         /// <returns>The response content in the form of a JSON string</returns>
         /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="InvalidOperationException">Thrown when the call is made in batch mode but the current batch has no more room for additional API calls</exception>
         public static async Task<string> SendGetRequestAsync(string resource, Dictionary<string, object> queryParameters)
         {
             using (var client = new HttpClient())
             {
-                // Send the GET request
+                // Prepare the GET request
                 ConfigureHttpClient(client);
                 var queryString = ConvertQueryParametersToQueryString(queryParameters);
                 var uri = String.Format("{0}{1}", BuildFullResourceString(resource), queryString);
-                var response = await client.GetAsync(uri);
 
-                // Convert the response to a string, validate it, and return it
-                return await ExtractAndValidateResponseContentAsync(response);
+                // If batch mode is enabled then add the request to the current batch of requests to send later on
+                if (BatchApiRequest.IsBatchApiModeEnabled() == true)
+                {
+                    BatchApiRequest.AddApiRequest(new BatchApiRequest(uri, "GET"));
+                    return String.Empty;
+                }
+                // Otherwise, send the GET request
+                else
+                {
+                    var response = await client.GetAsync(uri);
+
+                    // Convert the response to a string, validate it, and return it
+                    return await ExtractAndValidateResponseContentAsync(response);
+                }
             }
         }
 
@@ -57,6 +83,7 @@ namespace Sendwithus
         /// <param name="resource">The resource identifier for the resource to be called (after /api/<version>/)</param>
         /// <returns>The response content in the form of a JSON string</returns>
         /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="InvalidOperationException">Thrown when the call is made in batch mode but the current batch has no more room for additional API calls</exception>
         public static async Task<string> SendGetRequestAsync(string resource)
         {
             return await SendGetRequestAsync(resource, null);
@@ -69,18 +96,30 @@ namespace Sendwithus
         /// <param name="content">The object to be sent with the PUT request. Will be converted to JSON in this function</param>
         /// <returns>The response content in the form of a JSON string</returns>
         /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="InvalidOperationException">Thrown when the call is made in batch mode but the current batch has no more room for additional API calls</exception>
         public static async Task<string> SendPutRequestAsync(string resource, object content)
         {
             using (var client = new HttpClient())
             {
-                // Send the PUT request
+                // Prepare the PUT request
                 ConfigureHttpClient(client);
                 var uri = BuildFullResourceString(resource);
-                var httpContent = SerializeContent(content);
-                var response = await client.PutAsync(uri, httpContent);
+                var httpContent = ConvertObjectToJsonHttpContent(content);
 
-                // Convert the response to a string, validate it, and return it
-                return await ExtractAndValidateResponseContentAsync(response);
+                // If batch mode is enabled then add the request to the current batch of requests to send later on
+                if (BatchApiRequest.IsBatchApiModeEnabled() == true)
+                {
+                    BatchApiRequest.AddApiRequest(new BatchApiRequest(uri, "PUT", content));
+                    return String.Empty;
+                }
+                // Otherwise, send the PUT request
+                else
+                {
+                    var response = await client.PutAsync(uri, httpContent);
+
+                    // Convert the response to a string, validate it, and return it
+                    return await ExtractAndValidateResponseContentAsync(response);
+                }
             }
         }
 
@@ -91,18 +130,30 @@ namespace Sendwithus
         /// <param name="content">The object to be sent with the POST request. Will be converted to JSON in this function</param>
         /// <returns>The response content in the form of a JSON string</returns>
         /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="InvalidOperationException">Thrown when the call is made in batch mode but the current batch has no more room for additional API calls</exception>
         public static async Task<string> SendPostRequestAsync(string resource, object content)
         {
             using (var client = new HttpClient())
             {
-                // Send the POST request
+                // Build the POST request
                 ConfigureHttpClient(client);
                 var uri = BuildFullResourceString(resource);
-                var httpContent = SerializeContent(content);
-                var response = await client.PostAsync(uri, httpContent);
+                var httpContent = ConvertObjectToJsonHttpContent(content);
 
-                // Convert the response to a string, validate it, and return it
-                return await ExtractAndValidateResponseContentAsync(response);    
+                // If batch mode is enabled then add the request to the current batch of requests to send later on
+                if (BatchApiRequest.IsBatchApiModeEnabled() == true)
+                {
+                    BatchApiRequest.AddApiRequest(new BatchApiRequest(uri, "POST", content));
+                    return String.Empty;
+                }
+                // Otherwise, send the POST request
+                else
+                {
+                    var response = await client.PostAsync(uri, httpContent);
+
+                    // Convert the response to a string, validate it, and return it
+                    return await ExtractAndValidateResponseContentAsync(response);
+                }
             }
         }
 
@@ -112,6 +163,7 @@ namespace Sendwithus
         /// <param name="resource">The resource identifier for the resource to be called (after /api/<version></version>/)</param>
         /// <returns>The response content in the form of a JSON string</returns>
         /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="InvalidOperationException">Thrown when the call is made in batch mode but the current batch has no more room for additional API calls</exception>
         public static async Task<string> SendPostRequestAsync(string resource)
         {
             return await SendPostRequestAsync(resource, null);
@@ -123,17 +175,29 @@ namespace Sendwithus
         /// <param name="resource">The resource identifier for the resource to be called (after /api/<version></version>/)</param>
         /// <returns>The response content in the form of a JSON string</returns>
         /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="InvalidOperationException">Thrown when the call is made in batch mode but the current batch has no more room for additional API calls</exception>
         public static async Task<string> SendDeleteRequestAsync(string resource)
         {
             using (var client = new HttpClient())
             {
-                // Send the DELETE request
+                // Prepare the DELETE request
                 ConfigureHttpClient(client);
                 var uri = BuildFullResourceString(resource);
-                var response = await client.DeleteAsync(uri);
 
-                // Convert the response to a string, validate it, and return it
-                return await ExtractAndValidateResponseContentAsync(response);
+                // If batch mode is enabled then add the request to the current batch of requests to send later on
+                if (BatchApiRequest.IsBatchApiModeEnabled() == true)
+                {
+                    BatchApiRequest.AddApiRequest(new BatchApiRequest(uri, "DELETE"));
+                    return String.Empty;
+                }
+                // Otherwise, send the DELETE request
+                else
+                {
+                    var response = await client.DeleteAsync(uri);
+
+                    // Convert the response to a string, validate it, and return it
+                    return await ExtractAndValidateResponseContentAsync(response);
+                }
             }
         }
 
@@ -142,7 +206,7 @@ namespace Sendwithus
         /// </summary>
         /// <param name="response">The HTTP response</param>
         /// <returns>The response content as a string</returns>
-        /// /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
         private static async Task<string> ExtractAndValidateResponseContentAsync(HttpResponseMessage response)
         {
             var responseContent = await response.Content.ReadAsStringAsync();
@@ -169,11 +233,12 @@ namespace Sendwithus
         }
 
         /// <summary>
-        /// JSON serializes the given object into an StringContent to send it in an HTTP request
+        /// Serializes the given object into a JSON string then stores it in a 
+        /// StringContent object to send it in an HTTP request.
         /// </summary>
-        /// <param name="content">The content to serialize</param>
-        /// <returns>A StringContent containing the JSON serialized object</returns>
-        private static StringContent SerializeContent(object content)
+        /// <param name="content">The content to convert to HttpContent</param>
+        /// <returns>A StringContent (a subclass of HttpContent) representation of the object</returns>
+        private static StringContent ConvertObjectToJsonHttpContent(object content)
         {
             var serializer = new JavaScriptSerializer();
             var contentString = serializer.Serialize(content);
@@ -181,7 +246,6 @@ namespace Sendwithus
             stringContent.Headers.ContentType = new MediaTypeWithQualityHeaderValue("application/json");
             return stringContent;
         }
-
 
         /// <summary>
         /// Converts the given object into a query parameter string

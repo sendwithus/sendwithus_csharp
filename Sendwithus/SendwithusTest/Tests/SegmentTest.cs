@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Sendwithus;
 using System.Diagnostics;
-using System.Threading.Tasks;
 using System.Net;
 using Xunit;
 using Xunit.Abstractions;

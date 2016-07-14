@@ -68,6 +68,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\BatchApiRequest.cs" />
+    <Compile Include="API\Helpers\BatchApiResponse.cs" />
     <Compile Include="Exception\SendwithusException.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="API\Conversion.cs" />

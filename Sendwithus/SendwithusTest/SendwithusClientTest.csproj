@@ -75,6 +75,7 @@
   <ItemGroup>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="SendwithusClientTest.cs" />
+    <Compile Include="Tests\BatchApiRequestTest.cs" />
     <Compile Include="Tests\ConversionsTest.cs" />
     <Compile Include="Tests\CustomerTest.cs" />
     <Compile Include="Tests\DripCampaignTest.cs" />

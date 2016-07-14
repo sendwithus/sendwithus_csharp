@@ -265,12 +265,8 @@ namespace SendwithusTest
             // Make the API call
             Output.WriteLine(String.Format("PUT /templates/"));
             SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
-            var newTemplateVersion = new TemplateVersion();
-            newTemplateVersion.name = "New Template";
-            newTemplateVersion.subject = "This is a new template!";
-            newTemplateVersion.html = "<html><head></head><body><h1>NEW TEMPLATE</h1></body></html>";
-            newTemplateVersion.text = "some text";
-            var response = await Template.CreateTemplateAsync(newTemplateVersion);
+
+            var response = await BuildAndSendCreateTemplateRequestAsync();
 
             // Add the new template to the list of templates for deletion
             NewTemplateIds.Add(response.id);
@@ -413,6 +409,16 @@ namespace SendwithusTest
 
             // Replace the deleted template ID in case a new template is needed in other test functions
             await TestCreateTemplateAsync();
+        }
+
+        public static async Task<Template> BuildAndSendCreateTemplateRequestAsync()
+        {
+            var newTemplateVersion = new TemplateVersion();
+            newTemplateVersion.name = "New Template";
+            newTemplateVersion.subject = "This is a new template!";
+            newTemplateVersion.html = "<html><head></head><body><h1>NEW TEMPLATE</h1></body></html>";
+            newTemplateVersion.text = "some text";
+            return await Template.CreateTemplateAsync(newTemplateVersion);
         }
     }
 }

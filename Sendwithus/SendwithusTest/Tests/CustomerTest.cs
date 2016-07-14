@@ -15,7 +15,7 @@ namespace SendwithusTest
     public class CustomerTest
     {
         private const string DEFAULT_CUSTOMER_EMAIL_ADDRESS = "sendwithus.test@gmail.com";
-        private const string NEW_CUSTOMER_EMAIL_ADDRESS = "sendwithus.test+new@gmail.com";
+        public const string NEW_CUSTOMER_EMAIL_ADDRESS = "sendwithus.test+new@gmail.com";
         private const string INVALID_CUSTOMER_EMAIL_ADDRESS = "invalid_email_address";
         private const string DEFAULT_CUSTOMER_LOCALE = "de-DE";
         private const string DEFAULT_GROUP_ID = "grp_7zpRYpExEBPpd6dGvyAfcT";
@@ -82,15 +82,8 @@ namespace SendwithusTest
             Output.WriteLine("POST /customers");
             SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
-            // Build the new customer
-            var customer = new Customer(NEW_CUSTOMER_EMAIL_ADDRESS);
-            customer.data.Add("first_name", "Matt");
-            customer.data.Add("city", "San Francisco");
-            customer.locale = DEFAULT_CUSTOMER_LOCALE;
-            customer.groups.Add(DEFAULT_GROUP_ID);
-
-            // Make the API call
-            var response = await Customer.CreateOrUpdateCustomerAsync(customer);
+            // Build the new customer and send the create customer request
+            var response = await BuildAndSendCreateCustomerRequest();
 
             // Validate the response
             SendwithusClientTest.ValidateResponse(response, Output);
@@ -103,7 +96,7 @@ namespace SendwithusTest
         [Fact]
         public async Task TestDeleteCustomerAsync()
         {
-            Output.WriteLine(String.Format("DELETE /customers",NEW_CUSTOMER_EMAIL_ADDRESS));
+            Output.WriteLine(String.Format("DELETE /customers", NEW_CUSTOMER_EMAIL_ADDRESS));
             SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Make the API call
@@ -183,6 +176,23 @@ namespace SendwithusTest
 
             // Validate the response
             SendwithusClientTest.ValidateResponse(response, Output);
+        }
+
+        /// <summary>
+        /// Builds a new customer and sends the create customer API request
+        /// </summary>
+        /// <returns>The API response to the Create Customer call</returns>
+        public static async Task<GenericApiCallStatus> BuildAndSendCreateCustomerRequest()
+        {
+            // Build the customer
+            var customer = new Customer(NEW_CUSTOMER_EMAIL_ADDRESS);
+            customer.data.Add("first_name", "Matt");
+            customer.data.Add("city", "San Francisco");
+            customer.locale = DEFAULT_CUSTOMER_LOCALE;
+            customer.groups.Add(DEFAULT_GROUP_ID);
+
+            // Make the API call
+            return await Customer.CreateOrUpdateCustomerAsync(customer);
         }
     }
 }
