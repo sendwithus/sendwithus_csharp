@@ -6,5 +6,5 @@ install:
   - nuget install MSBuildTasks -Version 1.5.0.196 -OutputDirectory Sendwithus/packages
 script:
   - xbuild /p:Configuration=Debug Sendwithus/SendwithusClient.sln
-  - mono ./Sendwithus/testrunner/xunit.runners.1.9.2/tools/xunit.console.clr4.exe ./Sendwithus/SendwithusClientTest/bin/Debug/SendwithusClientTest.dll
+  - mono ./Sendwithus/testrunner/xunit.runners.1.9.2/tools/xunit.console.clr4.exe ./Sendwithus/SendwithusTest/bin/Debug/SendwithusClientTest.dll
   
