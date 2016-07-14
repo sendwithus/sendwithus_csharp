@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SendwithusClient", "SendwithusClient.csproj", "{E63B982D-D5E3-4F46-9096-E1BD8F72AFBA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SendwithusClientTest", "SendWithUsTest\SendwithusClientTest.csproj", "{4AFCDA1E-019F-4185-A232-B5FE6228F92F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SendwithusClientTest", "SendwithusTest\SendwithusClientTest.csproj", "{4AFCDA1E-019F-4185-A232-B5FE6228F92F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
