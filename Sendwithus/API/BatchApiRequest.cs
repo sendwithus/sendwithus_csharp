@@ -109,7 +109,7 @@ namespace Sendwithus
         /// <summary>
         /// Resets the maximum number of API requests that can be sent in one batch to the default amount
         /// </summary>
-        public static void ResetMaximumBatchRequestsToDefault()
+        public static void SetMaximumBatchRequestsToDefault()
         {
             _maxBatchRequests = DEFAULT_MAXIMUM_BATCH_REQUESTS;
         }

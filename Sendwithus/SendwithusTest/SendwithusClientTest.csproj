@@ -83,6 +83,7 @@
     <Compile Include="Tests\CustomerGroupTest.cs" />
     <Compile Include="Tests\RenderTest.cs" />
     <Compile Include="Tests\SegmentTest.cs" />
+    <Compile Include="Tests\SettingsTests\RetryTest.cs" />
     <Compile Include="Tests\SettingsTests\TimeoutTest.cs" />
     <Compile Include="Tests\SnippetTest.cs" />
     <Compile Include="Tests\TemplateTest.cs" />

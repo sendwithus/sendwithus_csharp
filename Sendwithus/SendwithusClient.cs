@@ -31,11 +31,13 @@ namespace Sendwithus
         public const string API_PORT = "443";
         public const string SWU_API_HEADER = "X-SWU-API-KEY";
         public const string SWU_CLIENT_HEADER = "X-SWU-API-CLIENT";
-        public const int DEFAULT_RETRY_COUNT = 3;
-        public const Int32 DEFAULT_TIMEOUT_MILLISECONDS = 10000; // TODO: check against other APIs to confirm default
+        public const int DEFAULT_RETRY_COUNT = 3; // Default to 3 retries for each API call
+        public const int DEFAULT_RETRY_INTERVAL_MILLISECONDS = 100; // Default retry interval of 100ms
+        public const Int32 DEFAULT_TIMEOUT_MILLISECONDS = 30000; // 30s
 
         public static string ApiKey { get; set; }
         public static int RetryCount { get; set; } = DEFAULT_RETRY_COUNT;
+        public static int RetryIntervalMilliseconds { get; set; } = DEFAULT_RETRY_INTERVAL_MILLISECONDS;
 
         private static TimeSpan _timeout = new TimeSpan(days: 0, hours: 0, minutes: 0, seconds: 0, milliseconds: DEFAULT_TIMEOUT_MILLISECONDS);
 

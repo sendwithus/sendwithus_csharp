@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 using Sendwithus;
-using System.Threading.Tasks;
 using Xunit.Abstractions;
 using System.Web.Script.Serialization;
 
@@ -17,7 +16,7 @@ namespace SendwithusTest
     public class TimeoutTest
     {
         private const string DEFAULT_TEMPLATE_ID = "tem_SxZKpxJSHPbYDWRSQnAQUR";
-        private const int FAILURE_TIMEOUT_MILLISECONDS = 1;
+        private const int FAILURE_TIMEOUT_MILLISECONDS = 1; // 1ms
 
         readonly ITestOutputHelper Output;
 
@@ -49,7 +48,7 @@ namespace SendwithusTest
         }
 
         /// <summary>
-        /// Makes sure that a basic HTTP GET request does timeout with a very short timeout setting (1ms)
+        /// Makes sure that a basic HTTP GET request time's out when using a very short timeout setting (1ms)
         /// </summary>
         /// <returns>The associated Task</returns>
         [Fact]
@@ -63,10 +62,9 @@ namespace SendwithusTest
             {
                 var response = await Template.GetTemplateAsync(DEFAULT_TEMPLATE_ID);
             }
-            catch (TaskCanceledException exception)
+            catch (Exception ex)
             {
-                Output.WriteLine(String.Format("API call failed as intended with timeout set to: {0}ms.  Message: {1}", FAILURE_TIMEOUT_MILLISECONDS, exception.Message));
-                Assert.True(true);
+                SendwithusClientTest.ValidateAggregateException<TaskCanceledException>(SendwithusClient.DEFAULT_RETRY_COUNT, ex, Output);
             }
             finally
             {

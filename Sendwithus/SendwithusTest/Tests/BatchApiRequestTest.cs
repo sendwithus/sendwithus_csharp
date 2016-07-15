@@ -219,6 +219,9 @@ namespace SendwithusTest
             ValidateIndividualBatchedApiCallResponse<GenericApiCallStatus>(batchResponses[9]);
             ValidateIndividualBatchedApiCallResponse<CustomerGroupResponseMultipleGropus>(batchResponses[10]);
             ValidateIndividualBatchedApiCallResponse<GenericApiCallStatus>(batchResponses[11]);
+
+            // Return the max batch request limit to its default value
+            BatchApiRequest.SetMaximumBatchRequestsToDefault();
         }
 
         /// <summary>

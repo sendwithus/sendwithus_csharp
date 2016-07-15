@@ -9,7 +9,8 @@ using System.Web.Script.Serialization;
 using System.ServiceModel.Dispatcher;
 using System.Globalization;
 using System.Collections.ObjectModel;
-
+using System.Threading;
+using System.Net;
 
 namespace Sendwithus
 {
@@ -69,7 +70,7 @@ namespace Sendwithus
                 // Otherwise, send the GET request
                 else
                 {
-                    var response = await client.GetAsync(uri);
+                    var response = await RunWithRetries(() => client.GetAsync(uri));
 
                     // Convert the response to a string, validate it, and return it
                     return await ExtractAndValidateResponseContentAsync(response);
@@ -115,7 +116,7 @@ namespace Sendwithus
                 // Otherwise, send the PUT request
                 else
                 {
-                    var response = await client.PutAsync(uri, httpContent);
+                    var response = await RunWithRetries(() => client.PutAsync(uri, httpContent));
 
                     // Convert the response to a string, validate it, and return it
                     return await ExtractAndValidateResponseContentAsync(response);
@@ -149,7 +150,7 @@ namespace Sendwithus
                 // Otherwise, send the POST request
                 else
                 {
-                    var response = await client.PostAsync(uri, httpContent);
+                    var response = await RunWithRetries(() => client.PostAsync(uri, httpContent));
 
                     // Convert the response to a string, validate it, and return it
                     return await ExtractAndValidateResponseContentAsync(response);
@@ -193,7 +194,7 @@ namespace Sendwithus
                 // Otherwise, send the DELETE request
                 else
                 {
-                    var response = await client.DeleteAsync(uri);
+                    var response = await RunWithRetries(() => client.DeleteAsync(uri));
 
                     // Convert the response to a string, validate it, and return it
                     return await ExtractAndValidateResponseContentAsync(response);
@@ -290,6 +291,74 @@ namespace Sendwithus
                 }
             }
             return queryString.ToString();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="action"></param>
+        /// <param name="retryInterval"></param>
+        /// <param name="retryCount"></param>
+        /// <returns></returns>
+        private static async Task<T> RunWithRetries<T>(
+            Func<Task<T>> apiCall)
+        {
+            var exceptions = new List<Exception>();
+            var retryCount = SendwithusClient.RetryCount;
+            var retryInterval = SendwithusClient.RetryIntervalMilliseconds;
+
+            for (int retry = 0; retry < retryCount; retry++)
+            {
+                try
+                {
+                    if (retry > 0)
+                        Thread.Sleep(retryInterval);
+                    return await apiCall();
+                }
+                catch (Exception ex)
+                {
+                    // Store the exception so that we can return all the exceptions if all the retries fail
+                    exceptions.Add(ex);
+
+                    // Check if the exception is one that warrants a retry (ex. a server error)
+                    // If it isn't, then re-throw the exception(s)
+                    if (ExceptionIsRetriable(ex) == false)
+                    {
+                        throw new AggregateException(exceptions);
+                    }
+                }
+            }
+            throw new AggregateException(exceptions);
+        }
+
+        /// <summary>
+        /// Checks if the exception might be transient and warrants a retry of the API call
+        /// </summary>
+        /// <param name="ex">The exception that was thrown by the most recent API call attempt</param>
+        /// <returns>True if the exception might be transient and warrants a retry, false otherwise</returns>
+        private static bool ExceptionIsRetriable(Exception ex)
+        {
+            // Check if the exception was a caused by a potentially transient server error
+            var sendwithusException = ex as SendwithusException;
+            if (sendwithusException != null)
+            {
+                switch(sendwithusException.StatusCode)
+                {
+                    case HttpStatusCode.BadGateway:
+                    case HttpStatusCode.ServiceUnavailable:
+                    case HttpStatusCode.GatewayTimeout:
+                        return true;
+                }
+            }
+            // Check if the exception was caused by the API call timeout
+            else if (ex is TaskCanceledException)
+            {
+                return true;
+            }
+            
+            // Don't retry the API call if it failed for any other reason
+            return false;
         }
     }
 }

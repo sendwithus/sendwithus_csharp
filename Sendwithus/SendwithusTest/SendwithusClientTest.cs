@@ -67,5 +67,61 @@ namespace SendwithusTest
             return new string(Enumerable.Repeat(chars, length)
               .Select(s => s[random.Next(s.Length)]).ToArray());
         }
+
+        /// <summary>
+        /// Validates an aggregated exception.
+        /// Checks the number of inner exceptions included in it, and the type of each of those exceptions.
+        /// </summary>
+        /// <typeparam name="T">The expected type of exception</typeparam>
+        /// <param name="expectedRetryCount">The expected number of retries (there should be one exception per retry)</param>
+        /// <param name="ex">The exception object to validate</param>
+        public static void ValidateAggregateException<T>(int expectedRetryCount, Exception ex, ITestOutputHelper output)
+        {
+            output.WriteLine(String.Format("Aggregate exception message: {0}", ex.Message));
+
+            // Make sure the exception is actually an AggregateException
+            var aggregateException = ex as AggregateException;
+            Assert.NotNull(aggregateException);
+
+            // Make sure the number of exceptions matches the expected number of API call retries
+            Assert.Equal(expectedRetryCount, aggregateException.InnerExceptions.Count);
+
+            // Make sure that all of the exceptions are of the expected type
+            foreach (Exception individualException in aggregateException.InnerExceptions)
+            {
+                output.WriteLine(String.Format("Exception: {0}", individualException.Message));
+                Assert.True(individualException is T);
+            }
+        }
+
+        /// <summary>
+        /// Validates whether or not the API call took the expected amount of time to complete.
+        /// Assumes the API call failed on a timeout and used the full retry count.
+        /// </summary>
+        /// <param name="measuredExecutionTimeMilliseconds">The measured execution time of the API call</param>
+        public static void ValidateApiCallExecutionTime(double measuredExecutionTimeMilliseconds, ITestOutputHelper output)
+        {
+            const int DURATION_WINDOW_SIZE_MILLISECONDS = 500; // 500ms A large window to handle variability in run time
+
+            // Print the relevant parameters
+            var retryCount = SendwithusClient.RetryCount;
+            var timeoutMilliseconds = SendwithusClient.GetTimeout().TotalMilliseconds;
+            var retryIntervalMilliseconds = SendwithusClient.RetryIntervalMilliseconds;
+            output.WriteLine(String.Format("Retry Count: {0}", retryCount));
+            output.WriteLine(String.Format("Timeout: {0}ms", timeoutMilliseconds));
+            output.WriteLine(String.Format("Retry Interval: {0}ms", retryIntervalMilliseconds));
+
+            // Calculate the expected execution time
+            var lowerExecutionTimeLimit = retryCount * timeoutMilliseconds +
+                (retryCount - 1) * retryIntervalMilliseconds;
+            var upperExecutionTimeLimit = lowerExecutionTimeLimit + DURATION_WINDOW_SIZE_MILLISECONDS;
+
+            output.WriteLine(String.Format("Measured Execution Time: {0}ms", measuredExecutionTimeMilliseconds.ToString()));
+            output.WriteLine(String.Format("Minimum Expected Execution Time: {0}ms", lowerExecutionTimeLimit.ToString()));
+            output.WriteLine(String.Format("Maximum Expected Execution Time: {0}ms", upperExecutionTimeLimit.ToString()));
+
+            // Check if the measured execution time matches the expected execution time
+            Assert.InRange<double>(measuredExecutionTimeMilliseconds, lowerExecutionTimeLimit, upperExecutionTimeLimit);
+        }
     }
 }
