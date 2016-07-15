@@ -17,7 +17,7 @@ namespace Sendwithus
         public string name { get; set; }
         public bool enabled { get; set; }
         public string trigger_email_id { get; set; }
-        public List<DripCampaignStep> drip_steps { get; }
+        public Collection<DripCampaignStep> drip_steps { get; set; }
 
         /// <summary>
         /// Default constructor
@@ -29,7 +29,7 @@ namespace Sendwithus
             name = String.Empty;
             enabled = false;
             trigger_email_id = String.Empty;
-            drip_steps = new List<DripCampaignStep>();
+            drip_steps = new Collection<DripCampaignStep>();
         }
     }
 }
