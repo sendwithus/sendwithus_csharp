@@ -2,9 +2,9 @@ language: csharp
 solution: Sendwithus/SendwithusClient.sln
 install:
   - nuget restore Sendwithus/SendwithusClient.sln
-  - nuget install xunit.runners -Version 2.1.0 -OutputDirectory Sendwithus/testrunner
+  - nuget install xunit.runner.console -Version 2.1.0 -OutputDirectory Sendwithus/testrunner
   - nuget install MSBuildTasks -Version 1.5.0.196 -OutputDirectory Sendwithus/packages
 script:
   - xbuild /p:Configuration=Debug Sendwithus/SendwithusClient.sln
-  - mono ./Sendwithus/testrunner/xunit.runners.2.1.0/tools/xunit.console.exe ./Sendwithus/SendwithusTest/bin/Debug/SendwithusClientTest.dll
+  - mono ./Sendwithus/testrunner/xunit.runner.console.2.1.0/tools/xunit.console.exe ./Sendwithus/SendwithusTest/bin/Debug/SendwithusClientTest.dll
   
