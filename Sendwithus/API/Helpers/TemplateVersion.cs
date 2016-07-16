@@ -23,19 +23,31 @@ namespace Sendwithus
         public bool published { get; set; }
 
         /// <summary>
-        /// Default constuctor for a template version
+        /// Constuctor for a template version.
+        /// Name and subject are mandatory parameters for a subject version
         /// </summary>
-        public TemplateVersion()
+        /// <param name="name">The name of the template</param>
+        /// <param name="subject">The subject line of the template</param>
+        public TemplateVersion(string name, string subject)
         {
-            name = String.Empty;
+            this.name = name;
+            this.subject = subject;
             id = String.Empty;
             created = String.Empty;
             modified = String.Empty;
             html = String.Empty;
             text = String.Empty;
-            subject = String.Empty;
+            
             locale = String.Empty;
             published = false;
         }
+
+        /// <summary>
+        /// Default constuctor for a template version.
+        /// Name and subject are mandatory parameters for a subject version
+        /// </summary>
+        /// <param name="name">The name of the template</param>
+        /// <param name="subject">The subject line of the template</param>
+        public TemplateVersion() : this(String.Empty, String.Empty) { }
     }
 }

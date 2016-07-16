@@ -45,10 +45,10 @@ namespace SendwithusTest
             Trace.WriteLine("GET /templates");
             try
             { 
-                var response = await Template.GetTemplatesAsync();
+                var templates = await Template.GetTemplatesAsync();
 
                 // Validate the response
-                SendwithusClientTest.ValidateResponse(response);
+                SendwithusClientTest.ValidateResponse(templates);
             }
             catch (AggregateException exception)
             {
@@ -73,7 +73,7 @@ namespace SendwithusTest
             // Make the API call
             try
             {
-                var response = await Template.GetTemplatesAsync();
+                var templates = await Template.GetTemplatesAsync();
             }
             catch (AggregateException exception)
             {
@@ -98,10 +98,10 @@ namespace SendwithusTest
             Trace.WriteLine(String.Format("GET /templates/{0}", DEFAULT_TEMPLATE_ID));
             try
             { 
-                var response = await Template.GetTemplateAsync(DEFAULT_TEMPLATE_ID);
+                var template = await Template.GetTemplateAsync(DEFAULT_TEMPLATE_ID);
 
                 // Validate the response
-                SendwithusClientTest.ValidateResponse(response);
+                SendwithusClientTest.ValidateResponse(template);
             }
             catch (AggregateException exception)
             {
@@ -120,7 +120,7 @@ namespace SendwithusTest
             Trace.WriteLine(String.Format("GET /templates/{0} with invalid ID", INVALID_TEMPLATE_ID));
             try
             {
-                var response = await Template.GetTemplateAsync(INVALID_TEMPLATE_ID);
+                var template = await Template.GetTemplateAsync(INVALID_TEMPLATE_ID);
                 Assert.Fail("Failed to throw exception");
             }
             catch (AggregateException exception)
@@ -141,10 +141,10 @@ namespace SendwithusTest
             Trace.WriteLine(String.Format("GET /templates/{0}/locales/{1}", DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE));
             try
             { 
-                var response = await Template.GetTemplateAsync(DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE);
+                var template = await Template.GetTemplateAsync(DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE);
 
                 // Validate the response
-                SendwithusClientTest.ValidateResponse(response);
+                SendwithusClientTest.ValidateResponse(template);
             }
             catch (AggregateException exception)
             {
@@ -163,7 +163,7 @@ namespace SendwithusTest
             Trace.WriteLine(String.Format("GET /templates/{0}/locales/{1} with invalid locale", DEFAULT_TEMPLATE_ID, INVALID_LOCALE));
             try
             {
-                var response = await Template.GetTemplateAsync(DEFAULT_TEMPLATE_ID, INVALID_LOCALE);
+                var template = await Template.GetTemplateAsync(DEFAULT_TEMPLATE_ID, INVALID_LOCALE);
                 Assert.Fail("Failed to throw exception");
             }
             catch (AggregateException exception)
@@ -184,10 +184,10 @@ namespace SendwithusTest
             Trace.WriteLine(String.Format("GET /templates/{0}/versions", DEFAULT_TEMPLATE_ID));
             try
             { 
-                var response = await Template.GetTemplateVersionsAsync(DEFAULT_TEMPLATE_ID);
+                var template = await Template.GetTemplateVersionsAsync(DEFAULT_TEMPLATE_ID);
 
                 // Validate the response
-                SendwithusClientTest.ValidateResponse(response);
+                SendwithusClientTest.ValidateResponse(template);
             }
             catch (AggregateException exception)
             {
@@ -206,10 +206,10 @@ namespace SendwithusTest
             Trace.WriteLine(String.Format("GET /templates/{0}/locales/{1}/versions", DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE));
             try
             { 
-                var response = await Template.GetTemplateVersionsAsync(DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE);
+                var templateVersions = await Template.GetTemplateVersionsAsync(DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE);
 
                 // Validate the response
-                SendwithusClientTest.ValidateResponse(response);
+                SendwithusClientTest.ValidateResponse(templateVersions);
             }
             catch (AggregateException exception)
             {
@@ -228,10 +228,10 @@ namespace SendwithusTest
             Trace.WriteLine(String.Format("GET /templates/{0}/versions/{1}", DEFAULT_TEMPLATE_ID, DEFAULT_VERSION_ID));
             try
             {
-                var response = await Template.GetTemplateVersionAsync(DEFAULT_TEMPLATE_ID, DEFAULT_VERSION_ID);
+                var templateVersion = await Template.GetTemplateVersionAsync(DEFAULT_TEMPLATE_ID, DEFAULT_VERSION_ID);
 
                 // Validate the response
-                SendwithusClientTest.ValidateResponse(response);
+                SendwithusClientTest.ValidateResponse(templateVersion);
             }
             catch (AggregateException exception)
             {
@@ -250,10 +250,10 @@ namespace SendwithusTest
             Trace.WriteLine(String.Format("GET /templates/{0}/locales/{1}/versions/{2}", DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE, DEFAULT_VERSION_ID));
             try
             { 
-                var response = await Template.GetTemplateVersionAsync(DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE, DEFAULT_VERSION_ID);
+                var templateVersion = await Template.GetTemplateVersionAsync(DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE, DEFAULT_VERSION_ID);
 
                 // Validate the response
-                SendwithusClientTest.ValidateResponse(response);
+                SendwithusClientTest.ValidateResponse(templateVersion);
             }
             catch (AggregateException exception)
             {
@@ -266,21 +266,21 @@ namespace SendwithusTest
         /// </summary>
         /// <returns>The asynchronous task</returns>
         [TestMethod]
-        public async Task TestUpdateTemplateVersionByIdAsync()
+        public async Task TestUpdateTemplateVersionByIdWithAllParametersAsync()
         {
             // Make the API call
             Trace.WriteLine(String.Format("PUT /templates/{0}/versions/{1}", DEFAULT_TEMPLATE_ID, DEFAULT_VERSION_ID));
-            var updatedTemplateVersion = new TemplateVersion();
-            updatedTemplateVersion.name = "New Version";
-            updatedTemplateVersion.subject = "edited!";
-            updatedTemplateVersion.html = "<html><head></head><body><h1>UPDATE</h1></body></html>";
-            updatedTemplateVersion.text = "sometext";
+            var templateVersionName = "New Template Version";
+            var templateSubject = "New Version!";
+            var updatedTemplateVersion = new TemplateVersion(templateVersionName, templateSubject);
+            updatedTemplateVersion.html = "<html><head></head><body><h1>NEW TEMPLATE VERSION</h1></body></html>";
+            updatedTemplateVersion.text = "some text";
             try
             { 
-                var response = await Template.UpdateTemplateVersionAsync(DEFAULT_TEMPLATE_ID, DEFAULT_VERSION_ID, updatedTemplateVersion);
+                var templateVersion = await Template.UpdateTemplateVersionAsync(DEFAULT_TEMPLATE_ID, DEFAULT_VERSION_ID, updatedTemplateVersion);
 
                 // Validate the response
-                SendwithusClientTest.ValidateResponse(response);
+                SendwithusClientTest.ValidateResponse(templateVersion);
             }
             catch (AggregateException exception)
             {
@@ -289,25 +289,97 @@ namespace SendwithusTest
         }
 
         /// <summary>
-        /// Tests the API call PUT /templates/(:template_id)/locales/(:locale)/versions/(:version_id)
+        /// Tests the API call PUT /templates/(:template_id)/versions/(:version_id)
         /// </summary>
         /// <returns>The asynchronous task</returns>
         [TestMethod]
-        public async Task TestUpdateTemplateVersionByIdAndLocaleAsync()
+        public async Task TestUpdateTemplateVersionByIdWithMinimumParametersAsync()
+        {
+            // Make the API call
+            Trace.WriteLine(String.Format("PUT /templates/{0}/versions/{1}", DEFAULT_TEMPLATE_ID, DEFAULT_VERSION_ID));
+            var templateVersionName = "New Template Version";
+            var templateSubject = "New Version!";
+            var updatedTemplateVersion = new TemplateVersion(templateVersionName, templateSubject);
+            try
+            {
+                var templateVersion = await Template.UpdateTemplateVersionAsync(DEFAULT_TEMPLATE_ID, DEFAULT_VERSION_ID, updatedTemplateVersion);
+
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(templateVersion);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Tests the API call PUT /templates/(:template_id)/locales/(:locale)/versions/(:version_id) with only mandatory parameters
+        /// </summary>
+        /// <returns>The asynchronous task</returns>
+        [TestMethod]
+        public async Task TestUpdateTemplateVersionByIdAndLocaleWithMinimumParametersAsync()
         {
             // Make the API call
             Trace.WriteLine(String.Format("PUT /templates/{0}/locales/{1}/versions/{2}", DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE, DEFAULT_VERSION_ID));
-            var updatedTemplateVersion = new TemplateVersion();
-            updatedTemplateVersion.name = "New Version";
-            updatedTemplateVersion.subject = "edited!";
+            var templateVersionName = "New Version";
+            var templateSubject = "edited!";
+            var updatedTemplateVersion = new TemplateVersion(templateVersionName, templateSubject);
+            try
+            {
+                var templateVersion = await Template.UpdateTemplateVersionAsync(DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE, DEFAULT_VERSION_ID, updatedTemplateVersion);
+
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(templateVersion);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Tests the API call PUT /templates/(:template_id)/locales/(:locale)/versions/(:version_id) with all parameters
+        /// </summary>
+        /// <returns>The asynchronous task</returns>
+        [TestMethod]
+        public async Task TestUpdateTemplateVersionByIdAndLocaleWithAllParametersAsync()
+        {
+            // Make the API call
+            Trace.WriteLine(String.Format("PUT /templates/{0}/locales/{1}/versions/{2}", DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE, DEFAULT_VERSION_ID));
+            var templateVersionName = "New Version";
+            var templateSubject = "edited!";
+            var updatedTemplateVersion = new TemplateVersion(templateVersionName, templateSubject);
             updatedTemplateVersion.html = "<html><head></head><body><h1>UPDATE</h1></body></html>";
             updatedTemplateVersion.text = "sometext";
             try
             { 
-                var response = await Template.UpdateTemplateVersionAsync(DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE, DEFAULT_VERSION_ID, updatedTemplateVersion);
+                var templateVersion = await Template.UpdateTemplateVersionAsync(DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE, DEFAULT_VERSION_ID, updatedTemplateVersion);
 
                 // Validate the response
-                SendwithusClientTest.ValidateResponse(response);
+                SendwithusClientTest.ValidateResponse(templateVersion);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Tests the API call POST /templates with the minimum parameters
+        /// </summary>
+        /// <returns>The asynchronous task</returns>
+        [TestMethod]
+        public async Task TestCreateTemplateWithMinimumParametersAsync()
+        {
+            // Make the API call
+            Trace.WriteLine(String.Format("PUT /templates/"));
+            try
+            {
+                var template = await BuildAndSendCreateTemplateRequestWithMinimumParametersAsync();
+
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(template);
             }
             catch (AggregateException exception)
             {
@@ -320,16 +392,16 @@ namespace SendwithusTest
         /// </summary>
         /// <returns>The asynchronous task</returns>
         [TestMethod]
-        public async Task TestCreateTemplateAsync()
+        public async Task TestCreateTemplateWithAllParametersAsync()
         {
             // Make the API call
             Trace.WriteLine(String.Format("PUT /templates/"));
             try
             { 
-                var response = await BuildAndSendCreateTemplateRequestAsync();
+                var template = await BuildAndSendCreateTemplateRequestWithAllParametersAsync();
 
                 // Validate the response
-                SendwithusClientTest.ValidateResponse(response);
+                SendwithusClientTest.ValidateResponse(template);
             }
             catch (AggregateException exception)
             {
@@ -338,29 +410,29 @@ namespace SendwithusTest
         }
 
         /// <summary>
-        /// Tests the API call POST /templates/(:template_id)/locales
+        /// Tests the API call POST /templates/(:template_id)/locales with the minimum parameters
         /// </summary>
         /// <returns>The asynchronous task</returns>
         [TestMethod]
-        public async Task TestAddLocaleToTemplateAsync()
+        public async Task TestAddLocaleToTemplateWithMinimumParmetersAsync()
         {
             // Create a new template to add a locale to
             // Otherwise, if an existing template were used, this test might fail because the new locale could already exist on the template
-            var newTemplate = await BuildAndSendCreateTemplateRequestAsync();
+            var newTemplate = await BuildAndSendCreateTemplateRequestWithAllParametersAsync();
             var templateId = newTemplate.id;
 
             // Make the API call
             Trace.WriteLine(String.Format("POST /templates/{0}/locales", templateId));
-            var templateVersion = new TemplateVersion();
-            templateVersion.name = "Published French Version";
-            templateVersion.subject = "Ce est un nouveau modèle!";
-            templateVersion.html = "<html><head></head><body><h1>Nouveau modèle!</h1></body></html>";
-            templateVersion.text = "un texte";
-            try { 
-                var response = await Template.AddLocaleToTemplate(templateId, ALTERNATE_LOCALE, templateVersion);
+            var templateVersionName = "Published French Version";
+            var templateSubject = "Ce est un nouveau modèle!";
+            var updatedTemplateVersion = new TemplateVersion(templateVersionName, templateSubject);
+
+            try
+            {
+                var template = await Template.AddLocaleToTemplate(templateId, ALTERNATE_LOCALE, updatedTemplateVersion);
 
                 // Validate the response
-                SendwithusClientTest.ValidateResponse(response);
+                SendwithusClientTest.ValidateResponse(template);
             }
             catch (AggregateException exception)
             {
@@ -369,25 +441,56 @@ namespace SendwithusTest
         }
 
         /// <summary>
-        /// Tests the API call POST /templates/(:template_id)/versions
+        /// Tests the API call POST /templates/(:template_id)/locales with all parameters
         /// </summary>
         /// <returns>The asynchronous task</returns>
         [TestMethod]
-        public async Task TestCreateTemplateVersionAsync()
+        public async Task TestAddLocaleToTemplateWithAllParmetersAsync()
+        {
+            // Create a new template to add a locale to
+            // Otherwise, if an existing template were used, this test might fail because the new locale could already exist on the template
+            var newTemplate = await BuildAndSendCreateTemplateRequestWithAllParametersAsync();
+            var templateId = newTemplate.id;
+
+            // Make the API call
+            Trace.WriteLine(String.Format("POST /templates/{0}/locales", templateId));
+            var templateVersionName = "Published French Version";
+            var templateSubject = "Ce est un nouveau modèle!";
+            var updatedTemplateVersion = new TemplateVersion(templateVersionName, templateSubject);
+            updatedTemplateVersion.html = "<html><head></head><body><h1>Nouveau modèle!</h1></body></html>";
+            updatedTemplateVersion.text = "un texte";
+
+            try
+            { 
+                var template = await Template.AddLocaleToTemplate(templateId, ALTERNATE_LOCALE, updatedTemplateVersion);
+
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(template);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Tests the API call POST /templates/(:template_id)/versions with minimum parameters
+        /// </summary>
+        /// <returns>The asynchronous task</returns>
+        [TestMethod]
+        public async Task TestCreateTemplateVersionWithMinimumParametersAsync()
         {
             // Make the API call
             Trace.WriteLine(String.Format("POST /templates/{0}/versions", DEFAULT_TEMPLATE_ID));
-            var templateVersion = new TemplateVersion();
-            templateVersion.name = "New Template Version";
-            templateVersion.subject = "New Version!";
-            templateVersion.html = "<html><head></head><body><h1>NEW TEMPLATE VERSION</h1></body></html>";
-            templateVersion.text = "some text";
+            var templateVersionName = "New Template Version";
+            var templateSubject = "New Version!";
+            var updatedTemplateVersion = new TemplateVersion(templateVersionName, templateSubject);
             try
             {
-                var response = await Template.CreateTemplateVersion(DEFAULT_TEMPLATE_ID, templateVersion);
+                var templateVersion = await Template.CreateTemplateVersion(DEFAULT_TEMPLATE_ID, updatedTemplateVersion);
 
                 // Validate the response
-                SendwithusClientTest.ValidateResponse(response);
+                SendwithusClientTest.ValidateResponse(templateVersion);
             }
             catch (AggregateException exception)
             {
@@ -396,25 +499,77 @@ namespace SendwithusTest
         }
 
         /// <summary>
-        /// Tests the API call POST /templates/(:template_id)/locales/(:locale)/versions
+        /// Tests the API call POST /templates/(:template_id)/versions with all parameters
         /// </summary>
         /// <returns>The asynchronous task</returns>
         [TestMethod]
-        public async Task TestCreateTemplateVersionWithLocaleAsync()
+        public async Task TestCreateTemplateVersionWithAllParametersAsync()
+        {
+            // Make the API call
+            Trace.WriteLine(String.Format("POST /templates/{0}/versions", DEFAULT_TEMPLATE_ID));
+            var templateVersionName = "New Template Version";
+            var templateSubject = "New Version!";
+            var updatedTemplateVersion = new TemplateVersion(templateVersionName, templateSubject);
+            updatedTemplateVersion.html = "<html><head></head><body><h1>NEW TEMPLATE VERSION</h1></body></html>";
+            updatedTemplateVersion.text = "some text";
+            try
+            {
+                var templateVersion = await Template.CreateTemplateVersion(DEFAULT_TEMPLATE_ID, updatedTemplateVersion);
+
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(templateVersion);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Tests the API call POST /templates/(:template_id)/locales/(:locale)/versions with the minimum parameters
+        /// </summary>
+        /// <returns>The asynchronous task</returns>
+        [TestMethod]
+        public async Task TestCreateTemplateVersionWithLocaleWithMinimumParametersAsync()
         {
             // Make the API call
             Trace.WriteLine(String.Format("POST /templates/{0}/locales/{1}/versions", DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE));
-            var templateVersion = new TemplateVersion();
-            templateVersion.name = "New Template Version";
-            templateVersion.subject = "New Version!";
-            templateVersion.html = "<html><head></head><body><h1>NEW TEMPLATE VERSION</h1></body></html>";
-            templateVersion.text = "some text";
+            var templateVersionName = "New Template Version";
+            var templateSubject = "New Version!";
+            var updatedTemplateVersion = new TemplateVersion(templateVersionName, templateSubject);
             try
-            { 
-                var response = await Template.CreateTemplateVersion(DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE, templateVersion);
+            {
+                var templateVersion = await Template.CreateTemplateVersion(DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE, updatedTemplateVersion);
 
                 // Validate the response
-                SendwithusClientTest.ValidateResponse(response);
+                SendwithusClientTest.ValidateResponse(templateVersion);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Tests the API call POST /templates/(:template_id)/locales/(:locale)/versions with all parameters
+        /// </summary>
+        /// <returns>The asynchronous task</returns>
+        [TestMethod]
+        public async Task TestCreateTemplateVersionWithLocaleWithAllParametersAsync()
+        {
+            // Make the API call
+            Trace.WriteLine(String.Format("POST /templates/{0}/locales/{1}/versions", DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE));
+            var templateVersionName = "New Template Version";
+            var templateSubject = "New Version!";
+            var updatedTemplateVersion = new TemplateVersion(templateVersionName, templateSubject);
+            updatedTemplateVersion.html = "<html><head></head><body><h1>NEW TEMPLATE VERSION</h1></body></html>";
+            updatedTemplateVersion.text = "some text";
+            try
+            { 
+                var templateVersion = await Template.CreateTemplateVersion(DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE, updatedTemplateVersion);
+
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(templateVersion);
             }
             catch (AggregateException exception)
             {
@@ -431,17 +586,17 @@ namespace SendwithusTest
         {
             // Create a new template to use for deletion
             // Otherwise, if an existing template were used, this test might fail because the new locale could already exist on the template
-            var newTemplate = await BuildAndSendCreateTemplateRequestAsync();
+            var newTemplate = await BuildAndSendCreateTemplateRequestWithAllParametersAsync();
             var templateId = newTemplate.id;
 
             // Make the API call
             Trace.WriteLine(String.Format("DELETE /templates/{0}", templateId));
             try
             { 
-                var response = await Template.DeleteTemplate(templateId);
+                var genericApiCallStatus = await Template.DeleteTemplate(templateId);
 
                 // Validate the response
-                SendwithusClientTest.ValidateResponse(response);
+                SendwithusClientTest.ValidateResponse(genericApiCallStatus);
             }
             catch (AggregateException exception)
             {
@@ -458,7 +613,7 @@ namespace SendwithusTest
         {
             // Create a new template to use for deletion
             // Otherwise, if an existing template were used, this test might fail because the new locale could already exist on the template
-            var newTemplate = await BuildAndSendCreateTemplateRequestAsync();
+            var newTemplate = await BuildAndSendCreateTemplateRequestWithAllParametersAsync();
             var templateId = newTemplate.id;
 
             // Make the API call
@@ -475,14 +630,31 @@ namespace SendwithusTest
             }
         }
 
-        public static async Task<Template> BuildAndSendCreateTemplateRequestAsync()
+        /// <summary>
+        /// Builds a new template with all parameters and sends the Create Template request
+        /// </summary>
+        /// <returns>The response to the Create Template API request</returns>
+        public static async Task<Template> BuildAndSendCreateTemplateRequestWithAllParametersAsync()
         {
-            var newTemplateVersion = new TemplateVersion();
-            newTemplateVersion.name = "New Template";
-            newTemplateVersion.subject = "This is a new template!";
-            newTemplateVersion.html = "<html><head></head><body><h1>NEW TEMPLATE</h1></body></html>";
-            newTemplateVersion.text = "some text";
-            return await Template.CreateTemplateAsync(newTemplateVersion);
+            var templateVersionName = "New Template Version";
+            var templateSubject = "New Version!";
+            var updatedTemplateVersion = new TemplateVersion(templateVersionName, templateSubject);
+            updatedTemplateVersion.html = "<html><head></head><body><h1>NEW TEMPLATE VERSION</h1></body></html>";
+            updatedTemplateVersion.text = "some text";
+            updatedTemplateVersion.locale = DEFAULT_LOCALE;
+            return await Template.CreateTemplateAsync(updatedTemplateVersion);
+        }
+
+        /// <summary>
+        /// Builds a new template with the minimum parameters and sends the Create Template request
+        /// </summary>
+        /// <returns>The response to the Create Template API request</returns>
+        public static async Task<Template> BuildAndSendCreateTemplateRequestWithMinimumParametersAsync()
+        {
+            var templateVersionName = "New Template Version";
+            var templateSubject = "New Version!";
+            var updatedTemplateVersion = new TemplateVersion(templateVersionName, templateSubject);
+            return await Template.CreateTemplateAsync(updatedTemplateVersion);
         }
     }
 }

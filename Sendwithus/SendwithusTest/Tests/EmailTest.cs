@@ -17,7 +17,7 @@ namespace SendwithusTest
     [TestClass]
     public class EmailTest
     {
-        private const string ESP_ACCOUNT = "esp_EsgkbqQdDg7F3ncbz9EHW7";
+        private const string DEFAULT_ESP_ACCOUNT = "esp_EsgkbqQdDg7F3ncbz9EHW7";
         private const string DEFAULT_TEMPLATE_ID = "tem_yn2viZ8Gm2uaydMK9pgR2B";
         private const string INVALID_TEMPLATE_ID = "invalid_template_id";
         private const string DEFAULT_LOCALE = "en-US";
@@ -65,10 +65,10 @@ namespace SendwithusTest
             var email = BuildBarebonesEmail();
             try
             { 
-                var response = await email.Send();
+                var emailResponse = await email.Send();
 
                 // Validate the response
-                SendwithusClientTest.ValidateResponse(response);
+                SendwithusClientTest.ValidateResponse(emailResponse);
             }
             catch (AggregateException exception)
             {
@@ -139,14 +139,8 @@ namespace SendwithusTest
             link.Add("text", "sendwithus!");
             templateData.Add("link", link);
 
-            // Construct the sender and recipients
+            // Construct the recipient
             var recipient = new EmailRecipient(DEFAULT_RECIPIENT_EMAIL_ADDRESS);
-            var cc = new Collection<EmailRecipient>();
-            cc.Add(new EmailRecipient(DEFAULT_CC_EMAIL_ADDRESS_1));
-            cc.Add(new EmailRecipient(DEFAULT_CC_EMAIL_ADDRESS_2));
-            var bcc = new Collection<EmailRecipient>();
-            bcc.Add(new EmailRecipient(DEFAULT_BCC_EMAIL_ADDRESS_1));
-            bcc.Add(new EmailRecipient(DEFAULT_BCC_EMAIL_ADDRESS_2));
 
             // Construct and return the email
             return new Email(DEFAULT_TEMPLATE_ID, templateData, recipient);
@@ -176,6 +170,8 @@ namespace SendwithusTest
             email.files.Add(new EmailFileData(DEFAULT_FILE_NAME_1, DEFAULT_FILE_DATA));
             email.files.Add(new EmailFileData(DEFAULT_FILE_NAME_2, DEFAULT_FILE_DATA));
             email.version_name = DEFAULT_VERSION_NAME;
+            email.locale = DEFAULT_LOCALE;
+            email.esp_account = DEFAULT_ESP_ACCOUNT;
 
             // Make the API call
             return await email.Send();

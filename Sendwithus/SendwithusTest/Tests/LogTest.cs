@@ -44,10 +44,10 @@ namespace SendwithusTest
             // Make the API call
             try
             { 
-                var response = await Log.GetLogsAsync();
+                var logs = await Log.GetLogsAsync();
 
                 // Validate the response
-                SendwithusClientTest.ValidateResponse(response);
+                SendwithusClientTest.ValidateResponse(logs);
             }
             catch (AggregateException exception)
             {
@@ -77,10 +77,10 @@ namespace SendwithusTest
             // Make the API call
             try
             {
-                var response = await Log.GetLogsAsync(queryParameters);
+                var logs = await Log.GetLogsAsync(queryParameters);
 
                 // Validate the response
-                SendwithusClientTest.ValidateResponse(response);
+                SendwithusClientTest.ValidateResponse(logs);
             }
             catch (AggregateException exception)
             {
@@ -104,7 +104,7 @@ namespace SendwithusTest
             // Make the API call
             try
             {
-                var response = await Log.GetLogsAsync(queryParameters);
+                var logs = await Log.GetLogsAsync(queryParameters);
                 Assert.Fail("Failed to throw exception");
             }
             catch (AggregateException exception)
@@ -126,10 +126,10 @@ namespace SendwithusTest
             // Make the API call
             try
             { 
-                var response = await Log.GetLogAsync(DEFAULT_LOG_ID);
+                var log = await Log.GetLogAsync(DEFAULT_LOG_ID);
 
                 // Validate the response
-                SendwithusClientTest.ValidateResponse(response);
+                SendwithusClientTest.ValidateResponse(log);
             }
             catch (AggregateException exception)
             {
@@ -149,10 +149,10 @@ namespace SendwithusTest
             // Make the API call
             try
             { 
-                var response = await Log.GetLogEventsAsync(DEFAULT_LOG_ID);
+                var logEvents = await Log.GetLogEventsAsync(DEFAULT_LOG_ID);
 
                 // Validate the response
-                SendwithusClientTest.ValidateResponse(response);
+                SendwithusClientTest.ValidateResponse(logEvents);
             }
             catch (AggregateException exception)
             {
@@ -172,10 +172,10 @@ namespace SendwithusTest
             // Make the API call
             try
             { 
-                var response = await Log.ResendLogAsync(DEFAULT_LOG_ID);
+                var logResendResponse = await Log.ResendLogAsync(DEFAULT_LOG_ID);
 
                 // Validate the response
-                SendwithusClientTest.ValidateResponse(response);
+                SendwithusClientTest.ValidateResponse(logResendResponse);
             }
             catch (AggregateException exception)
             {

@@ -79,7 +79,7 @@ namespace SendwithusTest
             // Make the API calls to be batched (at least one of each type)
             try
             {
-                var createTemplateResponse = await TemplateTest.BuildAndSendCreateTemplateRequestAsync(); // POST
+                var createTemplateResponse = await TemplateTest.BuildAndSendCreateTemplateRequestWithAllParametersAsync(); // POST
                 var getSnippetsResponse = await Snippet.GetSnippetsAsync(); // GET
                 var getSegmentsResponse = await Segment.GetSegmentsAsync(); // GET
                 var sendRenderTemplateResponse = await RenderTest.BuildAndSendRenderTemplateRequestWithAllParameters(); // POST
@@ -129,7 +129,7 @@ namespace SendwithusTest
             try
             { 
                 // Make the API calls to be batched (at least one of each type)
-                var createTemplateResponse = await TemplateTest.BuildAndSendCreateTemplateRequestAsync(); // POST
+                var createTemplateResponse = await TemplateTest.BuildAndSendCreateTemplateRequestWithAllParametersAsync(); // POST
                 var getSnippetsResponse = await Snippet.GetSnippetsAsync(); // GET
                 var getSegmentsResponse = await Segment.GetSegmentsAsync(); // GET
                 var sendRenderTemplateResponse = await RenderTest.BuildAndSendRenderTemplateRequestWithAllParameters(); // POST
@@ -193,7 +193,7 @@ namespace SendwithusTest
             // Make the API calls to be batched (at least one of each type)
             try
             {
-                var createTemplateResponse = await TemplateTest.BuildAndSendCreateTemplateRequestAsync(); // POST
+                var createTemplateResponse = await TemplateTest.BuildAndSendCreateTemplateRequestWithAllParametersAsync(); // POST
                 var getSnippetsResponse = await Snippet.GetSnippetsAsync(); // GET
                 var getSegmentsResponse = await Segment.GetSegmentsAsync(); // GET
                 var sendRenderTemplateResponse = await RenderTest.BuildAndSendRenderTemplateRequestWithAllParameters(); // POST

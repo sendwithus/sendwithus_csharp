@@ -109,7 +109,7 @@ namespace SendwithusTest
             // Send a POST request
             try
             {
-                var createTemplateResponse = await TemplateTest.BuildAndSendCreateTemplateRequestAsync();
+                var createTemplateResponse = await TemplateTest.BuildAndSendCreateTemplateRequestWithAllParametersAsync();
             }
             catch (Exception ex)
             {
