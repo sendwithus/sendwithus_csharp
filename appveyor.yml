@@ -154,9 +154,9 @@ hosts:
 assembly_info:
   patch: true
   file: AssemblyInfo.cs
-  assembly_version: "{version}"
-  assembly_file_version: "{version}"
-  assembly_informational_version: "{version}"
+  assembly_version: '{version}'
+  assembly_file_version: '{version}'
+  assembly_informational_version: '{version}'
 
 
 # TODO: review need for this
@@ -426,11 +426,12 @@ notifications:
     to:
       - hennig.chris@gmail.com
       - sendwithus.test@email.com
-    subject: 'Build {{status}}'                  # optional
-    message: "{{message}}, {{commitId}}, ..."    # optional
-    on_build_success: true
-    on_build_failure: true
-    on_build_status_changed: true
+# Use default settings
+#    subject: 'Build {{status}}'                  # optional
+#    message: "{{message}}, {{commitId}}, ..."    # optional
+#    on_build_success: true
+#    on_build_failure: true
+#    on_build_status_changed: true
 
 #  # HipChat
 #  - provider: HipChat
