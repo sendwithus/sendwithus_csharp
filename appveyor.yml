@@ -258,8 +258,8 @@ build_script:
 #      artifacts configuration    #
 #---------------------------------#
 
-# No artifacts needed
-#artifacts:
+# Push any nupkg files
+artifacts:
 #
 #  # pushing a single file
 #  - path: test.zip
@@ -271,8 +271,8 @@ build_script:
 #  # pushing entire folder as a zip archive
 #  - path: logs
 #
-#  # pushing all *.nupkg files in build directory recursively
-#  - path: '**\*.nupkg'
+  # pushing all *.nupkg files in build directory recursively
+  - path: '**\*.nupkg'
 
 
 #---------------------------------#
