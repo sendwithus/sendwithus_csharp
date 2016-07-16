@@ -281,7 +281,7 @@ artifacts:
 
 # providers: Local, FTP, WebDeploy, AzureCS, AzureBlob, S3, NuGet, Environment
 # provider names are case-sensitive!
-deploy:
+#deploy:
 
 # Only deploy to NuGet
 #    # FTP deployment provider settings
@@ -354,20 +354,30 @@ deploy:
 #    target_profile: Cloud
 #    artifact: MyPackage.cspkg
 
-    # Deploying to NuGet feed
+#    # Deploying to NuGet feed
+#  - provider: NuGet
+## Leave server unspecified to use default (nuget.org)
+##    server: https://my.nuget.server/feed
+#    api_key:
+#      secure: etDyKI9jqvawsr89ioItsW/6xI/jXE6VXaNuHTVF6b0MMAxiQKySOSRtJX6TA2Eg
+##    skip_symbols: false
+##    symbol_server: https://your.symbol.server/feed
+## Only deploy Release builds on the master branch
+#    artifact: /.*\.nupkg/
+#    on:
+#      branch: master
+#      platform: Any CPU
+#      configuration: Release
+      
+deploy:
   - provider: NuGet
-# Leave server unspecified to use default (nuget.org)
-#    server: https://my.nuget.server/feed
     api_key:
       secure: etDyKI9jqvawsr89ioItsW/6xI/jXE6VXaNuHTVF6b0MMAxiQKySOSRtJX6TA2Eg
-#    skip_symbols: false
-#    symbol_server: https://your.symbol.server/feed
-# Only deploy Release builds on the master branch
     artifact: /.*\.nupkg/
     on:
       branch: master
       platform: Any CPU
-      configuration: Release    
+      configuration: Release
      
 #    # Deploy to GitHub Releases
 #  - provider: GitHub
