@@ -359,7 +359,7 @@ deploy:
 # Leave server unspecified to use default (nuget.org)
 #    server: https://my.nuget.server/feed
     api_key:
-      secure: 'D1lToiuuNIIqV7vFeLNK53ezbcmya9BlArZHvpPHlfJFVvG1TmciVl1MmS+wczBd'
+      secure: etDyKI9jqvawsr89ioItsW/6xI/jXE6VXaNuHTVF6b0MMAxiQKySOSRtJX6TA2Eg
 #    skip_symbols: false
 #    symbol_server: https://your.symbol.server/feed
 #    artifact: MyPackage.nupkg
