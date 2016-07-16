@@ -63,10 +63,17 @@ namespace SendwithusTest
 
             // Make the API call
             var email = BuildBarebonesEmail();
-            var response = await email.Send();
+            try
+            { 
+                var response = await email.Send();
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         /// <summary>
@@ -79,10 +86,17 @@ namespace SendwithusTest
             Trace.WriteLine("POST /send");
 
             // Construct and send an email with all of the optional data
-            var response = await BuildAndSendEmailWithAllParametersAsync();
+            try
+            { 
+                var response = await BuildAndSendEmailWithAllParametersAsync();
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         /// <summary>

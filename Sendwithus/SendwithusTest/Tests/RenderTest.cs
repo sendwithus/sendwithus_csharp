@@ -42,10 +42,17 @@ namespace SendwithusTest
             var templateData = new Dictionary<string, object>();
             templateData.Add("amount", "$12.00");
             var renderTemplate = new Render(DEFAULT_TEMPLATE_ID, templateData);
-            var response = await renderTemplate.RenderTemplateAsync();
+            try
+            { 
+                var response = await renderTemplate.RenderTemplateAsync();
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         /// <summary>
@@ -58,10 +65,17 @@ namespace SendwithusTest
             Trace.WriteLine("POST /render");
 
             // Make the API call
-            var response = await BuildAndSendRenderTemplateRequestWithAllParameters();
+            try
+            { 
+                var response = await BuildAndSendRenderTemplateRequestWithAllParameters();
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         /// <summary>

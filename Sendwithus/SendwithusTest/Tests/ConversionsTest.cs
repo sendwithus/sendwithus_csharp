@@ -43,10 +43,17 @@ namespace SendwithusTest
             var conversion = new Conversion();
 
             // Make the API call
-            var response = await conversion.AddAsync(DEFAULT_EMAIL_ADDRESS);
+            try
+            {
+                var response = await conversion.AddAsync(DEFAULT_EMAIL_ADDRESS);
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         /// <summary>
@@ -62,10 +69,17 @@ namespace SendwithusTest
             var conversion = new Conversion(DEFAULT_REVENUE);
 
             // Make the API call
-            var response = await conversion.AddAsync(DEFAULT_EMAIL_ADDRESS);
+            try
+            {
+                var response = await conversion.AddAsync(DEFAULT_EMAIL_ADDRESS);
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         /// <summary>
@@ -81,10 +95,17 @@ namespace SendwithusTest
             var conversion = new Conversion(DEFAULT_REVENUE, DEFAULT_TIMESTAMP);
 
             // Make the API call
-            var response = await conversion.AddAsync(DEFAULT_EMAIL_ADDRESS);
+            try
+            {
+                var response = await conversion.AddAsync(DEFAULT_EMAIL_ADDRESS);
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         /// <summary>

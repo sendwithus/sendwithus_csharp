@@ -54,10 +54,17 @@ namespace SendwithusTest
             Trace.WriteLine("GET /esp_accounts");
 
             // Make the API call
-            var response = await EspAccount.GetAccountsAsync();
+            try
+            { 
+                var response = await EspAccount.GetAccountsAsync();
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         /// <summary>
@@ -74,10 +81,17 @@ namespace SendwithusTest
             queryParameters.Add("esp_type", DEFAULT_ESP_ACCOUNT_TYPE);
 
             // Make the API call
-            var response = await EspAccount.GetAccountsAsync(queryParameters);
+            try
+            { 
+                var response = await EspAccount.GetAccountsAsync(queryParameters);
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         /// <summary>
@@ -120,10 +134,17 @@ namespace SendwithusTest
             var addAccountRequest = new EspAccountAddAccountRequest("My SendGrid Account", "sendgrid", credentials);
 
             // Make the API call
-            var response = await EspAccount.AddAccountAsync(addAccountRequest);
+            try
+            { 
+                var response = await EspAccount.AddAccountAsync(addAccountRequest);
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         /// <summary>
@@ -140,10 +161,17 @@ namespace SendwithusTest
             var addAccountRequest = new EspAccountAddAccountRequest("My Mailgun Account", "mailgun", credentials);
 
             // Make the API call
-            var response = await EspAccount.AddAccountAsync(addAccountRequest);
+            try
+            { 
+                var response = await EspAccount.AddAccountAsync(addAccountRequest);
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         // <summary>
@@ -160,10 +188,17 @@ namespace SendwithusTest
             var addAccountRequest = new EspAccountAddAccountRequest("My Mandrill Account", "mandrill", credentials);
 
             // Make the API call
-            var response = await EspAccount.AddAccountAsync(addAccountRequest);
+            try
+            {
+                var response = await EspAccount.AddAccountAsync(addAccountRequest);
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         // <summary>
@@ -180,10 +215,17 @@ namespace SendwithusTest
             var addAccountRequest = new EspAccountAddAccountRequest("My Postmark Account", "postmark", credentials);
 
             // Make the API call
-            var response = await EspAccount.AddAccountAsync(addAccountRequest);
+            try
+            { 
+                var response = await EspAccount.AddAccountAsync(addAccountRequest);
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         // <summary>
@@ -228,10 +270,17 @@ namespace SendwithusTest
             var addAccountRequest = new EspAccountAddAccountRequest("My Mailjet Account", "mailjet", credentials);
 
             // Make the API call
-            var response = await EspAccount.AddAccountAsync(addAccountRequest);
+            try
+            { 
+                var response = await EspAccount.AddAccountAsync(addAccountRequest);
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         // <summary>
@@ -276,10 +325,17 @@ namespace SendwithusTest
             var addAccountRequest = new EspAccountAddAccountRequest("My SMTP Account", "smtp", credentials);
 
             // Make the API call
-            var response = await EspAccount.AddAccountAsync(addAccountRequest);
+            try
+            { 
+                var response = await EspAccount.AddAccountAsync(addAccountRequest);
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         // <summary>
@@ -292,10 +348,17 @@ namespace SendwithusTest
             Trace.WriteLine("PUT /esp_accounts/set_default");
 
             // Make the API call
-            var response = await EspAccount.SetDefaultEspAccountAsync(DEFAULT_ESP_ACCOUNT_ID);
+            try
+            { 
+                var response = await EspAccount.SetDefaultEspAccountAsync(DEFAULT_ESP_ACCOUNT_ID);
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
     }
 }

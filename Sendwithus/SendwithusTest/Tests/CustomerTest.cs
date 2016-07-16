@@ -41,10 +41,17 @@ namespace SendwithusTest
         {
             // Make the API call
             Trace.WriteLine(String.Format("GET /customers/{0}", DEFAULT_CUSTOMER_EMAIL_ADDRESS));
-            var response = await Customer.GetCustomerAsync(DEFAULT_CUSTOMER_EMAIL_ADDRESS);
+            try
+            {
+                var response = await Customer.GetCustomerAsync(DEFAULT_CUSTOMER_EMAIL_ADDRESS);
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         /// <summary>
@@ -78,10 +85,17 @@ namespace SendwithusTest
             Trace.WriteLine("POST /customers");
 
             // Build the new customer and send the create customer request
-            var response = await BuildAndSendCreateCustomerRequest();
+            try
+            { 
+                var response = await BuildAndSendCreateCustomerRequest();
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         /// <summary>
@@ -94,10 +108,17 @@ namespace SendwithusTest
             Trace.WriteLine(String.Format("DELETE /customers", NEW_CUSTOMER_EMAIL_ADDRESS));
 
             // Make the API call
-            var response = await Customer.DeleteCustomerAsync(NEW_CUSTOMER_EMAIL_ADDRESS);
+            try
+            {
+                var response = await Customer.DeleteCustomerAsync(NEW_CUSTOMER_EMAIL_ADDRESS);
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         /// <summary>
@@ -109,10 +130,17 @@ namespace SendwithusTest
         {
             // Make the API call
             Trace.WriteLine(String.Format("GET /customers/{0}/logs", DEFAULT_CUSTOMER_EMAIL_ADDRESS));
-            var response = await Customer.GetCustomerEmailLogsAsync(DEFAULT_CUSTOMER_EMAIL_ADDRESS);
+            try
+            { 
+                var response = await Customer.GetCustomerEmailLogsAsync(DEFAULT_CUSTOMER_EMAIL_ADDRESS);
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         /// <summary>
@@ -132,10 +160,17 @@ namespace SendwithusTest
             queryParameters.Add("created_gt", LOG_CREATED_AFTER_TIME);
 
             // Make the API call
-            var response = await Customer.GetCustomerEmailLogsAsync(DEFAULT_CUSTOMER_EMAIL_ADDRESS, queryParameters);
+            try
+            {
+                var response = await Customer.GetCustomerEmailLogsAsync(DEFAULT_CUSTOMER_EMAIL_ADDRESS, queryParameters);
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         /// <summary>
@@ -147,10 +182,17 @@ namespace SendwithusTest
         {
             // Make the API call
             Trace.WriteLine(String.Format("POST /customers/{0}/groups/{1}", DEFAULT_CUSTOMER_EMAIL_ADDRESS, DEFAULT_GROUP_ID));
-            var response = await Customer.AddCustomerToGroupAsync(DEFAULT_CUSTOMER_EMAIL_ADDRESS, DEFAULT_GROUP_ID);
+            try
+            {
+                var response = await Customer.AddCustomerToGroupAsync(DEFAULT_CUSTOMER_EMAIL_ADDRESS, DEFAULT_GROUP_ID);
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         /// <summary>
@@ -162,10 +204,17 @@ namespace SendwithusTest
         {
             // Make the API call
             Trace.WriteLine(String.Format("DELETE /customers/{0}/groups/{1}", DEFAULT_CUSTOMER_EMAIL_ADDRESS, DEFAULT_GROUP_ID));
-            var response = await Customer.RemoveCustomerFromGroupAsync(DEFAULT_CUSTOMER_EMAIL_ADDRESS, DEFAULT_GROUP_ID);
+            try
+            {
+                var response = await Customer.RemoveCustomerFromGroupAsync(DEFAULT_CUSTOMER_EMAIL_ADDRESS, DEFAULT_GROUP_ID);
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         /// <summary>

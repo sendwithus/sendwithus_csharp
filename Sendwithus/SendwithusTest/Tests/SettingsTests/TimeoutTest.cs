@@ -40,11 +40,18 @@ namespace SendwithusTest
             SendwithusClient.SetTimeoutInMilliseconds(SendwithusClient.DEFAULT_TIMEOUT_MILLISECONDS);
 
             // Send the GET request
-            var response = await Template.GetTemplateAsync(DEFAULT_TEMPLATE_ID);
-            Trace.WriteLine(String.Format("API call completed with default timeout of: {0}ms", SendwithusClient.DEFAULT_TIMEOUT_MILLISECONDS));
+            try
+            {
+                var response = await Template.GetTemplateAsync(DEFAULT_TEMPLATE_ID);
+                Trace.WriteLine(String.Format("API call completed with default timeout of: {0}ms", SendwithusClient.DEFAULT_TIMEOUT_MILLISECONDS));
 
-            // Make sure we received a valid response
-            SendwithusClientTest.ValidateResponse(response);
+                // Make sure we received a valid response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         /// <summary>

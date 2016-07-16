@@ -41,10 +41,17 @@ namespace SendwithusTest.Tests
             Trace.WriteLine("GET /segments");
 
             // Make the API call
-            var response = await Segment.GetSegmentsAsync();
+            try
+            { 
+                var response = await Segment.GetSegmentsAsync();
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         /// <summary>
@@ -60,10 +67,17 @@ namespace SendwithusTest.Tests
             var segmentContent = new SegmentContent(DEFAULT_TEMPLATE_ID);
 
             // Make the API call
-            var response = await Segment.SendToSegmentAsync(DEFAULT_SEGMENT_ID, segmentContent);
+            try
+            { 
+                var response = await Segment.SendToSegmentAsync(DEFAULT_SEGMENT_ID, segmentContent);
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         /// <summary>
@@ -92,10 +106,17 @@ namespace SendwithusTest.Tests
             segmentContent.esp_account = DEFAULT_ESP_ACCOUNT_ID;
 
             // Make the API call
-            var response = await Segment.SendToSegmentAsync(DEFAULT_SEGMENT_ID, segmentContent);
+            try
+            { 
+                var response = await Segment.SendToSegmentAsync(DEFAULT_SEGMENT_ID, segmentContent);
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         /// <summary>

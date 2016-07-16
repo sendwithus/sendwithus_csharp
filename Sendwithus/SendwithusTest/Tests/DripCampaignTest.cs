@@ -58,10 +58,17 @@ namespace SendwithusTest
             var dripCampaign = new DripCampaign(recipient);
             
             // Make the API call
-            var response = await dripCampaign.ActivateAsync(DEFAULT_CAMPAIGN_ID);
+            try
+            { 
+                var response = await dripCampaign.ActivateAsync(DEFAULT_CAMPAIGN_ID);
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         /// <summary>
@@ -90,10 +97,17 @@ namespace SendwithusTest
             dripCampaign.esp_account = DEFAULT_ESP_ACCOUNT_ID;
 
             // Make the API call
-            var response = await dripCampaign.ActivateAsync(DEFAULT_CAMPAIGN_ID);
+            try
+            { 
+                var response = await dripCampaign.ActivateAsync(DEFAULT_CAMPAIGN_ID);
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         /// <summary>
@@ -130,10 +144,17 @@ namespace SendwithusTest
             Trace.WriteLine(String.Format("POST /drip_campaigns/{0}/deactivate", DEFAULT_CAMPAIGN_ID));
 
             // Make the API call
-            var response = await DripCampaign.DeactivateAsync(DEFAULT_CAMPAIGN_ID, DEFAULT_RECIPIENT_EMAIL_ADDRESS);
+            try
+            { 
+                var response = await DripCampaign.DeactivateAsync(DEFAULT_CAMPAIGN_ID, DEFAULT_RECIPIENT_EMAIL_ADDRESS);
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         /// <summary>
@@ -146,10 +167,17 @@ namespace SendwithusTest
             Trace.WriteLine("GET /drip_campaigns");
 
             // Make the API call
-            var response = await DripCampaign.GetDripCampaignsAsync();
+            try
+            { 
+                var response = await DripCampaign.GetDripCampaignsAsync();
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         /// <summary>
@@ -162,10 +190,17 @@ namespace SendwithusTest
             Trace.WriteLine(String.Format("GET /drip_campaigns/{0}",DEFAULT_CAMPAIGN_ID));
 
             // Make the API call
-            var response = await DripCampaign.GetDripCampaignAsync(DEFAULT_CAMPAIGN_ID);
+            try
+            { 
+                var response = await DripCampaign.GetDripCampaignAsync(DEFAULT_CAMPAIGN_ID);
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
     }
 }

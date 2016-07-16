@@ -42,10 +42,17 @@ namespace SendwithusTest
             Trace.WriteLine("GET /groups");
 
             // Make the API call
-            var response = await CustomerGroup.GetCustomeGroupsAsync();
+            try
+            {
+                var response = await CustomerGroup.GetCustomeGroupsAsync();
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         /// <summary>
@@ -59,10 +66,17 @@ namespace SendwithusTest
 
             // Make the API call
             var groupName = String.Format("{0}_{1}", DEFAULT_CUSTOMER_GROUP_NAME, SendwithusClientTest.RandomString(10));
-            var response = await CustomerGroup.CreateCustomerGroupAsync(groupName);
+            try
+            {
+                var response = await CustomerGroup.CreateCustomerGroupAsync(groupName);
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         /// <summary>
@@ -76,10 +90,17 @@ namespace SendwithusTest
 
             // Make the API call
             var groupName = String.Format("{0}_{1}", DEFAULT_CUSTOMER_GROUP_NAME, SendwithusClientTest.RandomString(10));
-            var response = await CustomerGroup.CreateCustomerGroupAsync(groupName, DEFAULT_CUSTOMER_GROUP_DESCRIPTION);
+            try
+            {
+                var response = await CustomerGroup.CreateCustomerGroupAsync(groupName, DEFAULT_CUSTOMER_GROUP_DESCRIPTION);
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         /// <summary>
@@ -93,10 +114,17 @@ namespace SendwithusTest
 
             // Make the API call
             var groupName = String.Format("{0}_{1}", DEFAULT_CUSTOMER_GROUP_NAME, SendwithusClientTest.RandomString(10));
-            var response = await CustomerGroup.UpdateCustomerGroupNameAsync(DEFAULT_CUSTOMER_GROUP_ID, groupName);
+            try
+            {
+                var response = await CustomerGroup.UpdateCustomerGroupNameAsync(DEFAULT_CUSTOMER_GROUP_ID, groupName);
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         /// <summary>
@@ -110,10 +138,17 @@ namespace SendwithusTest
 
             // Make the API call
             var groupDescription = String.Format("{0}_{1}", DEFAULT_CUSTOMER_GROUP_DESCRIPTION, SendwithusClientTest.RandomString(10));
-            var response = await CustomerGroup.UpdateCustomerGroupDescriptionAsync(DEFAULT_CUSTOMER_GROUP_ID, groupDescription);
+            try
+            {
+                var response = await CustomerGroup.UpdateCustomerGroupDescriptionAsync(DEFAULT_CUSTOMER_GROUP_ID, groupDescription);
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         /// <summary>
@@ -128,10 +163,17 @@ namespace SendwithusTest
             // Make the API call
             var groupName = String.Format("{0}_{1}", DEFAULT_CUSTOMER_GROUP_NAME, SendwithusClientTest.RandomString(10));
             var groupDescription = String.Format("{0}_{1}", DEFAULT_CUSTOMER_GROUP_DESCRIPTION, SendwithusClientTest.RandomString(10));
-            var response = await CustomerGroup.UpdateCustomerGroupNameAndDescriptionAsync(DEFAULT_CUSTOMER_GROUP_ID, groupName, groupDescription);
+            try
+            {
+                var response = await CustomerGroup.UpdateCustomerGroupNameAndDescriptionAsync(DEFAULT_CUSTOMER_GROUP_ID, groupName, groupDescription);
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         /// <summary>
@@ -170,10 +212,17 @@ namespace SendwithusTest
 
             // Make the API call
             Trace.WriteLine(String.Format("DELETE /groups/{0}", groupId));
-            var response = await CustomerGroup.DeleteCustomerGroupAsync(groupId);
+            try
+            {
+                var response = await CustomerGroup.DeleteCustomerGroupAsync(groupId);
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
     }
 }

@@ -41,10 +41,17 @@ namespace SendwithusTest
             Trace.WriteLine("GET /snippets");
 
             // Make the API call
-            var response = await Snippet.GetSnippetsAsync();
+            try
+            { 
+                var response = await Snippet.GetSnippetsAsync();
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         /// <summary>
@@ -57,10 +64,17 @@ namespace SendwithusTest
             Trace.WriteLine(String.Format("GET /snippets/{0}", DEFAULT_SNIPPET_ID));
 
             // Make the API call
-            var response = await Snippet.GetSnippetAsync(DEFAULT_SNIPPET_ID);
+            try
+            { 
+                var response = await Snippet.GetSnippetAsync(DEFAULT_SNIPPET_ID);
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         /// <summary>
@@ -96,10 +110,17 @@ namespace SendwithusTest
 
             // Make the API call
             var uniqueName = String.Format("{0}-{1}", NEW_SNIPPET_NAME, SendwithusClientTest.RandomString(UNIQUE_ID_LENGTH));
-            var response = await Snippet.CreateSnippetAsync(uniqueName, NEW_SNIPPET_BODY);
+            try
+            { 
+                var response = await Snippet.CreateSnippetAsync(uniqueName, NEW_SNIPPET_BODY);
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         /// <summary>
@@ -113,10 +134,17 @@ namespace SendwithusTest
 
             // Make the API call
             var uniqueName = String.Format("{0}-{1}", NEW_SNIPPET_NAME, SendwithusClientTest.RandomString(UNIQUE_ID_LENGTH));
-            var response = await Snippet.UpdateSnippetAsync(DEFAULT_SNIPPET_ID, uniqueName, NEW_SNIPPET_BODY);
+            try
+            {
+                var response = await Snippet.UpdateSnippetAsync(DEFAULT_SNIPPET_ID, uniqueName, NEW_SNIPPET_BODY);
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         /// <summary>
@@ -133,10 +161,17 @@ namespace SendwithusTest
 
             // Make the API call
             Trace.WriteLine(String.Format("DELETE /snippets/{0}", snippetId));
-            var response = await Snippet.DeleteSnippetAsync(snippetId);
+            try
+            { 
+                var response = await Snippet.DeleteSnippetAsync(snippetId);
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
     }
 }

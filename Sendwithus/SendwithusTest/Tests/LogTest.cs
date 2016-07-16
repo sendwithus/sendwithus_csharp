@@ -42,10 +42,17 @@ namespace SendwithusTest
             Trace.WriteLine("GET /logs");
 
             // Make the API call
-            var response = await Log.GetLogsAsync();
+            try
+            { 
+                var response = await Log.GetLogsAsync();
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
 
@@ -68,10 +75,17 @@ namespace SendwithusTest
             queryParameters.Add("created_lte", LOG_CREATED_BEFORE_TIME);
 
             // Make the API call
-            var response = await Log.GetLogsAsync(queryParameters);
+            try
+            {
+                var response = await Log.GetLogsAsync(queryParameters);
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         /// <summary>
@@ -110,10 +124,17 @@ namespace SendwithusTest
             Trace.WriteLine(String.Format("GET /logs/{0}", DEFAULT_LOG_ID));
 
             // Make the API call
-            var response = await Log.GetLogAsync(DEFAULT_LOG_ID);
+            try
+            { 
+                var response = await Log.GetLogAsync(DEFAULT_LOG_ID);
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         /// <summary>
@@ -126,10 +147,17 @@ namespace SendwithusTest
             Trace.WriteLine(String.Format("GET /logs/{0}/events", DEFAULT_LOG_ID));
 
             // Make the API call
-            var response = await Log.GetLogEventsAsync(DEFAULT_LOG_ID);
+            try
+            { 
+                var response = await Log.GetLogEventsAsync(DEFAULT_LOG_ID);
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         /// <summary>
@@ -142,10 +170,17 @@ namespace SendwithusTest
             Trace.WriteLine("POST /resend");
 
             // Make the API call
-            var response = await Log.ResendLogAsync(DEFAULT_LOG_ID);
+            try
+            { 
+                var response = await Log.ResendLogAsync(DEFAULT_LOG_ID);
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
     }
 }

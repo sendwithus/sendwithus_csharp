@@ -62,10 +62,17 @@ namespace SendwithusTest
         {
             // Make the API call
             Trace.WriteLine("GET /templates");
-            var response = await Template.GetTemplatesAsync();
+            try
+            { 
+                var response = await Template.GetTemplatesAsync();
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         /// <summary>
@@ -77,10 +84,17 @@ namespace SendwithusTest
         {
             // Make the API call
             Trace.WriteLine(String.Format("GET /templates/{0}", DEFAULT_TEMPLATE_ID));
-            var response = await Template.GetTemplateAsync(DEFAULT_TEMPLATE_ID);
+            try
+            { 
+                var response = await Template.GetTemplateAsync(DEFAULT_TEMPLATE_ID);
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         /// <summary>
@@ -113,10 +127,17 @@ namespace SendwithusTest
         {
             // Make the API call
             Trace.WriteLine(String.Format("GET /templates/{0}/locales/{1}", DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE));
-            var response = await Template.GetTemplateAsync(DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE);
+            try
+            { 
+                var response = await Template.GetTemplateAsync(DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE);
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         /// <summary>
@@ -149,10 +170,17 @@ namespace SendwithusTest
         {
             // Make the API call
             Trace.WriteLine(String.Format("GET /templates/{0}/versions", DEFAULT_TEMPLATE_ID));
-            var response = await Template.GetTemplateVersionsAsync(DEFAULT_TEMPLATE_ID);
+            try
+            { 
+                var response = await Template.GetTemplateVersionsAsync(DEFAULT_TEMPLATE_ID);
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         /// <summary>
@@ -164,10 +192,17 @@ namespace SendwithusTest
         {
             // Make the API call
             Trace.WriteLine(String.Format("GET /templates/{0}/locales/{1}/versions", DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE));
-            var response = await Template.GetTemplateVersionsAsync(DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE);
+            try
+            { 
+                var response = await Template.GetTemplateVersionsAsync(DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE);
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         /// <summary>
@@ -179,10 +214,17 @@ namespace SendwithusTest
         {
             // Make the API call
             Trace.WriteLine(String.Format("GET /templates/{0}/versions/{1}", DEFAULT_TEMPLATE_ID, DEFAULT_VERSION_ID));
-            var response = await Template.GetTemplateVersionAsync(DEFAULT_TEMPLATE_ID, DEFAULT_VERSION_ID);
+            try
+            {
+                var response = await Template.GetTemplateVersionAsync(DEFAULT_TEMPLATE_ID, DEFAULT_VERSION_ID);
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         /// <summary>
@@ -194,10 +236,17 @@ namespace SendwithusTest
         {
             // Make the API call
             Trace.WriteLine(String.Format("GET /templates/{0}/locales/{1}/versions/{2}", DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE, DEFAULT_VERSION_ID));
-            var response = await Template.GetTemplateVersionAsync(DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE, DEFAULT_VERSION_ID);
+            try
+            { 
+                var response = await Template.GetTemplateVersionAsync(DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE, DEFAULT_VERSION_ID);
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         /// <summary>
@@ -214,10 +263,17 @@ namespace SendwithusTest
             updatedTemplateVersion.subject = "edited!";
             updatedTemplateVersion.html = "<html><head></head><body><h1>UPDATE</h1></body></html>";
             updatedTemplateVersion.text = "sometext";
-            var response = await Template.UpdateTemplateVersionAsync(DEFAULT_TEMPLATE_ID, DEFAULT_VERSION_ID, updatedTemplateVersion);
+            try
+            { 
+                var response = await Template.UpdateTemplateVersionAsync(DEFAULT_TEMPLATE_ID, DEFAULT_VERSION_ID, updatedTemplateVersion);
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         /// <summary>
@@ -234,10 +290,17 @@ namespace SendwithusTest
             updatedTemplateVersion.subject = "edited!";
             updatedTemplateVersion.html = "<html><head></head><body><h1>UPDATE</h1></body></html>";
             updatedTemplateVersion.text = "sometext";
-            var response = await Template.UpdateTemplateVersionAsync(DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE, DEFAULT_VERSION_ID, updatedTemplateVersion);
+            try
+            { 
+                var response = await Template.UpdateTemplateVersionAsync(DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE, DEFAULT_VERSION_ID, updatedTemplateVersion);
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         /// <summary>
@@ -249,11 +312,17 @@ namespace SendwithusTest
         {
             // Make the API call
             Trace.WriteLine(String.Format("PUT /templates/"));
+            try
+            { 
+                var response = await BuildAndSendCreateTemplateRequestAsync();
 
-            var response = await BuildAndSendCreateTemplateRequestAsync();
-
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         /// <summary>
@@ -275,10 +344,16 @@ namespace SendwithusTest
             templateVersion.subject = "Ce est un nouveau modèle!";
             templateVersion.html = "<html><head></head><body><h1>Nouveau modèle!</h1></body></html>";
             templateVersion.text = "un texte";
-            var response = await Template.AddLocaleToTemplate(templateId, ALTERNATE_LOCALE, templateVersion);
+            try { 
+                var response = await Template.AddLocaleToTemplate(templateId, ALTERNATE_LOCALE, templateVersion);
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         /// <summary>
@@ -295,10 +370,17 @@ namespace SendwithusTest
             templateVersion.subject = "New Version!";
             templateVersion.html = "<html><head></head><body><h1>NEW TEMPLATE VERSION</h1></body></html>";
             templateVersion.text = "some text";
-            var response = await Template.CreateTemplateVersion(DEFAULT_TEMPLATE_ID, templateVersion);
+            try
+            {
+                var response = await Template.CreateTemplateVersion(DEFAULT_TEMPLATE_ID, templateVersion);
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         /// <summary>
@@ -315,10 +397,17 @@ namespace SendwithusTest
             templateVersion.subject = "New Version!";
             templateVersion.html = "<html><head></head><body><h1>NEW TEMPLATE VERSION</h1></body></html>";
             templateVersion.text = "some text";
-            var response = await Template.CreateTemplateVersion(DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE, templateVersion);
+            try
+            { 
+                var response = await Template.CreateTemplateVersion(DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE, templateVersion);
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         /// <summary>
@@ -335,13 +424,17 @@ namespace SendwithusTest
 
             // Make the API call
             Trace.WriteLine(String.Format("DELETE /templates/{0}", templateId));
-            var response = await Template.DeleteTemplate(templateId);
+            try
+            { 
+                var response = await Template.DeleteTemplate(templateId);
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
-
-            // Replace the deleted template ID in case a new template is needed in other test functions
-            await TestCreateTemplateAsync();
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         /// <summary>
@@ -358,13 +451,16 @@ namespace SendwithusTest
 
             // Make the API call
             Trace.WriteLine(String.Format("DELETE /templates/{0}/locales/{1}", templateId, DEFAULT_LOCALE));
-            var response = await Template.DeleteTemplate(templateId, DEFAULT_LOCALE);
+            try { 
+                var response = await Template.DeleteTemplate(templateId, DEFAULT_LOCALE);
 
-            // Validate the response
-            SendwithusClientTest.ValidateResponse(response);
-
-            // Replace the deleted template ID in case a new template is needed in other test functions
-            await TestCreateTemplateAsync();
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         public static async Task<Template> BuildAndSendCreateTemplateRequestAsync()
