@@ -353,7 +353,7 @@ deploy:
 #    slot: Production
 #    target_profile: Cloud
 #    artifact: MyPackage.cspkg
-deploy:
+
     # Deploying to NuGet feed
   - provider: NuGet
 # Leave server unspecified to use default (nuget.org)
