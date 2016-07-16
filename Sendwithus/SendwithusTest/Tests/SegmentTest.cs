@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 using Sendwithus;
 using System.Diagnostics;
 using System.Net;
-using Xunit;
-using Xunit.Abstractions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace SendwithusTest.Tests
 {
     /// <summary>
     /// Unit testing class for the Segment API calls
     /// </summary>
+    [TestClass]
     public class SegmentTest
     {
         private const string DEFAULT_SEGMENT_ID = "seg_TBe8jzK8xUjT5GExjkPgtm";
@@ -21,25 +21,14 @@ namespace SendwithusTest.Tests
         private const string DEFAULT_TEMPLATE_ID = "tem_SxZKpxJSHPbYDWRSQnAQUR";
         private const string DEFAULT_ESP_ACCOUNT_ID = "esp_e3ut7pFtWttcN4HNoQ8Vgm";
 
-        readonly ITestOutputHelper Output;
-
-        /// <summary>
-        /// Default constructor with an output object - used to output messages to the Test Explorer
-        /// </summary>
-        /// <param name="output"></param>
-        public SegmentTest(ITestOutputHelper output)
-        {
-            Output = output;
-        }
-
         /// <summary>
         /// Tests the API call GET /segments
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [Fact]
+        [TestMethod]
         public async Task TestGetSegmentsAsync()
         {
-            Output.WriteLine("GET /segments");
+            Trace.WriteLine("GET /segments");
 
             // Use the production API key so that the emails are actually sent
             SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_PRODUCTION;
@@ -48,17 +37,17 @@ namespace SendwithusTest.Tests
             var response = await Segment.GetSegmentsAsync();
 
             // Validate the response
-            SendwithusClientTest.ValidateResponse(response, Output);
+            SendwithusClientTest.ValidateResponse(response);
         }
 
         /// <summary>
         /// Tests the API call POST /segments/(:segment_id)/send with the minimum parameters
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [Fact]
+        [TestMethod]
         public async Task TestSendToSegmentWithMinimumParametersAsync()
         {
-            Output.WriteLine(String.Format("POST /segments/{0}/send with the minimum parameters", DEFAULT_SEGMENT_ID));
+            Trace.WriteLine(String.Format("POST /segments/{0}/send with the minimum parameters", DEFAULT_SEGMENT_ID));
 
             // Use the production API key so that the emails are actually sent
             SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_PRODUCTION;
@@ -70,17 +59,17 @@ namespace SendwithusTest.Tests
             var response = await Segment.SendToSegmentAsync(DEFAULT_SEGMENT_ID, segmentContent);
 
             // Validate the response
-            SendwithusClientTest.ValidateResponse(response, Output);
+            SendwithusClientTest.ValidateResponse(response);
         }
 
         /// <summary>
         /// Tests the API call POST /segments/(:segment_id)/send with all parameters
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [Fact]
+        [TestMethod]
         public async Task TestSendToSegmentWithAllParametersAsync()
         {
-            Output.WriteLine(String.Format("POST /segments/{0}/send with all parameters", DEFAULT_SEGMENT_ID));
+            Trace.WriteLine(String.Format("POST /segments/{0}/send with all parameters", DEFAULT_SEGMENT_ID));
 
             // Use the production API key so that the emails are actually sent
             SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_PRODUCTION;
@@ -105,17 +94,17 @@ namespace SendwithusTest.Tests
             var response = await Segment.SendToSegmentAsync(DEFAULT_SEGMENT_ID, segmentContent);
 
             // Validate the response
-            SendwithusClientTest.ValidateResponse(response, Output);
+            SendwithusClientTest.ValidateResponse(response);
         }
 
         /// <summary>
         /// Tests the API call POST /segments/(:segment_id)/send with an invalid segment ID
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [Fact]
+        [TestMethod]
         public async Task TestSendToSegmentWithInvalidSegmentIdAsync()
         {
-            Output.WriteLine(String.Format("POST /segments/{0}/send with invalid segment ID", INVALID_SEGMENT_ID));
+            Trace.WriteLine(String.Format("POST /segments/{0}/send with invalid segment ID", INVALID_SEGMENT_ID));
 
             // Use the production API key so that the emails are actually sent
             SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_PRODUCTION;
@@ -131,7 +120,7 @@ namespace SendwithusTest.Tests
             catch (SendwithusException exception)
             {
                 // Make sure the response was HTTP 400 Bad Request 
-                SendwithusClientTest.ValidateException(exception, HttpStatusCode.BadRequest, Output);
+                SendwithusClientTest.ValidateException(exception, HttpStatusCode.BadRequest);
             }
         }
     }

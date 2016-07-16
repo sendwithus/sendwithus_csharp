@@ -4,14 +4,14 @@ using System.Threading.Tasks;
 using Sendwithus;
 using System.Net;
 using System.Collections.Generic;
-using Xunit;
-using Xunit.Abstractions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace SendwithusTest
 {
     /// <summary>
     /// Unit testing class for the sendwithus Conversions API calls
     /// </summary>
+    [TestClass]
     public class ConversionsTest
     {
         private const string DEFAULT_EMAIL_ADDRESS = "sendwithus.test@gmail.com";
@@ -19,26 +19,15 @@ namespace SendwithusTest
         private const int DEFAULT_REVENUE = 1999;
         private const Int64 DEFAULT_TIMESTAMP = 1417321700;
 
-        readonly ITestOutputHelper Output;
-
-        /// <summary>
-        /// Default constructor with an output object - used to output messages to the Test Explorer
-        /// </summary>
-        /// <param name="output"></param>
-        public ConversionsTest(ITestOutputHelper output)
-        {
-            Output = output;
-        }
-
         /// <summary>
         /// Tests the API call POST /customers/[EMAIL_ADDRESS]/conversions with no parameters
         /// </summary>
         /// <returns></returns>
-        [Fact]
+        [TestMethod]
         public async Task TestAddConverionWithNoParametersAsync()
         {
             
-            Output.WriteLine(String.Format("POST /customers/{0}/converisons", DEFAULT_EMAIL_ADDRESS));
+            Trace.WriteLine(String.Format("POST /customers/{0}/converisons", DEFAULT_EMAIL_ADDRESS));
             SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Build the conversion object
@@ -48,17 +37,17 @@ namespace SendwithusTest
             var response = await conversion.AddAsync(DEFAULT_EMAIL_ADDRESS);
 
             // Validate the response
-            SendwithusClientTest.ValidateResponse(response, Output);
+            SendwithusClientTest.ValidateResponse(response);
         }
 
         /// <summary>
         /// Tests the API call POST /customers/[EMAIL_ADDRESS]/conversions with the revenue specified
         /// </summary>
         /// <returns></returns>
-        [Fact]
+        [TestMethod]
         public async Task TestAddConverionWithRevenueAsync()
         {
-            Output.WriteLine(String.Format("POST /customers/{0}/converisons", DEFAULT_EMAIL_ADDRESS));
+            Trace.WriteLine(String.Format("POST /customers/{0}/converisons", DEFAULT_EMAIL_ADDRESS));
             SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Build the conversion object
@@ -68,17 +57,17 @@ namespace SendwithusTest
             var response = await conversion.AddAsync(DEFAULT_EMAIL_ADDRESS);
 
             // Validate the response
-            SendwithusClientTest.ValidateResponse(response, Output);
+            SendwithusClientTest.ValidateResponse(response);
         }
 
         /// <summary>
         /// Tests the API call POST /customers/[EMAIL_ADDRESS]/conversions with the revenue and timestamp specified
         /// </summary>
         /// <returns></returns>
-        [Fact]
+        [TestMethod]
         public async Task TestAddConverionWithRevenueAndTimestampAsync()
         {
-            Output.WriteLine(String.Format("POST /customers/{0}/converisons", DEFAULT_EMAIL_ADDRESS));
+            Trace.WriteLine(String.Format("POST /customers/{0}/converisons", DEFAULT_EMAIL_ADDRESS));
             SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Build the conversion object
@@ -88,17 +77,17 @@ namespace SendwithusTest
             var response = await conversion.AddAsync(DEFAULT_EMAIL_ADDRESS);
 
             // Validate the response
-            SendwithusClientTest.ValidateResponse(response, Output);
+            SendwithusClientTest.ValidateResponse(response);
         }
 
         /// <summary>
         /// Tests the API call POST /customers/[EMAIL_ADDRESS]/conversions with an invalid email address
         /// </summary>
         /// <returns></returns>
-        [Fact]
+        [TestMethod]
         public async Task TestAddConverionWithInvalidEmailAddressAsync()
         {
-            Output.WriteLine(String.Format("POST /customers/{0}/converisons", DEFAULT_EMAIL_ADDRESS));
+            Trace.WriteLine(String.Format("POST /customers/{0}/converisons", DEFAULT_EMAIL_ADDRESS));
             SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Build the conversion object
@@ -111,7 +100,7 @@ namespace SendwithusTest
             catch (SendwithusException exception)
             {
                 // Make sure the response was HTTP 400 Bad Request 
-                SendwithusClientTest.ValidateException(exception, HttpStatusCode.BadRequest, Output);
+                SendwithusClientTest.ValidateException(exception, HttpStatusCode.BadRequest);
             }
         }
     }

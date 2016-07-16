@@ -5,44 +5,30 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net;
 using Sendwithus;
-using Xunit;
-using Xunit.Abstractions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.ObjectModel;
 using System.Web.Script.Serialization;
+using System.Diagnostics;
 
-// All unit tests must be run sequentially because of the Batch API Request tests.
-// If they are run in parallel, then random tests will be mistakenly run in batch mode
-[assembly: CollectionBehavior(DisableTestParallelization = true)]
 namespace SendwithusTest
 {
     /// <summary>
     /// Unit testing class for the Customer Groups API calls
     /// </summary>
-    [TestCaseOrderer("SendwithusTest.UnitTestHelpers.PriorityOrderer", "TestOrderExamples")]
+    [TestClass]
     public class BatchApiRequestTest
     {
         private const string DEFAULT_ESP_ACCOUNT_ID = "esp_e3ut7pFtWttcN4HNoQ8Vgm";
         private const string DEFAULT_EMAIL_ADDRESS = "sendwithus.test@gmail.com";
 
-        readonly ITestOutputHelper Output;
-
-        /// <summary>
-        /// Default constructor with an output object - used to output messages to the Test Explorer
-        /// </summary>
-        /// <param name="output"></param>
-        public BatchApiRequestTest(ITestOutputHelper output)
-        {
-            Output = output;
-        }
-
         /// <summary>
         /// Tests the API call POST /batch with one API call
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [Fact]
+        [TestMethod]
         public async Task TestBatchApiRequestsOneRequestAsync()
         {
-            Output.WriteLine("POST /batch");
+            Trace.WriteLine("POST /batch");
 
             // Use the production API key so that the emails are actually sent
             SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_PRODUCTION;
@@ -68,10 +54,10 @@ namespace SendwithusTest
         /// Tests the API call POST /batch with 10 API calls
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [Fact]
+        [TestMethod]
         public async Task TestBatchApiRequestsTenRequestsAsync()
         {
-            Output.WriteLine("POST /batch");
+            Trace.WriteLine("POST /batch");
 
             // Use the production API key so that the emails are actually sent
             SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_PRODUCTION;
@@ -114,10 +100,10 @@ namespace SendwithusTest
         /// Tests the API call POST /batch with 11 API calls (without overriding the limit)
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [Fact]
+        [TestMethod]
         public async Task TestBatchApiRequestsElevenRequestsWithoutOverrideAsync()
         {
-            Output.WriteLine("POST /batch");
+            Trace.WriteLine("POST /batch");
 
             // Use the production API key so that the emails are actually sent
             SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_PRODUCTION;
@@ -144,8 +130,8 @@ namespace SendwithusTest
             }
             catch (InvalidOperationException exception)
             {
-                Output.WriteLine(String.Format("Successfully caught exception triggered by adding too many API calls to the batch API request. Error message: {0}", exception.Message));
-                Assert.True(true);
+                Trace.WriteLine(String.Format("Successfully caught exception triggered by adding too many API calls to the batch API request. Error message: {0}", exception.Message));
+                Assert.IsTrue(true);
             }
 
             // Make the batch Api Request to make sure it still goes through
@@ -171,10 +157,10 @@ namespace SendwithusTest
         /// Tests the API call POST /batch with 11 API calls (without overriding the limit)
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [Fact]
+        [TestMethod]
         public async Task TestBatchApiRequestsTwelveRequestsWithoutOverrideAsync()
         {
-            Output.WriteLine("POST /batch");
+            Trace.WriteLine("POST /batch");
 
             // Use the production API key so that the emails are actually sent
             SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_PRODUCTION;
@@ -233,10 +219,10 @@ namespace SendwithusTest
         private void ValidateBatchApiCallResponses(List<BatchApiResponse> responses, int expectedResponseCount)
         {
             // Standard validation of the response (make sure the response isn't null)
-            SendwithusClientTest.ValidateResponse(responses, Output);
+            SendwithusClientTest.ValidateResponse(responses);
 
             // Make sure we received the expected number of batch API responses
-            Assert.Equal(expectedResponseCount, responses.Count);
+            Assert.AreEqual(expectedResponseCount, responses.Count);
         }
 
         /// <summary>
@@ -247,7 +233,7 @@ namespace SendwithusTest
         private void ValidateIndividualBatchedApiCallResponse<T>(BatchApiResponse response)
         {
             var repsponseBody = response.GetBody<T>();
-            SendwithusClientTest.ValidateResponse(repsponseBody, Output);
+            SendwithusClientTest.ValidateResponse(repsponseBody);
         }
     }
 }

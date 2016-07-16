@@ -6,14 +6,14 @@ using Sendwithus;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Net;
-using Xunit;
-using Xunit.Abstractions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace SendwithusTest
 {
     /// <summary>
     /// Class to test the sendwithus Drip Campaign API
     /// </summary>
+    [TestClass]
     public class DripCampaignTest
     {
         private const string DEFAULT_CAMPAIGN_ID = "dc_VXKGx85NmwHnRv9FZv88TW";
@@ -34,25 +34,14 @@ namespace SendwithusTest
         private const string DEFAULT_LOCALE = "en-US";
         private const string DEFAULT_ESP_ACCOUNT_ID = "esp_e3ut7pFtWttcN4HNoQ8Vgm";
 
-        readonly ITestOutputHelper Output;
-
-        /// <summary>
-        /// Default constructor with an output object - used to output messages to the Test Explorer
-        /// </summary>
-        /// <param name="output"></param>
-        public DripCampaignTest(ITestOutputHelper output)
-        {
-            Output = output;
-        }
-
         /// <summary>
         /// Tests the API call POST /drip_campaigns/(drip_campaign_id)/activate
         /// </summary>
         /// <returns>The associated task</returns>
-        [Fact]
+        [TestMethod]
         public async Task TestActivateDripCampaignAsyncWithMinimumParameters()
         {
-            Output.WriteLine(String.Format("POST /drip_campaigns/{0}/activate with minimum parameters",DEFAULT_CAMPAIGN_ID));
+            Trace.WriteLine(String.Format("POST /drip_campaigns/{0}/activate with minimum parameters",DEFAULT_CAMPAIGN_ID));
 
             // Use the production API key so that the emails are actually sent
             SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_PRODUCTION;
@@ -65,17 +54,17 @@ namespace SendwithusTest
             var response = await dripCampaign.ActivateAsync(DEFAULT_CAMPAIGN_ID);
 
             // Validate the response
-            SendwithusClientTest.ValidateResponse(response, Output);
+            SendwithusClientTest.ValidateResponse(response);
         }
 
         /// <summary>
         /// Tests the API call POST /drip_campaigns/(drip_campaign_id)/activate
         /// </summary>
         /// <returns>The associated task</returns>
-        [Fact]
+        [TestMethod]
         public async Task TestActivateDripCampaignAsyncWithAllParameters()
         {
-            Output.WriteLine(String.Format("POST /drip_campaigns/{0}/activate with all parameters", DEFAULT_CAMPAIGN_ID));
+            Trace.WriteLine(String.Format("POST /drip_campaigns/{0}/activate with all parameters", DEFAULT_CAMPAIGN_ID));
 
             // Use the production API key so that the emails are actually sent
             SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_PRODUCTION;
@@ -100,17 +89,17 @@ namespace SendwithusTest
             var response = await dripCampaign.ActivateAsync(DEFAULT_CAMPAIGN_ID);
 
             // Validate the response
-            SendwithusClientTest.ValidateResponse(response, Output);
+            SendwithusClientTest.ValidateResponse(response);
         }
 
         /// <summary>
         /// Tests the API call POST /drip_campaigns/(drip_campaign_id)/activate with invalid campaign ID
         /// </summary>
         /// <returns>The associated task</returns>
-        [Fact]
+        [TestMethod]
         public async Task TestActivateDripCampaignWithInvalidParameters()
         {
-            Output.WriteLine(String.Format("POST /drip_campaigns/{0}/activate with invalid campaign ID", INVALID_CAMPAIGN_ID));
+            Trace.WriteLine(String.Format("POST /drip_campaigns/{0}/activate with invalid campaign ID", INVALID_CAMPAIGN_ID));
 
             // Use the production API key so that the emails are actually sent
             SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_PRODUCTION;
@@ -126,7 +115,7 @@ namespace SendwithusTest
             catch (SendwithusException exception)
             {
                 // Make sure the response was HTTP 400 Bad Request
-                SendwithusClientTest.ValidateException(exception, HttpStatusCode.BadRequest, Output);
+                SendwithusClientTest.ValidateException(exception, HttpStatusCode.BadRequest);
             }
         }
 
@@ -134,51 +123,51 @@ namespace SendwithusTest
         /// Tests the API call POST /drip_campaigns/(drip_campaign_id)/deactivate
         /// </summary>
         /// <returns>The associated task</returns>
-        [Fact]
+        [TestMethod]
         public async Task TestDeactivateDripCampaignAsync()
         {
-            Output.WriteLine(String.Format("POST /drip_campaigns/{0}/deactivate", DEFAULT_CAMPAIGN_ID));
+            Trace.WriteLine(String.Format("POST /drip_campaigns/{0}/deactivate", DEFAULT_CAMPAIGN_ID));
             SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Make the API call
             var response = await DripCampaign.DeactivateAsync(DEFAULT_CAMPAIGN_ID, DEFAULT_RECIPIENT_EMAIL_ADDRESS);
 
             // Validate the response
-            SendwithusClientTest.ValidateResponse(response, Output);
+            SendwithusClientTest.ValidateResponse(response);
         }
 
         /// <summary>
         /// Tests the API call GET /drip_campaigns
         /// </summary>
         /// <returns>The associated task</returns>
-        [Fact]
+        [TestMethod]
         public async Task TestGetDripCampaignsAsync()
         {
-            Output.WriteLine("GET /drip_campaigns");
+            Trace.WriteLine("GET /drip_campaigns");
             SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Make the API call
             var response = await DripCampaign.GetDripCampaignsAsync();
 
             // Validate the response
-            SendwithusClientTest.ValidateResponse(response, Output);
+            SendwithusClientTest.ValidateResponse(response);
         }
 
         /// <summary>
         /// Tests the API call GET /drip_campaigns/(drip_campaign_id)
         /// </summary>
         /// <returns>The associated task</returns>
-        [Fact]
+        [TestMethod]
         public async Task TestGetDripCampaignAsync()
         {
-            Output.WriteLine(String.Format("GET /drip_campaigns/{0}",DEFAULT_CAMPAIGN_ID));
+            Trace.WriteLine(String.Format("GET /drip_campaigns/{0}",DEFAULT_CAMPAIGN_ID));
             SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Make the API call
             var response = await DripCampaign.GetDripCampaignAsync(DEFAULT_CAMPAIGN_ID);
 
             // Validate the response
-            SendwithusClientTest.ValidateResponse(response, Output);
+            SendwithusClientTest.ValidateResponse(response);
         }
     }
 }

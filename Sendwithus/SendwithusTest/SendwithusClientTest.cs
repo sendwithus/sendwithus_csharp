@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 using Sendwithus;
 using System.Web.Script.Serialization;
 using System.Diagnostics;
-using Xunit;
 using System.Net;
-using Xunit.Abstractions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 [assembly: CLSCompliant(true)]
 namespace SendwithusTest
@@ -23,14 +22,14 @@ namespace SendwithusTest
         /// Validates the response from an API call
         /// </summary>
         /// <param name="response">The api call's response</param>
-        public static void ValidateResponse(object response, ITestOutputHelper output)
+        public static void ValidateResponse(object response)
         {
             // Print the response
             var serializer = new JavaScriptSerializer();
-            output.WriteLine(String.Format("Response: {0}", serializer.Serialize(response)));
+            Trace.WriteLine(String.Format("Response: {0}", serializer.Serialize(response)));
 
             // Validate the response
-            Assert.NotNull(response);
+            Assert.IsNotNull(response);
         }
 
         /// <summary>
@@ -38,7 +37,7 @@ namespace SendwithusTest
         /// </summary>
         /// <param name="exception">The exception to validate</param>
         /// <param name="stausCode">The expected exception status code</param>
-        public static void ValidateException(SendwithusException exception, HttpStatusCode expectedStatusCode, ITestOutputHelper output)
+        public static void ValidateException(SendwithusException exception, HttpStatusCode expectedStatusCode)
         {
             // Make sure the exception parameter isn't null
             if (exception == null)
@@ -47,11 +46,11 @@ namespace SendwithusTest
             }
 
             // Print the exception details
-            output.WriteLine(String.Format("Exception Status Code: {0}", exception.StatusCode.ToString()));
-            output.WriteLine(String.Format("Exception Message: {0}", exception.Message));
+            Trace.WriteLine(String.Format("Exception Status Code: {0}", exception.StatusCode.ToString()));
+            Trace.WriteLine(String.Format("Exception Message: {0}", exception.Message));
 
             // Check the exception's status code
-            Assert.Equal(expectedStatusCode, exception.StatusCode);
+            Assert.AreEqual(expectedStatusCode, exception.StatusCode);
         }
 
         /// <summary>
@@ -75,22 +74,22 @@ namespace SendwithusTest
         /// <typeparam name="T">The expected type of exception</typeparam>
         /// <param name="expectedRetryCount">The expected number of retries (there should be one exception per retry)</param>
         /// <param name="ex">The exception object to validate</param>
-        public static void ValidateAggregateException<T>(int expectedRetryCount, Exception ex, ITestOutputHelper output)
+        public static void ValidateAggregateException<T>(int expectedRetryCount, Exception ex)
         {
-            output.WriteLine(String.Format("Aggregate exception message: {0}", ex.Message));
+            Trace.WriteLine(String.Format("Aggregate exception message: {0}", ex.Message));
 
             // Make sure the exception is actually an AggregateException
             var aggregateException = ex as AggregateException;
-            Assert.NotNull(aggregateException);
+            Assert.IsNotNull(aggregateException);
 
             // Make sure the number of exceptions matches the expected number of API call retries
-            Assert.Equal(expectedRetryCount, aggregateException.InnerExceptions.Count);
+            Assert.AreEqual(expectedRetryCount, aggregateException.InnerExceptions.Count);
 
             // Make sure that all of the exceptions are of the expected type
             foreach (Exception individualException in aggregateException.InnerExceptions)
             {
-                output.WriteLine(String.Format("Exception: {0}", individualException.Message));
-                Assert.True(individualException is T);
+                Trace.WriteLine(String.Format("Exception: {0}", individualException.Message));
+                Assert.IsTrue(individualException is T);
             }
         }
 
@@ -99,7 +98,7 @@ namespace SendwithusTest
         /// Assumes the API call failed on a timeout and used the full retry count.
         /// </summary>
         /// <param name="measuredExecutionTimeMilliseconds">The measured execution time of the API call</param>
-        public static void ValidateApiCallExecutionTime(double measuredExecutionTimeMilliseconds, ITestOutputHelper output)
+        public static void ValidateApiCallExecutionTime(double measuredExecutionTimeMilliseconds)
         {
             const int DURATION_WINDOW_SIZE_MILLISECONDS = 500; // 500ms A large window to handle variability in run time
 
@@ -107,21 +106,21 @@ namespace SendwithusTest
             var retryCount = SendwithusClient.RetryCount;
             var timeoutMilliseconds = SendwithusClient.GetTimeout().TotalMilliseconds;
             var retryIntervalMilliseconds = SendwithusClient.RetryIntervalMilliseconds;
-            output.WriteLine(String.Format("Retry Count: {0}", retryCount));
-            output.WriteLine(String.Format("Timeout: {0}ms", timeoutMilliseconds));
-            output.WriteLine(String.Format("Retry Interval: {0}ms", retryIntervalMilliseconds));
+            Trace.WriteLine(String.Format("Retry Count: {0}", retryCount));
+            Trace.WriteLine(String.Format("Timeout: {0}ms", timeoutMilliseconds));
+            Trace.WriteLine(String.Format("Retry Interval: {0}ms", retryIntervalMilliseconds));
 
             // Calculate the expected execution time
             var lowerExecutionTimeLimit = retryCount * timeoutMilliseconds +
                 (retryCount - 1) * retryIntervalMilliseconds;
             var upperExecutionTimeLimit = lowerExecutionTimeLimit + DURATION_WINDOW_SIZE_MILLISECONDS;
 
-            output.WriteLine(String.Format("Measured Execution Time: {0}ms", measuredExecutionTimeMilliseconds.ToString()));
-            output.WriteLine(String.Format("Minimum Expected Execution Time: {0}ms", lowerExecutionTimeLimit.ToString()));
-            output.WriteLine(String.Format("Maximum Expected Execution Time: {0}ms", upperExecutionTimeLimit.ToString()));
+            Trace.WriteLine(String.Format("Measured Execution Time: {0}ms", measuredExecutionTimeMilliseconds.ToString()));
+            Trace.WriteLine(String.Format("Minimum Expected Execution Time: {0}ms", lowerExecutionTimeLimit.ToString()));
+            Trace.WriteLine(String.Format("Maximum Expected Execution Time: {0}ms", upperExecutionTimeLimit.ToString()));
 
             // Check if the measured execution time matches the expected execution time
-            Assert.InRange<double>(measuredExecutionTimeMilliseconds, lowerExecutionTimeLimit, upperExecutionTimeLimit);
+            Assert.IsTrue(measuredExecutionTimeMilliseconds >= lowerExecutionTimeLimit && measuredExecutionTimeMilliseconds <= upperExecutionTimeLimit);
         }
     }
 }

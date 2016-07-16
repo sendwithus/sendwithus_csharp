@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using Xunit;
 using System.Threading.Tasks;
 using Sendwithus;
 using System.Net;
 using System.Diagnostics;
-using Xunit.Abstractions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace SendwithusTest
 {
     /// <summary>
     /// Unit tests for the sendwithus EspAccount API calls
     /// </summary>
+    [TestClass]
     public class EspAccountTest
     {
         private const string DEFAULT_ESP_ACCOUNT_ID = "esp_e3ut7pFtWttcN4HNoQ8Vgm";
@@ -34,42 +34,31 @@ namespace SendwithusTest
         private const string SMTP_USERNAME = "sendwithus";
         private const string SMTP_PASSWORD = MANDRILL_API_KEY;
 
-        readonly ITestOutputHelper Output;
-
-        /// <summary>
-        /// Default constructor with an output object - used to output messages to the Test Explorer
-        /// </summary>
-        /// <param name="output"></param>
-        public EspAccountTest(ITestOutputHelper output)
-        {
-            Output = output;
-        }
-
         /// <summary>
         /// Tests the API call GET /esp_accounts without any parameters
         /// </summary>
         /// <returns>The associated task</returns>
-        [Fact]
+        [TestMethod]
         public async Task TestGetEspAccountsWithoutParametersAsync()
         {
-            Output.WriteLine("GET /esp_accounts");
+            Trace.WriteLine("GET /esp_accounts");
             SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Make the API call
             var response = await EspAccount.GetAccountsAsync();
 
             // Validate the response
-            SendwithusClientTest.ValidateResponse(response, Output);
+            SendwithusClientTest.ValidateResponse(response);
         }
 
         /// <summary>
         /// Tests the API call GET /esp_accounts with all parameters
         /// </summary>
         /// <returns>The associated task</returns>
-        [Fact]
+        [TestMethod]
         public async Task TestGetEspAccountsWithAllParametersAsync()
         {
-            Output.WriteLine("GET /esp_accounts");
+            Trace.WriteLine("GET /esp_accounts");
             SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Build the query parameters
@@ -80,17 +69,17 @@ namespace SendwithusTest
             var response = await EspAccount.GetAccountsAsync(queryParameters);
 
             // Validate the response
-            SendwithusClientTest.ValidateResponse(response, Output);
+            SendwithusClientTest.ValidateResponse(response);
         }
 
         /// <summary>
         /// Tests the API call GET /esp_accounts with an invalid parameter
         /// </summary>
         /// <returns>The associated task</returns>
-        [Fact]
+        [TestMethod]
         public async Task TestGetEspAccountsWithInvalidParameterAsync()
         {
-            Output.WriteLine("GET /esp_accounts");
+            Trace.WriteLine("GET /esp_accounts");
             SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Build the query parameters
@@ -101,12 +90,12 @@ namespace SendwithusTest
             try
             {
                 var response = await EspAccount.GetAccountsAsync(queryParameters);
-                Assert.True(false, "Failed to throw exception");
+                Assert.Fail("Failed to throw exception");
             }
             catch (SendwithusException exception)
             {
                 // Make sure the response was HTTP 400 Bad Request
-                SendwithusClientTest.ValidateException(exception, HttpStatusCode.BadRequest, Output);
+                SendwithusClientTest.ValidateException(exception, HttpStatusCode.BadRequest);
             }
         }
 
@@ -114,10 +103,10 @@ namespace SendwithusTest
         /// Tests the API call POST /esp_accounts with a sendgrid account
         /// </summary>
         /// <returns>The associated task</returns>
-        [Fact]
+        [TestMethod]
         public async Task TestAddAccountSendgridAsync()
         {
-            Output.WriteLine("POST /esp_accounts");
+            Trace.WriteLine("POST /esp_accounts");
             SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Build the Add Account Request for a sendgrid account
@@ -128,17 +117,17 @@ namespace SendwithusTest
             var response = await EspAccount.AddAccountAsync(addAccountRequest);
 
             // Validate the response
-            SendwithusClientTest.ValidateResponse(response, Output);
+            SendwithusClientTest.ValidateResponse(response);
         }
 
         /// <summary>
         /// Tests the API call POST /esp_accounts with a mailgun account
         /// </summary>
         /// <returns>The associated task</returns>
-        [Fact]
+        [TestMethod]
         public async Task TestAddAccountMailgunAsync()
         {
-            Output.WriteLine("POST /esp_accounts");
+            Trace.WriteLine("POST /esp_accounts");
             SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Build the Add Account Request for a mailgun account
@@ -149,17 +138,17 @@ namespace SendwithusTest
             var response = await EspAccount.AddAccountAsync(addAccountRequest);
 
             // Validate the response
-            SendwithusClientTest.ValidateResponse(response, Output);
+            SendwithusClientTest.ValidateResponse(response);
         }
 
         // <summary>
         /// Tests the API call POST /esp_accounts with a mandrill account
         /// </summary>
         /// <returns>The associated task</returns>
-        [Fact]
+        [TestMethod]
         public async Task TestAddAccountMandrillAsync()
         {
-            Output.WriteLine("POST /esp_accounts");
+            Trace.WriteLine("POST /esp_accounts");
             SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Build the Add Account Request for a mailgun account
@@ -170,17 +159,17 @@ namespace SendwithusTest
             var response = await EspAccount.AddAccountAsync(addAccountRequest);
 
             // Validate the response
-            SendwithusClientTest.ValidateResponse(response, Output);
+            SendwithusClientTest.ValidateResponse(response);
         }
 
         // <summary>
         /// Tests the API call POST /esp_accounts with a postmark account
         /// </summary>
         /// <returns>The associated task</returns>
-        [Fact]
+        [TestMethod]
         public async Task TestAddAccountPostmarkAsync()
         {
-            Output.WriteLine("POST /esp_accounts");
+            Trace.WriteLine("POST /esp_accounts");
             SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Build the Add Account Request for a mailgun account
@@ -191,7 +180,7 @@ namespace SendwithusTest
             var response = await EspAccount.AddAccountAsync(addAccountRequest);
 
             // Validate the response
-            SendwithusClientTest.ValidateResponse(response, Output);
+            SendwithusClientTest.ValidateResponse(response);
         }
 
         // <summary>
@@ -199,10 +188,10 @@ namespace SendwithusTest
         /// Expected to fail on authorization as proper SES credentials aren't included here
         /// </summary>
         /// <returns>The associated task</returns>
-        [Fact]
+        [TestMethod]
         public async Task TestAddAccountSesAsync()
         {
-            Output.WriteLine("POST /esp_accounts");
+            Trace.WriteLine("POST /esp_accounts");
             SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Build the Add Account Request for a mailgun account
@@ -219,7 +208,7 @@ namespace SendwithusTest
                 // Make sure the response was HTTP 400 Bad Request (because of an authorization error)
                 // This means that we formatted the API call correctly and only failed because we don't
                 // have proper authorization credentials to test an SES account
-                SendwithusClientTest.ValidateException(exception, HttpStatusCode.BadRequest, Output);
+                SendwithusClientTest.ValidateException(exception, HttpStatusCode.BadRequest);
             }
         }
 
@@ -227,10 +216,10 @@ namespace SendwithusTest
         /// Tests the API call POST /esp_accounts with a Mailjet account
         /// </summary>
         /// <returns>The associated task</returns>
-        [Fact]
+        [TestMethod]
         public async Task TestAddAccountMailjetAsync()
         {
-            Output.WriteLine("POST /esp_accounts");
+            Trace.WriteLine("POST /esp_accounts");
             SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Build the Add Account Request for a mailgun account
@@ -241,7 +230,7 @@ namespace SendwithusTest
             var response = await EspAccount.AddAccountAsync(addAccountRequest);
 
             // Validate the response
-            SendwithusClientTest.ValidateResponse(response, Output);
+            SendwithusClientTest.ValidateResponse(response);
         }
 
         // <summary>
@@ -249,10 +238,10 @@ namespace SendwithusTest
         /// Expected to fail on authorization as proper DYN credentials aren't included here
         /// </summary>
         /// <returns>The associated task</returns>
-        [Fact]
+        [TestMethod]
         public async Task TestAddAccountDynAsync()
         {
-            Output.WriteLine("POST /esp_accounts");
+            Trace.WriteLine("POST /esp_accounts");
             SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Build the Add Account Request for a DYN account
@@ -269,7 +258,7 @@ namespace SendwithusTest
                 // Make sure the response was HTTP 400 Bad Request (because of an authorization error)
                 // This means that we formatted the API call correctly and only failed because we don't
                 // have proper authorization credentials to test a DYN account
-                SendwithusClientTest.ValidateException(exception, HttpStatusCode.BadRequest, Output);
+                SendwithusClientTest.ValidateException(exception, HttpStatusCode.BadRequest);
             }
         }
 
@@ -277,10 +266,10 @@ namespace SendwithusTest
         /// Tests the API call POST /esp_accounts with an SMTP account
         /// </summary>
         /// <returns>The associated task</returns>
-        [Fact]
+        [TestMethod]
         public async Task TestAddAccountSmtpAsync()
         {
-            Output.WriteLine("POST /esp_accounts");
+            Trace.WriteLine("POST /esp_accounts");
             SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Build the Add Account Request for a DYN account
@@ -291,24 +280,24 @@ namespace SendwithusTest
             var response = await EspAccount.AddAccountAsync(addAccountRequest);
 
             // Validate the response
-            SendwithusClientTest.ValidateResponse(response, Output);
+            SendwithusClientTest.ValidateResponse(response);
         }
 
         // <summary>
         /// Tests the API call PUT /esp_accounts/set_default
         /// </summary>
         /// <returns>The associated task</returns>
-        [Fact]
+        [TestMethod]
         public async Task TestSetDefaultEspAccountAsync()
         {
-            Output.WriteLine("PUT /esp_accounts/set_default");
+            Trace.WriteLine("PUT /esp_accounts/set_default");
             SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Make the API call
             var response = await EspAccount.SetDefaultEspAccountAsync(DEFAULT_ESP_ACCOUNT_ID);
 
             // Validate the response
-            SendwithusClientTest.ValidateResponse(response, Output);
+            SendwithusClientTest.ValidateResponse(response);
         }
     }
 }

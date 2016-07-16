@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Xunit;
-using Xunit.Abstractions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Sendwithus;
 using System.Web.Script.Serialization;
 using System.Diagnostics;
@@ -15,6 +14,7 @@ namespace SendwithusTest
     /// A class to test the sendwithus API's retry functionality.
     /// Covers the number of retries and the interval between retries
     /// </summary>
+    [TestClass]
     public class RetryTest
     {
         private const int FAILURE_TIMEOUT_MILLISECONDS = 1; // 1ms
@@ -23,22 +23,11 @@ namespace SendwithusTest
         private const int NON_DEFAULT_RETRY_COUNT = SendwithusClient.DEFAULT_RETRY_COUNT + 2;
         private const int NON_DEFAULT_RETRY_INTERVAL_MILLISECONDS = 1000; // 1 second
 
-        readonly ITestOutputHelper Output;
-
-        /// <summary>
-        /// Default constructor with an output object - used to output messages to the Test Explorer
-        /// </summary>
-        /// <param name="output"></param>
-        public RetryTest(ITestOutputHelper output)
-        {
-            Output = output;
-        }
-
         /// <summary>
         /// Tests that the default retry count works with an HTTP GET request
         /// </summary>
         /// <returns>The associated task</returns>
-        [Fact]
+        [TestMethod]
         public async Task TestDefaultRetryCountWithGetAsync()
         {
             // Set the timeout low enough that the API call is guaranteed to fail
@@ -54,7 +43,7 @@ namespace SendwithusTest
             }
             catch (Exception ex)
             {
-                SendwithusClientTest.ValidateAggregateException<TaskCanceledException>(SendwithusClient.DEFAULT_RETRY_COUNT, ex, Output);
+                SendwithusClientTest.ValidateAggregateException<TaskCanceledException>(SendwithusClient.DEFAULT_RETRY_COUNT, ex);
             }
             finally
             {
@@ -67,7 +56,7 @@ namespace SendwithusTest
         /// Tests that the default retry count works with an HTTP PUT request
         /// </summary>
         /// <returns>The associated task</returns>
-        [Fact]
+        [TestMethod]
         public async Task TestDefaultRetryCountWithPutAsync()
         {
             // Set the timeout low enough that the API call is guaranteed to fail
@@ -83,7 +72,7 @@ namespace SendwithusTest
             }
             catch (Exception ex)
             {
-                SendwithusClientTest.ValidateAggregateException<TaskCanceledException>(SendwithusClient.DEFAULT_RETRY_COUNT, ex, Output);
+                SendwithusClientTest.ValidateAggregateException<TaskCanceledException>(SendwithusClient.DEFAULT_RETRY_COUNT, ex);
             }
             finally
             {
@@ -96,7 +85,7 @@ namespace SendwithusTest
         /// Tests that the default retry count works with an HTTP POST request
         /// </summary>
         /// <returns>The associated task</returns>
-        [Fact]
+        [TestMethod]
         public async Task TestDefaultRetryCountWithPostAsync()
         {
             // Set the timeout low enough that the API call is guaranteed to fail
@@ -112,7 +101,7 @@ namespace SendwithusTest
             }
             catch (Exception ex)
             {
-                SendwithusClientTest.ValidateAggregateException<TaskCanceledException>(SendwithusClient.DEFAULT_RETRY_COUNT, ex, Output);
+                SendwithusClientTest.ValidateAggregateException<TaskCanceledException>(SendwithusClient.DEFAULT_RETRY_COUNT, ex);
             }
             finally
             {
@@ -125,7 +114,7 @@ namespace SendwithusTest
         /// Tests that the default retry count works with an HTTP DELETE request
         /// </summary>
         /// <returns>The associated task</returns>
-        [Fact]
+        [TestMethod]
         public async Task TestDefaultRetryCountWithDeleteAsync()
         {
             // Set the timeout low enough that the API call is guaranteed to fail
@@ -141,7 +130,7 @@ namespace SendwithusTest
             }
             catch (Exception ex)
             {
-                SendwithusClientTest.ValidateAggregateException<TaskCanceledException>(SendwithusClient.DEFAULT_RETRY_COUNT, ex, Output);
+                SendwithusClientTest.ValidateAggregateException<TaskCanceledException>(SendwithusClient.DEFAULT_RETRY_COUNT, ex);
             }
             finally
             {
@@ -154,7 +143,7 @@ namespace SendwithusTest
         /// Tests that the default retry count can be set to a non-default value
         /// </summary>
         /// <returns>The associated task</returns>
-        [Fact]
+        [TestMethod]
         public async Task TestNonDefaultRetryCountAsync()
         {
             // Set the timeout low enough that the API call is guaranteed to fail
@@ -170,7 +159,7 @@ namespace SendwithusTest
             }
             catch (Exception ex)
             {
-                SendwithusClientTest.ValidateAggregateException<TaskCanceledException>(NON_DEFAULT_RETRY_COUNT, ex, Output);
+                SendwithusClientTest.ValidateAggregateException<TaskCanceledException>(NON_DEFAULT_RETRY_COUNT, ex);
             }
             finally
             {
@@ -186,7 +175,7 @@ namespace SendwithusTest
         /// Tests that the default retry interval is used properly
         /// </summary>
         /// <returns>The associated task</returns>
-        [Fact]
+        [TestMethod]
         public async Task TestDefaultRetryInterval()
         {
             // Set the timeout low enough that the API call is guaranteed to fail and has a negligible effect on the run time
@@ -209,12 +198,12 @@ namespace SendwithusTest
                 var endTime = Stopwatch.GetTimestamp();
                 
                 // Make sure the API call failed on a timeout
-                SendwithusClientTest.ValidateAggregateException<TaskCanceledException>(SendwithusClient.DEFAULT_RETRY_COUNT, ex, Output);
+                SendwithusClientTest.ValidateAggregateException<TaskCanceledException>(SendwithusClient.DEFAULT_RETRY_COUNT, ex);
 
                 // Validate the API call's execution time
                 var elapsedTime = endTime - startTime;
                 var elapsedMilliSeconds = elapsedTime * (1000.0 / Stopwatch.Frequency);
-                SendwithusClientTest.ValidateApiCallExecutionTime(elapsedMilliSeconds, Output);
+                SendwithusClientTest.ValidateApiCallExecutionTime(elapsedMilliSeconds);
             }
             finally
             {
@@ -230,7 +219,7 @@ namespace SendwithusTest
         /// Tests that the retry interval works properly when set to a non-default value
         /// </summary>
         /// <returns>The associated task</returns>
-        [Fact]
+        [TestMethod]
         public async Task TestNonDefaultRetryInterval()
         {
             // Set the timeout low enough that the API call is guaranteed to fail and has a negligible effect on the run time
@@ -254,13 +243,13 @@ namespace SendwithusTest
                 var endTime = Stopwatch.GetTimestamp();
 
                 // Make sure the API call failed on a timeout
-                //SendwithusClientTest.ValidateAggregateException<TaskCanceledException>(SendwithusClient.DEFAULT_RETRY_COUNT, ex, Output);
-                SendwithusClientTest.ValidateAggregateException<TaskCanceledException>(NON_DEFAULT_RETRY_COUNT, ex, Output);
+                //SendwithusClientTest.ValidateAggregateException<TaskCanceledException>(SendwithusClient.DEFAULT_RETRY_COUNT, ex);
+                SendwithusClientTest.ValidateAggregateException<TaskCanceledException>(NON_DEFAULT_RETRY_COUNT, ex);
 
                 // Validate the API call's execution time
                 var elapsedTime = endTime - startTime;
                 var elapsedMilliSeconds = elapsedTime * (1000.0 / Stopwatch.Frequency);
-                SendwithusClientTest.ValidateApiCallExecutionTime(elapsedMilliSeconds, Output);
+                SendwithusClientTest.ValidateApiCallExecutionTime(elapsedMilliSeconds);
             }
             finally
             {
