@@ -289,17 +289,18 @@ namespace SendwithusTest
         }
 
         /// <summary>
-        /// Tests the API call PUT /templates/(:template_id)/versions/(:version_id)
+        /// Tests the API call PUT /templates/(:template_id)/versions/(:version_id), using HTML instead of text
         /// </summary>
         /// <returns>The asynchronous task</returns>
         [TestMethod]
-        public async Task TestUpdateTemplateVersionByIdWithMinimumParametersAsync()
+        public async Task TestUpdateTemplateVersionByIdWithMinimumParametersHtmlAsync()
         {
             // Make the API call
             Trace.WriteLine(String.Format("PUT /templates/{0}/versions/{1}", DEFAULT_TEMPLATE_ID, DEFAULT_VERSION_ID));
             var templateVersionName = "New Template Version";
             var templateSubject = "New Version!";
             var updatedTemplateVersion = new TemplateVersion(templateVersionName, templateSubject);
+            updatedTemplateVersion.html = "<html><head></head><body><h1>UPDATE</h1></body></html>";
             try
             {
                 var templateVersion = await Template.UpdateTemplateVersionAsync(DEFAULT_TEMPLATE_ID, DEFAULT_VERSION_ID, updatedTemplateVersion);
@@ -314,17 +315,70 @@ namespace SendwithusTest
         }
 
         /// <summary>
-        /// Tests the API call PUT /templates/(:template_id)/locales/(:locale)/versions/(:version_id) with only mandatory parameters
+        /// Tests the API call PUT /templates/(:template_id)/versions/(:version_id), using text instead of HTML
         /// </summary>
         /// <returns>The asynchronous task</returns>
         [TestMethod]
-        public async Task TestUpdateTemplateVersionByIdAndLocaleWithMinimumParametersAsync()
+        public async Task TestUpdateTemplateVersionByIdWithMinimumParametersTextAsync()
+        {
+            // Make the API call
+            Trace.WriteLine(String.Format("PUT /templates/{0}/versions/{1}", DEFAULT_TEMPLATE_ID, DEFAULT_VERSION_ID));
+            var templateVersionName = "New Template Version";
+            var templateSubject = "New Version!";
+            var updatedTemplateVersion = new TemplateVersion(templateVersionName, templateSubject);
+            updatedTemplateVersion.text = "sometext";
+            try
+            {
+                var templateVersion = await Template.UpdateTemplateVersionAsync(DEFAULT_TEMPLATE_ID, DEFAULT_VERSION_ID, updatedTemplateVersion);
+
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(templateVersion);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Tests the API call PUT /templates/(:template_id)/locales/(:locale)/versions/(:version_id) with only mandatory parameters, using HTML instead of text
+        /// </summary>
+        /// <returns>The asynchronous task</returns>
+        [TestMethod]
+        public async Task TestUpdateTemplateVersionByIdAndLocaleWithMinimumParametersHtmlAsync()
         {
             // Make the API call
             Trace.WriteLine(String.Format("PUT /templates/{0}/locales/{1}/versions/{2}", DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE, DEFAULT_VERSION_ID));
             var templateVersionName = "New Version";
             var templateSubject = "edited!";
             var updatedTemplateVersion = new TemplateVersion(templateVersionName, templateSubject);
+            updatedTemplateVersion.html = "<html><head></head><body><h1>UPDATE</h1></body></html>";
+            try
+            {
+                var templateVersion = await Template.UpdateTemplateVersionAsync(DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE, DEFAULT_VERSION_ID, updatedTemplateVersion);
+
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(templateVersion);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Tests the API call PUT /templates/(:template_id)/locales/(:locale)/versions/(:version_id) with only mandatory parameters, using text instead of HTML
+        /// </summary>
+        /// <returns>The asynchronous task</returns>
+        [TestMethod]
+        public async Task TestUpdateTemplateVersionByIdAndLocaleWithMinimumParametersTextAsync()
+        {
+            // Make the API call
+            Trace.WriteLine(String.Format("PUT /templates/{0}/locales/{1}/versions/{2}", DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE, DEFAULT_VERSION_ID));
+            var templateVersionName = "New Version";
+            var templateSubject = "edited!";
+            var updatedTemplateVersion = new TemplateVersion(templateVersionName, templateSubject);
+            updatedTemplateVersion.text = "sometext";
             try
             {
                 var templateVersion = await Template.UpdateTemplateVersionAsync(DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE, DEFAULT_VERSION_ID, updatedTemplateVersion);
@@ -474,17 +528,44 @@ namespace SendwithusTest
         }
 
         /// <summary>
-        /// Tests the API call POST /templates/(:template_id)/versions with minimum parameters
+        /// Tests the API call POST /templates/(:template_id)/versions with minimum parameters using html, not text
         /// </summary>
         /// <returns>The asynchronous task</returns>
         [TestMethod]
-        public async Task TestCreateTemplateVersionWithMinimumParametersAsync()
+        public async Task TestCreateTemplateVersionWithMinimumParametersHtmlAsync()
         {
             // Make the API call
             Trace.WriteLine(String.Format("POST /templates/{0}/versions", DEFAULT_TEMPLATE_ID));
             var templateVersionName = "New Template Version";
             var templateSubject = "New Version!";
             var updatedTemplateVersion = new TemplateVersion(templateVersionName, templateSubject);
+            updatedTemplateVersion.html = "<html><head></head><body><h1>NEW TEMPLATE VERSION</h1></body></html>";
+            try
+            {
+                var templateVersion = await Template.CreateTemplateVersion(DEFAULT_TEMPLATE_ID, updatedTemplateVersion);
+
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(templateVersion);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Tests the API call POST /templates/(:template_id)/versions with minimum parameters using text, not html
+        /// </summary>
+        /// <returns>The asynchronous task</returns>
+        [TestMethod]
+        public async Task TestCreateTemplateVersionWithMinimumParametersTextAsync()
+        {
+            // Make the API call
+            Trace.WriteLine(String.Format("POST /templates/{0}/versions", DEFAULT_TEMPLATE_ID));
+            var templateVersionName = "New Template Version";
+            var templateSubject = "New Version!";
+            var updatedTemplateVersion = new TemplateVersion(templateVersionName, templateSubject);
+            updatedTemplateVersion.text = "some text";
             try
             {
                 var templateVersion = await Template.CreateTemplateVersion(DEFAULT_TEMPLATE_ID, updatedTemplateVersion);
@@ -526,17 +607,44 @@ namespace SendwithusTest
         }
 
         /// <summary>
-        /// Tests the API call POST /templates/(:template_id)/locales/(:locale)/versions with the minimum parameters
+        /// Tests the API call POST /templates/(:template_id)/locales/(:locale)/versions with the minimum parameters, using HTML instead of text
         /// </summary>
         /// <returns>The asynchronous task</returns>
         [TestMethod]
-        public async Task TestCreateTemplateVersionWithLocaleWithMinimumParametersAsync()
+        public async Task TestCreateTemplateVersionWithLocaleWithMinimumParametersHtmlAsync()
         {
             // Make the API call
             Trace.WriteLine(String.Format("POST /templates/{0}/locales/{1}/versions", DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE));
             var templateVersionName = "New Template Version";
             var templateSubject = "New Version!";
             var updatedTemplateVersion = new TemplateVersion(templateVersionName, templateSubject);
+            updatedTemplateVersion.html = "<html><head></head><body><h1>NEW TEMPLATE VERSION</h1></body></html>";
+            try
+            {
+                var templateVersion = await Template.CreateTemplateVersion(DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE, updatedTemplateVersion);
+
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(templateVersion);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Tests the API call POST /templates/(:template_id)/locales/(:locale)/versions with the minimum parameters, using text instead of HTML
+        /// </summary>
+        /// <returns>The asynchronous task</returns>
+        [TestMethod]
+        public async Task TestCreateTemplateVersionWithLocaleWithMinimumParametersTextAsync()
+        {
+            // Make the API call
+            Trace.WriteLine(String.Format("POST /templates/{0}/locales/{1}/versions", DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE));
+            var templateVersionName = "New Template Version";
+            var templateSubject = "New Version!";
+            var updatedTemplateVersion = new TemplateVersion(templateVersionName, templateSubject);
+            updatedTemplateVersion.text = "some text";
             try
             {
                 var templateVersion = await Template.CreateTemplateVersion(DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE, updatedTemplateVersion);
