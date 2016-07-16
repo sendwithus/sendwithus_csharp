@@ -363,11 +363,11 @@ deploy:
 #    skip_symbols: false
 #    symbol_server: https://your.symbol.server/feed
 # Only deploy Release builds on the master branch
+    artifact: /.*\.nupkg/
     on:
       branch: master
       platform: Any CPU
-      configuration: Release
-    artifact: /.*\.nupkg/
+      configuration: Release    
      
 #    # Deploy to GitHub Releases
 #  - provider: GitHub
