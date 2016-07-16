@@ -22,6 +22,7 @@ namespace SendwithusTest
         private const string DEFAULT_LOCALE = "en-US";
         private const string ALTERNATE_LOCALE = "fr-FR";
         private const string INVALID_LOCALE = "invalid_locale";
+        private const string INVALID_API_KEY = "invalid_api_key";
 
         /// <summary>
         /// Sets the API 
@@ -31,26 +32,6 @@ namespace SendwithusTest
         {
             // Set the API key
             SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
-        }
-
-        /// <summary>
-        /// Tests the GET /templates with an invalid API Key
-        /// </summary>
-        /// <returns>The asynchronous task</returns>
-        [TestMethod]
-        public async Task TestGetTeamplatesWithInvalidApiKeyAsync()
-        {
-            // Make the API call
-            Trace.WriteLine("GET /templates with invalid API Key");
-            try
-            {
-                var response = await Template.GetTemplatesAsync();
-            }
-            catch (AggregateException exception)
-            {
-                // Make sure the response was HTTP 403 Forbidden
-                SendwithusClientTest.ValidateException(exception, HttpStatusCode.Forbidden);
-            }
         }
 
         /// <summary>
@@ -72,6 +53,37 @@ namespace SendwithusTest
             catch (AggregateException exception)
             {
                 Assert.Fail(exception.ToString());
+            }
+        }
+
+
+        /// <summary>
+        /// Tests the GET /templates with an invalid API Key
+        /// </summary>
+        /// <returns>The asynchronous task</returns>
+        [TestMethod]
+        public async Task TestGetTemplatesWithInvalidApiKeyAsync()
+        {
+            Trace.WriteLine(String.Format("GET /templates with invalid API Key: {0}", INVALID_API_KEY));
+
+            // Set the API Key to an invalid key and save the original key
+            var originalApiKey = SendwithusClient.ApiKey;
+            SendwithusClient.ApiKey = INVALID_API_KEY;
+
+            // Make the API call
+            try
+            {
+                var response = await Template.GetTemplatesAsync();
+            }
+            catch (AggregateException exception)
+            {
+                // Make sure the response was HTTP 403 Forbidden
+                SendwithusClientTest.ValidateException(exception, HttpStatusCode.Forbidden);
+            }
+            finally
+            {
+                // Set the API Key back to its original value
+                SendwithusClient.ApiKey = originalApiKey;
             }
         }
 
