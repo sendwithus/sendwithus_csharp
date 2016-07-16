@@ -22,8 +22,6 @@ namespace SendwithusTest
         private const string DEFAULT_CUSTOMER_GROUP_NAME = "new_group";
         private const string DEFAULT_CUSTOMER_GROUP_DESCRIPTION = "a description of the group";
 
-        private static Collection<string> NewCustomerGroupIds = new Collection<string>();
-
         readonly ITestOutputHelper Output;
 
         /// <summary>
@@ -70,9 +68,6 @@ namespace SendwithusTest
             var groupName = String.Format("{0}_{1}", DEFAULT_CUSTOMER_GROUP_NAME, SendwithusClientTest.RandomString(10));
             var response = await CustomerGroup.CreateCustomerGroupAsync(groupName);
 
-            // Add the new customer group ID to the list of customer groups that can be used for deletion
-            NewCustomerGroupIds.Add(response.group.id);
-
             // Validate the response
             SendwithusClientTest.ValidateResponse(response, Output);
         }
@@ -92,9 +87,6 @@ namespace SendwithusTest
             // Make the API call
             var groupName = String.Format("{0}_{1}", DEFAULT_CUSTOMER_GROUP_NAME, SendwithusClientTest.RandomString(10));
             var response = await CustomerGroup.CreateCustomerGroupAsync(groupName, DEFAULT_CUSTOMER_GROUP_DESCRIPTION);
-
-            // Add the new customer group ID to the list of customer groups that can be used for deletion
-            NewCustomerGroupIds.Add(response.group.id);
 
             // Validate the response
             SendwithusClientTest.ValidateResponse(response, Output);
@@ -192,23 +184,16 @@ namespace SendwithusTest
         /// <returns>The asynchronous task</returns>
         public async Task TestDeleteCustomerGroupAsync()
         {
-            Output.WriteLine(String.Format("PUT /groups/{0} with a new name and description", DEFAULT_CUSTOMER_GROUP_ID));
-
-            // Use the customer group ID of a newly created customer group to make sure the ID being deleted actually exists
-            string customerGroupId = String.Empty;
-            if (NewCustomerGroupIds.Count > 0)
-            {
-                customerGroupId = NewCustomerGroupIds[0];
-            }
-            else
-            {
-                Assert.True(false, "No new customer groups available to delete");
-            }
-
             SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
+            // Add a new customer group so that it can be deleted for this test
+            var groupName = String.Format("{0}_{1}", DEFAULT_CUSTOMER_GROUP_NAME, SendwithusClientTest.RandomString(10));
+            var customerGroupResponse = await CustomerGroup.CreateCustomerGroupAsync(groupName);
+            var groupId = customerGroupResponse.group.id;
+
             // Make the API call
-            var response = await CustomerGroup.DeleteCustomerGroupAsync(customerGroupId);
+            Output.WriteLine(String.Format("DELETE /groups/{0}", groupId));
+            var response = await CustomerGroup.DeleteCustomerGroupAsync(groupId);
 
             // Validate the response
             SendwithusClientTest.ValidateResponse(response, Output);

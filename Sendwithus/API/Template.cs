@@ -211,7 +211,7 @@ namespace Sendwithus
         }
 
         /// <summary>
-        /// Creates a new template
+        /// Creates a new template.
         /// POST /templates
         /// </summary>
         /// <param name="templateID">The ID of the template</param>
@@ -233,7 +233,7 @@ namespace Sendwithus
         }
 
         /// <summary>
-        /// Add Locale to Existing Template
+        /// Add Locale to Existing Template.
         /// POST /templates/(:template_id)/locales
         /// </summary>
         /// <param name="templateID">The ID of the template to add the locale to</param>
@@ -255,7 +255,7 @@ namespace Sendwithus
         }
 
         /// <summary>
-        /// Create a New Template Version
+        /// Create a New Template Version.
         /// POST /templates/(:template_id)/versions
         /// </summary>
         /// <param name="templateID">The ID of the template to add the version to</param>
@@ -275,7 +275,7 @@ namespace Sendwithus
         }
 
         /// <summary>
-        /// Create a New Template Version
+        /// Create a New Template Version.
         /// POST /templates/(:template_id)/locales/(:locale)/versions
         /// </summary>
         /// <param name="templateID">The ID of the template to add the version to</param>

@@ -21,8 +21,6 @@ namespace SendwithusTest
         private const string NEW_SNIPPET_BODY = "<h1>Welcome!</h1>";
         private const int UNIQUE_ID_LENGTH = 10;
 
-        private static Collection<string> NewSnippetIds = new Collection<string>();
-
         readonly ITestOutputHelper Output;
 
         /// <summary>
@@ -107,9 +105,6 @@ namespace SendwithusTest
 
             // Validate the response
             SendwithusClientTest.ValidateResponse(response, Output);
-
-            // Save the snippet ID for use in a future DELETE call
-            NewSnippetIds.Add(response.snippet.id);
         }
 
         /// <summary>
@@ -137,20 +132,15 @@ namespace SendwithusTest
         [Fact]
         public async Task TestDeleteSnippetAsync()
         {
-            // Get the ID of a newly added snippet that can be deleted
-            string snippetId = String.Empty;
-            if (NewSnippetIds.Count > 0)
-            {
-                snippetId = NewSnippetIds[0];
-            }
-            else
-            {
-                Assert.True(false, "No new templates available to add a locale to");
-            }
-            Output.WriteLine(String.Format("DELETE /snippets/{0}", snippetId));
             SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
+            // Create a new Snippet so that it can be deleted
+            var uniqueName = String.Format("{0}-{1}", NEW_SNIPPET_NAME, SendwithusClientTest.RandomString(UNIQUE_ID_LENGTH));
+            var snippetResponse = await Snippet.CreateSnippetAsync(uniqueName, NEW_SNIPPET_BODY);
+            var snippetId = snippetResponse.snippet.id;
+
             // Make the API call
+            Output.WriteLine(String.Format("DELETE /snippets/{0}", snippetId));
             var response = await Snippet.DeleteSnippetAsync(snippetId);
 
             // Validate the response

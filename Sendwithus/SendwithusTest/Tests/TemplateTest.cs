@@ -23,8 +23,6 @@ namespace SendwithusTest
         private const string ALTERNATE_LOCALE = "fr-FR";
         private const string INVALID_LOCALE = "invalid_locale";
 
-        private static Collection<string> NewTemplateIds = new Collection<string>();
-
         readonly ITestOutputHelper Output;
 
         /// <summary>
@@ -268,9 +266,6 @@ namespace SendwithusTest
 
             var response = await BuildAndSendCreateTemplateRequestAsync();
 
-            // Add the new template to the list of templates for deletion
-            NewTemplateIds.Add(response.id);
-
             // Validate the response
             SendwithusClientTest.ValidateResponse(response, Output);
         }
@@ -282,20 +277,13 @@ namespace SendwithusTest
         [Fact]
         public async Task TestAddLocaleToTemplateAsync()
         {
-            // Use the template ID of a newly created template
-            // Otherwise, this test might fail because the new locale could already exist on the template
-            string templateId = String.Empty;
-            if (NewTemplateIds.Count > 0)
-            {
-                templateId = NewTemplateIds[0];
-            }
-            else
-            {
-                Assert.True(false, "No new templates available to add a locale to");
-            }
+            // Create a new template to add a locale to
+            // Otherwise, if an existing template were used, this test might fail because the new locale could already exist on the template
+            var newTemplate = await BuildAndSendCreateTemplateRequestAsync();
+            var templateId = newTemplate.id;
 
             // Make the API call
-            Output.WriteLine(String.Format("PUT /templates/"));
+            Output.WriteLine(String.Format("POST /templates/{0}/locales", templateId));
             SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
             var templateVersion = new TemplateVersion();
             templateVersion.name = "Published French Version";
@@ -357,21 +345,15 @@ namespace SendwithusTest
         [Fact]
         public async Task TestDeleteTemplateAsync()
         {
-            // Use a newly added Template ID for deletion
-            string templateId = String.Empty;
-            if (NewTemplateIds.Count > 0)
-            {
-                templateId = NewTemplateIds[0];
-                NewTemplateIds.RemoveAt(0);
-            }
-            else
-            {
-                Assert.True(false, "No template IDs available to delete");
-            }
+            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
+
+            // Create a new template to use for deletion
+            // Otherwise, if an existing template were used, this test might fail because the new locale could already exist on the template
+            var newTemplate = await BuildAndSendCreateTemplateRequestAsync();
+            var templateId = newTemplate.id;
 
             // Make the API call
             Output.WriteLine(String.Format("DELETE /templates/{0}", templateId));
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
             var response = await Template.DeleteTemplate(templateId);
 
             // Validate the response
@@ -388,20 +370,15 @@ namespace SendwithusTest
         [Fact]
         public async Task TestDeleteTemplateWithLocaleAsync()
         {
-            // Use a newly added Template ID for deletion
-            string templateId = String.Empty;
-            if (NewTemplateIds.Count > 0)
-            {
-                templateId = NewTemplateIds[0];
-            }
-            else
-            {
-                Assert.True(false, "No template IDs available to delete");
-            }
+            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
+
+            // Create a new template to use for deletion
+            // Otherwise, if an existing template were used, this test might fail because the new locale could already exist on the template
+            var newTemplate = await BuildAndSendCreateTemplateRequestAsync();
+            var templateId = newTemplate.id;
 
             // Make the API call
             Output.WriteLine(String.Format("DELETE /templates/{0}/locales/{1}", templateId, DEFAULT_LOCALE));
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
             var response = await Template.DeleteTemplate(templateId, DEFAULT_LOCALE);
 
             // Validate the response
