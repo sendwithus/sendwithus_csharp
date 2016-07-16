@@ -353,7 +353,7 @@ deploy:
 #    slot: Production
 #    target_profile: Cloud
 #    artifact: MyPackage.cspkg
-
+deploy:
     # Deploying to NuGet feed
   - provider: NuGet
 # Leave server unspecified to use default (nuget.org)
@@ -362,12 +362,11 @@ deploy:
       secure: etDyKI9jqvawsr89ioItsW/6xI/jXE6VXaNuHTVF6b0MMAxiQKySOSRtJX6TA2Eg
 #    skip_symbols: false
 #    symbol_server: https://your.symbol.server/feed
-#    artifact: MyPackage.nupkg
 # Only deploy Release builds on the master branch
     on:
-     branch: master
-     platform: Any CPU
-     configuration: Release
+      branch: master
+      platform: Any CPU
+      configuration: Release
     artifact: /.*\.nupkg/
      
 #    # Deploy to GitHub Releases
