@@ -7,14 +7,14 @@ using Sendwithus;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Net;
-using Xunit;
-using Xunit.Abstractions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace SendwithusTest
 {
     /// <summary>
     /// Unit testing class for the Email API calls
     /// </summary>
+    [TestClass]
     public class EmailTest
     {
         private const string ESP_ACCOUNT = "esp_EsgkbqQdDg7F3ncbz9EHW7";
@@ -42,65 +42,57 @@ namespace SendwithusTest
         private const string DEFAULT_FILE_DATA = "{BASE_64_ENCODED_FILE_DATA}";
         private const string DEFAULT_VERSION_NAME = "New Version";
 
-        readonly ITestOutputHelper Output;
-
         /// <summary>
-        /// Default constructor with an output object - used to output messages to the Test Explorer
+        /// Sets the API 
         /// </summary>
-        /// <param name="output"></param>
-        public EmailTest(ITestOutputHelper output)
+        [TestInitialize]
+        public void InitializeUnitTesting()
         {
-            Output = output;
+            // Set the API key
+            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
         }
 
         /// <summary>
         /// Tests the API call POST /send with only the required email parameters set
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [Fact]
+        [TestMethod]
         public async Task TestSendEmailWithOnlyRequiredParametersAsync()
         {
-            Output.WriteLine("POST /send");
-
-            // Use the production API key so that the emails are actually sent
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_PRODUCTION;
+            Trace.WriteLine("POST /send");
 
             // Make the API call
             var email = BuildBarebonesEmail();
             var response = await email.Send();
 
             // Validate the response
-            SendwithusClientTest.ValidateResponse(response, Output);
+            SendwithusClientTest.ValidateResponse(response);
         }
 
         /// <summary>
         /// Tests the API call POST /send with all email parameters set
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [Fact]
+        [TestMethod]
         public async Task TestSendEmailWithAllParametersAsync()
         {
-            Output.WriteLine("POST /send");
-
-            // Use the production API key so that the emails are actually sent
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_PRODUCTION;
+            Trace.WriteLine("POST /send");
 
             // Construct and send an email with all of the optional data
             var response = await BuildAndSendEmailWithAllParametersAsync();
 
             // Validate the response
-            SendwithusClientTest.ValidateResponse(response, Output);
+            SendwithusClientTest.ValidateResponse(response);
         }
 
         /// <summary>
         /// Tests the POST /send API call with an invalid template ID
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [Fact]
+        [TestMethod]
         public async Task TestSendEmailWithInvalidTemplateId()
         {
-            Output.WriteLine("POST /send with an invalid template ID");
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
+            Trace.WriteLine("POST /send with an invalid template ID");
 
             // Constuct the email
             Email email = BuildBarebonesEmail();
@@ -108,12 +100,12 @@ namespace SendwithusTest
             try
             {
                 var response = await email.Send();
-                Assert.True(false, "Failed to throw exception");
+                Assert.Fail("Failed to throw exception");
             }
             catch (SendwithusException exception)
             {
                 // Make sure the response was HTTP 400 Bad Request 
-                SendwithusClientTest.ValidateException(exception, HttpStatusCode.BadRequest, Output);
+                SendwithusClientTest.ValidateException(exception, HttpStatusCode.BadRequest);
             }
         }
 

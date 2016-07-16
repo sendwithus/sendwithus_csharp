@@ -3,37 +3,37 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Xunit;
 using Sendwithus;
-using Xunit.Abstractions;
 using System.Web.Script.Serialization;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics;
 
 namespace SendwithusTest
 {
     /// <summary>
     /// A class to test the HTTP Timeout settings for the sendwithus API client
     /// </summary>
+    [TestClass]
     public class TimeoutTest
     {
         private const string DEFAULT_TEMPLATE_ID = "tem_SxZKpxJSHPbYDWRSQnAQUR";
         private const int FAILURE_TIMEOUT_MILLISECONDS = 1; // 1ms
 
-        readonly ITestOutputHelper Output;
-
         /// <summary>
-        /// Default constructor with an output object - used to output messages to the Test Explorer
+        /// Sets the API 
         /// </summary>
-        /// <param name="output"></param>
-        public TimeoutTest(ITestOutputHelper output)
+        [TestInitialize]
+        public void InitializeUnitTesting()
         {
-            Output = output;
+            // Set the API key
+            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
         }
 
         /// <summary>
         /// Makes sure that a basic HTTP GET request does not timeout with the default timeout setting
         /// </summary>
         /// <returns>The associated Task</returns>
-        [Fact]
+        [TestMethod]
         public async Task TestTimeoutDefaultTimeout()
         {
             // Make sure the timeout is set to its default value
@@ -41,17 +41,17 @@ namespace SendwithusTest
 
             // Send the GET request
             var response = await Template.GetTemplateAsync(DEFAULT_TEMPLATE_ID);
-            Output.WriteLine(String.Format("API call completed with default timeout of: {0}ms", SendwithusClient.DEFAULT_TIMEOUT_MILLISECONDS));
+            Trace.WriteLine(String.Format("API call completed with default timeout of: {0}ms", SendwithusClient.DEFAULT_TIMEOUT_MILLISECONDS));
 
             // Make sure we received a valid response
-            SendwithusClientTest.ValidateResponse(response, Output);
+            SendwithusClientTest.ValidateResponse(response);
         }
 
         /// <summary>
         /// Makes sure that a basic HTTP GET request time's out when using a very short timeout setting (1ms)
         /// </summary>
         /// <returns>The associated Task</returns>
-        [Fact]
+        [TestMethod]
         public async Task TestTimeoutFailure()
         {
             // Set the timeout to a value that is sure to trigger a failure
@@ -64,7 +64,7 @@ namespace SendwithusTest
             }
             catch (Exception ex)
             {
-                SendwithusClientTest.ValidateAggregateException<TaskCanceledException>(SendwithusClient.DEFAULT_RETRY_COUNT, ex, Output);
+                SendwithusClientTest.ValidateAggregateException<TaskCanceledException>(SendwithusClient.DEFAULT_RETRY_COUNT, ex);
             }
             finally
             {
