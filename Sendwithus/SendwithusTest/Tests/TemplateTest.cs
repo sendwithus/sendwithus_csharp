@@ -46,7 +46,7 @@ namespace SendwithusTest
             {
                 var response = await Template.GetTemplatesAsync();
             }
-            catch (SendwithusException exception)
+            catch (AggregateException exception)
             {
                 // Make sure the response was HTTP 403 Forbidden
                 SendwithusClientTest.ValidateException(exception, HttpStatusCode.Forbidden);
@@ -97,7 +97,7 @@ namespace SendwithusTest
                 var response = await Template.GetTemplateAsync(INVALID_TEMPLATE_ID);
                 Assert.Fail("Failed to throw exception");
             }
-            catch (SendwithusException exception)
+            catch (AggregateException exception)
             {
                 // Make sure the response was HTTP 400 Bad Request 
                 SendwithusClientTest.ValidateException(exception, HttpStatusCode.BadRequest);
@@ -133,7 +133,7 @@ namespace SendwithusTest
                 var response = await Template.GetTemplateAsync(DEFAULT_TEMPLATE_ID, INVALID_LOCALE);
                 Assert.Fail("Failed to throw exception");
             }
-            catch (SendwithusException exception)
+            catch (AggregateException exception)
             {
                 // Make sure the response was HTTP 400 Bad Request
                 SendwithusClientTest.ValidateException(exception, HttpStatusCode.BadRequest);

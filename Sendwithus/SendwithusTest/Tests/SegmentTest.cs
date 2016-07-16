@@ -115,7 +115,7 @@ namespace SendwithusTest.Tests
             {
                 var response = await Segment.SendToSegmentAsync(INVALID_SEGMENT_ID, segmentContent);
             }
-            catch (SendwithusException exception)
+            catch (AggregateException exception)
             {
                 // Make sure the response was HTTP 400 Bad Request 
                 SendwithusClientTest.ValidateException(exception, HttpStatusCode.BadRequest);

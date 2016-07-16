@@ -70,10 +70,7 @@ namespace Sendwithus
                 // Otherwise, send the GET request
                 else
                 {
-                    var response = await RunWithRetries(() => client.GetAsync(uri));
-
-                    // Convert the response to a string, validate it, and return it
-                    return await ExtractAndValidateResponseContentAsync(response);
+                    return await RunWithRetries(() => client.GetAsync(uri));
                 }
             }
         }
@@ -116,10 +113,7 @@ namespace Sendwithus
                 // Otherwise, send the PUT request
                 else
                 {
-                    var response = await RunWithRetries(() => client.PutAsync(uri, httpContent));
-
-                    // Convert the response to a string, validate it, and return it
-                    return await ExtractAndValidateResponseContentAsync(response);
+                    return await RunWithRetries(() => client.PutAsync(uri, httpContent));
                 }
             }
         }
@@ -150,10 +144,7 @@ namespace Sendwithus
                 // Otherwise, send the POST request
                 else
                 {
-                    var response = await RunWithRetries(() => client.PostAsync(uri, httpContent));
-
-                    // Convert the response to a string, validate it, and return it
-                    return await ExtractAndValidateResponseContentAsync(response);
+                    return await RunWithRetries(() => client.PostAsync(uri, httpContent));
                 }
             }
         }
@@ -194,10 +185,7 @@ namespace Sendwithus
                 // Otherwise, send the DELETE request
                 else
                 {
-                    var response = await RunWithRetries(() => client.DeleteAsync(uri));
-
-                    // Convert the response to a string, validate it, and return it
-                    return await ExtractAndValidateResponseContentAsync(response);
+                    return await RunWithRetries(() => client.DeleteAsync(uri));
                 }
             }
         }
@@ -301,8 +289,8 @@ namespace Sendwithus
         /// <param name="retryInterval"></param>
         /// <param name="retryCount"></param>
         /// <returns></returns>
-        private static async Task<T> RunWithRetries<T>(
-            Func<Task<T>> apiCall)
+        private static async Task<string> RunWithRetries(
+            Func<Task<HttpResponseMessage>> apiCall)
         {
             var exceptions = new List<Exception>();
             var retryCount = SendwithusClient.RetryCount;
@@ -312,9 +300,17 @@ namespace Sendwithus
             {
                 try
                 {
+                    // Wait for the retry interval (after the first call)
                     if (retry > 0)
+                    {
                         Thread.Sleep(retryInterval);
-                    return await apiCall();
+                    }
+
+                    // Make the API call
+                    var response = await apiCall();
+
+                    // Convert the response to a string, validate it, and return it
+                    return await ExtractAndValidateResponseContentAsync(response);
                 }
                 catch (Exception ex)
                 {

@@ -113,7 +113,7 @@ namespace SendwithusTest
             try { 
                 var response = await dripCampaign.ActivateAsync(INVALID_CAMPAIGN_ID);
             }
-            catch (SendwithusException exception)
+            catch (AggregateException exception)
             {
                 // Make sure the response was HTTP 400 Bad Request
                 SendwithusClientTest.ValidateException(exception, HttpStatusCode.BadRequest);

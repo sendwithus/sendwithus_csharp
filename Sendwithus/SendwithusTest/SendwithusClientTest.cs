@@ -35,9 +35,9 @@ namespace SendwithusTest
         /// <summary>
         /// Validates that the correct exception was thrown from an API call
         /// </summary>
-        /// <param name="exception">The exception to validate</param>
+        /// <param name="exception">The aggregate exception to validate</param>
         /// <param name="stausCode">The expected exception status code</param>
-        public static void ValidateException(SendwithusException exception, HttpStatusCode expectedStatusCode)
+        public static void ValidateException(AggregateException exception, HttpStatusCode expectedStatusCode)
         {
             // Make sure the exception parameter isn't null
             if (exception == null)
@@ -45,12 +45,19 @@ namespace SendwithusTest
                 throw new ArgumentNullException("exception");
             }
 
+            // Make sure that only one exception was occurred as we were expecting a non-retriable exception
+            Assert.AreEqual(1, exception.InnerExceptions.Count);
+
+            // Try converting the exception to a SendwithusException
+            var sendwithusException = exception.InnerExceptions[0] as SendwithusException;
+            Assert.IsNotNull(sendwithusException);
+
             // Print the exception details
-            Trace.WriteLine(String.Format("Exception Status Code: {0}", exception.StatusCode.ToString()));
-            Trace.WriteLine(String.Format("Exception Message: {0}", exception.Message));
+            Trace.WriteLine(String.Format("Exception Status Code: {0}", sendwithusException.StatusCode.ToString()));
+            Trace.WriteLine(String.Format("Exception Message: {0}", sendwithusException.Message));
 
             // Check the exception's status code
-            Assert.AreEqual(expectedStatusCode, exception.StatusCode);
+            Assert.AreEqual(expectedStatusCode, sendwithusException.StatusCode);
         }
 
         /// <summary>

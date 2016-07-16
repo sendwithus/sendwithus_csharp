@@ -61,7 +61,7 @@ namespace SendwithusTest
                 var response = await Customer.GetCustomerAsync(INVALID_CUSTOMER_EMAIL_ADDRESS);
                 Assert.Fail("Failed to throw exception");
             }
-            catch (SendwithusException exception)
+            catch (AggregateException exception)
             {
                 // Make sure the response was HTTP 400 Bad Request
                 SendwithusClientTest.ValidateException(exception, HttpStatusCode.BadRequest);

@@ -93,7 +93,7 @@ namespace SendwithusTest
                 var response = await Log.GetLogsAsync(queryParameters);
                 Assert.Fail("Failed to throw exception");
             }
-            catch (SendwithusException exception)
+            catch (AggregateException exception)
             {
                 // Make sure the response was HTTP 500 Internal Server Error
                 SendwithusClientTest.ValidateException(exception, HttpStatusCode.InternalServerError);

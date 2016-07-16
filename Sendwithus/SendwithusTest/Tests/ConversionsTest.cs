@@ -103,7 +103,7 @@ namespace SendwithusTest
             try { 
                 var response = await conversion.AddAsync(INVALID_EMAIL_ADDRESS);
             }
-            catch (SendwithusException exception)
+            catch (AggregateException exception)
             {
                 // Make sure the response was HTTP 400 Bad Request 
                 SendwithusClientTest.ValidateException(exception, HttpStatusCode.BadRequest);

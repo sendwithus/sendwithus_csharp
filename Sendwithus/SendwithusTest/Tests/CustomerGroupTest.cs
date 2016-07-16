@@ -149,7 +149,7 @@ namespace SendwithusTest
             {
                 var response = await CustomerGroup.UpdateCustomerGroupNameAsync(INVALID_CUSTOMER_GROUP_ID, groupName);
             }
-            catch (SendwithusException exception)
+            catch (AggregateException exception)
             {
                 // Make sure the response was HTTP 400 Bad Request 
                 SendwithusClientTest.ValidateException(exception, HttpStatusCode.BadRequest);

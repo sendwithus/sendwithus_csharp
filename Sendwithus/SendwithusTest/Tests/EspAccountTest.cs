@@ -99,7 +99,7 @@ namespace SendwithusTest
                 var response = await EspAccount.GetAccountsAsync(queryParameters);
                 Assert.Fail("Failed to throw exception");
             }
-            catch (SendwithusException exception)
+            catch (AggregateException exception)
             {
                 // Make sure the response was HTTP 400 Bad Request
                 SendwithusClientTest.ValidateException(exception, HttpStatusCode.BadRequest);
@@ -205,7 +205,7 @@ namespace SendwithusTest
             {
                 var response = await EspAccount.AddAccountAsync(addAccountRequest);
             }
-            catch (SendwithusException exception)
+            catch (AggregateException exception)
             {
                 // Make sure the response was HTTP 400 Bad Request (because of an authorization error)
                 // This means that we formatted the API call correctly and only failed because we don't
@@ -253,7 +253,7 @@ namespace SendwithusTest
             {
                 var response = await EspAccount.AddAccountAsync(addAccountRequest);
             }
-            catch (SendwithusException exception)
+            catch (AggregateException exception)
             {
                 // Make sure the response was HTTP 400 Bad Request (because of an authorization error)
                 // This means that we formatted the API call correctly and only failed because we don't
