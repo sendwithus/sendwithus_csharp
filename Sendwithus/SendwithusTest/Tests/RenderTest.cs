@@ -20,6 +20,16 @@ namespace SendwithusTest
         private const string DEFAULT_LOCALE = "en-US";
 
         /// <summary>
+        /// Sets the API 
+        /// </summary>
+        [TestInitialize]
+        public void InitializeUnitTesting()
+        {
+            // Set the API key
+            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
+        }
+
+        /// <summary>
         /// Tests the API call POST /render with only the required parameters
         /// </summary>
         /// <returns>The asynchronous task</returns>
@@ -27,9 +37,6 @@ namespace SendwithusTest
         public async Task TestRenderTemplateWithOnlyRequiredParametersAsync()
         {
             Trace.WriteLine("POST /render");
-
-            // Use the production API key so that the emails are actually sent when the template is rendered
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_PRODUCTION;
 
             // Make the API call
             var templateData = new Dictionary<string, object>();
@@ -50,9 +57,6 @@ namespace SendwithusTest
         {
             Trace.WriteLine("POST /render");
 
-            // Use the production API key so that the emails are actually sent when the template is rendered
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_PRODUCTION;
-
             // Make the API call
             var response = await BuildAndSendRenderTemplateRequestWithAllParameters();
 
@@ -68,9 +72,6 @@ namespace SendwithusTest
         public async Task TestRenderTemplateWithInvalidIdAsync()
         {
             Trace.WriteLine("POST /render");
-
-            // Use the production API key so that the emails are actually sent when the template is rendered
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_PRODUCTION;
 
             // Build the object
             var templateData = new Dictionary<string, object>();

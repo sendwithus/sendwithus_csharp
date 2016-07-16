@@ -23,6 +23,16 @@ namespace SendwithusTest
         private const string DEFAULT_CUSTOMER_GROUP_DESCRIPTION = "a description of the group";
 
         /// <summary>
+        /// Sets the API 
+        /// </summary>
+        [TestInitialize]
+        public void InitializeUnitTesting()
+        {
+            // Set the API key
+            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
+        }
+
+        /// <summary>
         /// Tests the API call GET /groups
         /// </summary>
         /// <returns>The asynchronous task</returns>
@@ -30,9 +40,6 @@ namespace SendwithusTest
         public async Task TestGetCustomerGroupsAsync()
         {
             Trace.WriteLine("GET /groups");
-
-            // Use the production API key so that the emails are actually sent
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_PRODUCTION;
 
             // Make the API call
             var response = await CustomerGroup.GetCustomeGroupsAsync();
@@ -49,9 +56,6 @@ namespace SendwithusTest
         public async Task TestCreateCustomerGroupWithNameOnlyAsync()
         {
             Trace.WriteLine("POST /groups with only the group name");
-
-            // Use the production API key so that the emails are actually sent
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_PRODUCTION;
 
             // Make the API call
             var groupName = String.Format("{0}_{1}", DEFAULT_CUSTOMER_GROUP_NAME, SendwithusClientTest.RandomString(10));
@@ -70,9 +74,6 @@ namespace SendwithusTest
         {
             Trace.WriteLine("POST /groups with a name and description");
 
-            // Use the production API key so that the emails are actually sent
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_PRODUCTION;
-
             // Make the API call
             var groupName = String.Format("{0}_{1}", DEFAULT_CUSTOMER_GROUP_NAME, SendwithusClientTest.RandomString(10));
             var response = await CustomerGroup.CreateCustomerGroupAsync(groupName, DEFAULT_CUSTOMER_GROUP_DESCRIPTION);
@@ -89,9 +90,6 @@ namespace SendwithusTest
         public async Task TestUpdateCustomerGroupNameAsync()
         {
             Trace.WriteLine(String.Format("PUT /groups/{0} with a new name", DEFAULT_CUSTOMER_GROUP_ID));
-
-            // Use the production API key so that the emails are actually sent
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_PRODUCTION;
 
             // Make the API call
             var groupName = String.Format("{0}_{1}", DEFAULT_CUSTOMER_GROUP_NAME, SendwithusClientTest.RandomString(10));
@@ -110,9 +108,6 @@ namespace SendwithusTest
         {
             Trace.WriteLine(String.Format("PUT /groups/{0} with a new description", DEFAULT_CUSTOMER_GROUP_ID));
 
-            // Use the production API key so that the emails are actually sent
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_PRODUCTION;
-
             // Make the API call
             var groupDescription = String.Format("{0}_{1}", DEFAULT_CUSTOMER_GROUP_DESCRIPTION, SendwithusClientTest.RandomString(10));
             var response = await CustomerGroup.UpdateCustomerGroupDescriptionAsync(DEFAULT_CUSTOMER_GROUP_ID, groupDescription);
@@ -129,9 +124,6 @@ namespace SendwithusTest
         public async Task TestUpdateCustomerGroupNameAndDescriptionAsync()
         {
             Trace.WriteLine(String.Format("PUT /groups/{0} with a new name and description", DEFAULT_CUSTOMER_GROUP_ID));
-
-            // Use the production API key so that the emails are actually sent
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_PRODUCTION;
 
             // Make the API call
             var groupName = String.Format("{0}_{1}", DEFAULT_CUSTOMER_GROUP_NAME, SendwithusClientTest.RandomString(10));
@@ -150,9 +142,6 @@ namespace SendwithusTest
         public async Task TestUpdateCustomerGroupNameInvalidGroupIdAsync()
         {
             Trace.WriteLine(String.Format("PUT /groups/{0} with an invalid customer group ID", INVALID_CUSTOMER_GROUP_ID));
-
-            // Use the production API key so that the emails are actually sent
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_PRODUCTION;
 
             // Make the API call
             var groupName = String.Format("{0}_{1}", DEFAULT_CUSTOMER_GROUP_NAME, SendwithusClientTest.RandomString(10));
@@ -173,7 +162,6 @@ namespace SendwithusTest
         /// <returns>The asynchronous task</returns>
         public async Task TestDeleteCustomerGroupAsync()
         {
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Add a new customer group so that it can be deleted for this test
             var groupName = String.Format("{0}_{1}", DEFAULT_CUSTOMER_GROUP_NAME, SendwithusClientTest.RandomString(10));

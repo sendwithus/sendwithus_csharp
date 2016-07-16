@@ -43,6 +43,16 @@ namespace SendwithusTest
         private const string DEFAULT_VERSION_NAME = "New Version";
 
         /// <summary>
+        /// Sets the API 
+        /// </summary>
+        [TestInitialize]
+        public void InitializeUnitTesting()
+        {
+            // Set the API key
+            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
+        }
+
+        /// <summary>
         /// Tests the API call POST /send with only the required email parameters set
         /// </summary>
         /// <returns>The asynchronous task</returns>
@@ -50,9 +60,6 @@ namespace SendwithusTest
         public async Task TestSendEmailWithOnlyRequiredParametersAsync()
         {
             Trace.WriteLine("POST /send");
-
-            // Use the production API key so that the emails are actually sent
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_PRODUCTION;
 
             // Make the API call
             var email = BuildBarebonesEmail();
@@ -71,9 +78,6 @@ namespace SendwithusTest
         {
             Trace.WriteLine("POST /send");
 
-            // Use the production API key so that the emails are actually sent
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_PRODUCTION;
-
             // Construct and send an email with all of the optional data
             var response = await BuildAndSendEmailWithAllParametersAsync();
 
@@ -89,7 +93,6 @@ namespace SendwithusTest
         public async Task TestSendEmailWithInvalidTemplateId()
         {
             Trace.WriteLine("POST /send with an invalid template ID");
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Constuct the email
             Email email = BuildBarebonesEmail();

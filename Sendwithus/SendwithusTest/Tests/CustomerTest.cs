@@ -23,6 +23,16 @@ namespace SendwithusTest
         private const Int64 LOG_CREATED_BEFORE_TIME = 9876543210;
 
         /// <summary>
+        /// Sets the API 
+        /// </summary>
+        [TestInitialize]
+        public void InitializeUnitTesting()
+        {
+            // Set the API key
+            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
+        }
+
+        /// <summary>
         /// Tests the API call GET /customers/customer@example.com
         /// </summary>
         /// <returns>The associated task</returns>
@@ -31,7 +41,6 @@ namespace SendwithusTest
         {
             // Make the API call
             Trace.WriteLine(String.Format("GET /customers/{0}", DEFAULT_CUSTOMER_EMAIL_ADDRESS));
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
             var response = await Customer.GetCustomerAsync(DEFAULT_CUSTOMER_EMAIL_ADDRESS);
 
             // Validate the response
@@ -47,7 +56,6 @@ namespace SendwithusTest
         {
             // Make the API call
             Trace.WriteLine(String.Format("GET /customers/{0}", INVALID_CUSTOMER_EMAIL_ADDRESS));
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
             try
             {
                 var response = await Customer.GetCustomerAsync(INVALID_CUSTOMER_EMAIL_ADDRESS);
@@ -67,9 +75,7 @@ namespace SendwithusTest
         [TestMethod]
         public async Task TestCreateOrUpdateCustomerAsync()
         {
-            
             Trace.WriteLine("POST /customers");
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Build the new customer and send the create customer request
             var response = await BuildAndSendCreateCustomerRequest();
@@ -86,7 +92,6 @@ namespace SendwithusTest
         public async Task TestDeleteCustomerAsync()
         {
             Trace.WriteLine(String.Format("DELETE /customers", NEW_CUSTOMER_EMAIL_ADDRESS));
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Make the API call
             var response = await Customer.DeleteCustomerAsync(NEW_CUSTOMER_EMAIL_ADDRESS);
@@ -104,7 +109,6 @@ namespace SendwithusTest
         {
             // Make the API call
             Trace.WriteLine(String.Format("GET /customers/{0}/logs", DEFAULT_CUSTOMER_EMAIL_ADDRESS));
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
             var response = await Customer.GetCustomerEmailLogsAsync(DEFAULT_CUSTOMER_EMAIL_ADDRESS);
 
             // Validate the response
@@ -120,7 +124,6 @@ namespace SendwithusTest
         {
             
             Trace.WriteLine(String.Format("GET /customers/{0}/logs", DEFAULT_CUSTOMER_EMAIL_ADDRESS));
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Build the query parameters
             var queryParameters = new Dictionary<string, object>();
@@ -144,7 +147,6 @@ namespace SendwithusTest
         {
             // Make the API call
             Trace.WriteLine(String.Format("POST /customers/{0}/groups/{1}", DEFAULT_CUSTOMER_EMAIL_ADDRESS, DEFAULT_GROUP_ID));
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
             var response = await Customer.AddCustomerToGroupAsync(DEFAULT_CUSTOMER_EMAIL_ADDRESS, DEFAULT_GROUP_ID);
 
             // Validate the response
@@ -160,7 +162,6 @@ namespace SendwithusTest
         {
             // Make the API call
             Trace.WriteLine(String.Format("DELETE /customers/{0}/groups/{1}", DEFAULT_CUSTOMER_EMAIL_ADDRESS, DEFAULT_GROUP_ID));
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
             var response = await Customer.RemoveCustomerFromGroupAsync(DEFAULT_CUSTOMER_EMAIL_ADDRESS, DEFAULT_GROUP_ID);
 
             // Validate the response

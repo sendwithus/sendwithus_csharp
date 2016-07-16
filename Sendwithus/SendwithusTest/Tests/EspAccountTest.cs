@@ -35,6 +35,16 @@ namespace SendwithusTest
         private const string SMTP_PASSWORD = MANDRILL_API_KEY;
 
         /// <summary>
+        /// Sets the API 
+        /// </summary>
+        [TestInitialize]
+        public void InitializeUnitTesting()
+        {
+            // Set the API key
+            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
+        }
+
+        /// <summary>
         /// Tests the API call GET /esp_accounts without any parameters
         /// </summary>
         /// <returns>The associated task</returns>
@@ -42,7 +52,6 @@ namespace SendwithusTest
         public async Task TestGetEspAccountsWithoutParametersAsync()
         {
             Trace.WriteLine("GET /esp_accounts");
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Make the API call
             var response = await EspAccount.GetAccountsAsync();
@@ -59,7 +68,6 @@ namespace SendwithusTest
         public async Task TestGetEspAccountsWithAllParametersAsync()
         {
             Trace.WriteLine("GET /esp_accounts");
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Build the query parameters
             var queryParameters = new Dictionary<string, object>();
@@ -80,7 +88,6 @@ namespace SendwithusTest
         public async Task TestGetEspAccountsWithInvalidParameterAsync()
         {
             Trace.WriteLine("GET /esp_accounts");
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Build the query parameters
             var queryParameters = new Dictionary<string, object>();
@@ -107,7 +114,6 @@ namespace SendwithusTest
         public async Task TestAddAccountSendgridAsync()
         {
             Trace.WriteLine("POST /esp_accounts");
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Build the Add Account Request for a sendgrid account
             var credentials = new EspAccountCredientialsSendgrid(SENDGRID_USERNAME, SENDGRID_PASSWORD);
@@ -128,7 +134,6 @@ namespace SendwithusTest
         public async Task TestAddAccountMailgunAsync()
         {
             Trace.WriteLine("POST /esp_accounts");
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Build the Add Account Request for a mailgun account
             var credentials = new EspAccountCredientialsMailgun(MAILGUN_API_KEY, MAILGUN_DOMAIN);
@@ -149,7 +154,6 @@ namespace SendwithusTest
         public async Task TestAddAccountMandrillAsync()
         {
             Trace.WriteLine("POST /esp_accounts");
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Build the Add Account Request for a mailgun account
             var credentials = new EspAccountCredientialsMandrill(MANDRILL_API_KEY);
@@ -170,7 +174,6 @@ namespace SendwithusTest
         public async Task TestAddAccountPostmarkAsync()
         {
             Trace.WriteLine("POST /esp_accounts");
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Build the Add Account Request for a mailgun account
             var credentials = new EspAccountCredientialsPostmark(POSTMARK_API_KEY);
@@ -192,7 +195,6 @@ namespace SendwithusTest
         public async Task TestAddAccountSesAsync()
         {
             Trace.WriteLine("POST /esp_accounts");
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Build the Add Account Request for a mailgun account
             var credentials = new EspAccountCredientialsSes(SES_ACCESS_KEY_ID, SES_SECRET_ACCESS_KEY, SES_REGION);
@@ -220,7 +222,6 @@ namespace SendwithusTest
         public async Task TestAddAccountMailjetAsync()
         {
             Trace.WriteLine("POST /esp_accounts");
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Build the Add Account Request for a mailgun account
             var credentials = new EspAccountCredientialsMailjet(MAILJET_API_KEY, MAILJET_SECRET_KEY);
@@ -242,7 +243,6 @@ namespace SendwithusTest
         public async Task TestAddAccountDynAsync()
         {
             Trace.WriteLine("POST /esp_accounts");
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Build the Add Account Request for a DYN account
             var credentials = new EspAccountCredientialsDyn(DYN_API_KEY);
@@ -270,7 +270,6 @@ namespace SendwithusTest
         public async Task TestAddAccountSmtpAsync()
         {
             Trace.WriteLine("POST /esp_accounts");
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Build the Add Account Request for a DYN account
             var credentials = new EspAccountCredientialsSmtp(SMTP_HOST, SMTP_PORT, SMTP_USERNAME, SMTP_PASSWORD, false);
@@ -291,7 +290,6 @@ namespace SendwithusTest
         public async Task TestSetDefaultEspAccountAsync()
         {
             Trace.WriteLine("PUT /esp_accounts/set_default");
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Make the API call
             var response = await EspAccount.SetDefaultEspAccountAsync(DEFAULT_ESP_ACCOUNT_ID);

@@ -24,12 +24,23 @@ namespace SendwithusTest
         private const int NON_DEFAULT_RETRY_INTERVAL_MILLISECONDS = 1000; // 1 second
 
         /// <summary>
+        /// Sets the API 
+        /// </summary>
+        [TestInitialize]
+        public void InitializeUnitTesting()
+        {
+            // Set the API key
+            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
+        }
+
+        /// <summary>
         /// Tests that the default retry count works with an HTTP GET request
         /// </summary>
         /// <returns>The associated task</returns>
         [TestMethod]
         public async Task TestDefaultRetryCountWithGetAsync()
         {
+
             // Set the timeout low enough that the API call is guaranteed to fail
             SendwithusClient.SetTimeoutInMilliseconds(FAILURE_TIMEOUT_MILLISECONDS);
 
@@ -59,6 +70,7 @@ namespace SendwithusTest
         [TestMethod]
         public async Task TestDefaultRetryCountWithPutAsync()
         {
+
             // Set the timeout low enough that the API call is guaranteed to fail
             SendwithusClient.SetTimeoutInMilliseconds(FAILURE_TIMEOUT_MILLISECONDS);
 

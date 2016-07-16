@@ -20,6 +20,16 @@ namespace SendwithusTest
         private const int FAILURE_TIMEOUT_MILLISECONDS = 1; // 1ms
 
         /// <summary>
+        /// Sets the API 
+        /// </summary>
+        [TestInitialize]
+        public void InitializeUnitTesting()
+        {
+            // Set the API key
+            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
+        }
+
+        /// <summary>
         /// Makes sure that a basic HTTP GET request does not timeout with the default timeout setting
         /// </summary>
         /// <returns>The associated Task</returns>

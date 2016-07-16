@@ -22,6 +22,16 @@ namespace SendwithusTest
         private const int UNIQUE_ID_LENGTH = 10;
 
         /// <summary>
+        /// Sets the API 
+        /// </summary>
+        [TestInitialize]
+        public void InitializeUnitTesting()
+        {
+            // Set the API key
+            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
+        }
+
+        /// <summary>
         /// Tests the API call GET /snippets
         /// </summary>
         /// <returns>The associated task</returns>
@@ -29,7 +39,6 @@ namespace SendwithusTest
         public async Task TestGetSnippetsAsync()
         {
             Trace.WriteLine("GET /snippets");
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Make the API call
             var response = await Snippet.GetSnippetsAsync();
@@ -46,7 +55,6 @@ namespace SendwithusTest
         public async Task TestGetSnippetAsync()
         {
             Trace.WriteLine(String.Format("GET /snippets/{0}", DEFAULT_SNIPPET_ID));
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Make the API call
             var response = await Snippet.GetSnippetAsync(DEFAULT_SNIPPET_ID);
@@ -63,7 +71,6 @@ namespace SendwithusTest
         public async Task TestGetSnippetWithInvalidIDAsync()
         {
             Trace.WriteLine("GET /snippets with an invalid ID");
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Make the API call
             try
@@ -86,7 +93,6 @@ namespace SendwithusTest
         public async Task TestCreateSnippetAsync()
         {
             Trace.WriteLine("POST /snippets");
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Make the API call
             var uniqueName = String.Format("{0}-{1}", NEW_SNIPPET_NAME, SendwithusClientTest.RandomString(UNIQUE_ID_LENGTH));
@@ -104,7 +110,6 @@ namespace SendwithusTest
         public async Task TestUpdateSnippetAsync()
         {
             Trace.WriteLine("POST /snippets");
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Make the API call
             var uniqueName = String.Format("{0}-{1}", NEW_SNIPPET_NAME, SendwithusClientTest.RandomString(UNIQUE_ID_LENGTH));
@@ -121,8 +126,6 @@ namespace SendwithusTest
         [TestMethod]
         public async Task TestDeleteSnippetAsync()
         {
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
-
             // Create a new Snippet so that it can be deleted
             var uniqueName = String.Format("{0}-{1}", NEW_SNIPPET_NAME, SendwithusClientTest.RandomString(UNIQUE_ID_LENGTH));
             var snippetResponse = await Snippet.CreateSnippetAsync(uniqueName, NEW_SNIPPET_BODY);

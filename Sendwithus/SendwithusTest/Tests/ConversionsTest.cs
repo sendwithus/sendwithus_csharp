@@ -20,6 +20,16 @@ namespace SendwithusTest
         private const Int64 DEFAULT_TIMESTAMP = 1417321700;
 
         /// <summary>
+        /// Sets the API 
+        /// </summary>
+        [TestInitialize]
+        public void InitializeUnitTesting()
+        {
+            // Set the API key
+            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
+        }
+
+        /// <summary>
         /// Tests the API call POST /customers/[EMAIL_ADDRESS]/conversions with no parameters
         /// </summary>
         /// <returns></returns>
@@ -28,7 +38,6 @@ namespace SendwithusTest
         {
             
             Trace.WriteLine(String.Format("POST /customers/{0}/converisons", DEFAULT_EMAIL_ADDRESS));
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Build the conversion object
             var conversion = new Conversion();
@@ -48,7 +57,6 @@ namespace SendwithusTest
         public async Task TestAddConverionWithRevenueAsync()
         {
             Trace.WriteLine(String.Format("POST /customers/{0}/converisons", DEFAULT_EMAIL_ADDRESS));
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Build the conversion object
             var conversion = new Conversion(DEFAULT_REVENUE);
@@ -68,7 +76,6 @@ namespace SendwithusTest
         public async Task TestAddConverionWithRevenueAndTimestampAsync()
         {
             Trace.WriteLine(String.Format("POST /customers/{0}/converisons", DEFAULT_EMAIL_ADDRESS));
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Build the conversion object
             var conversion = new Conversion(DEFAULT_REVENUE, DEFAULT_TIMESTAMP);
@@ -88,7 +95,6 @@ namespace SendwithusTest
         public async Task TestAddConverionWithInvalidEmailAddressAsync()
         {
             Trace.WriteLine(String.Format("POST /customers/{0}/converisons", DEFAULT_EMAIL_ADDRESS));
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Build the conversion object
             var conversion = new Conversion();

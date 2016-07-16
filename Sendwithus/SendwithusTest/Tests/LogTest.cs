@@ -23,6 +23,16 @@ namespace SendwithusTest
         private const Int64 LOG_CREATED_BEFORE_TIME = 9876543210;
 
         /// <summary>
+        /// Sets the API 
+        /// </summary>
+        [TestInitialize]
+        public void InitializeUnitTesting()
+        {
+            // Set the API key
+            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
+        }
+
+        /// <summary>
         /// Tests the API call GET /logs without any parameters
         /// </summary>
         /// <returns>The associated task</returns>
@@ -30,7 +40,6 @@ namespace SendwithusTest
         public async Task TestGetLogsWithNoParametersAsync()
         {
             Trace.WriteLine("GET /logs");
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Make the API call
             var response = await Log.GetLogsAsync();
@@ -48,7 +57,6 @@ namespace SendwithusTest
         public async Task TestGetLogsWithAllParametersAsync()
         {
             Trace.WriteLine("GET /logs");
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Build the query parameters
             Dictionary<string, object> queryParameters = new Dictionary<string, object>();
@@ -74,7 +82,6 @@ namespace SendwithusTest
         public async Task TestGetLogsWithInvalidCountAsync()
         {
             Trace.WriteLine("GET /logs");
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Build the query parameters
             Dictionary<string, object> queryParameters = new Dictionary<string, object>();
@@ -101,7 +108,6 @@ namespace SendwithusTest
         public async Task TestGetLogAsync()
         {
             Trace.WriteLine(String.Format("GET /logs/{0}", DEFAULT_LOG_ID));
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Make the API call
             var response = await Log.GetLogAsync(DEFAULT_LOG_ID);
@@ -118,7 +124,6 @@ namespace SendwithusTest
         public async Task TestGetLogEventsAsync()
         {
             Trace.WriteLine(String.Format("GET /logs/{0}/events", DEFAULT_LOG_ID));
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Make the API call
             var response = await Log.GetLogEventsAsync(DEFAULT_LOG_ID);
@@ -135,7 +140,6 @@ namespace SendwithusTest
         public async Task TestResendLogAsync()
         {
             Trace.WriteLine("POST /resend");
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
 
             // Make the API call
             var response = await Log.ResendLogAsync(DEFAULT_LOG_ID);

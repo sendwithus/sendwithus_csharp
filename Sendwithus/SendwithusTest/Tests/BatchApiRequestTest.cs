@@ -22,6 +22,16 @@ namespace SendwithusTest
         private const string DEFAULT_EMAIL_ADDRESS = "sendwithus.test@gmail.com";
 
         /// <summary>
+        /// Sets the API 
+        /// </summary>
+        [TestInitialize]
+        public void InitializeUnitTesting()
+        {
+            // Set the API key
+            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
+        }
+
+        /// <summary>
         /// Tests the API call POST /batch with one API call
         /// </summary>
         /// <returns>The asynchronous task</returns>
@@ -29,9 +39,6 @@ namespace SendwithusTest
         public async Task TestBatchApiRequestsOneRequestAsync()
         {
             Trace.WriteLine("POST /batch");
-
-            // Use the production API key so that the emails are actually sent
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_PRODUCTION;
 
             // Start the batch request
             BatchApiRequest.StartNewBatchRequest();
@@ -58,9 +65,6 @@ namespace SendwithusTest
         public async Task TestBatchApiRequestsTenRequestsAsync()
         {
             Trace.WriteLine("POST /batch");
-
-            // Use the production API key so that the emails are actually sent
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_PRODUCTION;
 
             // Start the batch request
             BatchApiRequest.StartNewBatchRequest();
@@ -104,9 +108,6 @@ namespace SendwithusTest
         public async Task TestBatchApiRequestsElevenRequestsWithoutOverrideAsync()
         {
             Trace.WriteLine("POST /batch");
-
-            // Use the production API key so that the emails are actually sent
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_PRODUCTION;
 
             // Start the batch request
             BatchApiRequest.StartNewBatchRequest();
@@ -161,9 +162,6 @@ namespace SendwithusTest
         public async Task TestBatchApiRequestsTwelveRequestsWithoutOverrideAsync()
         {
             Trace.WriteLine("POST /batch");
-
-            // Use the production API key so that the emails are actually sent
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_PRODUCTION;
 
             // Start the batch request
             BatchApiRequest.StartNewBatchRequest();
