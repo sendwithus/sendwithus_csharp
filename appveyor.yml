@@ -209,7 +209,7 @@ before_build:
 before_package:
   - dir
   - dir Sendwithus
-  - appveyor PushArtifact Sendwithus/SendwithusClient.nupkg
+  - appveyor PushArtifact /.*\.nupkg/
 
 # scripts to run after build
 after_build:
@@ -372,7 +372,8 @@ deploy:
      branch: master
      platform: Any CPU
      configuration: Release
-
+    artifact: /.*\.nupkg/
+     
 #    # Deploy to GitHub Releases
 #  - provider: GitHub
 #    artifact: /.*\.nupkg/           # upload all NuGet packages to release assets
