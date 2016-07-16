@@ -164,7 +164,7 @@ assembly_info:
 nuget:
   account_feed: true
   project_feed: true
-#  disable_publish_on_pr: true     # disable publishing of .nupkg artifacts to
+  disable_publish_on_pr: true     # disable publishing of .nupkg artifacts to
                                   # account/project feeds for pull request builds
 
 #---------------------------------#
