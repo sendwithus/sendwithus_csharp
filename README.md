@@ -518,881 +518,293 @@ catch (AggregateException exception)
     // Exception handling
 }
 ```
-
-
-
-### Get emails
-
-```php
-$response = $api->emails();
-```
-
-## Get specific template
-```php
-$response = $api->get_template($template_id,     //string id of template
-                               $version_id       //optional string version id of template
-);
-```
-
-
-## Create emails
-### Create new email
-_We validate all HTML content_
-```php
-$response = $api->create_email('Email Name',               // string email name
-    'Email Subject',                                       // string subject line of email
-    '<html><head></head><body>Valid HTML<body></html>',    // string of HTML code for email
-    'Optional text content')                               // optional string of text for email
-```
-
-### Create new email template version
-_We validate all HTML content_
-```php
-$response = $api->create_new_template_version(
-    'Email Name',                                          // string email version name
-    'Email Subject',                                       // string subject of email
-	'tem_JAksjdjwJXUVwnemljflksEJks',                      // string id of email used
-    '<html><head></head><body>Valid HTML<body></html>',    // string block of HTML code used for email
-    'Optional text content')                               // optional string of text used for email
-```
-
-### Update email version
-_We validate all HTML content_
-```php
-$response = $api->update_template_version(
-    'Email Name',                                          // string email version name
-    'Email Subject',                                       // string subject of email
-	'tem_JAkCjdjwJXUVwnemljflksEJks',                      // string id of email being updated
-	'ver_iuweJskj4Jwkj2ndclk4jJDken',                      // string version of email being updated
-    '<html><head></head><body>Valid HTML<body></html>',    // string block of HTML code used for email
-    'Optional text content')                               // optional string of text used for email
-```
-
-
-## Send emails
-
-*NOTE* - If a customer does not exist by the specified email (recipient address), the send call will create a customer.
-
-```php
-// Send function header
-send(
-    $email_id,      // string, id of email to send (template id)
-    $recipient,     // associative array, ("address" => "ckent@dailyplanet.com", "name" => "Clark") to send to
-    $args           // (optional) array, (array) additional parameters - (see below)
-)
-
-// Send function options
-'template_data'  // array of variables to merge into the template.
-'sender'         // array ("address", "name", "reply_to") of sender.
-'cc'             // array of ("address", "name") for carbon copy.
-'bcc'            // array of ("address", "name") for blind carbon copy.
-'inline'         // string, path to file to include inline.
-'files'          // array, paths to files to attach to the send.
-'tags'           // array of strings to tag email send with.
-'esp_account'    // string of ESP ID to manually select ESP
-```
-
-## Send Examples
-
-### Send request with REQUIRED parameters only
-
-```php
-$response = $api->send('email_id',
-    array('address' => 'us@sendwithus.com')
-);
-```
-
-### Send request with REQUIRED and OPTIONAL parameters
-
-```php
-$response = $api->send('email_id',
-    array(
-        'name' => 'Matt',
-        'address' => 'us@sendwithus.com'),
-    array(
-    	'template_data' => array('name' => 'Jimmy the snake'),
-    	'sender' => array(
-            'name' => 'Company',
-            'address' => 'company@company.com',
-            'reply_to' => 'info@company.com'
-        ),
-        'esp_account' => 'esp_EMpi5eo59cG4cCWd7AdW7J'
-    )
-);
-```
-
-### Send an email with multiple CC/BCC recipients
-
-```php
-$response = $api->send('email_id',
-    array(
-        'name' => 'Matt',
-        'address' => 'us@sendwithus.com'
-    ),
-    array(
-        'template_data' => array('name' => 'Jimmy the snake'),
-        'sender' => array(
-            'name' => 'Company',
-            'address' => 'company@company.com',
-            'reply_to' => 'info@company.com'
-        ),
-        'cc' => array(
-            array(
-                'name' => 'CC Name',
-                'address' => 'CC@company.com'
-            ),
-            array(
-                'name' => 'CC 2 Name',
-                'address' => 'CC2@company.com'
-            )
-        ),
-        'bcc' => array(
-            array(
-                'name' => 'BCC Name',
-                'address' => 'BCC@company.com'
-            )
-        )
-    )
-);
-```
-
-### Send an email with a dynamic tag
-
-```php
-$response = $api->send('email_id',
-    array(
-        'name' => 'Matt',
-        'address' => 'us@sendwithus.com'),
-    array(
-        'tags' => array('Production', 'Client1')
-    )
-);
-```
-
-### Send specific version of an email
-
-```php
-$response = $api->send('email_id',
-    array(
-        'name' => 'Matt',
-        'address' => 'us@sendwithus.com'),
-    array(
-        'version_name' => 'My Version'
-    )
-);
-```
-
-### Send email with an inline image attachment
-
-```php
-$response = $api->send('email_id',
-    array(
-        'name' => 'Matt',
-        'address' => 'us@sendwithus.com'),
-    array(
-        'inline' => 'filename.jpg'
-    )
-);
-```
-
-### Send email with attachments
-
-```php
-$response = $api->send('email_id',
-    array(
-        'name' => 'Matt',
-        'address' => 'us@sendwithus.com'),
-    array(
-        'files' => array(
-            'filename.txt',
-            'filename.pdf'
-        )
-    )
-);
-```
-
-
 ## Render templates
-
-```php
-// Render function header
-render(
-    $email_id,      // string, id of email to send (template id)
-    $args           // (optional) array, (array) additional parameters - (see below)
-)
-
-// Send function options
-'template_data'  // Array of variables to merge into the template.
-'version_id'     // Version ID obtained from /templates/(:template_id)/versions
-'version_name'   // Version name that you want rendered (provide either a version_name or a version_id, not both)
-'locale'         // Template locale to render
-'strict'         // Render in strict mode (fails on missing template data)
-```
-
-### Example:
-
-```php
-$response = $api->send('email_id',
-    array('address' => 'us@sendwithus.com'),
-    array(
-        'template_data' => array(
-            'name' => 'Bobby Boucher'
-        )
-    )
-);
-```
-
-
-## Segments
-
-### Get segments
-```php
-get_segments()
-```
-
-Example
-
-```php
-$response = $api->get_segments();
-```
-
-Response
-
-```php
-Array
-(
-    [0] => stdClass Object
-        (
-            [created] => 1402378620
-            [id] => seg_0biVV4Ncf1234
-            [name] => TEST_SEGMENT
-            [object] => segment
-        )
-
-)
-```
-
-### Send to a Segment
-```php
-send_segment(
-    $email_id,          // id of template to send
-    $segment_id,        // id of the segment to send to
-    $data               // optional array of data to send
-)
-```
-
-Example
-
-```php
-$response = $api->send_segment(tem_123jeDI23, 'seg_0biVV4Ncf1234');
-```
-
-## Get Email Logs
-```php
-logs(
-    $count             //The number of logs to return. Max: 100, Default: 100
-    $offset            //Offset the number of logs to return. Default: 0
-    $created_gt        //Return logs created strictly after the given UTC timestamp
-    $created_gte       //Return logs created on or after the given UTC timestamp
-    $created_lt        //Return logs created strictly before the given UTC timestamp
-    $created_lte       //Return logs created on or before the given UTC timestamp
-)
-```
-## Get a Specific Email's Log
-```php
-get_log(
-    $log_id          // id of log to retrieve
-)
-```
-
-Example
-
-```php
-$response = api->get_log('log_d4R7hV4d0r')
-```
-
-Response
-
-```php
-(
-    [email_id] => tem_1jeid84bg
-    [recipient_name] =>
-    [message] => Mandrill: Message has been successfully delivered to the receiving server.
-    [id] => log_d4R7hV4d0r
-    [object] => log
-    [created] => 1409287597
-    [email_name] => test
-    [recipient_address] => person@example.com
-    [status] => sent
-    [email_version] => Original Version
-)
-```
-
-## Drip Unsubscribe
-```php
-// Unsubscribe email address from active drips
-drip_unsubscribe(
-    $email_address,      // the email to unsubscribe from active drips
-)
-```
-
-## Drip Unsubscribe Example
-
-```php
-$response = $api->drip_unsubscribe('us@sendwithus.com');
-```
-
-## Drips 2.0
-
-### List Drip Campaigns
-List all drip campaigns for the current profile
-
-Example
-
-```php
-$response = $api->list_drip_campaigns();
-```
-
-Response
-
-```php
-Array
-(
-    [0] => stdClass Object
-        (
-            [drip_steps] => Array
-                (
-                    [0] => stdClass Object
-                        (
-                            [id] => dcs_1234abcd1234
-                            [object] => drip_step
-                            [delay_seconds] => 0
-                            [email_id] => tem_1234abcd1234
-                        )
-
-                )
-
-            [name] => Drip Campaign
-            [enabled] => 1
-            [id] => dc_1234abcd1234
-            [trigger_email_id] => tem_1234abcd1234
-            [object] => drip_campaign
-        )
-)
-```
-
-### Start on Drip Campaign
-Starts a customer on the first step of a specified drip campaign
-
-```php
-start_on_drip_campaign(
-    $recipient_address, // string, email address being added to drip campaign
-    $drip_campaign_id,  // string, drip campaign being added to
-	$data               // array, (optional) email data being added to drip campaign
-	$args               // array, (optional) additional options being sent with email (tags, cc's, etc)
-);
-
-// Args options
-'sender'      // array ("address", "name", "reply_to") of sender.
-'cc'          // array of ("address", "name") for carbon copy.
-'bcc'         // array of ("address", "name") for blind carbon copy.
-'tags'        // array of strings to tag email send with.
-'esp_account' // string of ESP ID to manually select ESP
-```
-
-Example
-
-```php
-$template_data = array(
-    'name' => 'Jean-Luc'
-	'rank' => 'Captain'
-);
-
-$args = array(
-    'tags' => array('all', 'the', 'tags'),
-    'cc' => array('address' => 'them@sendwithus.com')
-);
-$response = $api->start_on_drip_campaign('us@sendwithus.com', 'dc_1234abcd1234', $template_data, $args);
-```
-
-Response
-
-```php
-stdClass Object
-(
-    [success] => 1
-    [drip_campaign] => stdClass Object
-        (
-            [id] => dc_1234abcd1234
-            [name] => Drip Campaign
-        )
-
-    [message] => Recipient successfully added to drip campaign.
-    [status] => OK
-    [recipient_address] => us@sendwithus.com
-)
-```
-
-### Remove from Drip Campaign
-Deactivates all pending emails for a customer on a specified drip campaign
-```php
-$response = $api->remove_from_drip_campaign(
-    $recipient_address, // string, email address being removed from drip campaign
-    $drip_campaign_id   // string, drip campaign being removed from
-);
-```
-
-Example
-
-```php
-$response = $api->remove_from_drip_campaign('us@sendwithus.com', 'dc_1234abcd1234');
-```
-
-Response
-
-```php
-stdClass Object
-(
-    [success] => 1
-    [drip_campaign] => stdClass Object
-        (
-            [id] => dc_1234abcd1234
-            [name] => Drip Campaign
-        )
-
-    [message] => Recipient successfully removed from drip campaign.
-    [status] => OK
-    [recipient_address] => us@sendwithus.com
-)
-```
-
-### List Drip Campaign Details
-Show all the steps and other information in a specified campaign
-```php
-$response = $api->drip_campaign_details(
-    $drip_campaign_id   // string, drip campaign to list details from
-);
-```
-
-Example
-
-```php
-$response = $api->drip_campaign_details('dc_1234abcd1234');
-```
-
-Response
-
-```php
-stdClass Object
-(
-    [drip_steps] => Array
-        (
-            [0] => stdClass Object
-                (
-                    [id] => dcs_1234abcd1234
-                    [object] => drip_step
-                    [delay_seconds] => 0
-                    [email_id] => tem_1234abcd1234
-                )
-
-        )
-
-    [name] => Drip Campaign
-    [enabled] => 1
-    [id] => dc_1234abcd1234
-    [trigger_email_id] => tem_1234abcd1234
-    [object] => drip_campaign
-)
-
-```
-
-## ESP Accounts API
-
-### Get ESP accounts
-```php
-// possible esp_type values are -
-// sendgrid
-// mailgun
-// mandrill
-// postmark
-// ses
-// mailjet
-// dyn
-// sparkpost
-// smtp
-
-get_esp_accounts(
-    $esp_type,      // string, optional, filter response to only return ESP accounts of a certain type
-    $count,         // integer, optional, the number of logs to return. Max: 100, Default: 100
-    $offset         // integer, optional, Offset the number of logs to return. Default: 0
-)
-```
-
-Example
-
-```php
-$response = $api->get_esp_accounts('mailgun');
-```
-
-### Create ESP account
-```php
-// possible esp_type values are -
-// sendgrid
-// mailgun
-// mandrill
-// postmark
-// ses
-// mailjet
-// dyn
-// sparkpost
-// smtp
-
-create_esp_account(
-    $name,          // string, the name of your account
-    $esp_type,      // string, Must be one of the options listed above
-    $credentials    // array, account credentials of the new esp account. See docs for formats
-)
-```
-
-Example
-
-```php
-// see the docs for formats
-// https://www.sendwithus.com/docs/api#email-service-providers
-
-$credentials = array(
-    'username' => 'mysendgridusername',
-    'password' => 'mysendgridpassword'
-);
-
-$response = $api->create_esp_account(
-    'My SendGrid Account',
-    'sendgrid',
-    $credentials
-);
-```
-
-### Set default ESP account
-```php
-set_default_esp_account(
-    '$esp_id'       // string, the ID of the ESP account
-)
-```
-
-Example
-
-```php
-$response = $api->set_default_esp_account('esp_asdf12rastrast');
-```
-
-## Customers API
-
-### Create Customer
-```php
-create_customer(
-    $email,             // string, email of customer
-    $data,              // array, optional, data for customer
-    $args               // array, optional, optional parameters:
-
-    // The additional optional parameters are as follows:
-    //      'locale' - Default is null. String to specify a locale for this customer.
-    //      'groups' - Default is null. Array of group IDs
-)
-```
-
-Example
-
-```php
-$response = $api->create_customer('us@sendwithus.com',
-    array('name' => 'Sendwithus')
-);
-```
-
-### Update Customer
-```php
-update_customer(
-    $email,             // string, email of customer
-    $data,              // array, optional, data for customer
-)
-```
-
-Example
-
-```php
-$response = $api->update_customer('us@sendwithus.com',
-    array('name' => 'Sendwithus.com')
-);
-```
-
-### Delete Customer
-```php
-delete_customer(
-    $email,             // string, email of customer
-)
-```
-
-Example
-
-```php
-$response = $api->delete_customer('us@sendwithus.com');
-```
-
-### Conversion on Customer
-Adds a conversion event to recent templates for recipient
-
-```php
-customer_conversion(
-    $email,             // string, email of customer
-    $revenue,           // integer, optional, amount in cents
-);
-```
-
-Example (required parameters only)
-
-```php
-$response = $api->customer_conversion('curtis@sendwithus.com');
-
-print_r($response);
-
-/*
-stdClass Object
-(
-    [status] => OK
-    [success] => 1
-)
-*/
-```
-
-Example (all parameters)
-
-```php
-// $19.99 in revenue
-$response = $api->customer_conversion('curtis@sendwithus.com', 1999);
-
-print_r($response);
-
-/*
-stdClass Object
-(
-    [status] => OK
-    [success] => 1
-)
-*/
-```
-
-### Add Customer to Group
-Adds a customer to a specified group
-
-```php
-add_customer_to_group('curtis@sendwithus.com', 'grp_jk2jejidi3');
-```
-
-### Remove Customer From Group
-Removes a customer from a specified group
-
-```php
-remove_customer_from_group('curtis@sendwithus.com', 'grp_jk2jejidi3');
-```
-
-## Groups API
-
-### List Groups
-List all groups
-
-Example
-
-```php
-$response = $api->list_groups();
-
-print_r($response->groups[0]);
-
-/*
-(
-    [id] => grp_nEozfaiWwBHW4Fsmc
-    [description] => An example group
-    [name] => Group name
-)
-*/
-
-```
-
-### Create a Group
-```php
-create_group(
-    $name,             // string, name of group
-    $description,      // string, optional, description for group
-)
-```
-
-Example
-
-```php
-$response = $api->create_group('Group name',
-    'An example group'
-);
-
-print_r($response);
-
-/*
-stdClass Object
-(
-    [success] => 1
-    [group] => stdClass Object
-        (
-            [name] => Group name
-            [description] => An example group
-            [id] => grp_ooEDQKetS2Yqs7FSGAdReB
-        )
-
-    [status] => OK
-)
-*/
-```
-
-### Update a Group
-```php
-update_group(
-    $name,             // string, name of group
-    $group_id          // string id of group
-    $description,      // string, optional, description for group
-)
-```
-
-Example
-
-```php
-$response = $api->update_group('Updated Group name',
-    'An example group updated description'
-);
-
-print_r($response);
-
-/*
-stdClass Object
-(
-    [success] => 1
-    [group] => stdClass Object
-        (
-            [name] => Updated Group name
-            [description] => An example group updated description
-            [id] => grp_ooEDQKetS2Yqs7FSGAdReB
-        )
-
-    [status] => OK
-)
-*/
-```
-
-### Delete Group
-```php
-delete_group(
-    $group_id,             // string, group_id of group
-)
-```
-
-Example
-
-```php
-$response = $api->delete_group('grp_ooEDQKetS2Yqs7FSGAdReB');
-```
-
-
-## Expected response
-
-### Success
-```php
-print $response->success; // true
-
-print $response->status; // "OK"
-
-print $response->receipt_id; // ### numeric receipt_id you can use to query email status later
-```
-
-### Error cases
-```php
-print $response->success; // false
-
-print $response->status; // "error"
-
-print $response->exception; // Exception Object
-
-print $response->code;
-// 400 (malformed request)
-// 403 (bad api key)
-```
-
-### List Customer Logs
-List all customer logs
-
-Example
-
-```php
-$response = api->get_customer_logs("email@email.com");
-
-print_r($response);
-
-/*
-(
-    [success] => 1
-    [logs] => Array
-        (
-        [email_name] => Name of email
-        [message] => Message body
-        [recipient_name] => Recipient name
-        [email_version] => Name of email version
-        [object] => log
-        [email_id] => ID of email
-        [created] => Time stamp
-        [recipient_address] => Email address of recipient
-        [status] => Status of email
-        [id] => ID of log
-        )
-    [status] => OK
-)
-*/
-
-```
-
-## Batch API
-Batch requests together to be run all at once.
-
-### Usage
-Create a batch_api object by calling `start_batch()`.
-
-Do any request you would do normally with the API but on the batch_api object.
-
-Execute all commands at once by calling `execute()` on the object.
-
-### Example
-```php
-$batch_api = api->start_batch();
-for($i = 0; $i < 10; $i++) {
-    $result = $batch_api->create_customer('us@sendwithus.com',
-        array('name' => 'Sendwithus'));
-    // $result->success == true && $result->status == 'Batched'
+### Render a template with data
+#### POST /render
+```csharp
+var templateId = "tem_SxZKpxJSHPbYDWRSQnAQUR";
+
+// Create the template data
+var templateData = new Dictionary<string, object>();
+templateData.Add("amount", "$12.00");
+
+// Create the render object
+var renderTemplate = new Render(templateId, templateData);
+renderTemplate.version_id = "ver_ET3j2snkKhqsjRjtK6bXJE"; // optional.  Can use either version_id or version_name to specify a version, but not both
+renderTemplate.locale = "en-US"; // optional
+renderTemplate.strict = true; // optional
+
+try
+{
+    var renderTemplateResponse = await renderTemplate.RenderTemplateAsync();
 }
-$result = $batch_api->execute();
-
-// $result will be an array of responses for each command executed.
-
-```
-
-### Canceling Batch Request
-Sometimes it is necessary to cancel all the api requests that have been batched, but not yet sent.
-To do that, use `cancel()`:
-
-### Example
-```php
-$batch_api = api->start_batch();
-for($i = 0; $i < 10; $i++) {
-    $batch_api->create_customer('us@sendwithus.com',
-        array('name' => 'Sendwithus'));
+catch (AggregateException exception)
+{
+    // Exception handling
 }
-$result = $batch_api->cancel();
-// $result->success == true && $result->status == 'Canceled'
 ```
+## ESP Account
+### List all ESP accounts
+#### GET /esp_accounts
+Gets all ESP accounts:
+```csharp
+try
+{
+    var espAccounts = await EspAccount.GetAccountsAsync();
+}
+catch (AggregateException exception)
+{
+    // Exception handling
+}
+```
+Gets all ESP accounts of a given account type:
+```csharp
+// Build the query parameters
+var queryParameters = new Dictionary<string, object>();
+queryParameters.Add("esp_type", DEFAULT_ESP_ACCOUNT_TYPE);
 
-Once you have canceled a batch, you can continue to use the batch to make more requests.
+// Make the API call
+try
+{
+    var espAccounts = await EspAccount.GetAccountsAsync(queryParameters);
+}
+catch (AggregateException exception)
+{
+    // Exception handling
+}
+```
+### Add a new ESP account
+#### POST /esp_accounts
+SendGrid example:
+```csharp
+var credentials = new EspAccountCredientialsSendgrid("mysendgridusername", "password123");
+var addAccountRequest = new EspAccountAddAccountRequest("My SendGrid Account", "sendgrid", credentials);
+try
+{
+    var espAccountResponse = await EspAccount.AddAccountAsync(addAccountRequest);
+}
+catch (AggregateException exception)
+{
+    // Exception handling
+}
+```
+Mailgun example:
+```csharp
+var credentials = new EspAccountCredientialsMailgun("key-mymailgunapikey", "my.mailgun.domain.com");
+var addAccountRequest = new EspAccountAddAccountRequest("My Mailgun Account", "mailgun", credentials);
+try
+{
+    var espAccountResponse = await EspAccount.AddAccountAsync(addAccountRequest);
+}
+catch (AggregateException exception)
+{
+    // Exception handling
+}
+```
+Mandrill example:
+```csharp
+var credentials = new EspAccountCredientialsMandrill("mymandrillapikey");
+var addAccountRequest = new EspAccountAddAccountRequest("My Mandrill Account", "mandrill", credentials);
+try
+{
+    var espAccountResponse = await EspAccount.AddAccountAsync(addAccountRequest);
+}
+catch (AggregateException exception)
+{
+    // Exception handling
+}
+```
+Postmark example:
+```csharp
+var credentials = new EspAccountCredientialsPostmark("my-postmark-api-key"); // Note: use your Postmark "Server API Token" as the api key for this call
+var addAccountRequest = new EspAccountAddAccountRequest("My Postmark Account", "postmark", credentials);
+try
+{
+    var espAccountResponse = await EspAccount.AddAccountAsync(addAccountRequest);
+}
+catch (AggregateException exception)
+{
+    // Exception handling
+}
+```
+SES example:
+```csharp
+var credentials = new EspAccountCredientialsSes("mysesaccesskeyid", "mysessecretaccesskey", "us-east-1");
+var addAccountRequest = new EspAccountAddAccountRequest("My SES Account", "ses", credentials);
+try
+{
+    var espAccountResponse = await EspAccount.AddAccountAsync(addAccountRequest);
+}
+catch (AggregateException exception)
+{
+    // Exception handling
+}
+```
+Mailjet example:
+```csharp
+var credentials = new EspAccountCredientialsMailjet("mymailjetapikey", "mymailjetsecretkey");
+var addAccountRequest = new EspAccountAddAccountRequest("My Mailjet Account", "mailjet", credentials);
+try
+{
+    var espAccountResponse = await EspAccount.AddAccountAsync(addAccountRequest);
+}
+catch (AggregateException exception)
+{
+    // Exception handling
+}
+```
+DYN example:
+```csharp
+var credentials = new EspAccountCredientialsDyn("mydynapikey");
+var addAccountRequest = new EspAccountAddAccountRequest("My DYN Account", "dyn", credentials);
+try
+{
+    var espAccountResponse = await EspAccount.AddAccountAsync(addAccountRequest);
+}
+catch (AggregateException exception)
+{
+    // Exception handling
+}
+```
+SMTP example:
+```csharp
+var credentials = new EspAccountCredientialsSmtp("smtp.example.com", 25, "myusername", "mypassword", true);
+var addAccountRequest = new EspAccountAddAccountRequest("My SMTP Account", "smtp", credentials);
+try
+{
+    var espAccountResponse = await EspAccount.AddAccountAsync(addAccountRequest);
+}
+catch (AggregateException exception)
+{
+    // Exception handling
+}
+```
+### Set a given ESP Account as the default for sending emails
+#### PUT /esp_accounts/set_default
+```csharp
+var espAccountId = "esp_e3ut7pFtWttcN4HNoQ8Vgm";
+try
+{
+    var espAccountResponse = await EspAccount.SetDefaultEspAccountAsync(DEFAULT_ESP_ACCOUNT_ID);
+}
+catch (AggregateException exception)
+{
+    // Exception handling
+}
+```
+## Customers
+### Get a specific customer
+#### GET /customers/customer@example.com
+```csharp
+var customerEmailAddress = "customer@example.com";
+try
+{
+    var customerResponse = await Customer.GetCustomerAsync(customerEmailAddress);
+}
+catch (AggregateException exception)
+{
+    // Exception handling
+}
+```
+### Creating/updating a new customer
+#### POST /customers
+If a Customer already exists with the specified email address, then a data merge is performed. Merge operations will:
+ * replace existing attributes with new values
+ * add any new attributes to the Customer
+Merge operations will never remove attributes from a Customer. Note that customer data can only be simple data types like strings and integers.
+```csharp
+// Build the customer
+var customer = new Customer("customer@example.com");
+customer.data.Add("first_name", "Matt"); // optional
+customer.data.Add("city", "San Francisco"); // optional
+customer.locale = "en-US"; // optional
+customer.groups.Add("grp_7zpRYpExEBPpd6dGvyAfcT"); // optional
+
+// Make the API call
+try
+{
+    var genericApiCallStatus = await Customer.CreateOrUpdateCustomerAsync(customer);
+}
+catch (AggregateException exception)
+{
+    // Exception handling
+}
+```
+### Delete a customer
+#### DELETE /customers/(:email)
+```csharp
+var customerEmailAddress = "customer@example.com";
+try
+{
+    var genericApiCallStatus = await Customer.DeleteCustomerAsync(customerEmailAddress);
+}
+catch (AggregateException exception)
+{
+    // Exception handling
+}
+```
+### Get email logs for a customer
+#### GET /customers/matt@sendwithus.com/logs?count={count}&created_lt={timestamp}&created_gt={timestamp}
+With no query parameters to filter the logs:
+```csharp
+var customerEmailAddress = "customer@example.com";
+try
+{
+    var customerEmailLogsResponse = await Customer.GetCustomerEmailLogsAsync(customerEmailAddress);
+}
+catch (AggregateException exception)
+{
+    // Exception handling
+}
+```
+With all query parameters to filter the logs:
+```csharp
+var customerEmailAddress = "customer@example.com";
+
+// Build the query parameters.  All of these are optional
+var queryParameters = new Dictionary<string, object>();
+queryParameters.Add("count", 2);
+queryParameters.Add("created", LOG_CREATED_BEFORE_TIME);
+queryParameters.Add("created_gt", LOG_CREATED_AFTER_TIME);
+
+// Make the API call
+try
+{
+    var customerEmailLogsResponse = await Customer.GetCustomerEmailLogsAsync(customerEmailAddress, queryParameters);
+}
+catch (AggregateException exception)
+{
+    // Exception handling
+}
+```
+### Add customer to a group
+#### POST /customers/(:email)/groups/(:group_id)
+```csharp
+var customerEmailAddress = "customer@example.com";
+var groupId = "grp_7zpRYpExEBPpd6dGvyAfcT";
+try
+{
+    var genericApiCallStatus = await Customer.AddCustomerToGroupAsync(customerEmailAddress, groupId);
+}
+catch (AggregateException exception)
+{
+    // Exception handling
+}
+```
+### Remove customer from a group
+#### DELETE /customers/(:email)/groups/(:group_id)
+```csharp
+var customerEmailAddress = "customer@example.com";
+var groupId = "grp_7zpRYpExEBPpd6dGvyAfcT";
+try
+{
+    var genericApiCallStatus = await Customer.RemoveCustomerFromGroupAsync(DEFAULT_CUSTOMER_EMAIL_ADDRESS, DEFAULT_GROUP_ID);
+}
+catch (AggregateException exception)
+{
+    // Exception handling
+}
+```
 
 ## Tests
 

@@ -16,7 +16,8 @@ namespace SendwithusTest
     {
         private const string DEFAULT_TEMPLATE_ID = "tem_SxZKpxJSHPbYDWRSQnAQUR";
         private const string INVALID_TEMPLATE_ID = "invalid_template_id";
-        private const string DEFAULT_VERSION_ID = "ver_ET3j2snkKhqsjRjtK6bXJE";
+        private const string DEFAULT_VERSION_ID = "ver_GzHYyNnDR3XFofVZRyz736";
+        private const string DEFAULT_VERSION_NAME = "Template Version Name";
         private const string DEFAULT_LOCALE = "en-US";
 
         /// <summary>
@@ -44,10 +45,10 @@ namespace SendwithusTest
             var renderTemplate = new Render(DEFAULT_TEMPLATE_ID, templateData);
             try
             { 
-                var response = await renderTemplate.RenderTemplateAsync();
+                var renderTemplateResponse = await renderTemplate.RenderTemplateAsync();
 
                 // Validate the response
-                SendwithusClientTest.ValidateResponse(response);
+                SendwithusClientTest.ValidateResponse(renderTemplateResponse);
             }
             catch (AggregateException exception)
             {
@@ -56,21 +57,44 @@ namespace SendwithusTest
         }
 
         /// <summary>
-        /// Tests the API call POST /render with all of the parameters
+        /// Tests the API call POST /render with all of the parameters, specifying the template version ID istead of the version name
         /// </summary>
         /// <returns>The asynchronous task</returns>
         [TestMethod]
-        public async Task TestRenderTemplateWithAllParametersAsync()
+        public async Task TestRenderTemplateWithAllParametersIdAsync()
         {
             Trace.WriteLine("POST /render");
 
             // Make the API call
             try
             { 
-                var response = await BuildAndSendRenderTemplateRequestWithAllParameters();
+                var renderTemplateResponse = await BuildAndSendRenderTemplateRequestWithAllParametersId();
 
                 // Validate the response
-                SendwithusClientTest.ValidateResponse(response);
+                SendwithusClientTest.ValidateResponse(renderTemplateResponse);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Tests the API call POST /render with all of the parameters, specifying the template version name istead of the version ID
+        /// </summary>
+        /// <returns>The asynchronous task</returns>
+        [TestMethod]
+        public async Task TestRenderTemplateWithAllParametersNameAsync()
+        {
+            Trace.WriteLine("POST /render");
+
+            // Make the API call
+            try
+            {
+                var renderTemplateResponse = await BuildAndSendRenderTemplateRequestWithAllParametersName();
+
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(renderTemplateResponse);
             }
             catch (AggregateException exception)
             {
@@ -95,7 +119,7 @@ namespace SendwithusTest
             // Make the API call
             try
             {
-                var response = await renderTemplate.RenderTemplateAsync();
+                var renderTemplateResponse = await renderTemplate.RenderTemplateAsync();
                 Assert.Fail("Failed to throw exception");
             }
             catch (AggregateException exception)
@@ -104,18 +128,33 @@ namespace SendwithusTest
                 SendwithusClientTest.ValidateException(exception, HttpStatusCode.BadRequest);
             }
         }
-        
+
         /// <summary>
-        /// Builds and sends a RenderTemplate request with all the parameters.
+        /// Builds and sends a RenderTemplate request with all the parameters, using the version ID instead of the version name.
         /// Public so that it can also be used by the BatchApiRequestTest library
         /// </summary>
         /// <returns></returns>
-        public static async Task<RenderTemplateResponse> BuildAndSendRenderTemplateRequestWithAllParameters()
+        public static async Task<RenderTemplateResponse> BuildAndSendRenderTemplateRequestWithAllParametersId()
         {
             var templateData = new Dictionary<string, object>();
             templateData.Add("amount", "$12.00");
             var renderTemplate = new Render(DEFAULT_TEMPLATE_ID, templateData);
             renderTemplate.version_id = DEFAULT_VERSION_ID;
+            renderTemplate.locale = DEFAULT_LOCALE;
+            renderTemplate.strict = true;
+            return await renderTemplate.RenderTemplateAsync();
+        }
+
+        /// <summary>
+        /// Builds and sends a RenderTemplate request with all the parameters, using the version name instead of the version ID.
+        /// </summary>
+        /// <returns></returns>
+        private static async Task<RenderTemplateResponse> BuildAndSendRenderTemplateRequestWithAllParametersName()
+        {
+            var templateData = new Dictionary<string, object>();
+            templateData.Add("amount", "$12.00");
+            var renderTemplate = new Render(DEFAULT_TEMPLATE_ID, templateData);
+            renderTemplate.version_name = DEFAULT_VERSION_NAME;
             renderTemplate.locale = DEFAULT_LOCALE;
             renderTemplate.strict = true;
             return await renderTemplate.RenderTemplateAsync();

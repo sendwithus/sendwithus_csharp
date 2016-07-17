@@ -56,10 +56,10 @@ namespace SendwithusTest
             // Make the API call
             try
             { 
-                var response = await EspAccount.GetAccountsAsync();
+                var espAccounts = await EspAccount.GetAccountsAsync();
 
                 // Validate the response
-                SendwithusClientTest.ValidateResponse(response);
+                SendwithusClientTest.ValidateResponse(espAccounts);
             }
             catch (AggregateException exception)
             {
@@ -83,10 +83,10 @@ namespace SendwithusTest
             // Make the API call
             try
             { 
-                var response = await EspAccount.GetAccountsAsync(queryParameters);
+                var espAccounts = await EspAccount.GetAccountsAsync(queryParameters);
 
                 // Validate the response
-                SendwithusClientTest.ValidateResponse(response);
+                SendwithusClientTest.ValidateResponse(espAccounts);
             }
             catch (AggregateException exception)
             {
@@ -136,10 +136,10 @@ namespace SendwithusTest
             // Make the API call
             try
             { 
-                var response = await EspAccount.AddAccountAsync(addAccountRequest);
+                var espAccountResponse = await EspAccount.AddAccountAsync(addAccountRequest);
 
                 // Validate the response
-                SendwithusClientTest.ValidateResponse(response);
+                SendwithusClientTest.ValidateResponse(espAccountResponse);
             }
             catch (AggregateException exception)
             {
@@ -163,10 +163,10 @@ namespace SendwithusTest
             // Make the API call
             try
             { 
-                var response = await EspAccount.AddAccountAsync(addAccountRequest);
+                var espAccountResponse = await EspAccount.AddAccountAsync(addAccountRequest);
 
                 // Validate the response
-                SendwithusClientTest.ValidateResponse(response);
+                SendwithusClientTest.ValidateResponse(espAccountResponse);
             }
             catch (AggregateException exception)
             {
@@ -190,10 +190,10 @@ namespace SendwithusTest
             // Make the API call
             try
             {
-                var response = await EspAccount.AddAccountAsync(addAccountRequest);
+                var espAccountResponse = await EspAccount.AddAccountAsync(addAccountRequest);
 
                 // Validate the response
-                SendwithusClientTest.ValidateResponse(response);
+                SendwithusClientTest.ValidateResponse(espAccountResponse);
             }
             catch (AggregateException exception)
             {
@@ -217,10 +217,10 @@ namespace SendwithusTest
             // Make the API call
             try
             { 
-                var response = await EspAccount.AddAccountAsync(addAccountRequest);
+                var espAccountResponse = await EspAccount.AddAccountAsync(addAccountRequest);
 
                 // Validate the response
-                SendwithusClientTest.ValidateResponse(response);
+                SendwithusClientTest.ValidateResponse(espAccountResponse);
             }
             catch (AggregateException exception)
             {
@@ -245,7 +245,7 @@ namespace SendwithusTest
             // Make the API call
             try
             {
-                var response = await EspAccount.AddAccountAsync(addAccountRequest);
+                var espAccountResponse = await EspAccount.AddAccountAsync(addAccountRequest);
             }
             catch (AggregateException exception)
             {
@@ -272,10 +272,10 @@ namespace SendwithusTest
             // Make the API call
             try
             { 
-                var response = await EspAccount.AddAccountAsync(addAccountRequest);
+                var espAccountResponse = await EspAccount.AddAccountAsync(addAccountRequest);
 
                 // Validate the response
-                SendwithusClientTest.ValidateResponse(response);
+                SendwithusClientTest.ValidateResponse(espAccountResponse);
             }
             catch (AggregateException exception)
             {
@@ -300,7 +300,7 @@ namespace SendwithusTest
             // Make the API call
             try
             {
-                var response = await EspAccount.AddAccountAsync(addAccountRequest);
+                var espAccountResponse = await EspAccount.AddAccountAsync(addAccountRequest);
             }
             catch (AggregateException exception)
             {
@@ -327,10 +327,10 @@ namespace SendwithusTest
             // Make the API call
             try
             { 
-                var response = await EspAccount.AddAccountAsync(addAccountRequest);
+                var espAccountResponse = await EspAccount.AddAccountAsync(addAccountRequest);
 
                 // Validate the response
-                SendwithusClientTest.ValidateResponse(response);
+                SendwithusClientTest.ValidateResponse(espAccountResponse);
             }
             catch (AggregateException exception)
             {
@@ -350,10 +350,10 @@ namespace SendwithusTest
             // Make the API call
             try
             { 
-                var response = await EspAccount.SetDefaultEspAccountAsync(DEFAULT_ESP_ACCOUNT_ID);
+                var espAccountResponse = await EspAccount.SetDefaultEspAccountAsync(DEFAULT_ESP_ACCOUNT_ID);
 
                 // Validate the response
-                SendwithusClientTest.ValidateResponse(response);
+                SendwithusClientTest.ValidateResponse(espAccountResponse);
             }
             catch (AggregateException exception)
             {

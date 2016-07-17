@@ -16,6 +16,7 @@ namespace Sendwithus
         public string template { get; set; }
         public Dictionary<string, object> template_data  { get; set; }
         public string version_id { get; set; }
+        public string version_name { get; set; }
         public string locale { get; set; }
         public bool strict { get; set; }
 
@@ -29,8 +30,9 @@ namespace Sendwithus
             this.template = templateId;
             this.template_data = template_data;
             version_id = String.Empty;
+            version_name = String.Empty;
             locale = String.Empty;
-            strict = false;
+            strict = true;
         }
 
         /// <summary>

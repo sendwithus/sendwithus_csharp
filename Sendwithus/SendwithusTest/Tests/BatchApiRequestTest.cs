@@ -82,7 +82,7 @@ namespace SendwithusTest
                 var createTemplateResponse = await TemplateTest.BuildAndSendCreateTemplateRequestWithAllParametersAsync(); // POST
                 var getSnippetsResponse = await Snippet.GetSnippetsAsync(); // GET
                 var getSegmentsResponse = await Segment.GetSegmentsAsync(); // GET
-                var sendRenderTemplateResponse = await RenderTest.BuildAndSendRenderTemplateRequestWithAllParameters(); // POST
+                var sendRenderTemplateResponse = await RenderTest.BuildAndSendRenderTemplateRequestWithAllParametersId(); // POST
                 var getLogResponse = await Log.GetLogsAsync(); // GET
                 var setDefaultEspAccountResponse = await EspAccount.SetDefaultEspAccountAsync(DEFAULT_ESP_ACCOUNT_ID); // PUT
                 var sendEmailRepsonse = await EmailTest.BuildAndSendEmailWithAllParametersAsync(); // POST
@@ -132,7 +132,7 @@ namespace SendwithusTest
                 var createTemplateResponse = await TemplateTest.BuildAndSendCreateTemplateRequestWithAllParametersAsync(); // POST
                 var getSnippetsResponse = await Snippet.GetSnippetsAsync(); // GET
                 var getSegmentsResponse = await Segment.GetSegmentsAsync(); // GET
-                var sendRenderTemplateResponse = await RenderTest.BuildAndSendRenderTemplateRequestWithAllParameters(); // POST
+                var sendRenderTemplateResponse = await RenderTest.BuildAndSendRenderTemplateRequestWithAllParametersId(); // POST
                 var getLogResponse = await Log.GetLogsAsync(); // GET
                 var setDefaultEspAccountResponse = await EspAccount.SetDefaultEspAccountAsync(DEFAULT_ESP_ACCOUNT_ID); // PUT
                 var sendEmailRepsonse = await EmailTest.BuildAndSendEmailWithAllParametersAsync(); // POST
@@ -196,7 +196,7 @@ namespace SendwithusTest
                 var createTemplateResponse = await TemplateTest.BuildAndSendCreateTemplateRequestWithAllParametersAsync(); // POST
                 var getSnippetsResponse = await Snippet.GetSnippetsAsync(); // GET
                 var getSegmentsResponse = await Segment.GetSegmentsAsync(); // GET
-                var sendRenderTemplateResponse = await RenderTest.BuildAndSendRenderTemplateRequestWithAllParameters(); // POST
+                var sendRenderTemplateResponse = await RenderTest.BuildAndSendRenderTemplateRequestWithAllParametersId(); // POST
                 var getLogResponse = await Log.GetLogsAsync(); // GET
                 var setDefaultEspAccountResponse = await EspAccount.SetDefaultEspAccountAsync(DEFAULT_ESP_ACCOUNT_ID); // PUT
                 var sendEmailRepsonse = await EmailTest.BuildAndSendEmailWithAllParametersAsync(); // POST
