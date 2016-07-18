@@ -20,7 +20,7 @@ Install via NuGet Package Manager
 If you are using Visual Studio 2015:
 * In the Solution Explorer window, right click on your solution and select "Manage NuGet Packages for Solution..."
 * Search for "SendwithusClient"
- * Be sure to use the one that's by sendwithus.  There's another one called SendWithUs.Client by Mimeo, but that is not supported by sendwithus
+  * Be sure to use the one that's by sendwithus.  There's another one called SendWithUs.Client by Mimeo, but that is not supported by sendwithus
 * Select the "SendwithusClient" package and choose "Install" for your solution/project.
 
 
@@ -39,7 +39,7 @@ SendwithusClient.RetryIntervalMilliseconds = your_preferred_retryInterval; // De
 
 ```
 
-### Notes on Retries
+### Notes on Retries and Exceptions
 The API will perform a retry in the following cases:
 
 | Retry Causes | Exception Thrown |
@@ -57,6 +57,10 @@ Some examples:
 * An API call that fails with a status code 403: Forbidden (not a retriable status code) will throw an AggregateException with one InnerException of type SendwithusException
 * An API call that repeatedly times out will throw an AggregateException with InnerExceptions of type TaskCanceledException
 * An API call that times out once, then fails with a status code of 503: Service Unavailable, and then fails again with a status code 400: Bad Request will throw an AggregateException with InnerExceptions, in order, of: { TaskCanceledException, SendwithusException, SendwithusException}
+
+#### Other Exceptions
+The API Client will also throw the following other exceptions:
+* An InvalidOperationException will be thrown when adding a new API call to a queue of Batched API calls when the limit of maximum API calls per batch has already been met
 
 # API Calls
 ## Templates
@@ -1059,41 +1063,158 @@ catch (AggregateException exception)
     // Exception handling
 }
 ```
+## Batch API Calls
+The sendwithus batch endpoint enables multiple API calls to be made in a single HTTP request.
+*NOTE* – Batch sizes over 10 requests are not recommended.
+* By default, batch API calls are limited to 10 per batch.
+* Any additional calls beyond 10 will throw an InvalidOperationException.
+* This limit can be increased by calling BatchApiRequest.OverrideMaximumBatchRequests(int newMaximum)
 
+The process to making a batch API call is:
 
+1. Call BatchApiRequest.StartNewBatchRequest()
+  * After making this call, all subsequent API calls will queued up in a new batch request.
+2. Make all the API calls as you normally would.  Instead of being sent, these calls will be queued.
+3. Call BatchApiRequest.SendBatchApiRequest().  This will send the batch request with all of the queued requests, clear the queue, return the response (which will contain the response for each API call in the queue), and exit batch mode.
+  * After this call, all subsequent API calls will be sent out as soon as they are called, instead of being queued.
+4. Access the response to each batch command by calling 
+
+### Send batch request
+#### POST /batch
+Example using 5 commands:
+```csharp
+// Start the batch request
+BatchApiRequest.StartNewBatchRequest();
+
+// Make the API calls to be batched
+var espAccountId = "esp_e3ut7pFtWttcN4HNoQ8Vgm";
+var customerEmailAddress = "customer@example.com";
+try
+{
+    // Discard the response to the API calls as it will just be an empty object (since the requests aren't actually sent yet)
+    await Snippet.GetSnippetsAsync();
+    await Log.GetLogsAsync();
+    await EspAccount.SetDefaultEspAccountAsync(espAccountId);
+    await DripCampaign.GetDripCampaignsAsync();
+    await Customer.DeleteCustomerAsync(customerEmailAddress);
+
+    // Make the batch API Request
+    var batchResponses = await BatchApiRequest.SendBatchApiRequest();
+
+    // Get the response to the individual API calls
+    var snippets = response[0].GetBody<List<Snippet>>();
+    var logs = response[1].GetBody<List<Log>>();
+    var espAccountResponse = response[2].GetBody<EspAccountResponse>();
+    var dripCampaignDetails = response[3].GetBody<List<DripCampaignDetails>>();
+    var genericApiCallStatus = response[4].GetBody<GenericApiCallStatus>();
+}
+catch (AggregateException exception)
+{
+    // Exception handling
+}
+catch (InvalidOperationException exception)
+{
+    // Exception handling
+}
+```
+Example sending 11 commands without overriding the limit (to show when the exception is thrown):
+```csharp
+var espAccountId = "esp_e3ut7pFtWttcN4HNoQ8Vgm";
+var customerEmailAddress = "customer@example.com";
+
+// Start the batch request
+BatchApiRequest.StartNewBatchRequest();
+
+// Make the API calls to be batched
+try
+{
+    // Make the first 10 API calls
+    // Discard the response to the API calls as it will just be an empty object (since the requests aren't actually sent yet)
+    await Snippet.GetSnippetsAsync();
+    await Log.GetLogsAsync();
+    await EspAccount.SetDefaultEspAccountAsync(espAccountId);
+    await DripCampaign.GetDripCampaignsAsync();
+    await Customer.DeleteCustomerAsync(customerEmailAddress);
+    await Snippet.GetSnippetsAsync();
+    await Log.GetLogsAsync();
+    await EspAccount.SetDefaultEspAccountAsync(espAccountId);
+    await DripCampaign.GetDripCampaignsAsync();
+    await Customer.DeleteCustomerAsync(customerEmailAddress);
+    
+    // Make the 11th API call.  This is when the InvalidOperationException will be thrown
+    await Snippet.GetSnippetsAsync();
+
+    // Make the batch API Request.  This won't be reached.
+    var batchResponses = await BatchApiRequest.SendBatchApiRequest();
+    
+    // Handle the responses
+}
+catch (AggregateException exception)
+{
+    // Exception handling
+}
+catch (InvalidOperationException exception)
+{
+    // Exception handling
+}
+```
+Example sending 12 commands after overriding the limit:
+```csharp
+var espAccountId = "esp_e3ut7pFtWttcN4HNoQ8Vgm";
+var customerEmailAddress = "customer@example.com";
+
+// Start the batch request
+BatchApiRequest.StartNewBatchRequest();
+
+// Override the maximum number of API calls that can be included in this batch
+BatchApiRequest.OverrideMaximumBatchRequests(12);
+
+// Make the API calls to be batched
+try
+{
+    // Make the first 10 API calls
+    // Discard the response to the API calls as it will just be an empty object (since the requests aren't actually sent yet)
+    await Snippet.GetSnippetsAsync();
+    await Log.GetLogsAsync();
+    await EspAccount.SetDefaultEspAccountAsync(espAccountId);
+    await DripCampaign.GetDripCampaignsAsync();
+    await Customer.DeleteCustomerAsync(customerEmailAddress);
+    await Snippet.GetSnippetsAsync();
+    await Log.GetLogsAsync();
+    await EspAccount.SetDefaultEspAccountAsync(espAccountId);
+    await DripCampaign.GetDripCampaignsAsync();
+    await Customer.DeleteCustomerAsync(customerEmailAddress);
+    
+    // Make the 11th and 12th API calls.  This is when the InvalidOperationException will be thrown
+    await Snippet.GetSnippetsAsync();
+    await Log.GetLogsAsync();
+
+    // Make the batch API Request.
+    var batchResponses = await BatchApiRequest.SendBatchApiRequest();
+    
+    // Handle the responses
+}
+catch (AggregateException exception)
+{
+    // Exception handling
+}
+catch (InvalidOperationException exception)
+{
+    // Exception handling
+}
+finally
+{
+    // Return the max batch request limit to its default value (optional)
+    BatchApiRequest.SetMaximumBatchRequestsToDefault();
+}
+```
 
 
 ## Tests
 
 ### Running Unit Tests
 
-Make sure to have phpunit installed (http://phpunit.de/) and run the following from the root directory
-
-```php
-phpunit test
-```
-
-# Troubleshooting
-
-## General Troubleshooting
-
--   Enable debug mode
--   Make sure you're using the latest PHP client
--   Make sure `data/ca-certificate.pem` is included. This file is *required*
--   Capture the response data and check your logs &mdash; often this will have the exact error
-
-## Enable Debug Mode
-
-Debug mode prints out the underlying cURL information as well as the data payload that gets sent to sendwithus. You will most likely find this information in your logs. To enable it, simply put `"DEBUG" => true` in the optional parameters when instantiating the API object. Use the debug mode to compare the data payload getting sent to [sendwithus' API docs](https://www.sendwithus.com/docs/api "Official Sendwithus API Docs").
-
-```php
-$API_KEY = 'THIS_IS_AN_EXAMPLE_API_KEY';
-$options = array(
-    'DEBUG' => true
-);
-
-$api = new API($API_KEY, $options);
-```
+The tests are run using Visual Studio's standard unit-testing libaries and built in test runner.  Simply select "Test->Run->All Tests" to run the unit tests.
 
 ## Response Ranges
 
@@ -1108,8 +1229,6 @@ If you're receiving an error in the 400 response range follow these steps:
 -   Double check the data and ID's getting passed to sendwithus
 -   Ensure your API key is correct
 -   Make sure there's no extraneous spaces in the id's getting passed
-
-*Note*: Enable Debug mode to check the response code.
 
 ## Gmail Delivery Issues
 

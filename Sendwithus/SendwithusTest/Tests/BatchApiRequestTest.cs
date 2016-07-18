@@ -46,7 +46,7 @@ namespace SendwithusTest
             try
             {
                 // Make the API calls to be batched
-                var templateResponse = await Template.GetTemplatesAsync();
+                await Template.GetTemplatesAsync();
 
                 // Make the batch API Reqeust
                 var batchResponses = await BatchApiRequest.SendBatchApiRequest();
@@ -79,17 +79,17 @@ namespace SendwithusTest
             // Make the API calls to be batched (at least one of each type)
             try
             {
-                var createTemplateResponse = await TemplateTest.BuildAndSendCreateTemplateRequestWithAllParametersAsync(); // POST
-                var getSnippetsResponse = await Snippet.GetSnippetsAsync(); // GET
-                var getSegmentsResponse = await Segment.GetSegmentsAsync(); // GET
-                var sendRenderTemplateResponse = await RenderTest.BuildAndSendRenderTemplateRequestWithAllParametersId(); // POST
-                var getLogResponse = await Log.GetLogsAsync(); // GET
-                var setDefaultEspAccountResponse = await EspAccount.SetDefaultEspAccountAsync(DEFAULT_ESP_ACCOUNT_ID); // PUT
-                var sendEmailRepsonse = await EmailTest.BuildAndSendEmailWithAllParametersAsync(); // POST
-                var getDripCampaignsResponse = await DripCampaign.GetDripCampaignsAsync(); // GET
-                var createCustomerResponse = await CustomerTest.BuildAndSendCreateCustomerRequest(); // POST
-                var deleteCustomerReponse = await Customer.DeleteCustomerAsync(CustomerTest.NEW_CUSTOMER_EMAIL_ADDRESS); // DELETE
-
+                await TemplateTest.BuildAndSendCreateTemplateRequestWithAllParametersAsync(); // POST
+                await Snippet.GetSnippetsAsync(); // GET
+                await Segment.GetSegmentsAsync(); // GET
+                await RenderTest.BuildAndSendRenderTemplateRequestWithAllParametersId(); // POST
+                await Log.GetLogsAsync(); // GET
+                await EspAccount.SetDefaultEspAccountAsync(DEFAULT_ESP_ACCOUNT_ID); // PUT
+                await EmailTest.BuildAndSendEmailWithAllParametersAsync(); // POST
+                await DripCampaign.GetDripCampaignsAsync(); // GET
+                await CustomerTest.BuildAndSendCreateCustomerRequest(); // POST
+                await Customer.DeleteCustomerAsync(CustomerTest.NEW_CUSTOMER_EMAIL_ADDRESS); // DELETE
+                
                 // Make the batch Api Reqeust
                 var batchResponses = await BatchApiRequest.SendBatchApiRequest();
 
@@ -129,21 +129,21 @@ namespace SendwithusTest
             try
             { 
                 // Make the API calls to be batched (at least one of each type)
-                var createTemplateResponse = await TemplateTest.BuildAndSendCreateTemplateRequestWithAllParametersAsync(); // POST
-                var getSnippetsResponse = await Snippet.GetSnippetsAsync(); // GET
-                var getSegmentsResponse = await Segment.GetSegmentsAsync(); // GET
-                var sendRenderTemplateResponse = await RenderTest.BuildAndSendRenderTemplateRequestWithAllParametersId(); // POST
-                var getLogResponse = await Log.GetLogsAsync(); // GET
-                var setDefaultEspAccountResponse = await EspAccount.SetDefaultEspAccountAsync(DEFAULT_ESP_ACCOUNT_ID); // PUT
-                var sendEmailRepsonse = await EmailTest.BuildAndSendEmailWithAllParametersAsync(); // POST
-                var getDripCampaignsResponse = await DripCampaign.GetDripCampaignsAsync(); // GET
-                var createCustomerResponse = await CustomerTest.BuildAndSendCreateCustomerRequest(); // POST
-                var deleteCustomerReponse = await Customer.DeleteCustomerAsync(CustomerTest.NEW_CUSTOMER_EMAIL_ADDRESS); // DELETE
+                await TemplateTest.BuildAndSendCreateTemplateRequestWithAllParametersAsync(); // POST
+                await Snippet.GetSnippetsAsync(); // GET
+                await Segment.GetSegmentsAsync(); // GET
+                await RenderTest.BuildAndSendRenderTemplateRequestWithAllParametersId(); // POST
+                await Log.GetLogsAsync(); // GET
+                await EspAccount.SetDefaultEspAccountAsync(DEFAULT_ESP_ACCOUNT_ID); // PUT
+                await EmailTest.BuildAndSendEmailWithAllParametersAsync(); // POST
+                await DripCampaign.GetDripCampaignsAsync(); // GET
+                await CustomerTest.BuildAndSendCreateCustomerRequest(); // POST
+                await Customer.DeleteCustomerAsync(CustomerTest.NEW_CUSTOMER_EMAIL_ADDRESS); // DELETE
 
                 // Add the 11th API Request
                 try
                 {
-                    var getCustomerGroupsResponse = await CustomerGroup.GetCustomeGroupsAsync(); // GET
+                    await CustomerGroup.GetCustomeGroupsAsync(); // GET
                 }
                 catch (InvalidOperationException exception)
                 {
@@ -193,19 +193,19 @@ namespace SendwithusTest
             // Make the API calls to be batched (at least one of each type)
             try
             {
-                var createTemplateResponse = await TemplateTest.BuildAndSendCreateTemplateRequestWithAllParametersAsync(); // POST
-                var getSnippetsResponse = await Snippet.GetSnippetsAsync(); // GET
-                var getSegmentsResponse = await Segment.GetSegmentsAsync(); // GET
-                var sendRenderTemplateResponse = await RenderTest.BuildAndSendRenderTemplateRequestWithAllParametersId(); // POST
-                var getLogResponse = await Log.GetLogsAsync(); // GET
-                var setDefaultEspAccountResponse = await EspAccount.SetDefaultEspAccountAsync(DEFAULT_ESP_ACCOUNT_ID); // PUT
-                var sendEmailRepsonse = await EmailTest.BuildAndSendEmailWithAllParametersAsync(); // POST
-                var getDripCampaignsResponse = await DripCampaign.GetDripCampaignsAsync(); // GET
-                var createCustomerResponse = await CustomerTest.BuildAndSendCreateCustomerRequest(); // POST
-                var deleteCustomerReponse = await Customer.DeleteCustomerAsync(CustomerTest.NEW_CUSTOMER_EMAIL_ADDRESS); // DELETE
-                var getCustomerGroupsResponse = await CustomerGroup.GetCustomeGroupsAsync(); // GET
+                await TemplateTest.BuildAndSendCreateTemplateRequestWithAllParametersAsync(); // POST
+                await Snippet.GetSnippetsAsync(); // GET
+                await Segment.GetSegmentsAsync(); // GET
+                await RenderTest.BuildAndSendRenderTemplateRequestWithAllParametersId(); // POST
+                await Log.GetLogsAsync(); // GET
+                await EspAccount.SetDefaultEspAccountAsync(DEFAULT_ESP_ACCOUNT_ID); // PUT
+                await EmailTest.BuildAndSendEmailWithAllParametersAsync(); // POST
+                await DripCampaign.GetDripCampaignsAsync(); // GET
+                await CustomerTest.BuildAndSendCreateCustomerRequest(); // POST
+                await Customer.DeleteCustomerAsync(CustomerTest.NEW_CUSTOMER_EMAIL_ADDRESS); // DELETE
+                await CustomerGroup.GetCustomeGroupsAsync(); // GET
                 var conversion = new Conversion();
-                var addConversionResponse = await conversion.AddAsync(DEFAULT_EMAIL_ADDRESS); // POST
+                await conversion.AddAsync(DEFAULT_EMAIL_ADDRESS); // POST
 
                 // Make the batch Api Request
                 var batchResponses = await BatchApiRequest.SendBatchApiRequest();
@@ -261,8 +261,8 @@ namespace SendwithusTest
         /// <param name="response">The individual batch API call</param>
         private void ValidateIndividualBatchedApiCallResponse<T>(BatchApiResponse response)
         {
-            var repsponseBody = response.GetBody<T>();
-            SendwithusClientTest.ValidateResponse(repsponseBody);
+            var responseBody = response.GetBody<T>();
+            SendwithusClientTest.ValidateResponse(responseBody);
         }
     }
 }
