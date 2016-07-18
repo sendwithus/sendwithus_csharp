@@ -10,7 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 
-namespace Sendwithus
+namespace Sendwithus.Net
 {
     /// <summary>
     /// sendwithus RequestManager class.
