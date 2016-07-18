@@ -133,7 +133,7 @@ namespace SendwithusTest
         /// Builds and sends a RenderTemplate request with all the parameters, using the version ID instead of the version name.
         /// Public so that it can also be used by the BatchApiRequestTest library
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A response containing the status of API call and the newly rendered template</returns>
         public static async Task<RenderTemplateResponse> BuildAndSendRenderTemplateRequestWithAllParametersId()
         {
             var templateData = new Dictionary<string, object>();
@@ -148,7 +148,7 @@ namespace SendwithusTest
         /// <summary>
         /// Builds and sends a RenderTemplate request with all the parameters, using the version name instead of the version ID.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A response containing the status of API call and the newly rendered template</returns>
         private static async Task<RenderTemplateResponse> BuildAndSendRenderTemplateRequestWithAllParametersName()
         {
             var templateData = new Dictionary<string, object>();

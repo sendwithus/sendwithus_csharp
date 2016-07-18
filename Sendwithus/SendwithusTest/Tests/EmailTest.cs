@@ -123,7 +123,7 @@ namespace SendwithusTest
         /// <summary>
         /// Creates an email object with only the required parameters
         /// </summary>
-        /// <returns></returns>
+        /// <returns>An email object with only the minimum required parameters set</returns>
         private static Email BuildBarebonesEmail()
         {
             // Construct the template data

@@ -31,20 +31,17 @@ namespace SendwithusTest
         /// <summary>
         /// Tests the API call POST /customers/[EMAIL_ADDRESS]/conversions with no parameters
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The associated task</returns>
         [TestMethod]
         public async Task TestAddConverionWithNoParametersAsync()
         {
             
             Trace.WriteLine(String.Format("POST /customers/{0}/converisons", DEFAULT_EMAIL_ADDRESS));
 
-            // Build the conversion object
-            var conversion = new Conversion();
-
             // Make the API call
             try
             {
-                var genericApiCallStatus = await conversion.AddAsync(DEFAULT_EMAIL_ADDRESS);
+                var genericApiCallStatus = await Conversion.AddConversionAsync(DEFAULT_EMAIL_ADDRESS);
 
                 // Validate the response
                 SendwithusClientTest.ValidateResponse(genericApiCallStatus);
@@ -58,19 +55,39 @@ namespace SendwithusTest
         /// <summary>
         /// Tests the API call POST /customers/[EMAIL_ADDRESS]/conversions with the revenue specified
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The associated task</returns>
         [TestMethod]
         public async Task TestAddConverionWithRevenueAsync()
         {
             Trace.WriteLine(String.Format("POST /customers/{0}/converisons", DEFAULT_EMAIL_ADDRESS));
 
-            // Build the conversion object
-            var conversion = new Conversion(DEFAULT_REVENUE);
+            // Make the API call
+            try
+            {
+                var genericApiCallStatus = await Conversion.AddConversionWithRevenueAsync(DEFAULT_EMAIL_ADDRESS, DEFAULT_REVENUE);
+
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(genericApiCallStatus);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Tests the API call POST /customers/[EMAIL_ADDRESS]/conversions with the timestamp specified
+        /// </summary>
+        /// <returns>The associated task</returns>
+        [TestMethod]
+        public async Task TestAddConverionWithTimestampAsync()
+        {
+            Trace.WriteLine(String.Format("POST /customers/{0}/converisons", DEFAULT_EMAIL_ADDRESS));
 
             // Make the API call
             try
             {
-                var genericApiCallStatus = await conversion.AddAsync(DEFAULT_EMAIL_ADDRESS);
+                var genericApiCallStatus = await Conversion.AddConversionWithTimestampAsync(DEFAULT_EMAIL_ADDRESS, DEFAULT_TIMESTAMP);
 
                 // Validate the response
                 SendwithusClientTest.ValidateResponse(genericApiCallStatus);
@@ -84,20 +101,16 @@ namespace SendwithusTest
         /// <summary>
         /// Tests the API call POST /customers/[EMAIL_ADDRESS]/conversions with the revenue and timestamp specified
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The associated task</returns>
         [TestMethod]
         public async Task TestAddConverionWithRevenueAndTimestampAsync()
         {
             Trace.WriteLine(String.Format("POST /customers/{0}/converisons", DEFAULT_EMAIL_ADDRESS));
 
-            // Build the conversion object
-            //var conversion = new Conversion(DEFAULT_REVENUE, DEFAULT_TIMESTAMP);
-            var conversion = new Conversion(DEFAULT_REVENUE, DEFAULT_TIMESTAMP);
-
             // Make the API call
             try
             {
-                var genericApiCallStatus = await conversion.AddAsync(DEFAULT_EMAIL_ADDRESS);
+                var genericApiCallStatus = await Conversion.AddConversionWithRevenueAndTimestampAsync(DEFAULT_EMAIL_ADDRESS, DEFAULT_REVENUE, DEFAULT_TIMESTAMP);
 
                 // Validate the response
                 SendwithusClientTest.ValidateResponse(genericApiCallStatus);
@@ -111,19 +124,16 @@ namespace SendwithusTest
         /// <summary>
         /// Tests the API call POST /customers/[EMAIL_ADDRESS]/conversions with an invalid email address
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The associated task</returns>
         [TestMethod]
         public async Task TestAddConverionWithInvalidEmailAddressAsync()
         {
             Trace.WriteLine(String.Format("POST /customers/{0}/converisons", DEFAULT_EMAIL_ADDRESS));
 
-            // Build the conversion object
-            var conversion = new Conversion();
-
             // Make the API call
             try
             { 
-                var genericApiCallStatus = await conversion.AddAsync(INVALID_EMAIL_ADDRESS);
+                var genericApiCallStatus = await Conversion.AddConversionAsync(INVALID_EMAIL_ADDRESS);
             }
             catch (AggregateException exception)
             {

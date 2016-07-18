@@ -119,7 +119,7 @@ namespace Sendwithus
         /// <summary>
         /// Returns the default maximum number of API requests that can be sent in one batch
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The default maximum number of batch requests</returns>
         public static int GetDefaultMaximumBatchRequests()
         {
             return DEFAULT_MAXIMUM_BATCH_REQUESTS;
