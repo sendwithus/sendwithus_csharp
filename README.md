@@ -932,6 +932,133 @@ catch (AggregateException exception)
     // Exception handling
 }
 ```
+## Segments
+### List all segments
+#### GET /segments
+```csharp
+try
+{ 
+    var segments = await Segment.GetSegmentsAsync();
+}
+catch (AggregateException exception)
+{
+    // Exception handling
+}
+```
+### Send to a segment
+#### POST /segments/(:segment_id)/send
+```csharp
+// Build the segment content
+var segmentContent = new SegmentContent(DEFAULT_TEMPLATE_ID);
+
+// Build and add the email data (optional)
+var contentItemOne = new Dictionary<string, string>();
+contentItemOne.Add("url", "http://www.example.com/1");
+contentItemOne.Add("image", "http://www.example.com/image1.jpg");
+contentItemOne.Add("text", "Check this sweet thing out!");
+var contentItemTwo = new Dictionary<string, string>();
+contentItemTwo.Add("url", "http://www.example.com/2");
+contentItemTwo.Add("image", "http://www.example.com/image2.jpg");
+contentItemTwo.Add("text", "Check this other sweet thing out!");
+var contentList = new List<Dictionary<string, string>>();
+contentList.Add(contentItemOne);
+contentList.Add(contentItemTwo);
+segmentContent.email_data.Add("Weekly_Newsletter", contentList);
+
+// Add the ESP account (optional)
+segmentContent.esp_account = DEFAULT_ESP_ACCOUNT_ID;
+
+// Make the API call
+try
+{ 
+    var genericApiCallStatus = await Segment.SendToSegmentAsync(DEFAULT_SEGMENT_ID, segmentContent);
+}
+catch (AggregateException exception)
+{
+    // Exception handling
+}
+```
+## Customer Groups
+### Get all customer groups
+#### GET /groups
+```csharp
+try
+{ 
+    var customerGroupResponseMultipleGroups = await CustomerGroup.GetCustomeGroupsAsync();
+}
+catch (AggregateException exception)
+{
+    // Exception handling
+}
+```
+### Create a customer group
+#### POST /groups
+```csharp
+var groupName = "New Group";
+try
+{ 
+    var customerGroupResponse = await CustomerGroup.CreateCustomerGroupAsync(groupName);
+}
+catch (AggregateException exception)
+{
+    // Exception handling
+}
+```
+### Update a customer group
+#### PUT /groups/(:group_id)
+Update a customer group name:
+```csharp
+var groupId = "grp_7zpRYpExEBPpd6dGvyAfcT";
+var groupName = "New Group";
+try
+{ 
+    var customerGroupResponse = await CustomerGroup.UpdateCustomerGroupNameAsync(groupId, groupName);
+}
+catch (AggregateException exception)
+{
+    // Exception handling
+}
+```
+Update a customer group description:
+```csharp
+var groupId = "grp_7zpRYpExEBPpd6dGvyAfcT";
+var groupDescription = "New group description";
+try
+{ 
+    var customerGroupResponse = await CustomerGroup.UpdateCustomerGroupDescriptionAsync(groupId, groupDescription);
+}
+catch (AggregateException exception)
+{
+    // Exception handling
+}
+```
+Update a customer group name and description:
+```csharp
+var groupId = "grp_7zpRYpExEBPpd6dGvyAfcT";
+var groupName = "New Group";
+var groupDescription = "New group description";
+try
+{ 
+    var customerGroupResponse = await CustomerGroup.UpdateCustomerGroupNameAndDescriptionAsync(groupId, groupName, groupDescription);
+}
+catch (AggregateException exception)
+{
+    // Exception handling
+}
+```
+### Delete a customer group
+#### DELETE /groups/(:group_id)
+```csharp
+var groupId = "grp_7zpRYpExEBPpd6dGvyAfcT";
+try
+{ 
+    var genericApiCallStatus = await CustomerGroup.DeleteCustomerGroupAsync(groupId);
+}
+catch (AggregateException exception)
+{
+    // Exception handling
+}
+```
 
 
 

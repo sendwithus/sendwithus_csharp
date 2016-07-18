@@ -43,10 +43,10 @@ namespace SendwithusTest.Tests
             // Make the API call
             try
             { 
-                var response = await Segment.GetSegmentsAsync();
+                var segments = await Segment.GetSegmentsAsync();
 
                 // Validate the response
-                SendwithusClientTest.ValidateResponse(response);
+                SendwithusClientTest.ValidateResponse(segments);
             }
             catch (AggregateException exception)
             {
@@ -91,27 +91,27 @@ namespace SendwithusTest.Tests
 
             // Build the segment content
             var segmentContent = new SegmentContent(DEFAULT_TEMPLATE_ID);
-            var contentOne = new Dictionary<string, string>();
-            contentOne.Add("url", "http://www.example.com/1");
-            contentOne.Add("image", "http://www.example.com/image1.jpg");
-            contentOne.Add("text", "Check this sweet thing out!");
-            var contentTwo = new Dictionary<string, string>();
-            contentTwo.Add("url", "http://www.example.com/2");
-            contentTwo.Add("image", "http://www.example.com/image2.jpg");
-            contentTwo.Add("text", "Check this other sweet thing out!");
+            var contentItemOne = new Dictionary<string, string>();
+            contentItemOne.Add("url", "http://www.example.com/1");
+            contentItemOne.Add("image", "http://www.example.com/image1.jpg");
+            contentItemOne.Add("text", "Check this sweet thing out!");
+            var contentItemTwo = new Dictionary<string, string>();
+            contentItemTwo.Add("url", "http://www.example.com/2");
+            contentItemTwo.Add("image", "http://www.example.com/image2.jpg");
+            contentItemTwo.Add("text", "Check this other sweet thing out!");
             var contentList = new List<Dictionary<string, string>>();
-            contentList.Add(contentOne);
-            contentList.Add(contentTwo);
+            contentList.Add(contentItemOne);
+            contentList.Add(contentItemTwo);
             segmentContent.email_data.Add("Weekly_Newsletter", contentList);
             segmentContent.esp_account = DEFAULT_ESP_ACCOUNT_ID;
 
             // Make the API call
             try
             { 
-                var response = await Segment.SendToSegmentAsync(DEFAULT_SEGMENT_ID, segmentContent);
+                var genericApiCallStatus = await Segment.SendToSegmentAsync(DEFAULT_SEGMENT_ID, segmentContent);
 
                 // Validate the response
-                SendwithusClientTest.ValidateResponse(response);
+                SendwithusClientTest.ValidateResponse(genericApiCallStatus);
             }
             catch (AggregateException exception)
             {
@@ -134,7 +134,7 @@ namespace SendwithusTest.Tests
             // Make the API call
             try
             {
-                var response = await Segment.SendToSegmentAsync(INVALID_SEGMENT_ID, segmentContent);
+                var genericApiCallStatus = await Segment.SendToSegmentAsync(INVALID_SEGMENT_ID, segmentContent);
             }
             catch (AggregateException exception)
             {

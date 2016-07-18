@@ -44,10 +44,10 @@ namespace SendwithusTest
             // Make the API call
             try
             {
-                var response = await CustomerGroup.GetCustomeGroupsAsync();
+                var customerGroupResponseMultipleGroups = await CustomerGroup.GetCustomeGroupsAsync();
 
                 // Validate the response
-                SendwithusClientTest.ValidateResponse(response);
+                SendwithusClientTest.ValidateResponse(customerGroupResponseMultipleGroups);
             }
             catch (AggregateException exception)
             {
@@ -68,10 +68,10 @@ namespace SendwithusTest
             var groupName = String.Format("{0}_{1}", DEFAULT_CUSTOMER_GROUP_NAME, SendwithusClientTest.RandomString(10));
             try
             {
-                var response = await CustomerGroup.CreateCustomerGroupAsync(groupName);
+                var customerGroupResponse = await CustomerGroup.CreateCustomerGroupAsync(groupName);
 
                 // Validate the response
-                SendwithusClientTest.ValidateResponse(response);
+                SendwithusClientTest.ValidateResponse(customerGroupResponse);
             }
             catch (AggregateException exception)
             {
@@ -92,10 +92,10 @@ namespace SendwithusTest
             var groupName = String.Format("{0}_{1}", DEFAULT_CUSTOMER_GROUP_NAME, SendwithusClientTest.RandomString(10));
             try
             {
-                var response = await CustomerGroup.CreateCustomerGroupAsync(groupName, DEFAULT_CUSTOMER_GROUP_DESCRIPTION);
+                var customerGroupResponse = await CustomerGroup.CreateCustomerGroupAsync(groupName, DEFAULT_CUSTOMER_GROUP_DESCRIPTION);
 
                 // Validate the response
-                SendwithusClientTest.ValidateResponse(response);
+                SendwithusClientTest.ValidateResponse(customerGroupResponse);
             }
             catch (AggregateException exception)
             {
@@ -116,10 +116,10 @@ namespace SendwithusTest
             var groupName = String.Format("{0}_{1}", DEFAULT_CUSTOMER_GROUP_NAME, SendwithusClientTest.RandomString(10));
             try
             {
-                var response = await CustomerGroup.UpdateCustomerGroupNameAsync(DEFAULT_CUSTOMER_GROUP_ID, groupName);
+                var customerGroupResponse = await CustomerGroup.UpdateCustomerGroupNameAsync(DEFAULT_CUSTOMER_GROUP_ID, groupName);
 
                 // Validate the response
-                SendwithusClientTest.ValidateResponse(response);
+                SendwithusClientTest.ValidateResponse(customerGroupResponse);
             }
             catch (AggregateException exception)
             {
@@ -140,10 +140,10 @@ namespace SendwithusTest
             var groupDescription = String.Format("{0}_{1}", DEFAULT_CUSTOMER_GROUP_DESCRIPTION, SendwithusClientTest.RandomString(10));
             try
             {
-                var response = await CustomerGroup.UpdateCustomerGroupDescriptionAsync(DEFAULT_CUSTOMER_GROUP_ID, groupDescription);
+                var customerGroupResponse = await CustomerGroup.UpdateCustomerGroupDescriptionAsync(DEFAULT_CUSTOMER_GROUP_ID, groupDescription);
 
                 // Validate the response
-                SendwithusClientTest.ValidateResponse(response);
+                SendwithusClientTest.ValidateResponse(customerGroupResponse);
             }
             catch (AggregateException exception)
             {
@@ -165,10 +165,10 @@ namespace SendwithusTest
             var groupDescription = String.Format("{0}_{1}", DEFAULT_CUSTOMER_GROUP_DESCRIPTION, SendwithusClientTest.RandomString(10));
             try
             {
-                var response = await CustomerGroup.UpdateCustomerGroupNameAndDescriptionAsync(DEFAULT_CUSTOMER_GROUP_ID, groupName, groupDescription);
+                var customerGroupResponse = await CustomerGroup.UpdateCustomerGroupNameAndDescriptionAsync(DEFAULT_CUSTOMER_GROUP_ID, groupName, groupDescription);
 
                 // Validate the response
-                SendwithusClientTest.ValidateResponse(response);
+                SendwithusClientTest.ValidateResponse(customerGroupResponse);
             }
             catch (AggregateException exception)
             {
@@ -189,7 +189,7 @@ namespace SendwithusTest
             var groupName = String.Format("{0}_{1}", DEFAULT_CUSTOMER_GROUP_NAME, SendwithusClientTest.RandomString(10));
             try
             {
-                var response = await CustomerGroup.UpdateCustomerGroupNameAsync(INVALID_CUSTOMER_GROUP_ID, groupName);
+                var customerGroupResponse = await CustomerGroup.UpdateCustomerGroupNameAsync(INVALID_CUSTOMER_GROUP_ID, groupName);
             }
             catch (AggregateException exception)
             {
@@ -214,10 +214,10 @@ namespace SendwithusTest
             Trace.WriteLine(String.Format("DELETE /groups/{0}", groupId));
             try
             {
-                var response = await CustomerGroup.DeleteCustomerGroupAsync(groupId);
+                var genericApiCallStatus = await CustomerGroup.DeleteCustomerGroupAsync(groupId);
 
                 // Validate the response
-                SendwithusClientTest.ValidateResponse(response);
+                SendwithusClientTest.ValidateResponse(genericApiCallStatus);
             }
             catch (AggregateException exception)
             {
