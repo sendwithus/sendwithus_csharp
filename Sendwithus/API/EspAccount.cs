@@ -37,7 +37,7 @@ namespace Sendwithus
         /// <param name="queryParameters">The query parameters.  Options include:
         /// esp_type (optional) – Filter response to only return ESP accounts of a certain type</param>
         /// <returns>A list of all the ESP accounts</returns>
-        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
         /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<List<EspAccount>> GetAccountsAsync(Dictionary<string, object> queryParameters)
         {
@@ -54,7 +54,7 @@ namespace Sendwithus
         /// Gets all the ESP accounts without any query parametesr
         /// </summary>
         /// <returns>A list of all the ESP accounts</returns>
-        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
         /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<List<EspAccount>> GetAccountsAsync()
         {
@@ -67,7 +67,7 @@ namespace Sendwithus
         /// </summary>
         /// <param name="addRequest">The parameters for the new ESP Account to add</param>
         /// <returns>A response containing the API call status and the new ESP account</returns>
-        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
         /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<EspAccountResponse> AddAccountAsync(EspAccountAddAccountRequest addRequest)
         {

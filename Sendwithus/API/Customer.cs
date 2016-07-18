@@ -43,7 +43,7 @@ namespace Sendwithus
         /// </summary>
         /// <param name="customerEmailAddress">The customer's email address</param>
         /// <returns>A response containing the customer with the given email address and the status of the API call</returns>
-        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
         /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<CustomerResponse> GetCustomerAsync(string customerEmailAddress)
         {
@@ -63,7 +63,7 @@ namespace Sendwithus
         /// </summary>
         /// <param name="customer">The new or updated customer</param>
         /// <returns>The status of the API call</returns>
-        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
         /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<GenericApiCallStatus> CreateOrUpdateCustomerAsync(Customer customer)
         {
@@ -82,7 +82,7 @@ namespace Sendwithus
         /// </summary>
         /// <param name="emailAddress">The customer's email address</param>
         /// <returns>The status of the API call</returns>
-        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
         /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<GenericApiCallStatus> DeleteCustomerAsync(string emailAddress)
         {
@@ -105,7 +105,7 @@ namespace Sendwithus
         /// created_lt (optional) – A Unix Timestamp used as a index for the search.The logs retrieved will have been sent before the timestamp specified.
         /// created_gt (optional) – A Unix Timestamp used as a index for the search.The logs retrieved will have been sent after the timestamp specified.</param>
         /// <returns>A response containing the status of the API call and the logs that match the request parameters</returns>
-        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
         /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<CustomerEmailLogsResponse> GetCustomerEmailLogsAsync(string emailAddress, Dictionary<string, object> queryParameters)
         {
@@ -124,7 +124,7 @@ namespace Sendwithus
         /// </summary>
         /// <param name="emailAddress">The customer's email address</param>
         /// <returns>A response containing the status of the API call and the logs that match the request parameters</returns>
-        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
         /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<CustomerEmailLogsResponse> GetCustomerEmailLogsAsync(string emailAddress)
         {
@@ -138,7 +138,7 @@ namespace Sendwithus
         /// <param name="emailAddress">The customer's email address</param>
         /// <param name="groupId">The ID of the group</param>
         /// <returns>The API call status</returns>
-        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
         /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<GenericApiCallStatus> AddCustomerToGroupAsync(string emailAddress, string groupId)
         {
@@ -158,7 +158,7 @@ namespace Sendwithus
         /// <param name="emailAddress">The customer's email address</param>
         /// <param name="groupId">The ID of the group</param>
         /// <returns>The API call status</returns>
-        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
         /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<GenericApiCallStatus> RemoveCustomerFromGroupAsync(string emailAddress, string groupId)
         {

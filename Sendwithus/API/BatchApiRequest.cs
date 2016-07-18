@@ -62,7 +62,7 @@ namespace Sendwithus
         /// POST /batch
         /// </summary>
         /// <returns>The responses for each API request in the batch</returns>
-        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
         /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<List<BatchApiResponse>> SendBatchApiRequest()
         {

@@ -20,7 +20,7 @@ namespace Sendwithus
     /// <summary>
     /// Contains the sendwithus API settings
     /// </summary>
-    public abstract class SendwithusClient
+    public static class SendwithusClient
     {
         public const string API_VERSION = "v1";
         public const string API_PASSWORD = ""; // API uses an empty string as the password

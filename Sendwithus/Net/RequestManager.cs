@@ -18,7 +18,7 @@ namespace Sendwithus
     /// sendwithus RequestManager class.
     /// Handles the HTTP calls
     /// </summary>
-    public abstract class RequestManager
+    public static class RequestManager
     {
         /// <summary>
         /// The base address for a sendiwthus API call (ex. https://api.sendwithus.com:443)

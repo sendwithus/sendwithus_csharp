@@ -32,7 +32,7 @@ namespace Sendwithus
         /// GET /groups
         /// </summary>
         /// <returns>The API call status and the name and description of all groups in the account</returns>
-        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
         /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<CustomerGroupResponseMultipleGropus> GetCustomeGroupsAsync()
         {
@@ -53,7 +53,7 @@ namespace Sendwithus
         /// <param name="name">The name of the group</param>
         /// <param name="description">A description of the group</param>
         /// <returns>The API call status and the new group</returns>
-        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
         /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<CustomerGroupResponse> CreateCustomerGroupAsync(string name, string description)
         {
@@ -78,7 +78,7 @@ namespace Sendwithus
         /// </summary>
         /// <param name="name">The name of the group</param>
         /// <returns>The API call status and the new group</returns>
-        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
         /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<CustomerGroupResponse> CreateCustomerGroupAsync(string name)
         {
@@ -92,7 +92,7 @@ namespace Sendwithus
         /// <param name="groupId">The ID of the group to update</param>
         /// <param name="name">The new name of the group</param>
         /// <returns>The API call status and the new group</returns>
-        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
         /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<CustomerGroupResponse> UpdateCustomerGroupNameAsync(string groupId, string name)
         {
@@ -117,7 +117,7 @@ namespace Sendwithus
         /// <param name="groupId">The ID of the group to update</param>
         /// <param name="description">The new description of the group</param>
         /// <returns>The API call status and the new group</returns>
-        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
         /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<CustomerGroupResponse> UpdateCustomerGroupDescriptionAsync(string groupId, string description)
         {
@@ -143,7 +143,7 @@ namespace Sendwithus
         /// <param name="name">The new name of the group</param>
         /// <param name="description">The new description of the group</param>
         /// <returns>The API call status and the new group</returns>
-        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
         /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<CustomerGroupResponse> UpdateCustomerGroupNameAndDescriptionAsync(string groupId, string name, string description)
         {
@@ -168,7 +168,7 @@ namespace Sendwithus
         /// </summary>
         /// <param name="groupId">The ID of the group to delete</param>
         /// <returns>The API call status</returns>
-        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
         /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<GenericApiCallStatus> DeleteCustomerGroupAsync(string groupId)
         {

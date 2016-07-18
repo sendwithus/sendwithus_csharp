@@ -40,7 +40,7 @@ namespace Sendwithus
         /// POST /render
         /// </summary>
         /// <returns>The success of the call and newly rendered template</returns>
-        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
         /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public async Task<RenderTemplateResponse> RenderTemplateAsync()
         {

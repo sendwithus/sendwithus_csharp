@@ -36,7 +36,7 @@ namespace Sendwithus
         /// created_lt(optional) – Return logs created strictly before the given Unix Timestamp.
         /// created_lte (optional) – Return logs created on or before the given Unix Timestamp.</param>
         /// <returns>A list of all the logs that match the given filters</returns>
-        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
         /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<List<Log>> GetLogsAsync(Dictionary<string, object> queryParameters)
         {
@@ -54,7 +54,7 @@ namespace Sendwithus
         /// GET /logs
         /// </summary>
         /// <returns>A list of all the logs that match the given filters</returns>
-        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
         /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<List<Log>> GetLogsAsync()
         {
@@ -67,7 +67,7 @@ namespace Sendwithus
         /// </summary>
         /// <param name="logID">The ID of the log to retrieve</param>
         /// <returns>The log with the given ID</returns>
-        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
         /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<Log> GetLogAsync(string logID)
         {
@@ -86,7 +86,7 @@ namespace Sendwithus
         /// </summary>
         /// <param name="logID">The ID of the log to retrieve the events</param>
         /// <returns>The events of the given log ID</returns>
-        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
         /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<List<LogEvent>> GetLogEventsAsync(string logID)
         {
@@ -105,7 +105,7 @@ namespace Sendwithus
         /// </summary>
         /// <param name="log_id">The ID of the log to resend</param>
         /// <returns>The events of the given log ID</returns>
-        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
         /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<LogResendResponse> ResendLogAsync(string logId)
         {

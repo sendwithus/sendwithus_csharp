@@ -46,7 +46,7 @@ namespace Sendwithus
         /// timestamp(optional) – Timestamp for the conversion time, in seconds.
         /// </param>
         /// <returns>The status of the API call</returns>
-        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
         /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public async Task<GenericApiCallStatus> AddAsync(string emailAddress)
         {

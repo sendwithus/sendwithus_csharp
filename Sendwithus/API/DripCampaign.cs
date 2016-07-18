@@ -43,7 +43,7 @@ namespace Sendwithus
         /// </summary>
         /// <param name="dripCampaignId">The ID of the drip campaign to activate</param>
         /// <returns>A response containing the status of the call and a summary of the drip campaign</returns>
-        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
         /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public async Task<DripCampaignResponse> ActivateAsync(string dripCampaignId)
         {
@@ -64,7 +64,7 @@ namespace Sendwithus
         /// <param name="dripCampaignId">The ID of the drip campaign to deactivate</param>
         /// <param name="recipientAddress">The email address of the recipient to deactivate the campaign for</param>
         /// <returns>A response containing the status of the call and a summary of the drip campaign</returns>
-        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
         /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<DripCampaignDeactivateResponse> DeactivateFromCampaignAsync(string dripCampaignId, string recipientAddress)
         {
@@ -89,7 +89,7 @@ namespace Sendwithus
         /// </summary>
         /// <param name="recipientAddress">The email address of the customer to deactivate all campaigns for.</param>
         /// <returns>A response containing the status of the call and a summary of the drip campaign</returns>
-        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
         /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<DripCampaignDeactivateResponse> DeactivateFromAllCampaignsAsync(string recipientAddress)
         {
@@ -113,7 +113,7 @@ namespace Sendwithus
         /// GET /drip_campaigns
         /// </summary>
         /// <returns>Details on all the drip campaigns</returns>
-        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
         /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<List<DripCampaignDetails>> GetDripCampaignsAsync()
         {
@@ -133,7 +133,7 @@ namespace Sendwithus
         /// </summary>
         /// <param name="dripCampaignId">The ID of the drip campaign</param>
         /// <returns>Details on all the drip campaigns</returns>
-        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
         /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<DripCampaignDetails> GetDripCampaignAsync(string dripCampaignId)
         {
