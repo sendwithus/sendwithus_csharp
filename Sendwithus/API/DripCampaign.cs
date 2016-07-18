@@ -38,6 +38,7 @@ namespace Sendwithus
         }
 
         /// <summary>
+        /// Activate campaign for a customer.
         /// POST /drip_campaigns/(drip_campaign_id)/activate
         /// </summary>
         /// <returns>A response containing the status of the call and a summary of the drip campaign</returns>
@@ -54,10 +55,11 @@ namespace Sendwithus
         }
 
         /// <summary>
+        /// Deactivate a campaign for customer.
         /// POST /drip_campaigns/(drip_campaign_id)/deactivate
         /// </summary>
         /// <returns>A response containing the status of the call and a summary of the drip campaign</returns>
-        public static async Task<DripCampaignDeactivateResponse> DeactivateAsync(string dripCampaignId, string recipientAddress)
+        public static async Task<DripCampaignDeactivateResponse> DeactivateFromCampaignAsync(string dripCampaignId, string recipientAddress)
         {
             var resource = String.Format("drip_campaigns/{0}/deactivate", dripCampaignId);
 
@@ -75,6 +77,29 @@ namespace Sendwithus
         }
 
         /// <summary>
+        /// Deactivate a campaign for customer.
+        /// POST /drip_campaigns/(drip_campaign_id)/deactivate
+        /// </summary>
+        /// <returns>A response containing the status of the call and a summary of the drip campaign</returns>
+        public static async Task<DripCampaignDeactivateResponse> DeactivateFromAllCampaignsAsync(string recipientAddress)
+        {
+            var resource = String.Format("drip_campaigns/deactivate");
+
+            // Package the string into a dictionary so that it renders correctly in JSON as "<variable_name>": "<value>"
+            var recipient = new Dictionary<string, string>();
+            recipient.Add("recipient_address", recipientAddress);
+
+            // Send the POST request
+            var jsonResponse = await RequestManager.SendPostRequestAsync(resource, recipient);
+
+            // Convert the JSON result into an object
+            var serializer = new JavaScriptSerializer();
+            var response = serializer.Deserialize<DripCampaignDeactivateResponse>(jsonResponse);
+            return response;
+        }
+
+        /// <summary>
+        /// Get a list of campaigns.
         /// GET /drip_campaigns
         /// </summary>
         /// <returns>Details on all the drip campaigns</returns>
@@ -91,6 +116,7 @@ namespace Sendwithus
         }
 
         /// <summary>
+        /// Get the details on a specific drip campaign.
         /// GET /drip_campaigns/(drip_campaign_id)
         /// </summary>
         /// <returns>Details on all the drip campaigns</returns>

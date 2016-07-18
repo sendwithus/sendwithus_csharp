@@ -60,10 +60,10 @@ namespace SendwithusTest
             // Make the API call
             try
             { 
-                var response = await dripCampaign.ActivateAsync(DEFAULT_CAMPAIGN_ID);
+                var dripCampaignResponse = await dripCampaign.ActivateAsync(DEFAULT_CAMPAIGN_ID);
 
                 // Validate the response
-                SendwithusClientTest.ValidateResponse(response);
+                SendwithusClientTest.ValidateResponse(dripCampaignResponse);
             }
             catch (AggregateException exception)
             {
@@ -99,10 +99,10 @@ namespace SendwithusTest
             // Make the API call
             try
             { 
-                var response = await dripCampaign.ActivateAsync(DEFAULT_CAMPAIGN_ID);
+                var dripCampaignResponse = await dripCampaign.ActivateAsync(DEFAULT_CAMPAIGN_ID);
 
                 // Validate the response
-                SendwithusClientTest.ValidateResponse(response);
+                SendwithusClientTest.ValidateResponse(dripCampaignResponse);
             }
             catch (AggregateException exception)
             {
@@ -139,17 +139,40 @@ namespace SendwithusTest
         /// </summary>
         /// <returns>The associated task</returns>
         [TestMethod]
-        public async Task TestDeactivateDripCampaignAsync()
+        public async Task TestDeactivateFromDripCampaignAsync()
         {
             Trace.WriteLine(String.Format("POST /drip_campaigns/{0}/deactivate", DEFAULT_CAMPAIGN_ID));
 
             // Make the API call
             try
             { 
-                var response = await DripCampaign.DeactivateAsync(DEFAULT_CAMPAIGN_ID, DEFAULT_RECIPIENT_EMAIL_ADDRESS);
+                var dripCampaignDeactivateResponse = await DripCampaign.DeactivateFromCampaignAsync(DEFAULT_CAMPAIGN_ID, DEFAULT_RECIPIENT_EMAIL_ADDRESS);
 
                 // Validate the response
-                SendwithusClientTest.ValidateResponse(response);
+                SendwithusClientTest.ValidateResponse(dripCampaignDeactivateResponse);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Tests the API call POST /drip_campaigns/(drip_campaign_id)/deactivate
+        /// </summary>
+        /// <returns>The associated task</returns>
+        [TestMethod]
+        public async Task TestDeactivateFromAllDripCampaignsAsync()
+        {
+            Trace.WriteLine(String.Format("POST /drip_campaigns/{0}/deactivate", DEFAULT_CAMPAIGN_ID));
+
+            // Make the API call
+            try
+            {
+                var dripCampaignDeactivateResponse = await DripCampaign.DeactivateFromAllCampaignsAsync(DEFAULT_RECIPIENT_EMAIL_ADDRESS);
+
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(dripCampaignDeactivateResponse);
             }
             catch (AggregateException exception)
             {
@@ -169,10 +192,10 @@ namespace SendwithusTest
             // Make the API call
             try
             { 
-                var response = await DripCampaign.GetDripCampaignsAsync();
+                var dripCampaignDetails = await DripCampaign.GetDripCampaignsAsync();
 
                 // Validate the response
-                SendwithusClientTest.ValidateResponse(response);
+                SendwithusClientTest.ValidateResponse(dripCampaignDetails);
             }
             catch (AggregateException exception)
             {

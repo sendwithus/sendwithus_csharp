@@ -45,10 +45,10 @@ namespace SendwithusTest
             // Make the API call
             try
             {
-                var response = await conversion.AddAsync(DEFAULT_EMAIL_ADDRESS);
+                var genericApiCallStatus = await conversion.AddAsync(DEFAULT_EMAIL_ADDRESS);
 
                 // Validate the response
-                SendwithusClientTest.ValidateResponse(response);
+                SendwithusClientTest.ValidateResponse(genericApiCallStatus);
             }
             catch (AggregateException exception)
             {
@@ -71,10 +71,10 @@ namespace SendwithusTest
             // Make the API call
             try
             {
-                var response = await conversion.AddAsync(DEFAULT_EMAIL_ADDRESS);
+                var genericApiCallStatus = await conversion.AddAsync(DEFAULT_EMAIL_ADDRESS);
 
                 // Validate the response
-                SendwithusClientTest.ValidateResponse(response);
+                SendwithusClientTest.ValidateResponse(genericApiCallStatus);
             }
             catch (AggregateException exception)
             {
@@ -92,15 +92,16 @@ namespace SendwithusTest
             Trace.WriteLine(String.Format("POST /customers/{0}/converisons", DEFAULT_EMAIL_ADDRESS));
 
             // Build the conversion object
+            //var conversion = new Conversion(DEFAULT_REVENUE, DEFAULT_TIMESTAMP);
             var conversion = new Conversion(DEFAULT_REVENUE, DEFAULT_TIMESTAMP);
 
             // Make the API call
             try
             {
-                var response = await conversion.AddAsync(DEFAULT_EMAIL_ADDRESS);
+                var genericApiCallStatus = await conversion.AddAsync(DEFAULT_EMAIL_ADDRESS);
 
                 // Validate the response
-                SendwithusClientTest.ValidateResponse(response);
+                SendwithusClientTest.ValidateResponse(genericApiCallStatus);
             }
             catch (AggregateException exception)
             {
@@ -121,8 +122,9 @@ namespace SendwithusTest
             var conversion = new Conversion();
 
             // Make the API call
-            try { 
-                var response = await conversion.AddAsync(INVALID_EMAIL_ADDRESS);
+            try
+            { 
+                var genericApiCallStatus = await conversion.AddAsync(INVALID_EMAIL_ADDRESS);
             }
             catch (AggregateException exception)
             {

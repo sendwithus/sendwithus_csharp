@@ -805,6 +805,136 @@ catch (AggregateException exception)
     // Exception handling
 }
 ```
+## Conversions
+*WARNING: This API is currently in beta.*
+### Add conversion to customer
+This will add a new conversion to a specific customer in your sendwithus account
+#### POST /customers/[EMAIL_ADDRESS]/conversions
+Add conversion without any parameters:
+```csharp
+var customerEmailAddress = "customer@example.com";
+
+// Build the conversion object
+var conversion = new Conversion();
+
+// Make the API call
+try
+{
+    var genericApiCallStatus = await conversion.AddAsync(customerEmailAddress);
+}
+catch (AggregateException exception)
+{
+    // Exception handling
+}
+```
+Add conversion with all parameters (revenue and timestamp):
+```csharp
+var customerEmailAddress = "customer@example.com";
+var revenue = 1999;
+var timestamp = 1417321700;
+
+// Build the conversion object
+var conversion = new Conversion(revenue, timestamp);
+
+// Make the API call
+try
+{
+    var response = await conversion.AddAsync(DEFAULT_EMAIL_ADDRESS);
+}
+catch (AggregateException exception)
+{
+    // Exception handling
+}
+```
+## Drip Campaigns
+### Activate campaign for a customer
+This will add the specified customer to the first step of the specified drip campaign. If the first step has a delay on it, then it will send the first email once that delay has elapsed.
+#### POST /drip_campaigns/(drip_campaign_id)/activate
+```csharp
+var dripCampaignId = "dc_VXKGx85NmwHnRv9FZv88TW";
+
+// Build the drip campaign object
+var recipient = new EmailRecipient("user@email.com", "John");  // The email name is optional
+var dripCampaign = new DripCampaign(recipient);
+dripCampaign.cc.Add(new EmailRecipient("cc_one@email.com", "Suzy Smith")); // Optional
+dripCampaign.cc.Add(new EmailRecipient("cc_two@email.com", "Joe")); // Optional
+dripCampaign.bcc.Add(new EmailRecipient("bcc_one@email.com", "Fake Name")); // Optional
+dripCampaign.bcc.Add(new EmailRecipient("bcc_one@email.com", "Matt Damon")); // Optional
+dripCampaign.sender.address = "company@company.com"; // Optional
+dripCampaign.sender.name = "Company"; // Optional
+dripCampaign.sender.reply_to = "info@company.com"; // Optional
+dripCampaign.tags.Add("tag1"); // Optional
+dripCampaign.tags.Add("tag2"); // Optional
+dripCampaign.tags.Add("tag3"); // Optional
+dripCampaign.locale = "en-US"; // Optional
+dripCampaign.esp_account = "esp_1a2b3c4d5e"; // Optional
+
+// Make the API call
+try
+{ 
+    var response = await dripCampaign.ActivateAsync(dripCampaignId);
+}
+catch (AggregateException exception)
+{
+    // Exception handling
+}
+```
+### Deactivate a campaign for customer
+#### POST /drip_campaigns/(drip_campaign_id)/deactivate
+```csharp
+var dripCampaignId = "dc_VXKGx85NmwHnRv9FZv88TW";
+var customerEmailAddress = "user@email.com";
+try
+{ 
+    var dripCampaignDeactivateResponse = await DripCampaign.DeactivateAsync(dripCampaignId, customerEmailAddress);
+}
+catch (AggregateException exception)
+{
+    // Exception handling
+}
+```
+### Deactivate a customer from all campaigns
+If a user unsubscribes, changes email addresses, or cancels, call this endpoint to remove the specified email address from all active drip campaigns.
+#### POST /drip_campaigns/deactivate
+```csharp
+var customerEmailAddress = "user@email.com";
+try
+{ 
+    var dripCampaignDeactivateResponse = await DripCampaign.DeactivateFromAllCampaignsAsync(customerEmailAddress);
+}
+catch (AggregateException exception)
+{
+    // Exception handling
+}
+```
+### Get a list of campaigns
+#### GET /drip_campaigns
+```csharp
+try
+{ 
+    var dripCampaignDetails = await DripCampaign.GetDripCampaignsAsync();
+}
+catch (AggregateException exception)
+{
+    // Exception handling
+}
+```
+### Get the details on a specific drip campaign
+#### GET /drip_campaigns/(drip_campaign_id)
+```csharp
+var dripCampaignId = "dc_VXKGx85NmwHnRv9FZv88TW";
+try
+{ 
+    var dripCampaignDetails = await DripCampaign.GetDripCampaignAsync(dripCampaignId);
+}
+catch (AggregateException exception)
+{
+    // Exception handling
+}
+```
+
+
+
 
 ## Tests
 
