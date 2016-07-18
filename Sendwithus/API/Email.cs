@@ -32,11 +32,8 @@ namespace Sendwithus
         /// Constructor for an email
         /// </summary>
         /// <param name="template">The template ID to send</param>
-        /// <param name="template_data">Object containing email template data</param>
-        /// <param name="recipient">The email recipient</param>
-        /// <param name="cc">An array of CC recipients</param>
-        /// <param name="bcc">An array of BCC recipients</param>
-        public Email(string template, Dictionary<string, object> template_data, EmailRecipient recipient)
+        /// <param name="templateData">Object containing email template data</param>
+        public Email(string template, Dictionary<string, object> templateData, EmailRecipient recipient)
         {
             this.template = template;
             this.template_data = template_data;
@@ -51,11 +48,12 @@ namespace Sendwithus
         }
 
         /// <summary>
-        /// Send the given email.
+        /// Send the email.
         /// POST /send
         /// </summary>
-        /// <param name="email">The email to send</param>
         /// <returns>A response indicating whether the message was sent successfully and a summary of the message</returns>
+        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public async Task<EmailResponse> Send()
         {
             // Send the POST request

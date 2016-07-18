@@ -35,7 +35,8 @@ namespace Sendwithus
         /// GET /templates
         /// </summary>
         /// <returns>A list of all the templates associated with the account</returns>
-        /// /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
+        /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<List<Template>> GetTemplatesAsync()
         {
             // Send the GET request
@@ -52,13 +53,14 @@ namespace Sendwithus
         /// Get a template by ID.
         /// GET /templates/(:template_id)
         /// </summary>
-        /// <param name="templateID">The ID of the template</param>
+        /// <param name="templateId">The ID of the template</param>
         /// <returns>The template with the given ID</returns>
-        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
-        public static async Task<Template> GetTemplateAsync(string templateID)
+        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
+        /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
+        public static async Task<Template> GetTemplateAsync(string templateId)
         {
             // Send the GET request
-            var resource = String.Format("templates/{0}", templateID);
+            var resource = String.Format("templates/{0}", templateId);
             var jsonResponse = await RequestManager.SendGetRequestAsync(resource);
 
             // Convert the JSON result into an object
@@ -71,14 +73,15 @@ namespace Sendwithus
         /// Get a template by ID and locale.
         /// GET /templates/(:template_id)/locales/(:locale)
         /// </summary>
-        /// <param name="templateID">The ID of the template</param>
+        /// <param name="templateId">The ID of the template</param>
         /// <param name="locale"></param>
         /// <returns>The template with the given ID and locale</returns>
-        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
-        public static async Task<Template> GetTemplateAsync(string templateID, string locale)
+        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
+        /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
+        public static async Task<Template> GetTemplateAsync(string templateId, string locale)
         {
             // Send the GET request
-            var resource = String.Format("templates/{0}/locales/{1}", templateID, locale);
+            var resource = String.Format("templates/{0}/locales/{1}", templateId, locale);
             var jsonResponse = await RequestManager.SendGetRequestAsync(resource);
 
             // Convert the JSON result into an object
@@ -91,13 +94,14 @@ namespace Sendwithus
         /// Get a list of template versions (with HTML/text).
         /// GET /templates/(:template_id)/versions
         /// </summary>
-        /// <param name="templateID">The ID of the template</param>
+        /// <param name="templateId">The ID of the template</param>
         /// <returns>The template versions associated with the given ID</returns>
-        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
-        public static async Task<List<TemplateVersion>> GetTemplateVersionsAsync(string templateID)
+        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
+        /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
+        public static async Task<List<TemplateVersion>> GetTemplateVersionsAsync(string templateId)
         {
             // Send the GET request
-            var resource = String.Format("templates/{0}/versions", templateID);
+            var resource = String.Format("templates/{0}/versions", templateId);
             var jsonResponse = await RequestManager.SendGetRequestAsync(resource);
 
             // Convert the JSON result into an object
@@ -110,14 +114,15 @@ namespace Sendwithus
         /// Get a list of template versions (with HTML/text).
         /// GET /templates/(:template_id)/locales/(:locale)/versions
         /// </summary>
-        /// <param name="templateID">The ID of the template</param>
+        /// <param name="templateId">The ID of the template</param>
         /// <param name="locale">The locale of the template</param>
         /// <returns>The template versions associated with the given ID and locale</returns>
-        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
-        public static async Task<List<TemplateVersion>> GetTemplateVersionsAsync(string templateID, string locale)
+        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
+        /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
+        public static async Task<List<TemplateVersion>> GetTemplateVersionsAsync(string templateId, string locale)
         {
             // Send the GET request
-            var resource = String.Format("templates/{0}/locales/{1}/versions", templateID, locale);
+            var resource = String.Format("templates/{0}/locales/{1}/versions", templateId, locale);
             var jsonResponse = await RequestManager.SendGetRequestAsync(resource);
 
             // Convert the JSON result into an object
@@ -130,14 +135,15 @@ namespace Sendwithus
         /// Get a specific version (with HTML/text).
         /// GET /templates/(:template_id)/versions/(:version_id)
         /// </summary>
-        /// <param name="templateID">The ID of the template</param>
-        /// <param name="versionID">The ID of the version</param>
+        /// <param name="templateId">The ID of the template</param>
+        /// <param name="versionId">The ID of the version</param>
         /// <returns>The template version associated with the given ID</returns>
-        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
-        public static async Task<TemplateVersion> GetTemplateVersionAsync(string templateID, string versionID)
+        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
+        /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
+        public static async Task<TemplateVersion> GetTemplateVersionAsync(string templateId, string versionId)
         {
             // Send the GET request
-            var resource = String.Format("templates/{0}/versions/{1}", templateID, versionID);
+            var resource = String.Format("templates/{0}/versions/{1}", templateId, versionId);
             var jsonResponse = await RequestManager.SendGetRequestAsync(resource);
 
             // Convert the JSON result into an object
@@ -150,15 +156,16 @@ namespace Sendwithus
         /// Get a specific version (with HTML/text).
         /// GET /templates/(:template_id)/locales/(:locale)/versions/(:version_id)
         /// </summary>
-        /// <param name="templateID">The ID of the template</param>
+        /// <param name="templateId">The ID of the template</param>
         /// <param name="locale">The locale of the template</param>
-        /// <param name="versionID">The ID of the version</param>
+        /// <param name="versionId">The ID of the version</param>
         /// <returns>The template version associated with the given ID</returns>
-        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
-        public static async Task<TemplateVersion> GetTemplateVersionAsync(string templateID, string locale, string versionID)
+        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
+        /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
+        public static async Task<TemplateVersion> GetTemplateVersionAsync(string templateId, string locale, string versionId)
         {
             // Send the GET request
-            var resource = String.Format("templates/{0}/locales/{1}/versions/{2}", templateID, locale, versionID);
+            var resource = String.Format("templates/{0}/locales/{1}/versions/{2}", templateId, locale, versionId);
             var jsonResponse = await RequestManager.SendGetRequestAsync(resource);
 
             // Convert the JSON result into an object
@@ -172,14 +179,15 @@ namespace Sendwithus
         /// PUT /templates/(:template_id)/versions/(:version_id)
         /// NOTE - At least one of html or text must be specified in the TemplateVersion
         /// </summary>
-        /// <param name="templateID">The ID of the template</param>
-        /// <param name="versionID">The ID of the version</param>
+        /// <param name="templateId">The ID of the template</param>
+        /// <param name="versionId">The ID of the version</param>
         /// <returns>The template version associated with the given ID</returns>
-        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
-        public static async Task<TemplateVersion> UpdateTemplateVersionAsync(string templateID, string versionID, TemplateVersion updatedTemplateVersion)
+        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
+        /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
+        public static async Task<TemplateVersion> UpdateTemplateVersionAsync(string templateId, string versionId, TemplateVersion updatedTemplateVersion)
         {
             // Send the PUT request
-            var resource = String.Format("templates/{0}/versions/{1}", templateID, versionID);
+            var resource = String.Format("templates/{0}/versions/{1}", templateId, versionId);
             var jsonResponse = await RequestManager.SendPutRequestAsync(resource, updatedTemplateVersion);
 
             // Convert the JSON result into an object
@@ -192,16 +200,17 @@ namespace Sendwithus
         /// Update a Template Version.
         /// PUT /templates/(:template_id)/locales/(:locale)/versions/(:version_id)
         /// </summary>
-        /// <param name="templateID">The ID of the template</param>
+        /// <param name="templateId">The ID of the template</param>
         /// <param name="locale">The locale of the template</param>
-        /// <param name="versionID">The ID of the version</param>
+        /// <param name="versionId">The ID of the version</param>
         /// <param name="updatedTemplateVersion">The updated template version</param>
         /// <returns>The template version associated with the given ID</returns>
-        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
-        public static async Task<TemplateVersion> UpdateTemplateVersionAsync(string templateID, string locale, string versionID, TemplateVersion updatedTemplateVersion)
+        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
+        /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
+        public static async Task<TemplateVersion> UpdateTemplateVersionAsync(string templateId, string locale, string versionId, TemplateVersion updatedTemplateVersion)
         {
             // Send the PUT request
-            var resource = String.Format("templates/{0}/locales/{1}/versions/{2}", templateID, locale, versionID);
+            var resource = String.Format("templates/{0}/locales/{1}/versions/{2}", templateId, locale, versionId);
             var jsonResponse = await RequestManager.SendPutRequestAsync(resource, updatedTemplateVersion);
 
             // Convert the JSON result into an object
@@ -214,12 +223,10 @@ namespace Sendwithus
         /// Creates a new template.
         /// POST /templates
         /// </summary>
-        /// <param name="templateID">The ID of the template</param>
-        /// <param name="locale">The locale of the template</param>
-        /// <param name="versionID">The ID of the version</param>
-        /// <param name="updatedTemplateVersion">The updated template version</param>
+        /// <param name="newTemplateVersion">The new version for the template</param>
         /// <returns>The new template</returns>
-        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
+        /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<Template> CreateTemplateAsync(TemplateVersion newTemplateVersion)
         {
             // Send the POST request
@@ -236,16 +243,17 @@ namespace Sendwithus
         /// Add Locale to Existing Template.
         /// POST /templates/(:template_id)/locales
         /// </summary>
-        /// <param name="templateID">The ID of the template to add the locale to</param>
+        /// <param name="templateId">The ID of the template to add the locale to</param>
         /// <param name="locale">The locale to add</param>
         /// <param name="templateVersion">The template version</param>
         /// <returns>The template with the updated locale</returns>
-        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
-        public static async Task<Template> AddLocaleToTemplate(string templateID, string locale, TemplateVersion templateVersion)
+        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
+        /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
+        public static async Task<Template> AddLocaleToTemplate(string templateId, string locale, TemplateVersion templateVersion)
         {
             templateVersion.locale = locale;
             // Send the POST request
-            var resource = String.Format("templates/{0}/locales", templateID);
+            var resource = String.Format("templates/{0}/locales", templateId);
             var jsonResponse = await RequestManager.SendPostRequestAsync(resource, templateVersion);
 
             // Convert the JSON result into an object
@@ -258,14 +266,15 @@ namespace Sendwithus
         /// Create a New Template Version.
         /// POST /templates/(:template_id)/versions
         /// </summary>
-        /// <param name="templateID">The ID of the template to add the version to</param>
+        /// <param name="templateId">The ID of the template to add the version to</param>
         /// <param name="templateVersion">The new template verison to add</param>
         /// <returns>The newly created template version</returns>
-        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
-        public static async Task<TemplateVersion> CreateTemplateVersion(string templateID, TemplateVersion templateVersion)
+        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
+        /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
+        public static async Task<TemplateVersion> CreateTemplateVersion(string templateId, TemplateVersion templateVersion)
         {
             // Send the POST request
-            var resource = String.Format("templates/{0}/versions", templateID);
+            var resource = String.Format("templates/{0}/versions", templateId);
             var jsonResponse = await RequestManager.SendPostRequestAsync(resource, templateVersion);
 
             // Convert the JSON result into an object
@@ -278,14 +287,16 @@ namespace Sendwithus
         /// Create a New Template Version.
         /// POST /templates/(:template_id)/locales/(:locale)/versions
         /// </summary>
-        /// <param name="templateID">The ID of the template to add the version to</param>
-        /// <param name="templateVersion">The new template verison to add</param>
+        /// <param name="templateId">The ID of the template to add the version to</param>
+        /// <param name="locale">The locale of the template to add the version to</param>
+        /// /// <param name="templateVersion">The new verison to add to the template</param>
         /// <returns>The newly created template version</returns>
-        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
-        public static async Task<TemplateVersion> CreateTemplateVersion(string templateID, string locale, TemplateVersion templateVersion)
+        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
+        /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
+        public static async Task<TemplateVersion> CreateTemplateVersion(string templateId, string locale, TemplateVersion templateVersion)
         {
             // Send the POST request
-            var resource = String.Format("templates/{0}/locales/{1}/versions", templateID, locale);
+            var resource = String.Format("templates/{0}/locales/{1}/versions", templateId, locale);
             var jsonResponse = await RequestManager.SendPostRequestAsync(resource, templateVersion);
 
             // Convert the JSON result into an object
@@ -298,13 +309,14 @@ namespace Sendwithus
         /// Delete a specific template.
         /// DELETE /templates/(:template_id)
         /// </summary>
-        /// <param name="templateID">The ID of the template to delete</param>
+        /// <param name="templateId">The ID of the template to delete</param>
         /// <returns>The status of the api call</returns>
-        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
-        public static async Task<GenericApiCallStatus> DeleteTemplate(string templateID)
+        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
+        /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
+        public static async Task<GenericApiCallStatus> DeleteTemplate(string templateId)
         {
             // Send the POST request
-            var resource = String.Format("templates/{0}", templateID);
+            var resource = String.Format("templates/{0}", templateId);
             var jsonResponse = await RequestManager.SendDeleteRequestAsync(resource);
 
             // Convert the JSON result into an object
@@ -317,14 +329,15 @@ namespace Sendwithus
         /// Delete a specific template with a given locale.
         /// DELETE /templates/(:template_id)/locales/(:locale)
         /// </summary>
-        /// <param name="templateID">The ID of the template to delete</param>
+        /// <param name="templateId">The ID of the template to delete</param>
         /// <param name="locale">The locale of the template to delete</param>
         /// <returns>The status of the api call</returns>
-        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
-        public static async Task<GenericApiCallStatus> DeleteTemplate(string templateID, string locale)
+        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
+        /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
+        public static async Task<GenericApiCallStatus> DeleteTemplate(string templateId, string locale)
         {
             // Send the POST request
-            var resource = String.Format("templates/{0}/locales/{1}", templateID, locale);
+            var resource = String.Format("templates/{0}/locales/{1}", templateId, locale);
             var jsonResponse = await RequestManager.SendDeleteRequestAsync(resource);
 
             // Convert the JSON result into an object

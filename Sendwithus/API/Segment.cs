@@ -33,6 +33,8 @@ namespace Sendwithus
         /// GET /segments
         /// </summary>
         /// <returns>All of the segments</returns>
+        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<List<Segment>> GetSegmentsAsync()
         {
             // Send the GET request
@@ -48,7 +50,11 @@ namespace Sendwithus
         /// <summary>
         /// POST /segments/(:segment_id)/send
         /// </summary>
+        /// <param name="segmentId">The ID of the segment to send</param>
+        /// <param name="segmentContent">The content for the segment</param>
         /// <returns>All of the segments</returns>
+        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<GenericApiCallStatus> SendToSegmentAsync(string segmentId, SegmentContent segmentContent)
         {
             // Send the POST request

@@ -36,6 +36,8 @@ namespace Sendwithus
         /// GET /snippets
         /// </summary>
         /// <returns>A list of all the snippets</returns>
+        /// /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<List<Snippet>> GetSnippetsAsync()
         {
             // Send the GET request
@@ -53,6 +55,8 @@ namespace Sendwithus
         /// </summary>
         /// /// <param name="snippetId">The ID of the snippet to get</param>
         /// <returns>The snippet with the given ID</returns>
+        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<List<Snippet>> GetSnippetAsync(string snippetId)
         {
             // Send the GET request
@@ -71,6 +75,8 @@ namespace Sendwithus
         /// <param name="name">The name of the new snippet</param>
         /// <param name="body">The body of the new snippet</param>
         /// <returns>A response with the success status and new snippet</returns>
+        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<SnippetResponse> CreateSnippetAsync(string name, string body)
         {
             // Build the SnippetDefinition
@@ -93,6 +99,8 @@ namespace Sendwithus
         /// <param name="name">The new name of the snippet</param>
         /// <param name="body">The new body of the snippet</param>
         /// <returns>A response with the success status and snippet</returns>
+        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<SnippetResponse> UpdateSnippetAsync(string snippetId, string name, string body)
         {
             // Build the SnippetDefinition
@@ -113,6 +121,8 @@ namespace Sendwithus
         /// </summary>
         /// <param name="snippetId">The ID of the snippet to delete</param>
         /// <returns>The status of the deletion</returns>
+        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<GenericApiCallStatus> DeleteSnippetAsync(string snippetId)
         {
             // Send the PUT request

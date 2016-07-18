@@ -37,6 +37,8 @@ namespace Sendwithus
         /// <param name="queryParameters">The query parameters.  Options include:
         /// esp_type (optional) – Filter response to only return ESP accounts of a certain type</param>
         /// <returns>A list of all the ESP accounts</returns>
+        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<List<EspAccount>> GetAccountsAsync(Dictionary<string, object> queryParameters)
         {
             // Send the GET request
@@ -52,6 +54,8 @@ namespace Sendwithus
         /// Gets all the ESP accounts without any query parametesr
         /// </summary>
         /// <returns>A list of all the ESP accounts</returns>
+        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<List<EspAccount>> GetAccountsAsync()
         {
             return await GetAccountsAsync(null);
@@ -63,6 +67,8 @@ namespace Sendwithus
         /// </summary>
         /// <param name="addRequest">The parameters for the new ESP Account to add</param>
         /// <returns>A response containing the API call status and the new ESP account</returns>
+        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<EspAccountResponse> AddAccountAsync(EspAccountAddAccountRequest addRequest)
         {
             // Send the GET request
@@ -78,8 +84,10 @@ namespace Sendwithus
         /// Set a given ESP Account as the default for sending emails.
         /// PUT /esp_accounts/set_default
         /// </summary>
-        /// /// <param name="espId">The ID of the ESP to set as the default</param>
+        /// <param name="espId">The ID of the ESP to set as the default</param>
         /// <returns>A response containing the API call status and the ESP account</returns>
+        /// <exception cref = "SendwithusException" > Thrown when the API response status code is not success</exception>
+        /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<EspAccountResponse> SetDefaultEspAccountAsync(string espId)
         {
             // Send the GET request

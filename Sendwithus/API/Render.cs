@@ -24,11 +24,11 @@ namespace Sendwithus
         /// Default constructor
         /// </summary>
         /// <param name="templateId">The ID of the template</param>
-        /// <param name="template_data">The template data</param>
-        public Render(string templateId, Dictionary<string, object> template_data)
+        /// <param name="templateData">The template data</param>
+        public Render(string templateId, Dictionary<string, object> templateData)
         {
             this.template = templateId;
-            this.template_data = template_data;
+            this.template_data = templateData;
             version_id = String.Empty;
             version_name = String.Empty;
             locale = String.Empty;
@@ -40,6 +40,8 @@ namespace Sendwithus
         /// POST /render
         /// </summary>
         /// <returns>The success of the call and newly rendered template</returns>
+        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public async Task<RenderTemplateResponse> RenderTemplateAsync()
         {
             // Send the POST request

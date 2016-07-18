@@ -41,7 +41,10 @@ namespace Sendwithus
         /// Activate campaign for a customer.
         /// POST /drip_campaigns/(drip_campaign_id)/activate
         /// </summary>
+        /// <param name="dripCampaignId">The ID of the drip campaign to activate</param>
         /// <returns>A response containing the status of the call and a summary of the drip campaign</returns>
+        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public async Task<DripCampaignResponse> ActivateAsync(string dripCampaignId)
         {
             // Send the POST request
@@ -58,7 +61,11 @@ namespace Sendwithus
         /// Deactivate a campaign for customer.
         /// POST /drip_campaigns/(drip_campaign_id)/deactivate
         /// </summary>
+        /// <param name="dripCampaignId">The ID of the drip campaign to deactivate</param>
+        /// <param name="recipientAddress">The email address of the recipient to deactivate the campaign for</param>
         /// <returns>A response containing the status of the call and a summary of the drip campaign</returns>
+        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<DripCampaignDeactivateResponse> DeactivateFromCampaignAsync(string dripCampaignId, string recipientAddress)
         {
             var resource = String.Format("drip_campaigns/{0}/deactivate", dripCampaignId);
@@ -77,10 +84,13 @@ namespace Sendwithus
         }
 
         /// <summary>
-        /// Deactivate a campaign for customer.
+        /// Deactivate all campaigns for a given customer.
         /// POST /drip_campaigns/(drip_campaign_id)/deactivate
         /// </summary>
+        /// <param name="recipientAddress">The email address of the customer to deactivate all campaigns for.</param>
         /// <returns>A response containing the status of the call and a summary of the drip campaign</returns>
+        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<DripCampaignDeactivateResponse> DeactivateFromAllCampaignsAsync(string recipientAddress)
         {
             var resource = String.Format("drip_campaigns/deactivate");
@@ -103,6 +113,8 @@ namespace Sendwithus
         /// GET /drip_campaigns
         /// </summary>
         /// <returns>Details on all the drip campaigns</returns>
+        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<List<DripCampaignDetails>> GetDripCampaignsAsync()
         {
             // Send the GET request
@@ -119,7 +131,10 @@ namespace Sendwithus
         /// Get the details on a specific drip campaign.
         /// GET /drip_campaigns/(drip_campaign_id)
         /// </summary>
+        /// <param name="dripCampaignId">The ID of the drip campaign</param>
         /// <returns>Details on all the drip campaigns</returns>
+        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<DripCampaignDetails> GetDripCampaignAsync(string dripCampaignId)
         {
             // Send the GET request

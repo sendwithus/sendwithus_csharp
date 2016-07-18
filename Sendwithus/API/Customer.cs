@@ -38,12 +38,13 @@ namespace Sendwithus
         }
 
         /// <summary>
-        /// Gets a specific customer
+        /// Gets a specific customer.
         /// GET /customers/customer@example.com
         /// </summary>
         /// <param name="customerEmailAddress">The customer's email address</param>
-        /// <returns>A response containing the customer with the given email address 
-        /// and the status of the API call</returns>
+        /// <returns>A response containing the customer with the given email address and the status of the API call</returns>
+        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<CustomerResponse> GetCustomerAsync(string customerEmailAddress)
         {
             // Send the GET request
@@ -56,11 +57,14 @@ namespace Sendwithus
         }
 
         /// <summary>
-        /// Creatings a new cusotmer or updates an existing customer if the customer already exists
+        /// Creates a new customer or updates an existing customer if the customer already exists.
+        /// Merge opterations will replace existing attributes with new values and add any new attributes to the customer.
         /// POST /customers
         /// </summary>
-        /// <param name="customer"></param>
-        /// <returns></returns>
+        /// <param name="customer">The new or updated customer</param>
+        /// <returns>The status of the API call</returns>
+        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<GenericApiCallStatus> CreateOrUpdateCustomerAsync(Customer customer)
         {
             // Send the POST request
@@ -73,11 +77,13 @@ namespace Sendwithus
         }
 
         /// <summary>
-        /// Deletes a given customer
+        /// Deletes a given customer.
         /// DELETE /customers/(:email)
         /// </summary>
         /// <param name="emailAddress">The customer's email address</param>
-        /// <returns></returns>
+        /// <returns>The status of the API call</returns>
+        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<GenericApiCallStatus> DeleteCustomerAsync(string emailAddress)
         {
             // Send the POST request
@@ -90,11 +96,17 @@ namespace Sendwithus
         }
 
         /// <summary>
-        /// Get email logs for a Customer
+        /// Get email logs for a customer.
         /// GET /customers/matt@sendwithus.com/logs?count={count}&created_lt={timestamp}&created_gt={timestamp}
         /// </summary>
         /// <param name="emailAddress">The customer's email address</param>
+        /// <param name="queryParameters">The query parameters to include with the request, options include:
+        /// count (optional) – A number between 1 and 100 to specify the number of logs returned (including scheduled drips). If none is specified, a limit of 100 sent logs is automatically imposed.
+        /// created_lt (optional) – A Unix Timestamp used as a index for the search.The logs retrieved will have been sent before the timestamp specified.
+        /// created_gt (optional) – A Unix Timestamp used as a index for the search.The logs retrieved will have been sent after the timestamp specified.</param>
         /// <returns>A response containing the status of the API call and the logs that match the request parameters</returns>
+        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<CustomerEmailLogsResponse> GetCustomerEmailLogsAsync(string emailAddress, Dictionary<string, object> queryParameters)
         {
             // Send the GET request
@@ -107,11 +119,13 @@ namespace Sendwithus
         }
 
         /// <summary>
-        /// Get email logs for a Customer
+        /// Get email logs for a customer.
         /// GET /customers/matt@sendwithus.com without any query parameters
         /// </summary>
         /// <param name="emailAddress">The customer's email address</param>
         /// <returns>A response containing the status of the API call and the logs that match the request parameters</returns>
+        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<CustomerEmailLogsResponse> GetCustomerEmailLogsAsync(string emailAddress)
         {
             return await GetCustomerEmailLogsAsync(emailAddress, null);
@@ -124,6 +138,8 @@ namespace Sendwithus
         /// <param name="emailAddress">The customer's email address</param>
         /// <param name="groupId">The ID of the group</param>
         /// <returns>The API call status</returns>
+        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<GenericApiCallStatus> AddCustomerToGroupAsync(string emailAddress, string groupId)
         {
             // Send the GET request
@@ -142,6 +158,8 @@ namespace Sendwithus
         /// <param name="emailAddress">The customer's email address</param>
         /// <param name="groupId">The ID of the group</param>
         /// <returns>The API call status</returns>
+        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<GenericApiCallStatus> RemoveCustomerFromGroupAsync(string emailAddress, string groupId)
         {
             // Send the GET request

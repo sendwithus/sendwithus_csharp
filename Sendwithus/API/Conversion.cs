@@ -45,7 +45,9 @@ namespace Sendwithus
         /// revenue (optional) – Revenue associated with this conversion, in cents.
         /// timestamp(optional) – Timestamp for the conversion time, in seconds.
         /// </param>
-        /// <returns></returns>
+        /// <returns>The status of the API call</returns>
+        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public async Task<GenericApiCallStatus> AddAsync(string emailAddress)
         {
             // Send the POST request

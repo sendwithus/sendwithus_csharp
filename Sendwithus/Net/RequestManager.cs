@@ -50,8 +50,8 @@ namespace Sendwithus
         /// <param name="resource">The resource identifier for the resource to be called (after /api/<version>/)</param>
         /// <param name="queryParameters">The query parameters to use with the API call</param>
         /// <returns>The response content in the form of a JSON string</returns>
-        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
-        /// <exception cref="InvalidOperationException">Thrown when the call is made in batch mode but the current batch has no more room for additional API calls</exception>
+        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
+        /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<string> SendGetRequestAsync(string resource, Dictionary<string, object> queryParameters)
         {
             using (var client = new HttpClient())
@@ -80,8 +80,8 @@ namespace Sendwithus
         /// </summary>
         /// <param name="resource">The resource identifier for the resource to be called (after /api/<version>/)</param>
         /// <returns>The response content in the form of a JSON string</returns>
-        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
-        /// <exception cref="InvalidOperationException">Thrown when the call is made in batch mode but the current batch has no more room for additional API calls</exception>
+        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
+        /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<string> SendGetRequestAsync(string resource)
         {
             return await SendGetRequestAsync(resource, null);
@@ -93,8 +93,8 @@ namespace Sendwithus
         /// <param name="resource">The resource identifier for the resource to be called (after /api/<version>/)</param>
         /// <param name="content">The object to be sent with the PUT request. Will be converted to JSON in this function</param>
         /// <returns>The response content in the form of a JSON string</returns>
-        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
-        /// <exception cref="InvalidOperationException">Thrown when the call is made in batch mode but the current batch has no more room for additional API calls</exception>
+        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
+        /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<string> SendPutRequestAsync(string resource, object content)
         {
             using (var client = new HttpClient())
@@ -124,8 +124,8 @@ namespace Sendwithus
         /// <param name="resource">The resource identifier for the resource to be called (after /api/<version></version>/)</param>
         /// <param name="content">The object to be sent with the POST request. Will be converted to JSON in this function</param>
         /// <returns>The response content in the form of a JSON string</returns>
-        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
-        /// <exception cref="InvalidOperationException">Thrown when the call is made in batch mode but the current batch has no more room for additional API calls</exception>
+        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
+        /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<string> SendPostRequestAsync(string resource, object content)
         {
             using (var client = new HttpClient())
@@ -154,8 +154,8 @@ namespace Sendwithus
         /// </summary>
         /// <param name="resource">The resource identifier for the resource to be called (after /api/<version></version>/)</param>
         /// <returns>The response content in the form of a JSON string</returns>
-        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
-        /// <exception cref="InvalidOperationException">Thrown when the call is made in batch mode but the current batch has no more room for additional API calls</exception>
+        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
+        /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<string> SendPostRequestAsync(string resource)
         {
             return await SendPostRequestAsync(resource, null);
@@ -166,7 +166,7 @@ namespace Sendwithus
         /// </summary>
         /// <param name="resource">The resource identifier for the resource to be called (after /api/<version></version>/)</param>
         /// <returns>The response content in the form of a JSON string</returns>
-        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
         /// <exception cref="InvalidOperationException">Thrown when the call is made in batch mode but the current batch has no more room for additional API calls</exception>
         public static async Task<string> SendDeleteRequestAsync(string resource)
         {
@@ -288,7 +288,8 @@ namespace Sendwithus
         /// <param name="action"></param>
         /// <param name="retryInterval"></param>
         /// <param name="retryCount"></param>
-        /// <returns></returns>
+        /// <returns>The response to the API call as a JSON string</returns>
+        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
         private static async Task<string> RunWithRetries(
             Func<Task<HttpResponseMessage>> apiCall)
         {

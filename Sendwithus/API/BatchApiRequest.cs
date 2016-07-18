@@ -58,9 +58,12 @@ namespace Sendwithus
         }
 
         /// <summary>
-        /// Sends a batch API request with all of the currently batched API request
+        /// Sends a batch API request with all of the currently batched API request.
+        /// POST /batch
         /// </summary>
         /// <returns>The responses for each API request in the batch</returns>
+        /// <exception cref="SendwithusException">Thrown when the API response status code is not success</exception>
+        /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
         public static async Task<List<BatchApiResponse>> SendBatchApiRequest()
         {
             _batchApiModeEnabled = false;
@@ -133,7 +136,7 @@ namespace Sendwithus
             // Throw an exception if there isn't room for the new API request in the current batch
             if (_batchApiRequests.Count >= _maxBatchRequests)
             {
-                throw new InvalidOperationException("Batch API request limit already reached.  Cannot add another API request to current batch.");
+                throw new InvalidOperationException(String.Format("Batch API request limit of {0} requests has already been reached.  Cannot add another API request to current batch.", _maxBatchRequests));
             }
 
             // Otherwise, add the new request to the batch
