@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Sendwithus;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
-using System.Threading.Tasks;
 using System.Net;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Threading.Tasks;
 
 namespace SendwithusTest
 {
