@@ -360,7 +360,7 @@ deploy:
 #    server: https://my.nuget.server/feed
    api_key:
 #     secure: Rea5RB61aPttROjfP7gPZ+X+QF2ZZPpEJX9Qb0mdCXZ7je3JwbJCpK9In+A8mhNK
-    secure: UvhEcKAzbGRh/TWmS8rW9UJDgwk1mYarxIDCTgFxu7UD05l1QWAhS93/U93EQTB5
+    secure: UvhEcKAzbGRh/TWmS8rW9UJDgwk1mYarxIDCTgFxu7UD05l1QWAhS93/U93EQTB5`
 #    skip_symbols: false
 #    symbol_server: https://your.symbol.server/feed
 # Only deploy Release builds on the master branch
