@@ -128,13 +128,6 @@ namespace SendwithusTest
         {
             // Construct the template data
             var templateData = new Dictionary<string, object>();
-            templateData.Add("first_name", "Chuck");
-            templateData.Add("last_name", "Norris");
-            templateData.Add("img", "http://placekitten.com/50/60");
-            var link = new Dictionary<string, string>();
-            link.Add("url", "https://www.sendwithus.com");
-            link.Add("text", "sendwithus!");
-            templateData.Add("link", link);
 
             // Construct the recipient
             var recipient = new EmailRecipient(DEFAULT_RECIPIENT_EMAIL_ADDRESS);
@@ -151,6 +144,14 @@ namespace SendwithusTest
         public static async Task<EmailResponse> BuildAndSendEmailWithAllParametersAsync()
         {
             var email = BuildBarebonesEmail();
+
+            email.template_data.Add("first_name", "Chuck");
+            email.template_data.Add("last_name", "Norris");
+            email.template_data.Add("img", "http://placekitten.com/50/60");
+            var link = new Dictionary<string, string>();
+            link.Add("url", "https://www.sendwithus.com");
+            link.Add("text", "sendwithus!");
+            email.template_data.Add("link", link);
             email.recipient.name = DEFAULT_EMAIL_NAME;
             email.cc.Add(new EmailRecipient(DEFAULT_CC_EMAIL_ADDRESS_1, DEFAULT_EMAIL_NAME));
             email.cc.Add(new EmailRecipient(DEFAULT_CC_EMAIL_ADDRESS_2, DEFAULT_EMAIL_NAME));
