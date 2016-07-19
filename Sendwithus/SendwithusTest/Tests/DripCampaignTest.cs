@@ -92,6 +92,7 @@ namespace SendwithusTest
             dripCampaign.tags.Add(DEFAULT_TAG_3);
             dripCampaign.locale = DEFAULT_LOCALE;
             dripCampaign.esp_account = DEFAULT_ESP_ACCOUNT_ID;
+            dripCampaign.email_data.Add("amount", "$12.00");
 
             // Make the API call
             try
@@ -143,10 +144,10 @@ namespace SendwithusTest
             // Make the API call
             try
             { 
-                var dripCampaignDeactivateResponse = await DripCampaign.DeactivateFromCampaignAsync(DEFAULT_CAMPAIGN_ID, DEFAULT_RECIPIENT_EMAIL_ADDRESS);
+                var dripCampaignResponse = await DripCampaign.DeactivateFromCampaignAsync(DEFAULT_CAMPAIGN_ID, DEFAULT_RECIPIENT_EMAIL_ADDRESS);
 
                 // Validate the response
-                SendwithusClientTest.ValidateResponse(dripCampaignDeactivateResponse);
+                SendwithusClientTest.ValidateResponse(dripCampaignResponse);
             }
             catch (AggregateException exception)
             {

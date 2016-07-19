@@ -65,7 +65,7 @@ namespace Sendwithus
         /// <returns>A response containing the status of the call and a summary of the drip campaign</returns>
         /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
         /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
-        public static async Task<DripCampaignDeactivateResponse> DeactivateFromCampaignAsync(string dripCampaignId, string recipientAddress)
+        public static async Task<DripCampaignResponse> DeactivateFromCampaignAsync(string dripCampaignId, string recipientAddress)
         {
             var resource = String.Format("drip_campaigns/{0}/deactivate", dripCampaignId);
 
@@ -78,7 +78,7 @@ namespace Sendwithus
 
             // Convert the JSON result into an object
             var serializer = new JavaScriptSerializer();
-            var response = serializer.Deserialize<DripCampaignDeactivateResponse>(jsonResponse);
+            var response = serializer.Deserialize<DripCampaignResponse>(jsonResponse);
             return response;
         }
 
@@ -90,7 +90,7 @@ namespace Sendwithus
         /// <returns>A response containing the status of the call and a summary of the drip campaign</returns>
         /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
         /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
-        public static async Task<DripCampaignDeactivateResponse> DeactivateFromAllCampaignsAsync(string recipientAddress)
+        public static async Task<DripCampaignDeactivateAllResponse> DeactivateFromAllCampaignsAsync(string recipientAddress)
         {
             var resource = String.Format("drip_campaigns/deactivate");
 
@@ -103,7 +103,7 @@ namespace Sendwithus
 
             // Convert the JSON result into an object
             var serializer = new JavaScriptSerializer();
-            var response = serializer.Deserialize<DripCampaignDeactivateResponse>(jsonResponse);
+            var response = serializer.Deserialize<DripCampaignDeactivateAllResponse>(jsonResponse);
             return response;
         }
 

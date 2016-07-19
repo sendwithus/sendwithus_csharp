@@ -10,7 +10,7 @@ namespace Sendwithus
     /// Used to return an exception when an API call fails.  Provides the HTTP status code and error message.
     /// </summary>
     [Serializable]
-    public class SendwithusException : System.Exception
+    public class SendwithusException : Exception
     {
         public HttpStatusCode StatusCode { get; }
 

@@ -175,7 +175,7 @@ namespace SendwithusTest
         /// </summary>
         /// <returns>The asynchronous task</returns>
         [TestMethod]
-        public async Task TestGetTemplateVersionsByIdAsync()
+        public async Task TestGetTemplateVersionsByTemplateIdAsync()
         {
             // Make the API call
             Trace.WriteLine(String.Format("GET /templates/{0}/versions", DEFAULT_TEMPLATE_ID));
@@ -197,7 +197,7 @@ namespace SendwithusTest
         /// </summary>
         /// <returns>The asynchronous task</returns>
         [TestMethod]
-        public async Task TestGetTemplateVersionsByIdAndLocaleAsync()
+        public async Task TestGetTemplateVersionsByTemplateIdAndLocaleAsync()
         {
             // Make the API call
             Trace.WriteLine(String.Format("GET /templates/{0}/locales/{1}/versions", DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE));

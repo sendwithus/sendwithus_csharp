@@ -78,7 +78,7 @@
     <Compile Include="API\DripCampaign.cs" />
     <Compile Include="API\CustomerGroup.cs" />
     <Compile Include="API\Helpers\CustomerGroupResponseMultipleGroups.cs" />
-    <Compile Include="API\Helpers\DripCampaignDeactivateResponse.cs" />
+    <Compile Include="API\Helpers\DripCampaignDeactivateAllResponse.cs" />
     <Compile Include="API\Helpers\DripCampaignDetails.cs" />
     <Compile Include="API\Helpers\DripCampaignResponse.cs" />
     <Compile Include="API\Helpers\DripCampaignStep.cs" />

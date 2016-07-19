@@ -31,7 +31,7 @@ namespace Sendwithus
             version_id = String.Empty;
             version_name = String.Empty;
             locale = String.Empty;
-            strict = true;
+            strict = false;
         }
 
         /// <summary>

@@ -76,11 +76,38 @@ namespace SendwithusTest
         }
 
         /// <summary>
-        /// Tests the API call POST /customers
+        /// Tests the API call POST /customers with the minimum parameters
         /// </summary>
         /// <returns>The associated task</returns>
         [TestMethod]
-        public async Task TestCreateOrUpdateCustomerAsync()
+        public async Task TestCreateOrUpdateCustomerWithMinimumParametersAsync()
+        {
+            Trace.WriteLine("POST /customers");
+
+            // Build the new customer and send the create customer request
+            try
+            {
+                // Build the customer
+                var customer = new Customer(NEW_CUSTOMER_EMAIL_ADDRESS);
+
+                // Make the API call
+                var genericApiCallStatus = await Customer.CreateOrUpdateCustomerAsync(customer);
+
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(genericApiCallStatus);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Tests the API call POST /customers with all parameters
+        /// </summary>
+        /// <returns>The associated task</returns>
+        [TestMethod]
+        public async Task TestCreateOrUpdateCustomerWithAllParametersAsync()
         {
             Trace.WriteLine("POST /customers");
 
@@ -156,7 +183,7 @@ namespace SendwithusTest
             // Build the query parameters
             var queryParameters = new Dictionary<string, object>();
             queryParameters.Add("count", 2);
-            queryParameters.Add("created", LOG_CREATED_BEFORE_TIME);
+            queryParameters.Add("created_lt", LOG_CREATED_BEFORE_TIME);
             queryParameters.Add("created_gt", LOG_CREATED_AFTER_TIME);
 
             // Make the API call

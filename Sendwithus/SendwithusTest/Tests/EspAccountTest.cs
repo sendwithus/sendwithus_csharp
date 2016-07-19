@@ -125,7 +125,7 @@ namespace SendwithusTest
         /// </summary>
         /// <returns>The associated task</returns>
         [TestMethod]
-        public async Task TestAddAccountSendgridAsync()
+        public async Task TestAddEspAccountSendgridAsync()
         {
             Trace.WriteLine("POST /esp_accounts");
 
@@ -152,7 +152,7 @@ namespace SendwithusTest
         /// </summary>
         /// <returns>The associated task</returns>
         [TestMethod]
-        public async Task TestAddAccountMailgunAsync()
+        public async Task TestAddEspAccountMailgunAsync()
         {
             Trace.WriteLine("POST /esp_accounts");
 
@@ -179,7 +179,7 @@ namespace SendwithusTest
         /// </summary>
         /// <returns>The associated task</returns>
         [TestMethod]
-        public async Task TestAddAccountMandrillAsync()
+        public async Task TestAddEspAccountMandrillAsync()
         {
             Trace.WriteLine("POST /esp_accounts");
 
@@ -206,7 +206,7 @@ namespace SendwithusTest
         /// </summary>
         /// <returns>The associated task</returns>
         [TestMethod]
-        public async Task TestAddAccountPostmarkAsync()
+        public async Task TestAddEspAccountPostmarkAsync()
         {
             Trace.WriteLine("POST /esp_accounts");
 
@@ -234,7 +234,7 @@ namespace SendwithusTest
         /// </summary>
         /// <returns>The associated task</returns>
         [TestMethod]
-        public async Task TestAddAccountSesAsync()
+        public async Task TestAddEspAccountSesAsync()
         {
             Trace.WriteLine("POST /esp_accounts");
 
@@ -261,7 +261,7 @@ namespace SendwithusTest
         /// </summary>
         /// <returns>The associated task</returns>
         [TestMethod]
-        public async Task TestAddAccountMailjetAsync()
+        public async Task TestAddEspAccountMailjetAsync()
         {
             Trace.WriteLine("POST /esp_accounts");
 
@@ -289,7 +289,7 @@ namespace SendwithusTest
         /// </summary>
         /// <returns>The associated task</returns>
         [TestMethod]
-        public async Task TestAddAccountDynAsync()
+        public async Task TestAddEspAccountDynAsync()
         {
             Trace.WriteLine("POST /esp_accounts");
 
@@ -316,7 +316,7 @@ namespace SendwithusTest
         /// </summary>
         /// <returns>The associated task</returns>
         [TestMethod]
-        public async Task TestAddAccountSmtpAsync()
+        public async Task TestAddEspAccountSmtpAsync()
         {
             Trace.WriteLine("POST /esp_accounts");
 

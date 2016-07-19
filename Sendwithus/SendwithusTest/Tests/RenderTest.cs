@@ -41,7 +41,6 @@ namespace SendwithusTest
 
             // Make the API call
             var templateData = new Dictionary<string, object>();
-            templateData.Add("amount", "$12.00");
             var renderTemplate = new Render(DEFAULT_TEMPLATE_ID, templateData);
             try
             { 

@@ -9,7 +9,7 @@ namespace Sendwithus
     {
         public bool success { get; set; }
         public string status { get; set; }
-        public CustomerGroup group { get; }
+        public CustomerGroup group { get; set; }
 
         /// <summary>
         /// Default constructor

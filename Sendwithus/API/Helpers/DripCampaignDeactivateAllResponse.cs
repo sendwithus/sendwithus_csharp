@@ -3,9 +3,9 @@
 namespace Sendwithus
 {
     /// <summary>
-    /// sendwithus DripCampaignDeactivateResponse class
+    /// sendwithus DripCampaignDeactivateAllResponse class
     /// </summary>
-    public class DripCampaignDeactivateResponse
+    public class DripCampaignDeactivateAllResponse
     {
         public bool success { get; set; }
         public string status { get; set; }
@@ -14,7 +14,7 @@ namespace Sendwithus
         /// <summary>
         /// Default constructor
         /// </summary>
-        public DripCampaignDeactivateResponse()
+        public DripCampaignDeactivateAllResponse()
         {
             this.success = false;
             this.status = String.Empty;

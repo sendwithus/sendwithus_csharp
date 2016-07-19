@@ -157,6 +157,7 @@ catch (AggregateException exception)
 }
 ```
 ### Update a template version
+Note: at least one of "html" or "text" must be specified in the updated template version object
 #### PUT /templates/(:template_id)/versions/(:version_id)
 ```csharp
 var templateId = "tem_SxZKpxJSHPbYDWRSQnAQUR";
@@ -235,6 +236,7 @@ catch (AggregateException exception)
 ```
 ### Create a new template version
 #### POST /templates/(:template_id)/versions
+*NOTE* – At least one of html or text must be specified
 ```csharp
 var templateId = "tem_SxZKpxJSHPbYDWRSQnAQUR";
 var templateVersionName = "New Template Version";
@@ -252,6 +254,7 @@ catch (AggregateException exception)
 }
 ```
 #### POST /templates/(:template_id)/locales/(:locale)/versions
+*NOTE* – At least one of html or text must be specified
 ```csharp
 var templateId = "tem_SxZKpxJSHPbYDWRSQnAQUR";
 var locale = "en-US";
@@ -536,7 +539,7 @@ templateData.Add("amount", "$12.00");
 var renderTemplate = new Render(templateId, templateData);
 renderTemplate.version_id = "ver_ET3j2snkKhqsjRjtK6bXJE"; // optional.  Can use either version_id or version_name to specify a version, but not both
 renderTemplate.locale = "en-US"; // optional
-renderTemplate.strict = true; // optional
+renderTemplate.strict = true; // optional.  Strict defaults to false if not set
 
 try
 {
@@ -577,6 +580,16 @@ catch (AggregateException exception)
     // Exception handling
 }
 ```
+Possible esp_account.esp_type values:
+* sendgrid
+* mailgun
+* mandrill
+* postmark
+* ses
+* mailjet
+* dyn
+* sparkpost
+* smtp
 ### Add a new ESP account
 #### POST /esp_accounts
 SendGrid example:
@@ -764,12 +777,14 @@ catch (AggregateException exception)
 With all query parameters to filter the logs:
 ```csharp
 var customerEmailAddress = "customer@example.com";
+var queryStartTime = 123456789;
+var queryEndTime = 987654321;
 
 // Build the query parameters.  All of these are optional
 var queryParameters = new Dictionary<string, object>();
 queryParameters.Add("count", 2);
-queryParameters.Add("created", LOG_CREATED_BEFORE_TIME);
-queryParameters.Add("created_gt", LOG_CREATED_AFTER_TIME);
+queryParameters.Add("created_gt", queryStartTime);
+queryParameters.Add("created_lt", queryEndTime);
 
 // Make the API call
 try
@@ -872,6 +887,7 @@ dripCampaign.tags.Add("tag2"); // Optional
 dripCampaign.tags.Add("tag3"); // Optional
 dripCampaign.locale = "en-US"; // Optional
 dripCampaign.esp_account = "esp_1a2b3c4d5e"; // Optional
+dripCampaign.email_data.Add("amount", "$12.00"); // Optional
 
 // Make the API call
 try
@@ -890,7 +906,7 @@ var dripCampaignId = "dc_VXKGx85NmwHnRv9FZv88TW";
 var customerEmailAddress = "user@email.com";
 try
 { 
-    var dripCampaignDeactivateResponse = await DripCampaign.DeactivateAsync(dripCampaignId, customerEmailAddress);
+    var dripCampaignResponse = await DripCampaign.DeactivateAsync(dripCampaignId, customerEmailAddress);
 }
 catch (AggregateException exception)
 {
@@ -904,7 +920,7 @@ If a user unsubscribes, changes email addresses, or cancels, call this endpoint 
 var customerEmailAddress = "user@email.com";
 try
 { 
-    var dripCampaignDeactivateResponse = await DripCampaign.DeactivateFromAllCampaignsAsync(customerEmailAddress);
+    var dripCampaignDeactivateAllResponse = await DripCampaign.DeactivateFromAllCampaignsAsync(customerEmailAddress);
 }
 catch (AggregateException exception)
 {

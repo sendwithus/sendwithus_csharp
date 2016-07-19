@@ -198,6 +198,7 @@ namespace SendwithusTest
         /// Tests the API call DELETE /groups/(:group_id)
         /// </summary>
         /// <returns>The asynchronous task</returns>
+        [TestMethod]
         public async Task TestDeleteCustomerGroupAsync()
         {
 

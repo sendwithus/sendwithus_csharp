@@ -33,7 +33,7 @@ namespace Sendwithus
         public Email(string template, Dictionary<string, object> templateData, EmailRecipient recipient)
         {
             this.template = template;
-            this.template_data = template_data;
+            this.template_data = templateData;
             this.recipient = recipient;
             sender = new EmailSender();
             cc = new Collection<EmailRecipient>();

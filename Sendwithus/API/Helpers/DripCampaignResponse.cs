@@ -9,7 +9,7 @@ namespace Sendwithus
     {
         public bool success { get; set; }
         public string status { get; set; }
-        public DripCampaignSummary drip_campaign { get; }
+        public DripCampaignSummary drip_campaign { get; set; }
         public string recipient_address { get; set; }
         public string message { get; set; }
 

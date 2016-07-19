@@ -151,6 +151,7 @@ namespace SendwithusTest
         public static async Task<EmailResponse> BuildAndSendEmailWithAllParametersAsync()
         {
             var email = BuildBarebonesEmail();
+            email.recipient.name = DEFAULT_EMAIL_NAME;
             email.cc.Add(new EmailRecipient(DEFAULT_CC_EMAIL_ADDRESS_1, DEFAULT_EMAIL_NAME));
             email.cc.Add(new EmailRecipient(DEFAULT_CC_EMAIL_ADDRESS_2, DEFAULT_EMAIL_NAME));
             email.bcc.Add(new EmailRecipient(DEFAULT_BCC_EMAIL_ADDRESS_1, DEFAULT_EMAIL_NAME));
