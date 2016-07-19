@@ -1095,6 +1095,11 @@ The process to making a batch API call is:
   * After this call, all subsequent API calls will be sent out as soon as they are called, instead of being queued.
 4. Access the response to each batch command by calling 
 
+Additional Features:
+* PauseBatchRequest() and ResumeBatchRequest(): Respectively exist and then re-enter batch mode without clearing the list of batched calls.  Allows other API calls to be sent immediately (not batched) while building a list of batched API calls.
+* AbortBatchRequest(): Allows a batch API calls can be aborted without sending any of the batched calls.  This will exit batch mode and clear the list of batched API calls.
+
+
 ### Send batch request
 #### POST /batch
 Example using 5 commands:
@@ -1224,7 +1229,67 @@ finally
     BatchApiRequest.SetMaximumBatchRequestsToDefault();
 }
 ```
+Example pausing and resuming a batch request
+```csharp
+// Start the batch request
+BatchApiRequest.StartNewBatchRequest();
 
+try
+{
+    // Make the API call to be batched
+    await Template.GetTemplatesAsync();
+
+    // Pause the batch request
+    BatchApiRequest.PauseBatchRequest();
+
+    // Make another API call which will be sent immediately
+    var snippets = await Snippet.GetSnippetsAsync();
+
+    // Resume the batch request and add another API call to it
+    BatchApiRequest.ResumeBatchRequest();
+    await Segment.GetSegmentsAsync();
+
+    // Make the final batch request, containing the Get Templates and Get Segments API calls
+    var batchResponses = await BatchApiRequest.SendBatchApiRequest();
+}
+catch (AggregateException exception)
+{
+    Assert.Fail(exception.ToString());
+}
+catch (InvalidOperationException exception)
+{
+    // Exception handling
+}
+```
+Example aborting a batch request
+```csharp
+// Start the batch request
+BatchApiRequest.StartNewBatchRequest();
+
+try
+{
+    // Make the API call to be batched
+    await Template.GetTemplatesAsync();
+
+    // Abort the batch request
+    BatchApiRequest.AbortBatchRequest();
+
+    // Make another API call which will be sent immediately
+    var snippets = await Snippet.GetSnippetsAsync();
+
+    // For demonstration, make the aborted batch API Reqeust anyways
+    // This will be an empty request as the list of batched API calls was cleared by the Abort call
+    var batchResponses = await BatchApiRequest.SendBatchApiRequest();
+}
+catch (AggregateException exception)
+{
+    Assert.Fail(exception.ToString());
+}
+catch (InvalidOperationException exception)
+{
+    // Exception handling
+}
+```
 
 ## Tests
 

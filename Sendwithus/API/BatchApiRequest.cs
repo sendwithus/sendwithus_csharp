@@ -48,7 +48,8 @@ namespace Sendwithus
         }
 
         /// <summary>
-        /// Starts a Batch Request
+        /// Starts a new Batch Request.
+        /// Enables batch API mode and clears the list of existing batch requests.
         /// </summary>
         public static void StartNewBatchRequest()
         {
@@ -140,6 +141,36 @@ namespace Sendwithus
 
             // Otherwise, add the new request to the batch
             _batchApiRequests.Add(newRequest);
+        }
+
+        /// <summary>
+        /// Exits batch mode without calling any of the batched API calls.
+        /// Clears the list of batched API calls
+        /// </summary>
+        public static void AbortBatchRequest()
+        {
+            _batchApiModeEnabled = false;
+            _batchApiRequests.Clear();
+        }
+
+
+        /// <summary>
+        /// Exits Batch API mode without clearing the list of batched API calls.
+        /// Allows other API calls can be made immediately.
+        /// Call ResumeBatchRequest to add API calls to the existing list of batched API calls
+        /// </summary>
+        public static void PauseBatchRequest()
+        {
+            _batchApiModeEnabled = false;
+        }
+
+        /// <summary>
+        /// Enters batch request mode without clearning the existing list of batched API calls.
+        /// New API calls will be added to the existing list.
+        /// </summary>
+        public static void ResumeBatchRequest()
+        {
+            _batchApiModeEnabled = true;
         }
     }
 }

@@ -56,7 +56,6 @@ namespace SendwithusTest
             {
                 Assert.Fail(exception.ToString());
             }
-
         }
 
         /// <summary>
@@ -230,6 +229,86 @@ namespace SendwithusTest
             {
                 // Return the max batch request limit to its default value
                 BatchApiRequest.SetMaximumBatchRequestsToDefault();
+            }
+        }
+
+        /// <summary>
+        /// Tests the AbortBatchRequest function
+        /// </summary>
+        /// <returns>The asynchronous task</returns>
+        [TestMethod]
+        public async Task TestBatchApiRequestsAbortRequestAsync()
+        {
+            Trace.WriteLine("POST /batch");
+
+            // Start the batch request
+            BatchApiRequest.StartNewBatchRequest();
+
+            try
+            {
+                // Make the API call to be batched
+                await Template.GetTemplatesAsync();
+
+                // Abort the batch request
+                BatchApiRequest.AbortBatchRequest();
+
+                // Make another API call and make sure it goes through
+                var snippets = await Snippet.GetSnippetsAsync();
+                SendwithusClientTest.ValidateResponse(snippets);
+
+                // Make the aborted batch API Reqeust anyways
+                var batchResponses = await BatchApiRequest.SendBatchApiRequest();
+
+                // Make sure no API calls were included in the batch request (empty request)
+                ValidateBatchApiCallResponses(batchResponses, 0);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Tests PauseBatchRequest and ResumeBatchRequest functions
+        /// </summary>
+        /// <returns>The asynchronous task</returns>
+        [TestMethod]
+        public async Task TestBatchApiRequestsPauseAndResumeRequestAsync()
+        {
+            Trace.WriteLine("POST /batch");
+
+            // Start the batch request
+            BatchApiRequest.StartNewBatchRequest();
+
+            try
+            {
+                // Make the API call to be batched
+                await Template.GetTemplatesAsync();
+
+                // Pause the batch request
+                BatchApiRequest.PauseBatchRequest();
+
+                // Make another API call and make sure it goes through
+                var snippets = await Snippet.GetSnippetsAsync();
+                SendwithusClientTest.ValidateResponse(snippets);
+
+                // Resume the batch request and add another API call to it
+                BatchApiRequest.ResumeBatchRequest();
+                await Segment.GetSegmentsAsync();
+
+                // Make the final batch request
+                var batchResponses = await BatchApiRequest.SendBatchApiRequest();
+
+                // Make sure both API calls were included in the batch request
+                ValidateBatchApiCallResponses(batchResponses, 2);
+
+                // Valideate each of those requests
+                ValidateIndividualBatchedApiCallResponse<List<Template>>(batchResponses[0]);
+                ValidateIndividualBatchedApiCallResponse<List<Segment>>(batchResponses[1]);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
             }
         }
 
