@@ -7,7 +7,7 @@ sendwithus C# Client
 [![Build status](https://ci.appveyor.com/api/projects/status/2f6ljyg5a6y1umba/branch/master?svg=true)](https://ci.appveyor.com/project/bvanvugt/sendwithus-csharp/branch/master)
 
 ## requirements
-    none
+none
     
 ## API Coverage
 With one exception, this client covers all of the sendwithus API calls documented at: https://www.sendwithus.com/docs/api#overview
@@ -22,7 +22,6 @@ If you are using Visual Studio 2015:
 * Search for "SendwithusClient"
   * Be sure to use the one that's by sendwithus.  There's another one called SendWithUs.Client by Mimeo, but that is not supported by sendwithus
 * Select the "SendwithusClient" package and choose "Install" for your solution/project.
-
 
 ## Getting started
 
@@ -1290,6 +1289,34 @@ catch (InvalidOperationException exception)
     // Exception handling
 }
 ```
+
+## Managing the API
+### Versioning
+The build version is set by the Sendwithus_csharp/appveyor.yml file.
+It is set so that the 3rd digit in the build number is automatically incremented whenever a new build is made.
+To change the major or minor build revision, simply edit the line at the top of the file accordingly:
+```
+# version format
+version: 1.0.{build}
+```
+### Continuous Integration
+This project uses AppVeyor for its CI.  AppVeyor is configured to automatically run all of the unit tests whenever a new commit is pushed to GitHub, regardless of the branch.
+All of the AppVeyor settings are configured in the Sendwithus_csharp/appveyor.yml file.
+All unused settings are simply commented out, so all available settings can be identified in that file.
+### Continuous Deployment
+The appveyor.yml file is configured to automatically deploy new commits to NuGet.
+It is configured so that only new commits on the master branch will be deployed.  Therefore, please develop all features on a feature branch and only integrate with master when ready for deployment.
+This setting can be changed under the "build:" settings in the appveyor.yml file.
+It is also possible to manually build and deploy the solution from www.appveyor.com.
+
+## CLS Compliance - Using this Client in Other .NET Languages
+The project is CLS compliant, so the package can be used in any .NET language that supports CLS compliant packages.
+For example, this includes VB.NET and might also include F# and Visual C++.  The lattter two haven't been tested, but support for VB.NET has been.
+To add the package to a solution in a different language, simply follow the same procedure that you would for C#:
+* In the Solution Explorer window, right click on your solution and select "Manage NuGet Packages for Solution..."
+* Search for "SendwithusClient"
+  * Be sure to use the one that's by sendwithus.  There's another one called SendWithUs.Client by Mimeo, but that is not supported by sendwithus and might not be CLS compliant.
+* Select the "SendwithusClient" package and choose "Install" for your solution/project.
 
 ## Tests
 
