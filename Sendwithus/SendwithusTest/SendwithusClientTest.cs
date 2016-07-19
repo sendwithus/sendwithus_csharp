@@ -11,9 +11,8 @@ namespace SendwithusTest
 {
     public static class SendwithusClientTest
     {
-        public const string API_KEY_TEST = "test_3e7ae15aeb9b8a4b50bce7138c88d81c696edd0d";
-        public const string API_KEY_PRODUCTION = "live_3cb190a9c3df0defbd0c0ab56e34f3b1747eedfa";
-        private static Random random = new Random();
+        public const string API_KEY_TEST = "test_3e7ae15aeb9b8a4b50bce7138c88d81c696edd0d"; // Must use this account for all of the unit tests to work
+        private static Random _random = new Random();
 
         /// <summary>
         /// Validates the response from an API call
@@ -68,7 +67,7 @@ namespace SendwithusTest
         {
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             return new string(Enumerable.Repeat(chars, length)
-              .Select(s => s[random.Next(s.Length)]).ToArray());
+              .Select(s => s[_random.Next(s.Length)]).ToArray());
         }
 
         /// <summary>
