@@ -1299,6 +1299,10 @@ To change the major or minor build revision, simply edit the line at the top of 
 # version format
 version: 1.0.{build}
 ```
+The way the version settings for the final package are set is:
+* "version" variable set in appveyor.yml file, as shown above
+* appveyor.yml sets the C# project's "assembly_version", "assembly_file_version", and "assembly_informational_version" to this "version"
+* the sendwithus_csharp/Sendwithus/SendwithusClient.nuspec sets the NuGet version to the assembly version
 ### Continuous Integration
 This project uses AppVeyor for its CI.  AppVeyor is configured to automatically run all of the unit tests whenever a new commit is pushed to GitHub, regardless of the branch.
 All of the AppVeyor settings are configured in the Sendwithus_csharp/appveyor.yml file.
@@ -1309,6 +1313,7 @@ It is configured so that only new commits on the master branch will be deployed.
 This setting can be changed under the "build:" settings in the appveyor.yml file.
 It is also possible to manually build and deploy the solution from www.appveyor.com.
 
+Settings for the NuGet deployment can be edited in the sendwithus_csharp/Sendwithus/SendwithusClient.nuspec file.
 ## CLS Compliance - Using this Client in Other .NET Languages
 The project is CLS compliant, so the package can be used in any .NET language that supports CLS compliant packages.
 For example, this includes VB.NET and might also include F# and Visual C++.  The lattter two haven't been tested, but support for VB.NET has been.

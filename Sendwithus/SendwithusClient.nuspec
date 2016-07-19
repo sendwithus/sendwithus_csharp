@@ -5,14 +5,14 @@
     <version>$version$</version>
     <title>$title$</title>
     <authors>$author$</authors>
-    <owners>$author$</owners>
+    <owners>sendwithus</owners>
     <licenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</licenseUrl>
     <projectUrl>http://PROJECT_URL_HERE_OR_DELETE_THIS_LINE</projectUrl>
     <iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Test release to test Nuget configuration.</releaseNotes>
+    <releaseNotes>Official release of the Sendwithus C#/.NET client.</releaseNotes>
     <copyright>Copyright 2016</copyright>
-    <tags>sendwithus C# API Client REST</tags>
+    <tags>sendwithus C# API Client REST VB.NET Visual Basic CLS .NET</tags>
   </metadata>
 </package>
