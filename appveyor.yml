@@ -9,7 +9,7 @@
 #---------------------------------#
 
 # version format
-version: 1.0.{build}
+version: 0.0.{build}
 
 # you can use {branch} name in version format too
 # version: 1.0.{build}-{branch}
@@ -159,11 +159,12 @@ assembly_info:
   assembly_informational_version: '{version}'
 
 
-## Automatically register private account and/or project AppVeyor NuGet feeds.
-#nuget:
-#  account_feed: true
+# TODO: review need for this
+# Automatically register private account and/or project AppVeyor NuGet feeds.
+nuget:
+  account_feed: true
 # project_feed: true
-#  disable_publish_on_pr: true     # disable publishing of .nupkg artifacts to
+  disable_publish_on_pr: true     # disable publishing of .nupkg artifacts to
                                   # account/project feeds for pull request builds
 
 #---------------------------------#
@@ -192,9 +193,9 @@ build:
 #  publish_wap: true               # package Web Application Projects (WAP) for Web Deploy
 #  publish_wap_xcopy: true         # package Web Application Projects (WAP) for XCopy deployment
 #  publish_azure: true             # package Azure Cloud Service projects and push to artifacts
-#  publish_nuget: true             # package projects with .nuspec files and push to artifacts
-#  publish_nuget_symbols: true     # generate and publish NuGet symbol packages
-#  include_nuget_references: true  # add -IncludeReferencedProjects option while packaging NuGet artifacts
+  publish_nuget: true             # package projects with .nuspec files and push to artifacts
+  publish_nuget_symbols: true     # generate and publish NuGet symbol packages
+  include_nuget_references: true  # add -IncludeReferencedProjects option while packaging NuGet artifacts
 
   # MSBuild verbosity level
   #verbosity: quiet|minimal|normal|detailed
@@ -257,8 +258,8 @@ build_script:
 #      artifacts configuration    #
 #---------------------------------#
 
-## Push any nupkg files
-#artifacts:
+# Push any nupkg files
+artifacts:
 #
 #  # pushing a single file
 #  - path: test.zip
@@ -270,8 +271,8 @@ build_script:
 #  # pushing entire folder as a zip archive
 #  - path: logs
 #
-#  # pushing all *.nupkg files in build directory recursively
-#  - path: '**\*.nupkg'
+  # pushing all *.nupkg files in build directory recursively
+  - path: '**\*.nupkg'
 
 
 #---------------------------------#
@@ -280,8 +281,8 @@ build_script:
 
 # providers: Local, FTP, WebDeploy, AzureCS, AzureBlob, S3, NuGet, Environment
 # provider names are case-sensitive!
-#deploy:
-#
+deploy:
+
 # Only deploy to NuGet
 #    # FTP deployment provider settings
 #  - provider: FTP
@@ -353,20 +354,20 @@ build_script:
 #    target_profile: Cloud
 #    artifact: MyPackage.cspkg
 
-   # Deploying to NuGet feed
-# - provider: NuGet
+    # Deploying to NuGet feed
+  - provider: NuGet
 # Leave server unspecified to use default (nuget.org)
 #    server: https://my.nuget.server/feed
-#   api_key:
-#     secure: abcd
+    api_key:
+      secure: etDyKI9jqvawsr89ioItsW/6xI/jXE6VXaNuHTVF6b0MMAxiQKySOSRtJX6TA2Eg
 #    skip_symbols: false
 #    symbol_server: https://your.symbol.server/feed
-## Only deploy Release builds on the master branch
-#   artifact: /.*\.nupkg/
-#   on:
-#     branch: master
-#     platform: Any CPU
-#     configuration: Release
+# Only deploy Release builds on the master branch
+    artifact: /.*\.nupkg/
+    on:
+      branch: master
+      platform: Any CPU
+      configuration: Release    
      
 #    # Deploy to GitHub Releases
 #  - provider: GitHub
