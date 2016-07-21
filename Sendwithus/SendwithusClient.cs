@@ -22,15 +22,14 @@ namespace Sendwithus
     /// </summary>
     public static class SendwithusClient
     {
-        public const string API_VERSION = "v1";
-        public const string API_PASSWORD = ""; // API uses an empty string as the password
-        public const string CLIENT_VERSION = "1.0.0";
-        public const string CLIENT_LANGUAGE = "csharp";
-        public const string API_PROTO = "https";
-        public const string API_HOST = "api.sendwithus.com";
-        public const string API_PORT = "443";
-        public const string SWU_API_HEADER = "X-SWU-API-KEY";
-        public const string SWU_CLIENT_HEADER = "X-SWU-API-CLIENT";
+        public static string API_VERSION { get; set; } = "v1";
+        public static string CLIENT_VERSION { get; set; } = typeof(SendwithusClient).Assembly.ToString();
+        public static string CLIENT_LANGUAGE { get; set; } = "csharp";
+        public static string API_PROTO { get; set; } = "https";
+        public static string API_HOST { get; set; } = "api.sendwithus.com";
+        public static string API_PORT { get; set; } = "443";
+        public static string SWU_API_HEADER { get; set; } = "X-SWU-API-KEY";
+        public static string SWU_CLIENT_HEADER { get; set; } = "X-SWU-API-CLIENT";
         public const int DEFAULT_RETRY_COUNT = 3; // Default to 3 retries for each API call
         public const int DEFAULT_RETRY_INTERVAL_MILLISECONDS = 100; // Default retry interval of 100ms
         public const Int32 DEFAULT_TIMEOUT_MILLISECONDS = 30000; // 30s
