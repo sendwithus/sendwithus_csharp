@@ -35,6 +35,7 @@ namespace Sendwithus
         public const Int32 DEFAULT_TIMEOUT_MILLISECONDS = 30000; // 30s
 
         public static string ApiKey { get; set; }
+        public static string ApiPassword { get; set; } = ""; // Password is currently an empty string
         public static int RetryCount { get; set; } = DEFAULT_RETRY_COUNT;
         public static int RetryIntervalMilliseconds { get; set; } = DEFAULT_RETRY_INTERVAL_MILLISECONDS;
 
