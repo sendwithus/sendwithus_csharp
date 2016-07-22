@@ -216,7 +216,6 @@ namespace Sendwithus.Net
             var credentialsString = String.Format("{0}:{1}", SendwithusClient.ApiKey, SendwithusClient.ApiPassword);
             var credentialsBytes = Encoding.ASCII.GetBytes(credentialsString);
             client.DefaultRequestHeaders.Authorization= new AuthenticationHeaderValue("Basic", Convert.ToBase64String(credentialsBytes));
-            client.DefaultRequestHeaders.Add(SendwithusClient.SWU_API_HEADER, SendwithusClient.ApiKey);
             var clientStub = String.Format(CultureInfo.InvariantCulture, "{0}-{1}", SendwithusClient.CLIENT_LANGUAGE, SendwithusClient.CLIENT_VERSION);
             client.DefaultRequestHeaders.Add(SendwithusClient.SWU_CLIENT_HEADER, clientStub);
             client.Timeout = SendwithusClient.GetTimeout();
