@@ -159,11 +159,11 @@ assembly_info:
   assembly_informational_version: '{version}'
 
 
-## Automatically register private account and/or project AppVeyor NuGet feeds.
-#nuget:
-#  account_feed: true
+# Automatically register private account and/or project AppVeyor NuGet feeds.
+nuget:
+  account_feed: true
 # project_feed: true
-#  disable_publish_on_pr: true     # disable publishing of .nupkg artifacts to
+  disable_publish_on_pr: true     # disable publishing of .nupkg artifacts to
                                   # account/project feeds for pull request builds
 
 #---------------------------------#
@@ -192,9 +192,9 @@ build:
 #  publish_wap: true               # package Web Application Projects (WAP) for Web Deploy
 #  publish_wap_xcopy: true         # package Web Application Projects (WAP) for XCopy deployment
 #  publish_azure: true             # package Azure Cloud Service projects and push to artifacts
-#  publish_nuget: true             # package projects with .nuspec files and push to artifacts
-#  publish_nuget_symbols: true     # generate and publish NuGet symbol packages
-#  include_nuget_references: true  # add -IncludeReferencedProjects option while packaging NuGet artifacts
+  publish_nuget: true             # package projects with .nuspec files and push to artifacts
+  publish_nuget_symbols: true     # generate and publish NuGet symbol packages
+  include_nuget_references: true  # add -IncludeReferencedProjects option while packaging NuGet artifacts
 
   # MSBuild verbosity level
   #verbosity: quiet|minimal|normal|detailed
@@ -353,20 +353,21 @@ deploy:
 #    target_profile: Cloud
 #    artifact: MyPackage.cspkg
 
-#   # Deploying to NuGet feed
-# - provider: NuGet
-## Leave server unspecified to use default (nuget.org)
-##    server: https://my.nuget.server/feed
-#   api_key:
-##     secure: asdf
-##    skip_symbols: false
-##    symbol_server: https://your.symbol.server/feed
-## Only deploy Release builds on the master branch
-#   artifact: /.*\.nupkg/
-#   on:
-#     branch: master
-#     platform: Any CPU
-#     configuration: Release
+   # Deploying to NuGet feed
+ - provider: NuGet
+# Leave server unspecified to use default (nuget.org)
+#    server: https://my.nuget.server/feed
+   api_key:
+#     secure: Rea5RB61aPttROjfP7gPZ+X+QF2ZZPpEJX9Qb0mdCXZ7je3JwbJCpK9In+A8mhNK
+    secure: UnIpUxrxUuG1hbRiYfNvFCXJCsgQUDugWIQuR4Jcd+HwFykVhQGrbhYctR5seAdW
+#    skip_symbols: false
+#    symbol_server: https://your.symbol.server/feed
+# Only deploy Release builds on the master branch
+   artifact: /.*\.nupkg/
+   on:
+     branch: master
+     platform: Any CPU
+     configuration: Release
      
 #    # Deploy to GitHub Releases
 #  - provider: GitHub
