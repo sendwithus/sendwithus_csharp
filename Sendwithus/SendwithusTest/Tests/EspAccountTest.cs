@@ -17,22 +17,6 @@ namespace SendwithusTest
         private const string DEFAULT_ESP_ACCOUNT_ID = "esp_e3ut7pFtWttcN4HNoQ8Vgm";
         private const string DEFAULT_ESP_ACCOUNT_TYPE = "sendgrid";
         private const int INVALID_ESP_ACCOUNT_TYPE = 12345;
-        private const string SENDGRID_USERNAME = "sendwithus.test@gmail.com";
-        private const string SENDGRID_PASSWORD = "^5eMR863*0tmP8qLD&IT";
-        private const string MAILGUN_API_KEY = "key-b9b1f8b90e355a3ff10e076411c23dd3";
-        private const string MAILGUN_DOMAIN = "sandboxcab24e8a41e2413e8e0c0c7f9e6e312a.mailgun.org";
-        private const string MANDRILL_API_KEY = "EFwe7N8whG3pjDR0asmCcw";
-        private const string POSTMARK_API_KEY = "30feb45f-e6f9-471f-b38e-696d5d7ae419";
-        private const string SES_ACCESS_KEY_ID = "mysesaccesskeyid"; // NOTE: this will fail authentication. To properly test, add your own SES Access Key ID
-        private const string SES_SECRET_ACCESS_KEY = "mysessecretaccesskey"; // NOTE: this will fail authentication.  To properly test, add your own SES Secret Access Key
-        private const string SES_REGION = "us-east-1";
-        private const string MAILJET_API_KEY = "4c3b9d91df19868f29c6b37a37fea0c2";
-        private const string MAILJET_SECRET_KEY = "ad26f1fbe609090561b38012bf57d91d";
-        private const string DYN_API_KEY = "mydynapikey"; // NOTE: this will fail authentication.  To properly test, add your own DYN API Key
-        private const string SMTP_HOST = "smtp.mandrillapp.com"; // Use Mandrill's SMTP server for testing
-        private const int SMTP_PORT = 587;
-        private const string SMTP_USERNAME = "sendwithus";
-        private const string SMTP_PASSWORD = MANDRILL_API_KEY;
 
         /// <summary>
         /// Sets the API 
@@ -120,6 +104,30 @@ namespace SendwithusTest
             }
         }
 
+        // <summary>
+        /// Tests the API call PUT /esp_accounts/set_default
+        /// </summary>
+        /// <returns>The associated task</returns>
+        [TestMethod]
+        public async Task TestSetDefaultEspAccountAsync()
+        {
+            Trace.WriteLine("PUT /esp_accounts/set_default");
+
+            // Make the API call
+            try
+            {
+                var espAccountResponse = await EspAccount.SetDefaultEspAccountAsync(DEFAULT_ESP_ACCOUNT_ID);
+
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(espAccountResponse);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
+        }
+
+        /*
         /// <summary>
         /// Tests the API call POST /esp_accounts with a sendgrid account
         /// </summary>
@@ -310,7 +318,7 @@ namespace SendwithusTest
                 SendwithusClientTest.ValidateException(exception, HttpStatusCode.BadRequest);
             }
         }
-
+        
         // <summary>
         /// Tests the API call POST /esp_accounts with an SMTP account
         /// </summary>
@@ -337,28 +345,6 @@ namespace SendwithusTest
                 Assert.Fail(exception.ToString());
             }
         }
-
-        // <summary>
-        /// Tests the API call PUT /esp_accounts/set_default
-        /// </summary>
-        /// <returns>The associated task</returns>
-        [TestMethod]
-        public async Task TestSetDefaultEspAccountAsync()
-        {
-            Trace.WriteLine("PUT /esp_accounts/set_default");
-
-            // Make the API call
-            try
-            { 
-                var espAccountResponse = await EspAccount.SetDefaultEspAccountAsync(DEFAULT_ESP_ACCOUNT_ID);
-
-                // Validate the response
-                SendwithusClientTest.ValidateResponse(espAccountResponse);
-            }
-            catch (AggregateException exception)
-            {
-                Assert.Fail(exception.ToString());
-            }
-        }
+        */
     }
 }
