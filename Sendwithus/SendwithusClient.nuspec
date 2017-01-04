@@ -8,7 +8,7 @@
     <owners>sendwithus</owners>
     <licenseUrl>https://github.com/sendwithus/sendwithus_csharp/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/sendwithus/sendwithus_csharp</projectUrl>
-    <iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>
+    <iconUrl>https://raw.githubusercontent.com/sendwithus/sendwithus_csharp/master/swu-logo.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <releaseNotes>Official release of the Sendwithus C# client.</releaseNotes>
