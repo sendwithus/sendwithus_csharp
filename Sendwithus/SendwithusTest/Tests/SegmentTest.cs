@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Sendwithus;
 using System;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ namespace SendwithusTest.Tests
     /// <summary>
     /// Unit testing class for the Segment API calls
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class SegmentTest
     {
         private const string DEFAULT_SEGMENT_ID = "seg_TBe8jzK8xUjT5GExjkPgtm";
@@ -22,7 +22,7 @@ namespace SendwithusTest.Tests
         /// <summary>
         /// Sets the API 
         /// </summary>
-        [TestInitialize]
+        [SetUp]
         public void InitializeUnitTesting()
         {
             // Set the API key
@@ -33,7 +33,7 @@ namespace SendwithusTest.Tests
         /// Tests the API call GET /segments
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestGetSegmentsAsync()
         {
             Trace.WriteLine("GET /segments");
@@ -56,7 +56,7 @@ namespace SendwithusTest.Tests
         /// Tests the API call POST /segments/(:segment_id)/send with the minimum parameters
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestSendToSegmentWithMinimumParametersAsync()
         {
             Trace.WriteLine(String.Format("POST /segments/{0}/send with the minimum parameters", DEFAULT_SEGMENT_ID));
@@ -82,7 +82,7 @@ namespace SendwithusTest.Tests
         /// Tests the API call POST /segments/(:segment_id)/send with all parameters
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestSendToSegmentWithAllParametersAsync()
         {
             Trace.WriteLine(String.Format("POST /segments/{0}/send with all parameters", DEFAULT_SEGMENT_ID));
@@ -121,7 +121,7 @@ namespace SendwithusTest.Tests
         /// Tests the API call POST /segments/(:segment_id)/send with an invalid segment ID
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestSendToSegmentWithInvalidSegmentIdAsync()
         {
             Trace.WriteLine(String.Format("POST /segments/{0}/send with invalid segment ID", INVALID_SEGMENT_ID));

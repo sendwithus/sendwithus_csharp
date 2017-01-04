@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Sendwithus;
 using System;
 using System.Diagnostics;
@@ -10,7 +10,7 @@ namespace SendwithusTest
     /// A class to test the sendwithus API's retry functionality.
     /// Covers the number of retries and the interval between retries
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class RetryTest
     {
         private const int FAILURE_TIMEOUT_MILLISECONDS = 1; // 1ms
@@ -22,7 +22,7 @@ namespace SendwithusTest
         /// <summary>
         /// Sets the API 
         /// </summary>
-        [TestInitialize]
+        [SetUp]
         public void InitializeUnitTesting()
         {
             // Set the API key
@@ -33,7 +33,7 @@ namespace SendwithusTest
         /// Tests that the default retry count works with an HTTP GET request
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestDefaultRetryCountWithGetAsync()
         {
 
@@ -63,7 +63,7 @@ namespace SendwithusTest
         /// Tests that the default retry count works with an HTTP PUT request
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestDefaultRetryCountWithPutAsync()
         {
 
@@ -93,7 +93,7 @@ namespace SendwithusTest
         /// Tests that the default retry count works with an HTTP POST request
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestDefaultRetryCountWithPostAsync()
         {
             // Set the timeout low enough that the API call is guaranteed to fail
@@ -122,7 +122,7 @@ namespace SendwithusTest
         /// Tests that the default retry count works with an HTTP DELETE request
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestDefaultRetryCountWithDeleteAsync()
         {
             // Set the timeout low enough that the API call is guaranteed to fail
@@ -151,7 +151,7 @@ namespace SendwithusTest
         /// Tests that the default retry count can be set to a non-default value
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestNonDefaultRetryCountAsync()
         {
             // Set the timeout low enough that the API call is guaranteed to fail
@@ -183,7 +183,7 @@ namespace SendwithusTest
         /// Tests that the default retry interval is used properly
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestDefaultRetryInterval()
         {
             // Set the timeout low enough that the API call is guaranteed to fail and has a negligible effect on the run time
@@ -227,7 +227,7 @@ namespace SendwithusTest
         /// Tests that the retry interval works properly when set to a non-default value
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestNonDefaultRetryInterval()
         {
             // Set the timeout low enough that the API call is guaranteed to fail and has a negligible effect on the run time

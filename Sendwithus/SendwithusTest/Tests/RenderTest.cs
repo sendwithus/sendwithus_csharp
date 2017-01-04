@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Sendwithus;
 using System;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ namespace SendwithusTest
     /// <summary>
     /// Unit testing class for the Render Template API calls
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class RenderTest
     {
         private const string DEFAULT_TEMPLATE_ID = "tem_SxZKpxJSHPbYDWRSQnAQUR";
@@ -23,7 +23,7 @@ namespace SendwithusTest
         /// <summary>
         /// Sets the API 
         /// </summary>
-        [TestInitialize]
+        [SetUp]
         public void InitializeUnitTesting()
         {
             // Set the API key
@@ -34,7 +34,7 @@ namespace SendwithusTest
         /// Tests the API call POST /render with only the required parameters
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestRenderTemplateWithOnlyRequiredParametersAsync()
         {
             Trace.WriteLine("POST /render");
@@ -59,7 +59,7 @@ namespace SendwithusTest
         /// Tests the API call POST /render with all of the parameters, specifying the template version ID istead of the version name
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestRenderTemplateWithAllParametersIdAsync()
         {
             Trace.WriteLine("POST /render");
@@ -82,7 +82,7 @@ namespace SendwithusTest
         /// Tests the API call POST /render with all of the parameters, specifying the template version name istead of the version ID
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestRenderTemplateWithAllParametersNameAsync()
         {
             Trace.WriteLine("POST /render");
@@ -105,7 +105,7 @@ namespace SendwithusTest
         /// Tests the API call POST /render with an invalid template ID
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestRenderTemplateWithInvalidIdAsync()
         {
             Trace.WriteLine("POST /render");

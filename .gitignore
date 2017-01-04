@@ -6,3 +6,5 @@ Release/
 *.exe
 obj/
 TestResults/
+packages/
+*.userprefs

@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sendwithus;
 using System;
 using System.Diagnostics;
@@ -32,7 +32,7 @@ namespace SendwithusTest
         /// Validates that the correct exception was thrown from an API call
         /// </summary>
         /// <param name="exception">The aggregate exception to validate</param>
-        /// <param name="stausCode">The expected exception status code</param>
+        /// <param name="expectedStatusCode">The expected exception status code</param>
         public static void ValidateException(AggregateException exception, HttpStatusCode expectedStatusCode)
         {
             // Make sure the exception parameter isn't null

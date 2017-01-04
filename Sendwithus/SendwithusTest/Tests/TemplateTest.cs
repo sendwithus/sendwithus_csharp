@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Sendwithus;
 using System;
 using System.Diagnostics;
@@ -10,7 +10,7 @@ namespace SendwithusTest
     /// <summary>
     /// Unit testing class for the Template API calls
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class TemplateTest
     {
         private const string DEFAULT_TEMPLATE_ID = "tem_SxZKpxJSHPbYDWRSQnAQUR";
@@ -24,7 +24,7 @@ namespace SendwithusTest
         /// <summary>
         /// Sets the API 
         /// </summary>
-        [TestInitialize]
+        [SetUp]
         public void InitializeUnitTesting()
         {
             // Set the API key
@@ -35,7 +35,7 @@ namespace SendwithusTest
         /// Tests the GET /templates API call
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestGetTemplatesAsync()
         {
             // Make the API call
@@ -58,7 +58,7 @@ namespace SendwithusTest
         /// Tests the GET /templates with an invalid API Key
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestGetTemplatesWithInvalidApiKeyAsync()
         {
             Trace.WriteLine(String.Format("GET /templates with invalid API Key: {0}", INVALID_API_KEY));
@@ -88,7 +88,7 @@ namespace SendwithusTest
         /// Tests the GET /templates/(:template_id) API call
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestGetTemplateByIdAsync()
         {
             // Make the API call
@@ -110,7 +110,7 @@ namespace SendwithusTest
         /// Tests the GET /templates/(:template_id) API call with an invalid ID
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestGetTemplateByIdInvalidIDAsync()
         {
             // Make the API call
@@ -131,7 +131,7 @@ namespace SendwithusTest
         /// Tests the GET /templates/(:template_id)/locales/(:locale) API call
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestGetTemplateByIdAndLocaleAsync()
         {
             // Make the API call
@@ -153,7 +153,7 @@ namespace SendwithusTest
         /// Tests the GET /templates/(:template_id)/locales/(:locale) API call
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestGetTemplateByIdAndLocaleInvalidLocaleAsync()
         {
             // Make the API call
@@ -174,7 +174,7 @@ namespace SendwithusTest
         /// Tests the GET /templates/(:template_id)/versions API call
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestGetTemplateVersionsByTemplateIdAsync()
         {
             // Make the API call
@@ -196,7 +196,7 @@ namespace SendwithusTest
         /// Tests the GET /templates/(:template_id)/locales/(:locale)/versions API call
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestGetTemplateVersionsByTemplateIdAndLocaleAsync()
         {
             // Make the API call
@@ -218,7 +218,7 @@ namespace SendwithusTest
         /// Tests the GET /templates/(:template_id)/versions/(:version_id) API call
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestGetTemplateVersionByIdAsync()
         {
             // Make the API call
@@ -240,7 +240,7 @@ namespace SendwithusTest
         /// Tests the GET /templates/(:template_id)/locales/(:locale)/versions/(:version_id) API call
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestGetTemplateVersionByIdAndLocaleAsync()
         {
             // Make the API call
@@ -262,7 +262,7 @@ namespace SendwithusTest
         /// Tests the API call PUT /templates/(:template_id)/versions/(:version_id)
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestUpdateTemplateVersionByIdWithAllParametersAsync()
         {
             // Make the API call
@@ -289,7 +289,7 @@ namespace SendwithusTest
         /// Tests the API call PUT /templates/(:template_id)/versions/(:version_id), using HTML instead of text
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestUpdateTemplateVersionByIdWithMinimumParametersHtmlAsync()
         {
             // Make the API call
@@ -315,7 +315,7 @@ namespace SendwithusTest
         /// Tests the API call PUT /templates/(:template_id)/versions/(:version_id), using text instead of HTML
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestUpdateTemplateVersionByIdWithMinimumParametersTextAsync()
         {
             // Make the API call
@@ -341,7 +341,7 @@ namespace SendwithusTest
         /// Tests the API call PUT /templates/(:template_id)/locales/(:locale)/versions/(:version_id) with only mandatory parameters, using HTML instead of text
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestUpdateTemplateVersionByIdAndLocaleWithMinimumParametersHtmlAsync()
         {
             // Make the API call
@@ -367,7 +367,7 @@ namespace SendwithusTest
         /// Tests the API call PUT /templates/(:template_id)/locales/(:locale)/versions/(:version_id) with only mandatory parameters, using text instead of HTML
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestUpdateTemplateVersionByIdAndLocaleWithMinimumParametersTextAsync()
         {
             // Make the API call
@@ -393,7 +393,7 @@ namespace SendwithusTest
         /// Tests the API call PUT /templates/(:template_id)/locales/(:locale)/versions/(:version_id) with all parameters
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestUpdateTemplateVersionByIdAndLocaleWithAllParametersAsync()
         {
             // Make the API call
@@ -420,7 +420,7 @@ namespace SendwithusTest
         /// Tests the API call POST /templates with the minimum parameters
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestCreateTemplateWithMinimumParametersAsync()
         {
             // Make the API call
@@ -442,7 +442,7 @@ namespace SendwithusTest
         /// Tests the API call POST /templates
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestCreateTemplateWithAllParametersAsync()
         {
             // Make the API call
@@ -464,7 +464,7 @@ namespace SendwithusTest
         /// Tests the API call POST /templates/(:template_id)/locales with the minimum parameters
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestAddLocaleToTemplateWithMinimumParmetersAsync()
         {
             // Create a new template to add a locale to
@@ -495,7 +495,7 @@ namespace SendwithusTest
         /// Tests the API call POST /templates/(:template_id)/locales with all parameters
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestAddLocaleToTemplateWithAllParmetersAsync()
         {
             // Create a new template to add a locale to
@@ -528,7 +528,7 @@ namespace SendwithusTest
         /// Tests the API call POST /templates/(:template_id)/versions with minimum parameters using html, not text
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestCreateTemplateVersionWithMinimumParametersHtmlAsync()
         {
             // Make the API call
@@ -554,7 +554,7 @@ namespace SendwithusTest
         /// Tests the API call POST /templates/(:template_id)/versions with minimum parameters using text, not html
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestCreateTemplateVersionWithMinimumParametersTextAsync()
         {
             // Make the API call
@@ -580,7 +580,7 @@ namespace SendwithusTest
         /// Tests the API call POST /templates/(:template_id)/versions with all parameters
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestCreateTemplateVersionWithAllParametersAsync()
         {
             // Make the API call
@@ -607,7 +607,7 @@ namespace SendwithusTest
         /// Tests the API call POST /templates/(:template_id)/locales/(:locale)/versions with the minimum parameters, using HTML instead of text
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestCreateTemplateVersionWithLocaleWithMinimumParametersHtmlAsync()
         {
             // Make the API call
@@ -633,7 +633,7 @@ namespace SendwithusTest
         /// Tests the API call POST /templates/(:template_id)/locales/(:locale)/versions with the minimum parameters, using text instead of HTML
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestCreateTemplateVersionWithLocaleWithMinimumParametersTextAsync()
         {
             // Make the API call
@@ -659,7 +659,7 @@ namespace SendwithusTest
         /// Tests the API call POST /templates/(:template_id)/locales/(:locale)/versions with all parameters
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestCreateTemplateVersionWithLocaleWithAllParametersAsync()
         {
             // Make the API call
@@ -686,7 +686,7 @@ namespace SendwithusTest
         /// Tests the API call DELETE /templates/(:template_id)
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestDeleteTemplateAsync()
         {
             // Create a new template to use for deletion
@@ -713,7 +713,7 @@ namespace SendwithusTest
         /// Tests the API call DELETE /templates/(:template_id)/locales/(:locale)
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestDeleteTemplateWithLocaleAsync()
         {
             // Create a new template to use for deletion

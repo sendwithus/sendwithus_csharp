@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Sendwithus;
 using System;
 using System.Diagnostics;
@@ -10,7 +10,7 @@ namespace SendwithusTest
     /// <summary>
     /// Class to test the sendwithus Drip Campaign API
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class DripCampaignTest
     {
         private const string DEFAULT_CAMPAIGN_ID = "dc_VXKGx85NmwHnRv9FZv88TW";
@@ -34,7 +34,7 @@ namespace SendwithusTest
         /// <summary>
         /// Sets the API 
         /// </summary>
-        [TestInitialize]
+        [SetUp]
         public void InitializeUnitTesting()
         {
             // Set the API key
@@ -45,7 +45,7 @@ namespace SendwithusTest
         /// Tests the API call POST /drip_campaigns/(drip_campaign_id)/activate
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestActivateDripCampaignAsyncWithMinimumParameters()
         {
             Trace.WriteLine(String.Format("POST /drip_campaigns/{0}/activate with minimum parameters",DEFAULT_CAMPAIGN_ID));
@@ -72,7 +72,7 @@ namespace SendwithusTest
         /// Tests the API call POST /drip_campaigns/(drip_campaign_id)/activate
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestActivateDripCampaignAsyncWithAllParameters()
         {
             Trace.WriteLine(String.Format("POST /drip_campaigns/{0}/activate with all parameters", DEFAULT_CAMPAIGN_ID));
@@ -112,7 +112,7 @@ namespace SendwithusTest
         /// Tests the API call POST /drip_campaigns/(drip_campaign_id)/activate with invalid campaign ID
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestActivateDripCampaignWithInvalidParameters()
         {
             Trace.WriteLine(String.Format("POST /drip_campaigns/{0}/activate with invalid campaign ID", INVALID_CAMPAIGN_ID));
@@ -136,7 +136,7 @@ namespace SendwithusTest
         /// Tests the API call POST /drip_campaigns/(drip_campaign_id)/deactivate
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestDeactivateFromDripCampaignAsync()
         {
             Trace.WriteLine(String.Format("POST /drip_campaigns/{0}/deactivate", DEFAULT_CAMPAIGN_ID));
@@ -159,7 +159,7 @@ namespace SendwithusTest
         /// Tests the API call POST /drip_campaigns/(drip_campaign_id)/deactivate
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestDeactivateFromAllDripCampaignsAsync()
         {
             Trace.WriteLine(String.Format("POST /drip_campaigns/{0}/deactivate", DEFAULT_CAMPAIGN_ID));
@@ -182,7 +182,7 @@ namespace SendwithusTest
         /// Tests the API call GET /drip_campaigns
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestGetDripCampaignsAsync()
         {
             Trace.WriteLine("GET /drip_campaigns");
@@ -205,7 +205,7 @@ namespace SendwithusTest
         /// Tests the API call GET /drip_campaigns/(drip_campaign_id)
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestGetDripCampaignAsync()
         {
             Trace.WriteLine(String.Format("GET /drip_campaigns/{0}",DEFAULT_CAMPAIGN_ID));

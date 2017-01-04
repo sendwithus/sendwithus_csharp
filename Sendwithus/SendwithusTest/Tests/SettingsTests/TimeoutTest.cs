@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Sendwithus;
 using System;
 using System.Diagnostics;
@@ -9,7 +9,7 @@ namespace SendwithusTest
     /// <summary>
     /// A class to test the HTTP Timeout settings for the sendwithus API client
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class TimeoutTest
     {
         private const string DEFAULT_TEMPLATE_ID = "tem_SxZKpxJSHPbYDWRSQnAQUR";
@@ -18,7 +18,7 @@ namespace SendwithusTest
         /// <summary>
         /// Sets the API 
         /// </summary>
-        [TestInitialize]
+        [SetUp]
         public void InitializeUnitTesting()
         {
             // Set the API key
@@ -29,7 +29,7 @@ namespace SendwithusTest
         /// Makes sure that a basic HTTP GET request does not timeout with the default timeout setting
         /// </summary>
         /// <returns>The associated Task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestTimeoutDefaultTimeout()
         {
             // Make sure the timeout is set to its default value
@@ -54,7 +54,7 @@ namespace SendwithusTest
         /// Makes sure that a basic HTTP GET request time's out when using a very short timeout setting (1ms)
         /// </summary>
         /// <returns>The associated Task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestTimeoutFailure()
         {
             // Set the timeout to a value that is sure to trigger a failure
