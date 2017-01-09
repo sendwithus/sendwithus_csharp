@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Sendwithus;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ namespace SendwithusTest
     /// <summary>
     /// Unit testing class for the Customer Groups API calls
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class BatchApiRequestTest
     {
         private const string DEFAULT_ESP_ACCOUNT_ID = "esp_e3ut7pFtWttcN4HNoQ8Vgm";
@@ -19,7 +19,7 @@ namespace SendwithusTest
         /// <summary>
         /// Sets the API 
         /// </summary>
-        [TestInitialize]
+        [SetUp]
         public void InitializeUnitTesting()
         {
             // Set the API key
@@ -30,7 +30,7 @@ namespace SendwithusTest
         /// Tests the API call POST /batch with one API call
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+		[Test]
         public async Task TestBatchApiRequestsOneRequestAsync()
         {
             Trace.WriteLine("POST /batch");
@@ -62,7 +62,7 @@ namespace SendwithusTest
         /// Tests the API call POST /batch with 10 API calls
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+		[Test]
         public async Task TestBatchApiRequestsTenRequestsAsync()
         {
             Trace.WriteLine("POST /batch");
@@ -112,7 +112,7 @@ namespace SendwithusTest
         /// Tests the API call POST /batch with 11 API calls (without overriding the limit)
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+		[Test]
         public async Task TestBatchApiRequestsElevenRequestsWithoutOverrideAsync()
         {
             Trace.WriteLine("POST /batch");
@@ -173,7 +173,7 @@ namespace SendwithusTest
         /// Tests the API call POST /batch with 11 API calls (without overriding the limit)
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+		[Test]
         public async Task TestBatchApiRequestsTwelveRequestsWithoutOverrideAsync()
         {
             Trace.WriteLine("POST /batch");
@@ -236,7 +236,7 @@ namespace SendwithusTest
         /// Tests the AbortBatchRequest function
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+		[Test]
         public async Task TestBatchApiRequestsAbortRequestAsync()
         {
             Trace.WriteLine("POST /batch");
@@ -272,7 +272,7 @@ namespace SendwithusTest
         /// Tests PauseBatchRequest and ResumeBatchRequest functions
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+		[Test]
         public async Task TestBatchApiRequestsPauseAndResumeRequestAsync()
         {
             Trace.WriteLine("POST /batch");

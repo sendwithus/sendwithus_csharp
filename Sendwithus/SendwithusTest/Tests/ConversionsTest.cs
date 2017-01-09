@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Sendwithus;
 using System;
 using System.Diagnostics;
@@ -10,7 +10,7 @@ namespace SendwithusTest
     /// <summary>
     /// Unit testing class for the sendwithus Conversions API calls
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class ConversionsTest
     {
         private const string DEFAULT_EMAIL_ADDRESS = "sendwithus.test@gmail.com";
@@ -21,7 +21,7 @@ namespace SendwithusTest
         /// <summary>
         /// Sets the API 
         /// </summary>
-        [TestInitialize]
+        [SetUp]
         public void InitializeUnitTesting()
         {
             // Set the API key
@@ -32,7 +32,7 @@ namespace SendwithusTest
         /// Tests the API call POST /customers/[EMAIL_ADDRESS]/conversions with no parameters
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestAddConverionWithNoParametersAsync()
         {
             
@@ -56,7 +56,7 @@ namespace SendwithusTest
         /// Tests the API call POST /customers/[EMAIL_ADDRESS]/conversions with the revenue specified
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestAddConverionWithRevenueAsync()
         {
             Trace.WriteLine(String.Format("POST /customers/{0}/converisons", DEFAULT_EMAIL_ADDRESS));
@@ -79,7 +79,7 @@ namespace SendwithusTest
         /// Tests the API call POST /customers/[EMAIL_ADDRESS]/conversions with the timestamp specified
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestAddConverionWithTimestampAsync()
         {
             Trace.WriteLine(String.Format("POST /customers/{0}/converisons", DEFAULT_EMAIL_ADDRESS));
@@ -102,7 +102,7 @@ namespace SendwithusTest
         /// Tests the API call POST /customers/[EMAIL_ADDRESS]/conversions with the revenue and timestamp specified
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestAddConverionWithRevenueAndTimestampAsync()
         {
             Trace.WriteLine(String.Format("POST /customers/{0}/converisons", DEFAULT_EMAIL_ADDRESS));
@@ -125,7 +125,7 @@ namespace SendwithusTest
         /// Tests the API call POST /customers/[EMAIL_ADDRESS]/conversions with an invalid email address
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestAddConverionWithInvalidEmailAddressAsync()
         {
             Trace.WriteLine(String.Format("POST /customers/{0}/converisons", DEFAULT_EMAIL_ADDRESS));

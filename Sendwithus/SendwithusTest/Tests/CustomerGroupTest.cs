@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Sendwithus;
 using System;
 using System.Diagnostics;
@@ -10,7 +10,7 @@ namespace SendwithusTest
     /// <summary>
     /// Unit testing class for the Customer Groups API calls
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class CustomerGroupTest
     {
         private const string DEFAULT_CUSTOMER_GROUP_ID = "grp_7zpRYpExEBPpd6dGvyAfcT";
@@ -21,7 +21,7 @@ namespace SendwithusTest
         /// <summary>
         /// Sets the API 
         /// </summary>
-        [TestInitialize]
+        [SetUp]
         public void InitializeUnitTesting()
         {
             // Set the API key
@@ -32,7 +32,7 @@ namespace SendwithusTest
         /// Tests the API call GET /groups
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestGetCustomerGroupsAsync()
         {
             Trace.WriteLine("GET /groups");
@@ -55,7 +55,7 @@ namespace SendwithusTest
         /// Tests the API call POST /groups with only the group name
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestCreateCustomerGroupWithNameOnlyAsync()
         {
             Trace.WriteLine("POST /groups with only the group name");
@@ -79,7 +79,7 @@ namespace SendwithusTest
         /// Tests the API call POST /groups with a name and description
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestCreateCustomerGroupWithNameAndDescriptionAsync()
         {
             Trace.WriteLine("POST /groups with a name and description");
@@ -103,7 +103,7 @@ namespace SendwithusTest
         /// Tests the API call PUT /groups/(:group_id) with only the name of the group
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestUpdateCustomerGroupNameAsync()
         {
             Trace.WriteLine(String.Format("PUT /groups/{0} with a new name", DEFAULT_CUSTOMER_GROUP_ID));
@@ -127,7 +127,7 @@ namespace SendwithusTest
         /// Tests the API call PUT /groups/(:group_id) with only the description of the group
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestUpdateCustomerGroupDescriptionAsync()
         {
             Trace.WriteLine(String.Format("PUT /groups/{0} with a new description", DEFAULT_CUSTOMER_GROUP_ID));
@@ -151,7 +151,7 @@ namespace SendwithusTest
         /// Tests the API call PUT /groups/(:group_id) with the name and description of the group
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestUpdateCustomerGroupNameAndDescriptionAsync()
         {
             Trace.WriteLine(String.Format("PUT /groups/{0} with a new name and description", DEFAULT_CUSTOMER_GROUP_ID));
@@ -176,7 +176,7 @@ namespace SendwithusTest
         /// Tests the API call PUT /groups/(:group_id) with an invalid customer group ID
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestUpdateCustomerGroupNameInvalidGroupIdAsync()
         {
             Trace.WriteLine(String.Format("PUT /groups/{0} with an invalid customer group ID", INVALID_CUSTOMER_GROUP_ID));
@@ -198,7 +198,7 @@ namespace SendwithusTest
         /// Tests the API call DELETE /groups/(:group_id)
         /// </summary>
         /// <returns>The asynchronous task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestDeleteCustomerGroupAsync()
         {
 

@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Sendwithus;
 using System;
 using System.Diagnostics;
@@ -10,7 +10,7 @@ namespace SendwithusTest
     /// <summary>
     /// Unit testing class for the Snippet API calls
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class SnippetTest
     {
         private const string DEFAULT_SNIPPET_ID = "snp_bn8c87iXuFWdtYLGJrBAWW";
@@ -22,7 +22,7 @@ namespace SendwithusTest
         /// <summary>
         /// Sets the API 
         /// </summary>
-        [TestInitialize]
+        [SetUp]
         public void InitializeUnitTesting()
         {
             // Set the API key
@@ -33,7 +33,7 @@ namespace SendwithusTest
         /// Tests the API call GET /snippets
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestGetSnippetsAsync()
         {
             Trace.WriteLine("GET /snippets");
@@ -56,7 +56,7 @@ namespace SendwithusTest
         /// Tests the API call GET /snippets/(:id)
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestGetSnippetAsync()
         {
             Trace.WriteLine(String.Format("GET /snippets/{0}", DEFAULT_SNIPPET_ID));
@@ -79,7 +79,7 @@ namespace SendwithusTest
         /// Tests the API call GET /snippets/(:id) with an invalid ID
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestGetSnippetWithInvalidIDAsync()
         {
             Trace.WriteLine("GET /snippets with an invalid ID");
@@ -101,7 +101,7 @@ namespace SendwithusTest
         /// Tests the API call POST /snippets
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestCreateSnippetAsync()
         {
             Trace.WriteLine("POST /snippets");
@@ -125,7 +125,7 @@ namespace SendwithusTest
         /// Tests the API call PUT /snippets/(:id)
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestUpdateSnippetAsync()
         {
             Trace.WriteLine("PUT /snippets/(:id)");
@@ -149,7 +149,7 @@ namespace SendwithusTest
         /// Tests the API call DELETE /snippets/(:id)
         /// </summary>
         /// <returns>The associated task</returns>
-        [TestMethod]
+        [Test]
         public async Task TestDeleteSnippetAsync()
         {
             // Create a new Snippet so that it can be deleted
