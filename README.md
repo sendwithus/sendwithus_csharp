@@ -11,7 +11,7 @@ none
 
 ## .NET Framework Support
 Target framework is 4.5.2
-    
+
 ## API Coverage
 With one exception, this client covers all of the sendwithus API calls documented at: https://www.sendwithus.com/docs/api#overview
 
@@ -55,7 +55,7 @@ A SendwithusException is a regular Exception with a StatusCode property added
 
 All exceptions will be part of an AggregateException, regardless of whether a retry was attempted or not.
 
-Some examples: 
+Some examples:
 * An API call that fails with a status code 403: Forbidden (not a retriable status code) will throw an AggregateException with one InnerException of type SendwithusException
 * An API call that repeatedly times out will throw an AggregateException with InnerExceptions of type TaskCanceledException
 * An API call that times out once, then fails with a status code of 503: Service Unavailable, and then fails again with a status code 400: Bad Request will throw an AggregateException with InnerExceptions, in order, of: { TaskCanceledException, SendwithusException, SendwithusException}
@@ -893,7 +893,7 @@ dripCampaign.email_data.Add("amount", "$12.00"); // Optional
 
 // Make the API call
 try
-{ 
+{
     var response = await dripCampaign.ActivateAsync(dripCampaignId);
 }
 catch (AggregateException exception)
@@ -907,7 +907,7 @@ catch (AggregateException exception)
 var dripCampaignId = "dc_VXKGx85NmwHnRv9FZv88TW";
 var customerEmailAddress = "user@email.com";
 try
-{ 
+{
     var dripCampaignResponse = await DripCampaign.DeactivateAsync(dripCampaignId, customerEmailAddress);
 }
 catch (AggregateException exception)
@@ -921,7 +921,7 @@ If a user unsubscribes, changes email addresses, or cancels, call this endpoint 
 ```csharp
 var customerEmailAddress = "user@email.com";
 try
-{ 
+{
     var dripCampaignDeactivateAllResponse = await DripCampaign.DeactivateFromAllCampaignsAsync(customerEmailAddress);
 }
 catch (AggregateException exception)
@@ -933,7 +933,7 @@ catch (AggregateException exception)
 #### GET /drip_campaigns
 ```csharp
 try
-{ 
+{
     var dripCampaignDetails = await DripCampaign.GetDripCampaignsAsync();
 }
 catch (AggregateException exception)
@@ -946,54 +946,8 @@ catch (AggregateException exception)
 ```csharp
 var dripCampaignId = "dc_VXKGx85NmwHnRv9FZv88TW";
 try
-{ 
+{
     var dripCampaignDetails = await DripCampaign.GetDripCampaignAsync(dripCampaignId);
-}
-catch (AggregateException exception)
-{
-    // Exception handling
-}
-```
-## Segments
-### List all segments
-#### GET /segments
-```csharp
-try
-{ 
-    var segments = await Segment.GetSegmentsAsync();
-}
-catch (AggregateException exception)
-{
-    // Exception handling
-}
-```
-### Send to a segment
-#### POST /segments/(:segment_id)/send
-```csharp
-// Build the segment content
-var segmentContent = new SegmentContent(DEFAULT_TEMPLATE_ID);
-
-// Build and add the email data (optional)
-var contentItemOne = new Dictionary<string, string>();
-contentItemOne.Add("url", "http://www.example.com/1");
-contentItemOne.Add("image", "http://www.example.com/image1.jpg");
-contentItemOne.Add("text", "Check this sweet thing out!");
-var contentItemTwo = new Dictionary<string, string>();
-contentItemTwo.Add("url", "http://www.example.com/2");
-contentItemTwo.Add("image", "http://www.example.com/image2.jpg");
-contentItemTwo.Add("text", "Check this other sweet thing out!");
-var contentList = new List<Dictionary<string, string>>();
-contentList.Add(contentItemOne);
-contentList.Add(contentItemTwo);
-segmentContent.email_data.Add("Weekly_Newsletter", contentList);
-
-// Add the ESP account (optional)
-segmentContent.esp_account = DEFAULT_ESP_ACCOUNT_ID;
-
-// Make the API call
-try
-{ 
-    var genericApiCallStatus = await Segment.SendToSegmentAsync(DEFAULT_SEGMENT_ID, segmentContent);
 }
 catch (AggregateException exception)
 {
@@ -1005,7 +959,7 @@ catch (AggregateException exception)
 #### GET /groups
 ```csharp
 try
-{ 
+{
     var customerGroupResponseMultipleGroups = await CustomerGroup.GetCustomeGroupsAsync();
 }
 catch (AggregateException exception)
@@ -1018,7 +972,7 @@ catch (AggregateException exception)
 ```csharp
 var groupName = "New Group";
 try
-{ 
+{
     var customerGroupResponse = await CustomerGroup.CreateCustomerGroupAsync(groupName);
 }
 catch (AggregateException exception)
@@ -1033,7 +987,7 @@ Update a customer group name:
 var groupId = "grp_7zpRYpExEBPpd6dGvyAfcT";
 var groupName = "New Group";
 try
-{ 
+{
     var customerGroupResponse = await CustomerGroup.UpdateCustomerGroupNameAsync(groupId, groupName);
 }
 catch (AggregateException exception)
@@ -1046,7 +1000,7 @@ Update a customer group description:
 var groupId = "grp_7zpRYpExEBPpd6dGvyAfcT";
 var groupDescription = "New group description";
 try
-{ 
+{
     var customerGroupResponse = await CustomerGroup.UpdateCustomerGroupDescriptionAsync(groupId, groupDescription);
 }
 catch (AggregateException exception)
@@ -1060,7 +1014,7 @@ var groupId = "grp_7zpRYpExEBPpd6dGvyAfcT";
 var groupName = "New Group";
 var groupDescription = "New group description";
 try
-{ 
+{
     var customerGroupResponse = await CustomerGroup.UpdateCustomerGroupNameAndDescriptionAsync(groupId, groupName, groupDescription);
 }
 catch (AggregateException exception)
@@ -1073,7 +1027,7 @@ catch (AggregateException exception)
 ```csharp
 var groupId = "grp_7zpRYpExEBPpd6dGvyAfcT";
 try
-{ 
+{
     var genericApiCallStatus = await CustomerGroup.DeleteCustomerGroupAsync(groupId);
 }
 catch (AggregateException exception)
@@ -1095,7 +1049,7 @@ The process to making a batch API call is:
 2. Make all the API calls as you normally would.  Instead of being sent, these calls will be queued.
 3. Call BatchApiRequest.SendBatchApiRequest().  This will send the batch request with all of the queued requests, clear the queue, return the response (which will contain the response for each API call in the queue), and exit batch mode.
   * After this call, all subsequent API calls will be sent out as soon as they are called, instead of being queued.
-4. Access the response to each batch command by calling 
+4. Access the response to each batch command by calling
 
 Additional Features:
 * PauseBatchRequest() and ResumeBatchRequest(): Respectively exist and then re-enter batch mode without clearing the list of batched calls.  Allows other API calls to be sent immediately (not batched) while building a list of batched API calls.
@@ -1163,13 +1117,13 @@ try
     await EspAccount.SetDefaultEspAccountAsync(espAccountId);
     await DripCampaign.GetDripCampaignsAsync();
     await Customer.DeleteCustomerAsync(customerEmailAddress);
-    
+
     // Make the 11th API call.  This is when the InvalidOperationException will be thrown
     await Snippet.GetSnippetsAsync();
 
     // Make the batch API Request.  This won't be reached.
     var batchResponses = await BatchApiRequest.SendBatchApiRequest();
-    
+
     // Handle the responses
 }
 catch (AggregateException exception)
@@ -1207,14 +1161,14 @@ try
     await EspAccount.SetDefaultEspAccountAsync(espAccountId);
     await DripCampaign.GetDripCampaignsAsync();
     await Customer.DeleteCustomerAsync(customerEmailAddress);
-    
+
     // Make the 11th and 12th API calls.  This is when the InvalidOperationException will be thrown
     await Snippet.GetSnippetsAsync();
     await Log.GetLogsAsync();
 
     // Make the batch API Request.
     var batchResponses = await BatchApiRequest.SendBatchApiRequest();
-    
+
     // Handle the responses
 }
 catch (AggregateException exception)
@@ -1249,9 +1203,9 @@ try
 
     // Resume the batch request and add another API call to it
     BatchApiRequest.ResumeBatchRequest();
-    await Segment.GetSegmentsAsync();
+    await Customer.GetCustomerAsync('foo@bar.com');
 
-    // Make the final batch request, containing the Get Templates and Get Segments API calls
+    // Make the final batch request, containing the Get Templates and Get Customer API calls
     var batchResponses = await BatchApiRequest.SendBatchApiRequest();
 }
 catch (AggregateException exception)
