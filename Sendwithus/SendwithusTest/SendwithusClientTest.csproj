@@ -66,7 +66,6 @@
     <Compile Include="Tests\EmailTest.cs" />
     <Compile Include="Tests\CustomerGroupTest.cs" />
     <Compile Include="Tests\RenderTest.cs" />
-    <Compile Include="Tests\SegmentTest.cs" />
     <Compile Include="Tests\SettingsTests\RetryTest.cs" />
     <Compile Include="Tests\SettingsTests\TimeoutTest.cs" />
     <Compile Include="Tests\SnippetTest.cs" />
@@ -108,7 +107,7 @@
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>

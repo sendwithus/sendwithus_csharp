@@ -17,7 +17,7 @@ namespace SendwithusTest
         private const string DEFAULT_EMAIL_ADDRESS = "sendwithus.test@gmail.com";
 
         /// <summary>
-        /// Sets the API 
+        /// Sets the API
         /// </summary>
         [SetUp]
         public void InitializeUnitTesting()
@@ -75,7 +75,7 @@ namespace SendwithusTest
             {
                 await TemplateTest.BuildAndSendCreateTemplateRequestWithAllParametersAsync(); // POST
                 await Snippet.GetSnippetsAsync(); // GET
-                await Segment.GetSegmentsAsync(); // GET
+                await Customer.GetCustomerAsync(CustomerTest.DEFAULT_CUSTOMER_EMAIL_ADDRESS); // GET
                 await RenderTest.BuildAndSendRenderTemplateRequestWithAllParametersId(); // POST
                 await Log.GetLogsAsync(); // GET
                 await EspAccount.SetDefaultEspAccountAsync(DEFAULT_ESP_ACCOUNT_ID); // PUT
@@ -83,7 +83,7 @@ namespace SendwithusTest
                 await DripCampaign.GetDripCampaignsAsync(); // GET
                 await CustomerTest.BuildAndSendCreateCustomerRequest(); // POST
                 await Customer.DeleteCustomerAsync(CustomerTest.NEW_CUSTOMER_EMAIL_ADDRESS); // DELETE
-                
+
                 // Make the batch Api Reqeust
                 var batchResponses = await BatchApiRequest.SendBatchApiRequest();
 
@@ -93,7 +93,7 @@ namespace SendwithusTest
                 // Validate the response to the individual API calls
                 ValidateIndividualBatchedApiCallResponse<Template>(batchResponses[0]);
                 ValidateIndividualBatchedApiCallResponse<List<Snippet>>(batchResponses[1]);
-                ValidateIndividualBatchedApiCallResponse<List<Segment>>(batchResponses[2]);
+                ValidateIndividualBatchedApiCallResponse<Customer>(batchResponses[2]);
                 ValidateIndividualBatchedApiCallResponse<RenderTemplateResponse>(batchResponses[3]);
                 ValidateIndividualBatchedApiCallResponse<List<Log>>(batchResponses[4]);
                 ValidateIndividualBatchedApiCallResponse<EspAccountResponse>(batchResponses[5]);
@@ -121,11 +121,11 @@ namespace SendwithusTest
             BatchApiRequest.StartNewBatchRequest();
 
             try
-            { 
+            {
                 // Make the API calls to be batched (at least one of each type)
                 await TemplateTest.BuildAndSendCreateTemplateRequestWithAllParametersAsync(); // POST
                 await Snippet.GetSnippetsAsync(); // GET
-                await Segment.GetSegmentsAsync(); // GET
+                await Customer.GetCustomerAsync(CustomerTest.DEFAULT_CUSTOMER_EMAIL_ADDRESS); // GET
                 await RenderTest.BuildAndSendRenderTemplateRequestWithAllParametersId(); // POST
                 await Log.GetLogsAsync(); // GET
                 await EspAccount.SetDefaultEspAccountAsync(DEFAULT_ESP_ACCOUNT_ID); // PUT
@@ -154,7 +154,7 @@ namespace SendwithusTest
                 // Validate the response to the individual API calls
                 ValidateIndividualBatchedApiCallResponse<Template>(batchResponses[0]);
                 ValidateIndividualBatchedApiCallResponse<List<Snippet>>(batchResponses[1]);
-                ValidateIndividualBatchedApiCallResponse<List<Segment>>(batchResponses[2]);
+                ValidateIndividualBatchedApiCallResponse<Customer>(batchResponses[2]);
                 ValidateIndividualBatchedApiCallResponse<RenderTemplateResponse>(batchResponses[3]);
                 ValidateIndividualBatchedApiCallResponse<List<Log>>(batchResponses[4]);
                 ValidateIndividualBatchedApiCallResponse<EspAccountResponse>(batchResponses[5]);
@@ -189,7 +189,7 @@ namespace SendwithusTest
             {
                 await TemplateTest.BuildAndSendCreateTemplateRequestWithAllParametersAsync(); // POST
                 await Snippet.GetSnippetsAsync(); // GET
-                await Segment.GetSegmentsAsync(); // GET
+                await Customer.GetCustomerAsync(CustomerTest.DEFAULT_CUSTOMER_EMAIL_ADDRESS); // GET
                 await RenderTest.BuildAndSendRenderTemplateRequestWithAllParametersId(); // POST
                 await Log.GetLogsAsync(); // GET
                 await EspAccount.SetDefaultEspAccountAsync(DEFAULT_ESP_ACCOUNT_ID); // PUT
@@ -209,7 +209,7 @@ namespace SendwithusTest
                 // Validate the response to the individual API calls
                 ValidateIndividualBatchedApiCallResponse<Template>(batchResponses[0]);
                 ValidateIndividualBatchedApiCallResponse<List<Snippet>>(batchResponses[1]);
-                ValidateIndividualBatchedApiCallResponse<List<Segment>>(batchResponses[2]);
+                ValidateIndividualBatchedApiCallResponse<Customer>(batchResponses[2]);
                 ValidateIndividualBatchedApiCallResponse<RenderTemplateResponse>(batchResponses[3]);
                 ValidateIndividualBatchedApiCallResponse<List<Log>>(batchResponses[4]);
                 ValidateIndividualBatchedApiCallResponse<EspAccountResponse>(batchResponses[5]);
@@ -294,7 +294,7 @@ namespace SendwithusTest
 
                 // Resume the batch request and add another API call to it
                 BatchApiRequest.ResumeBatchRequest();
-                await Segment.GetSegmentsAsync();
+                await Customer.GetCustomerAsync(CustomerTest.DEFAULT_CUSTOMER_EMAIL_ADDRESS);
 
                 // Make the final batch request
                 var batchResponses = await BatchApiRequest.SendBatchApiRequest();
@@ -304,7 +304,7 @@ namespace SendwithusTest
 
                 // Valideate each of those requests
                 ValidateIndividualBatchedApiCallResponse<List<Template>>(batchResponses[0]);
-                ValidateIndividualBatchedApiCallResponse<List<Segment>>(batchResponses[1]);
+                ValidateIndividualBatchedApiCallResponse<Customer>(batchResponses[1]);
             }
             catch (AggregateException exception)
             {

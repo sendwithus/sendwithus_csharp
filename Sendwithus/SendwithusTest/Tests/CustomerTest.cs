@@ -14,7 +14,7 @@ namespace SendwithusTest
     [TestFixture]
     public class CustomerTest
     {
-        private const string DEFAULT_CUSTOMER_EMAIL_ADDRESS = "sendwithus.test@gmail.com";
+        public const string DEFAULT_CUSTOMER_EMAIL_ADDRESS = "sendwithus.test@gmail.com";
         public const string NEW_CUSTOMER_EMAIL_ADDRESS = "sendwithus.test+new@gmail.com";
         private const string INVALID_CUSTOMER_EMAIL_ADDRESS = "invalid_email_address";
         private const string DEFAULT_CUSTOMER_LOCALE = "de-DE";
@@ -23,7 +23,7 @@ namespace SendwithusTest
         private const Int64 LOG_CREATED_BEFORE_TIME = 9876543210;
 
         /// <summary>
-        /// Sets the API 
+        /// Sets the API
         /// </summary>
         [SetUp]
         public void InitializeUnitTesting()
@@ -113,7 +113,7 @@ namespace SendwithusTest
 
             // Build the new customer and send the create customer request
             try
-            { 
+            {
                 var genericApiCallStatus = await BuildAndSendCreateCustomerRequest();
 
                 // Validate the response
@@ -158,7 +158,7 @@ namespace SendwithusTest
             // Make the API call
             Trace.WriteLine(String.Format("GET /customers/{0}/logs", DEFAULT_CUSTOMER_EMAIL_ADDRESS));
             try
-            { 
+            {
                 var customerEmailLogsResponse = await Customer.GetCustomerEmailLogsAsync(DEFAULT_CUSTOMER_EMAIL_ADDRESS);
 
                 // Validate the response
@@ -177,7 +177,7 @@ namespace SendwithusTest
         [Test]
         public async Task TestGetCustomerEmailLogsWithAllParametersAsync()
         {
-            
+
             Trace.WriteLine(String.Format("GET /customers/{0}/logs", DEFAULT_CUSTOMER_EMAIL_ADDRESS));
 
             // Build the query parameters
