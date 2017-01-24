@@ -111,13 +111,11 @@
     <Compile Include="API\Helpers\GenericApiCallStatus.cs" />
     <Compile Include="API\Helpers\RenderTemplateResponse.cs" />
     <Compile Include="API\Helpers\RenderTemplateResponseTemplate.cs" />
-    <Compile Include="API\Helpers\SegmentContent.cs" />
     <Compile Include="API\Render.cs" />
     <Compile Include="API\Helpers\SnippetDefinition.cs" />
     <Compile Include="API\Helpers\SnippetResponse.cs" />
     <Compile Include="API\Helpers\TemplateVersion.cs" />
     <Compile Include="API\Log.cs" />
-    <Compile Include="API\Segment.cs" />
     <Compile Include="API\Snippet.cs" />
     <Compile Include="API\Template.cs" />
     <Compile Include="Net\RequestManager.cs" />
@@ -129,11 +127,11 @@
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
-  
+
   <Target Name="AfterBuild">
   </Target>
    -->
