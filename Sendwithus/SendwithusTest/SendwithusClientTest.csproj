@@ -64,7 +64,6 @@
     <Compile Include="Tests\CustomerTest.cs" />
     <Compile Include="Tests\DripCampaignTest.cs" />
     <Compile Include="Tests\EmailTest.cs" />
-    <Compile Include="Tests\CustomerGroupTest.cs" />
     <Compile Include="Tests\RenderTest.cs" />
     <Compile Include="Tests\SettingsTests\RetryTest.cs" />
     <Compile Include="Tests\SettingsTests\TimeoutTest.cs" />

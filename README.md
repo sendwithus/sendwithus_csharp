@@ -737,7 +737,6 @@ var customer = new Customer("customer@example.com");
 customer.data.Add("first_name", "Matt"); // optional
 customer.data.Add("city", "San Francisco"); // optional
 customer.locale = "en-US"; // optional
-customer.groups.Add("grp_7zpRYpExEBPpd6dGvyAfcT"); // optional
 
 // Make the API call
 try
@@ -792,34 +791,6 @@ queryParameters.Add("created_lt", queryEndTime);
 try
 {
     var customerEmailLogsResponse = await Customer.GetCustomerEmailLogsAsync(customerEmailAddress, queryParameters);
-}
-catch (AggregateException exception)
-{
-    // Exception handling
-}
-```
-### Add customer to a group
-#### POST /customers/(:email)/groups/(:group_id)
-```csharp
-var customerEmailAddress = "customer@example.com";
-var groupId = "grp_7zpRYpExEBPpd6dGvyAfcT";
-try
-{
-    var genericApiCallStatus = await Customer.AddCustomerToGroupAsync(customerEmailAddress, groupId);
-}
-catch (AggregateException exception)
-{
-    // Exception handling
-}
-```
-### Remove customer from a group
-#### DELETE /customers/(:email)/groups/(:group_id)
-```csharp
-var customerEmailAddress = "customer@example.com";
-var groupId = "grp_7zpRYpExEBPpd6dGvyAfcT";
-try
-{
-    var genericApiCallStatus = await Customer.RemoveCustomerFromGroupAsync(DEFAULT_CUSTOMER_EMAIL_ADDRESS, DEFAULT_GROUP_ID);
 }
 catch (AggregateException exception)
 {
@@ -948,87 +919,6 @@ var dripCampaignId = "dc_VXKGx85NmwHnRv9FZv88TW";
 try
 {
     var dripCampaignDetails = await DripCampaign.GetDripCampaignAsync(dripCampaignId);
-}
-catch (AggregateException exception)
-{
-    // Exception handling
-}
-```
-## Customer Groups
-### Get all customer groups
-#### GET /groups
-```csharp
-try
-{
-    var customerGroupResponseMultipleGroups = await CustomerGroup.GetCustomeGroupsAsync();
-}
-catch (AggregateException exception)
-{
-    // Exception handling
-}
-```
-### Create a customer group
-#### POST /groups
-```csharp
-var groupName = "New Group";
-try
-{
-    var customerGroupResponse = await CustomerGroup.CreateCustomerGroupAsync(groupName);
-}
-catch (AggregateException exception)
-{
-    // Exception handling
-}
-```
-### Update a customer group
-#### PUT /groups/(:group_id)
-Update a customer group name:
-```csharp
-var groupId = "grp_7zpRYpExEBPpd6dGvyAfcT";
-var groupName = "New Group";
-try
-{
-    var customerGroupResponse = await CustomerGroup.UpdateCustomerGroupNameAsync(groupId, groupName);
-}
-catch (AggregateException exception)
-{
-    // Exception handling
-}
-```
-Update a customer group description:
-```csharp
-var groupId = "grp_7zpRYpExEBPpd6dGvyAfcT";
-var groupDescription = "New group description";
-try
-{
-    var customerGroupResponse = await CustomerGroup.UpdateCustomerGroupDescriptionAsync(groupId, groupDescription);
-}
-catch (AggregateException exception)
-{
-    // Exception handling
-}
-```
-Update a customer group name and description:
-```csharp
-var groupId = "grp_7zpRYpExEBPpd6dGvyAfcT";
-var groupName = "New Group";
-var groupDescription = "New group description";
-try
-{
-    var customerGroupResponse = await CustomerGroup.UpdateCustomerGroupNameAndDescriptionAsync(groupId, groupName, groupDescription);
-}
-catch (AggregateException exception)
-{
-    // Exception handling
-}
-```
-### Delete a customer group
-#### DELETE /groups/(:group_id)
-```csharp
-var groupId = "grp_7zpRYpExEBPpd6dGvyAfcT";
-try
-{
-    var genericApiCallStatus = await CustomerGroup.DeleteCustomerGroupAsync(groupId);
 }
 catch (AggregateException exception)
 {

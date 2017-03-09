@@ -137,7 +137,7 @@ namespace SendwithusTest
                 // Add the 11th API Request
                 try
                 {
-                    await CustomerGroup.GetCustomeGroupsAsync(); // GET
+                    await Customer.GetCustomerAsync(CustomerTest.DEFAULT_CUSTOMER_EMAIL_ADDRESS); // GET
                 }
                 catch (InvalidOperationException exception)
                 {
@@ -197,7 +197,7 @@ namespace SendwithusTest
                 await DripCampaign.GetDripCampaignsAsync(); // GET
                 await CustomerTest.BuildAndSendCreateCustomerRequest(); // POST
                 await Customer.DeleteCustomerAsync(CustomerTest.NEW_CUSTOMER_EMAIL_ADDRESS); // DELETE
-                await CustomerGroup.GetCustomeGroupsAsync(); // GET
+                await Customer.GetCustomerAsync(CustomerTest.DEFAULT_CUSTOMER_EMAIL_ADDRESS); // GET
                 await Conversion.AddConversionAsync(DEFAULT_EMAIL_ADDRESS); // POST
 
                 // Make the batch Api Request
@@ -217,7 +217,7 @@ namespace SendwithusTest
                 ValidateIndividualBatchedApiCallResponse<List<DripCampaignDetails>>(batchResponses[7]);
                 ValidateIndividualBatchedApiCallResponse<GenericApiCallStatus>(batchResponses[8]);
                 ValidateIndividualBatchedApiCallResponse<GenericApiCallStatus>(batchResponses[9]);
-                ValidateIndividualBatchedApiCallResponse<CustomerGroupResponseMultipleGropus>(batchResponses[10]);
+                ValidateIndividualBatchedApiCallResponse<Customer>(batchResponses[10]);
                 ValidateIndividualBatchedApiCallResponse<GenericApiCallStatus>(batchResponses[11]);
             }
             catch (InvalidOperationException exception)
