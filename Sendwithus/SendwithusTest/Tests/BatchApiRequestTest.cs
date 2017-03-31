@@ -198,7 +198,6 @@ namespace SendwithusTest
                 await CustomerTest.BuildAndSendCreateCustomerRequest(); // POST
                 await Customer.DeleteCustomerAsync(CustomerTest.NEW_CUSTOMER_EMAIL_ADDRESS); // DELETE
                 await Customer.GetCustomerAsync(CustomerTest.DEFAULT_CUSTOMER_EMAIL_ADDRESS); // GET
-                await Conversion.AddConversionAsync(DEFAULT_EMAIL_ADDRESS); // POST
 
                 // Make the batch Api Request
                 var batchResponses = await BatchApiRequest.SendBatchApiRequest();
