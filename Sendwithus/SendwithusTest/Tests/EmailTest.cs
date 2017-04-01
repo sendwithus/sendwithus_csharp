@@ -32,11 +32,11 @@ namespace SendwithusTest
         private const string DEFAULT_TAG_3 = "tag3";
         private const string DEFAULT_HEADER_NAME = "X-HEADER-ONE";
         private const string DEFAULT_HEADER_VALUE = "header-value";
-        private const string DEFAULT_INLINE_ID = "cat.png";
-        private const string DEFAULT_INLINE_DATA = "{BASE_64_ENCODED_FILE_DATA}";
+        private const string DEFAULT_INLINE_ID = "pixel.gif";
+        private const string DEFAULT_INLINE_DATA = "R0lGODdhAQABAPAAAH//ACZFySH5BAEAAAEALAAAAAABAAEAAAICRAEAOw==";
         private const string DEFAULT_FILE_NAME_1 = "doct.txt";
         private const string DEFAULT_FILE_NAME_2 = "stuff.zip";
-        private const string DEFAULT_FILE_DATA = "{BASE_64_ENCODED_FILE_DATA}";
+        private const string DEFAULT_FILE_DATA = "aGVsbG8geW91";
         private const string DEFAULT_VERSION_NAME = "New Version";
 
         /// <summary>

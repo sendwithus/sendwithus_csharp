@@ -16,7 +16,6 @@ namespace Sendwithus
         public Dictionary<string, object> data { get; set; }
         public Int64 created { get; set; }
         public string locale { get; set; }
-        public Collection<string> groups { get; set; }
 
         /// <summary>
         /// Default constructor
@@ -33,7 +32,6 @@ namespace Sendwithus
             data = new Dictionary<string, object>();
             created = 0;
             locale = String.Empty;
-            groups = new Collection<string>();
         }
 
         /// <summary>
@@ -128,46 +126,6 @@ namespace Sendwithus
         public static async Task<CustomerEmailLogsResponse> GetCustomerEmailLogsAsync(string emailAddress)
         {
             return await GetCustomerEmailLogsAsync(emailAddress, null);
-        }
-
-        /// <summary>
-        /// Add a customer to a group.
-        /// POST /customers/(:email)/groups/(:group_id)
-        /// </summary>
-        /// <param name="emailAddress">The customer's email address</param>
-        /// <param name="groupId">The ID of the group</param>
-        /// <returns>The API call status</returns>
-        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
-        /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
-        public static async Task<GenericApiCallStatus> AddCustomerToGroupAsync(string emailAddress, string groupId)
-        {
-            // Send the GET request
-            var resource = String.Format("customers/{0}/groups/{1}", emailAddress, groupId);
-            var jsonResponse = await RequestManager.SendPostRequestAsync(resource);
-
-            // Convert the JSON result into an object
-            var serializer = new JavaScriptSerializer();
-            return serializer.Deserialize<GenericApiCallStatus>(jsonResponse);
-        }
-
-        /// <summary>
-        /// Remove a customer from a group.
-        /// DELETE /customers/(:email)/groups/(:group_id)
-        /// </summary>
-        /// <param name="emailAddress">The customer's email address</param>
-        /// <param name="groupId">The ID of the group</param>
-        /// <returns>The API call status</returns>
-        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
-        /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
-        public static async Task<GenericApiCallStatus> RemoveCustomerFromGroupAsync(string emailAddress, string groupId)
-        {
-            // Send the GET request
-            var resource = String.Format("customers/{0}/groups/{1}", emailAddress, groupId);
-            var jsonResponse = await RequestManager.SendDeleteRequestAsync(resource);
-
-            // Convert the JSON result into an object
-            var serializer = new JavaScriptSerializer();
-            return serializer.Deserialize<GenericApiCallStatus>(jsonResponse);
         }
     }
 }
