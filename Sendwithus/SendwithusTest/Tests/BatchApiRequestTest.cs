@@ -203,7 +203,7 @@ namespace SendwithusTest
                 var batchResponses = await BatchApiRequest.SendBatchApiRequest();
 
                 // Validate the response to the batch API request
-                ValidateBatchApiCallResponses(batchResponses, 12);
+                ValidateBatchApiCallResponses(batchResponses, 11);
 
                 // Validate the response to the individual API calls
                 ValidateIndividualBatchedApiCallResponse<Template>(batchResponses[0]);
@@ -217,7 +217,6 @@ namespace SendwithusTest
                 ValidateIndividualBatchedApiCallResponse<GenericApiCallStatus>(batchResponses[8]);
                 ValidateIndividualBatchedApiCallResponse<GenericApiCallStatus>(batchResponses[9]);
                 ValidateIndividualBatchedApiCallResponse<Customer>(batchResponses[10]);
-                ValidateIndividualBatchedApiCallResponse<GenericApiCallStatus>(batchResponses[11]);
             }
             catch (InvalidOperationException exception)
             {
