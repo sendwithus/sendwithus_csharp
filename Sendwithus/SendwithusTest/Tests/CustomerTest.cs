@@ -18,7 +18,6 @@ namespace SendwithusTest
         public const string NEW_CUSTOMER_EMAIL_ADDRESS = "sendwithus.test+new@gmail.com";
         private const string INVALID_CUSTOMER_EMAIL_ADDRESS = "invalid_email_address";
         private const string DEFAULT_CUSTOMER_LOCALE = "de-DE";
-        private const string DEFAULT_GROUP_ID = "grp_7zpRYpExEBPpd6dGvyAfcT";
         private const Int64 LOG_CREATED_AFTER_TIME = 1234567890;
         private const Int64 LOG_CREATED_BEFORE_TIME = 9876543210;
 
@@ -201,50 +200,6 @@ namespace SendwithusTest
         }
 
         /// <summary>
-        /// Tests the API call POST /customers/(:email)/groups/(:group_id)
-        /// </summary>
-        /// <returns>The associated task</returns>
-        [Test]
-        public async Task TestAddCustomerToGroupAsync()
-        {
-            // Make the API call
-            Trace.WriteLine(String.Format("POST /customers/{0}/groups/{1}", DEFAULT_CUSTOMER_EMAIL_ADDRESS, DEFAULT_GROUP_ID));
-            try
-            {
-                var genericApiCallStatus = await Customer.AddCustomerToGroupAsync(DEFAULT_CUSTOMER_EMAIL_ADDRESS, DEFAULT_GROUP_ID);
-
-                // Validate the response
-                SendwithusClientTest.ValidateResponse(genericApiCallStatus);
-            }
-            catch (AggregateException exception)
-            {
-                Assert.Fail(exception.ToString());
-            }
-        }
-
-        /// <summary>
-        /// Tests the API call DELETE /customers/(:email)/groups/(:group_id)
-        /// </summary>
-        /// <returns>The associated task</returns>
-        [Test]
-        public async Task TestRemoveCustomerFromGroupAsync()
-        {
-            // Make the API call
-            Trace.WriteLine(String.Format("DELETE /customers/{0}/groups/{1}", DEFAULT_CUSTOMER_EMAIL_ADDRESS, DEFAULT_GROUP_ID));
-            try
-            {
-                var genericApiCallStatus = await Customer.RemoveCustomerFromGroupAsync(DEFAULT_CUSTOMER_EMAIL_ADDRESS, DEFAULT_GROUP_ID);
-
-                // Validate the response
-                SendwithusClientTest.ValidateResponse(genericApiCallStatus);
-            }
-            catch (AggregateException exception)
-            {
-                Assert.Fail(exception.ToString());
-            }
-        }
-
-        /// <summary>
         /// Builds a new customer and sends the create customer API request
         /// </summary>
         /// <returns>The API response to the Create Customer call</returns>
@@ -255,7 +210,6 @@ namespace SendwithusTest
             customer.data.Add("first_name", "Matt");
             customer.data.Add("city", "San Francisco");
             customer.locale = DEFAULT_CUSTOMER_LOCALE;
-            customer.groups.Add(DEFAULT_GROUP_ID);
 
             // Make the API call
             return await Customer.CreateOrUpdateCustomerAsync(customer);
