@@ -1148,7 +1148,3 @@ If you're receiving an error in the 400 response range follow these steps:
 -   Double check the data and ID's getting passed to sendwithus
 -   Ensure your API key is correct
 -   Make sure there's no extraneous spaces in the id's getting passed
-
-## Gmail Delivery Issues
-
-Sendwithus recommends using one of our [supported ESPs](https://support.sendwithus.com/esp_accounts/esp_compatability/ "ESP Compatibility Chart"). For some hints on getting Gmail working check [here](https://support.sendwithus.com/esp_accounts/can_i_use_gmail/ "Can I use Gmail?").
