@@ -74,7 +74,6 @@
     <Compile Include="API\Helpers\BatchApiResponse.cs" />
     <Compile Include="Exception\SendwithusException.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="API\Conversion.cs" />
     <Compile Include="API\Customer.cs" />
     <Compile Include="API\DripCampaign.cs" />
     <Compile Include="API\Helpers\DripCampaignDeactivateAllResponse.cs" />

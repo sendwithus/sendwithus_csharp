@@ -797,47 +797,6 @@ catch (AggregateException exception)
     // Exception handling
 }
 ```
-## Conversions
-*WARNING: This API is currently in beta.*
-### Add conversion to customer
-This will add a new conversion to a specific customer in your sendwithus account
-#### POST /customers/[EMAIL_ADDRESS]/conversions
-Add conversion without any parameters:
-```csharp
-var customerEmailAddress = "customer@example.com";
-
-// Build the conversion object
-var conversion = new Conversion();
-
-// Make the API call
-try
-{
-    var genericApiCallStatus = await conversion.AddAsync(customerEmailAddress);
-}
-catch (AggregateException exception)
-{
-    // Exception handling
-}
-```
-Add conversion with all parameters (revenue and timestamp):
-```csharp
-var customerEmailAddress = "customer@example.com";
-var revenue = 1999;
-var timestamp = 1417321700;
-
-// Build the conversion object
-var conversion = new Conversion(revenue, timestamp);
-
-// Make the API call
-try
-{
-    var response = await conversion.AddAsync(DEFAULT_EMAIL_ADDRESS);
-}
-catch (AggregateException exception)
-{
-    // Exception handling
-}
-```
 ## Drip Campaigns
 ### Activate campaign for a customer
 This will add the specified customer to the first step of the specified drip campaign. If the first step has a delay on it, then it will send the first email once that delay has elapsed.
