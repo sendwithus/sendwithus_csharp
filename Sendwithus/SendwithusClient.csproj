@@ -82,7 +82,6 @@
     <Compile Include="API\Helpers\DripCampaignStep.cs" />
     <Compile Include="API\Helpers\DripCampaignSummary.cs" />
     <Compile Include="API\Email.cs" />
-    <Compile Include="API\EspAccount.cs" />
     <Compile Include="API\Helpers\CustomerEmailLogsResponse.cs" />
     <Compile Include="API\Helpers\CustomerResponse.cs" />
     <Compile Include="API\Helpers\EmailFileData.cs" />
@@ -90,17 +89,6 @@
     <Compile Include="API\Helpers\EmailResponse.cs" />
     <Compile Include="API\Helpers\EmailSender.cs" />
     <Compile Include="API\Helpers\EmailSummary.cs" />
-    <Compile Include="API\Helpers\EspAccountAddAccountRequest.cs" />
-    <Compile Include="API\Helpers\EspAccountCredientialsSmtp.cs" />
-    <Compile Include="API\Helpers\EspAccountCredientialsDyn.cs" />
-    <Compile Include="API\Helpers\EspAccountCredientialsMailjet.cs" />
-    <Compile Include="API\Helpers\EspAccountCredientialsSes.cs" />
-    <Compile Include="API\Helpers\EspAccountCredientialsPostmark.cs" />
-    <Compile Include="API\Helpers\EspAccountCredientialsMandrill.cs" />
-    <Compile Include="API\Helpers\EspAccountCredientialsMailgun.cs" />
-    <Compile Include="API\Helpers\EspAccountCredientialsSendgrid.cs" />
-    <Compile Include="API\Helpers\EspAccountResponse.cs" />
-    <Compile Include="API\Helpers\IEspAccountCredentials.cs" />
     <Compile Include="API\Helpers\LogEvent.cs" />
     <Compile Include="API\Helpers\LogIdParameter.cs" />
     <Compile Include="API\Helpers\LogResendResponse.cs" />
