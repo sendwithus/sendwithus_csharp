@@ -18,6 +18,7 @@ namespace SendwithusTest
         private const string DEFAULT_SNIPPET_ID = "snp_bn8c87iXuFWdtYLGJrBAWW";
         private const string NEW_SNIPPET_NAME = "My First Snippet";
         private const string NEW_SNIPPET_BODY = "<h1>Welcome!</h1>";
+        private const int UNIQUE_ID_LENGTH = 10;
 
         /// <summary>
         /// Sets the API
