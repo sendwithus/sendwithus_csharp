@@ -18,6 +18,10 @@ namespace SendwithusTest
         private const string DEFAULT_ESP_ACCOUNT_ID = "esp_e3ut7pFtWttcN4HNoQ8Vgm";
         private const int NON_DEFAULT_RETRY_COUNT = SendwithusClient.DEFAULT_RETRY_COUNT + 2;
         private const int NON_DEFAULT_RETRY_INTERVAL_MILLISECONDS = 1000; // 1 second
+        private const string DEFAULT_SNIPPET_ID = "snp_bn8c87iXuFWdtYLGJrBAWW";
+        private const string NEW_SNIPPET_NAME = "My First Snippet";
+        private const string NEW_SNIPPET_BODY = "<h1>Welcome!</h1>";
+        private const int UNIQUE_ID_LENGTH = 10;
 
         /// <summary>
         /// Sets the API 
@@ -73,10 +77,13 @@ namespace SendwithusTest
             // Make sure we're using the default number of retries
             SendwithusClient.RetryCount = SendwithusClient.DEFAULT_RETRY_COUNT;
 
+            var uniqueName = String.Format("{0}-{1}", NEW_SNIPPET_NAME, SendwithusClientTest.RandomString(UNIQUE_ID_LENGTH));
+
             // Send a PUT request
             try
             {
-                var setDefaultEspAccountResponse = await EspAccount.SetDefaultEspAccountAsync(DEFAULT_ESP_ACCOUNT_ID);
+                var UpdateSnippetResponse = await Snippet.UpdateSnippetAsync(DEFAULT_SNIPPET_ID, uniqueName, NEW_SNIPPET_BODY);;
+
             }
             catch (Exception ex)
             {
