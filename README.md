@@ -552,165 +552,6 @@ catch (AggregateException exception)
     // Exception handling
 }
 ```
-## ESP Account
-### List all ESP accounts
-#### GET /esp_accounts
-Gets all ESP accounts:
-```csharp
-try
-{
-    var espAccounts = await EspAccount.GetAccountsAsync();
-}
-catch (AggregateException exception)
-{
-    // Exception handling
-}
-```
-Gets all ESP accounts of a given account type:
-```csharp
-// Build the query parameters
-var queryParameters = new Dictionary<string, object>();
-queryParameters.Add("esp_type", DEFAULT_ESP_ACCOUNT_TYPE);
-
-// Make the API call
-try
-{
-    var espAccounts = await EspAccount.GetAccountsAsync(queryParameters);
-}
-catch (AggregateException exception)
-{
-    // Exception handling
-}
-```
-Possible esp_account.esp_type values:
-* sendgrid
-* mailgun
-* mandrill
-* postmark
-* ses
-* mailjet
-* dyn
-* sparkpost
-* smtp
-### Add a new ESP account
-#### POST /esp_accounts
-SendGrid example:
-```csharp
-var credentials = new EspAccountCredientialsSendgrid("mysendgridusername", "password123");
-var addAccountRequest = new EspAccountAddAccountRequest("My SendGrid Account", "sendgrid", credentials);
-try
-{
-    var espAccountResponse = await EspAccount.AddAccountAsync(addAccountRequest);
-}
-catch (AggregateException exception)
-{
-    // Exception handling
-}
-```
-Mailgun example:
-```csharp
-var credentials = new EspAccountCredientialsMailgun("key-mymailgunapikey", "my.mailgun.domain.com");
-var addAccountRequest = new EspAccountAddAccountRequest("My Mailgun Account", "mailgun", credentials);
-try
-{
-    var espAccountResponse = await EspAccount.AddAccountAsync(addAccountRequest);
-}
-catch (AggregateException exception)
-{
-    // Exception handling
-}
-```
-Mandrill example:
-```csharp
-var credentials = new EspAccountCredientialsMandrill("mymandrillapikey");
-var addAccountRequest = new EspAccountAddAccountRequest("My Mandrill Account", "mandrill", credentials);
-try
-{
-    var espAccountResponse = await EspAccount.AddAccountAsync(addAccountRequest);
-}
-catch (AggregateException exception)
-{
-    // Exception handling
-}
-```
-Postmark example:
-```csharp
-var credentials = new EspAccountCredientialsPostmark("my-postmark-api-key"); // Note: use your Postmark "Server API Token" as the api key for this call
-var addAccountRequest = new EspAccountAddAccountRequest("My Postmark Account", "postmark", credentials);
-try
-{
-    var espAccountResponse = await EspAccount.AddAccountAsync(addAccountRequest);
-}
-catch (AggregateException exception)
-{
-    // Exception handling
-}
-```
-SES example:
-```csharp
-var credentials = new EspAccountCredientialsSes("mysesaccesskeyid", "mysessecretaccesskey", "us-east-1");
-var addAccountRequest = new EspAccountAddAccountRequest("My SES Account", "ses", credentials);
-try
-{
-    var espAccountResponse = await EspAccount.AddAccountAsync(addAccountRequest);
-}
-catch (AggregateException exception)
-{
-    // Exception handling
-}
-```
-Mailjet example:
-```csharp
-var credentials = new EspAccountCredientialsMailjet("mymailjetapikey", "mymailjetsecretkey");
-var addAccountRequest = new EspAccountAddAccountRequest("My Mailjet Account", "mailjet", credentials);
-try
-{
-    var espAccountResponse = await EspAccount.AddAccountAsync(addAccountRequest);
-}
-catch (AggregateException exception)
-{
-    // Exception handling
-}
-```
-DYN example:
-```csharp
-var credentials = new EspAccountCredientialsDyn("mydynapikey");
-var addAccountRequest = new EspAccountAddAccountRequest("My DYN Account", "dyn", credentials);
-try
-{
-    var espAccountResponse = await EspAccount.AddAccountAsync(addAccountRequest);
-}
-catch (AggregateException exception)
-{
-    // Exception handling
-}
-```
-SMTP example:
-```csharp
-var credentials = new EspAccountCredientialsSmtp("smtp.example.com", 25, "myusername", "mypassword", true);
-var addAccountRequest = new EspAccountAddAccountRequest("My SMTP Account", "smtp", credentials);
-try
-{
-    var espAccountResponse = await EspAccount.AddAccountAsync(addAccountRequest);
-}
-catch (AggregateException exception)
-{
-    // Exception handling
-}
-```
-### Set a given ESP Account as the default for sending emails
-#### PUT /esp_accounts/set_default
-```csharp
-var espAccountId = "esp_e3ut7pFtWttcN4HNoQ8Vgm";
-try
-{
-    var espAccountResponse = await EspAccount.SetDefaultEspAccountAsync(DEFAULT_ESP_ACCOUNT_ID);
-}
-catch (AggregateException exception)
-{
-    // Exception handling
-}
-```
 ## Customers
 ### Get a specific customer
 #### GET /customers/customer@example.com
@@ -913,14 +754,17 @@ Example using 5 commands:
 BatchApiRequest.StartNewBatchRequest();
 
 // Make the API calls to be batched
-var espAccountId = "esp_e3ut7pFtWttcN4HNoQ8Vgm";
 var customerEmailAddress = "customer@example.com";
+var snippetId = "snp_bn8c87iXuFWdtYLGJrBAWW";
+var snippetName = "Updated Snippet";
+var snippetBody = "<h1>Welcome Again!</h1>";
+
 try
 {
     // Discard the response to the API calls as it will just be an empty object (since the requests aren't actually sent yet)
     await Snippet.GetSnippetsAsync();
     await Log.GetLogsAsync();
-    await EspAccount.SetDefaultEspAccountAsync(espAccountId);
+    await Snippet.UpdateSnippetAsync(snippetId, snippetName, snippetBody);
     await DripCampaign.GetDripCampaignsAsync();
     await Customer.DeleteCustomerAsync(customerEmailAddress);
 
@@ -930,7 +774,7 @@ try
     // Get the response to the individual API calls
     var snippets = response[0].GetBody<List<Snippet>>();
     var logs = response[1].GetBody<List<Log>>();
-    var espAccountResponse = response[2].GetBody<EspAccountResponse>();
+    var snippetResponse = response[2].GetBody<SnippetResponse>();
     var dripCampaignDetails = response[3].GetBody<List<DripCampaignDetails>>();
     var genericApiCallStatus = response[4].GetBody<GenericApiCallStatus>();
 }
@@ -945,8 +789,10 @@ catch (InvalidOperationException exception)
 ```
 Example sending 11 commands without overriding the limit (to show when the exception is thrown):
 ```csharp
-var espAccountId = "esp_e3ut7pFtWttcN4HNoQ8Vgm";
 var customerEmailAddress = "customer@example.com";
+var snippetId = "snp_bn8c87iXuFWdtYLGJrBAWW";
+var snippetName = "Updated Snippet";
+var snippetBody = "<h1>Welcome Again!</h1>";
 
 // Start the batch request
 BatchApiRequest.StartNewBatchRequest();
@@ -958,12 +804,12 @@ try
     // Discard the response to the API calls as it will just be an empty object (since the requests aren't actually sent yet)
     await Snippet.GetSnippetsAsync();
     await Log.GetLogsAsync();
-    await EspAccount.SetDefaultEspAccountAsync(espAccountId);
+    await Snippet.UpdateSnippetAsync(snippetId, snippetName, snippetBody);
     await DripCampaign.GetDripCampaignsAsync();
     await Customer.DeleteCustomerAsync(customerEmailAddress);
     await Snippet.GetSnippetsAsync();
     await Log.GetLogsAsync();
-    await EspAccount.SetDefaultEspAccountAsync(espAccountId);
+    await Snippet.UpdateSnippetAsync(snippetId, snippetName, snippetBody);
     await DripCampaign.GetDripCampaignsAsync();
     await Customer.DeleteCustomerAsync(customerEmailAddress);
 
@@ -986,8 +832,10 @@ catch (InvalidOperationException exception)
 ```
 Example sending 12 commands after overriding the limit:
 ```csharp
-var espAccountId = "esp_e3ut7pFtWttcN4HNoQ8Vgm";
 var customerEmailAddress = "customer@example.com";
+var snippetId = "snp_bn8c87iXuFWdtYLGJrBAWW";
+var snippetName = "Updated Snippet";
+var snippetBody = "<h1>Welcome Again!</h1>";
 
 // Start the batch request
 BatchApiRequest.StartNewBatchRequest();
@@ -1002,12 +850,12 @@ try
     // Discard the response to the API calls as it will just be an empty object (since the requests aren't actually sent yet)
     await Snippet.GetSnippetsAsync();
     await Log.GetLogsAsync();
-    await EspAccount.SetDefaultEspAccountAsync(espAccountId);
+    await Snippet.UpdateSnippetAsync(snippetId, snippetName, snippetBody);
     await DripCampaign.GetDripCampaignsAsync();
     await Customer.DeleteCustomerAsync(customerEmailAddress);
     await Snippet.GetSnippetsAsync();
     await Log.GetLogsAsync();
-    await EspAccount.SetDefaultEspAccountAsync(espAccountId);
+    await Snippet.UpdateSnippetAsync(snippetId, snippetName, snippetBody);
     await DripCampaign.GetDripCampaignsAsync();
     await Customer.DeleteCustomerAsync(customerEmailAddress);
 
