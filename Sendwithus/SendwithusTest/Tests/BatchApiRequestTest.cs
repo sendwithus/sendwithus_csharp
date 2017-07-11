@@ -13,7 +13,7 @@ namespace SendwithusTest
     [TestFixture]
     public class BatchApiRequestTest
     {
-        private const string DEFAULT_ESP_ACCOUNT_ID = "esp_e3ut7pFtWttcN4HNoQ8Vgm";
+        private const string DEFAULT_ESP_ACCOUNT_ID = "esp_pmUQQ7aRUhWYUrfeJqwPwB";
         private const string DEFAULT_EMAIL_ADDRESS = "sendwithus.test@gmail.com";
         private const string DEFAULT_SNIPPET_ID = "snp_bn8c87iXuFWdtYLGJrBAWW";
         private const string NEW_SNIPPET_NAME = "My First Snippet";

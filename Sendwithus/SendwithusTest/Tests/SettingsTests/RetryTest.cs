@@ -15,7 +15,7 @@ namespace SendwithusTest
     {
         private const int FAILURE_TIMEOUT_MILLISECONDS = 1; // 1ms
         private const string DEFAULT_TEMPLATE_ID = "tem_SxZKpxJSHPbYDWRSQnAQUR";
-        private const string DEFAULT_ESP_ACCOUNT_ID = "esp_e3ut7pFtWttcN4HNoQ8Vgm";
+        private const string DEFAULT_ESP_ACCOUNT_ID = "esp_pmUQQ7aRUhWYUrfeJqwPwB";
         private const int NON_DEFAULT_RETRY_COUNT = SendwithusClient.DEFAULT_RETRY_COUNT + 2;
         private const int NON_DEFAULT_RETRY_INTERVAL_MILLISECONDS = 1000; // 1 second
         private const string DEFAULT_SNIPPET_ID = "snp_bn8c87iXuFWdtYLGJrBAWW";
@@ -24,7 +24,7 @@ namespace SendwithusTest
         private const int UNIQUE_ID_LENGTH = 10;
 
         /// <summary>
-        /// Sets the API 
+        /// Sets the API
         /// </summary>
         [SetUp]
         public void InitializeUnitTesting()
@@ -140,7 +140,7 @@ namespace SendwithusTest
 
             // Send a DELETE request
             try
-            {   
+            {
                 var deleteCustomerReponse = await Customer.DeleteCustomerAsync(CustomerTest.NEW_CUSTOMER_EMAIL_ADDRESS);
             }
             catch (Exception ex)
@@ -211,7 +211,7 @@ namespace SendwithusTest
             catch (Exception ex)
             {
                 var endTime = Stopwatch.GetTimestamp();
-                
+
                 // Make sure the API call failed on a timeout
                 SendwithusClientTest.ValidateAggregateException<TaskCanceledException>(SendwithusClient.DEFAULT_RETRY_COUNT, ex);
 

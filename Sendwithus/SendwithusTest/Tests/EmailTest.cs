@@ -14,7 +14,7 @@ namespace SendwithusTest
     [TestFixture]
     public class EmailTest
     {
-        private const string DEFAULT_ESP_ACCOUNT = "esp_EsgkbqQdDg7F3ncbz9EHW7";
+        private const string DEFAULT_ESP_ACCOUNT = "esp_pmUQQ7aRUhWYUrfeJqwPwB";
         private const string DEFAULT_TEMPLATE_ID = "tem_yn2viZ8Gm2uaydMK9pgR2B";
         private const string INVALID_TEMPLATE_ID = "invalid_template_id";
         private const string DEFAULT_LOCALE = "en-US";
@@ -40,7 +40,7 @@ namespace SendwithusTest
         private const string DEFAULT_VERSION_NAME = "New Version";
 
         /// <summary>
-        /// Sets the API 
+        /// Sets the API
         /// </summary>
         [SetUp]
         public void InitializeUnitTesting()
@@ -61,7 +61,7 @@ namespace SendwithusTest
             // Make the API call
             var email = BuildBarebonesEmail();
             try
-            { 
+            {
                 var emailResponse = await email.Send();
 
                 // Validate the response
@@ -84,7 +84,7 @@ namespace SendwithusTest
 
             // Construct and send an email with all of the optional data
             try
-            { 
+            {
                 var response = await BuildAndSendEmailWithAllParametersAsync();
 
                 // Validate the response
@@ -115,7 +115,7 @@ namespace SendwithusTest
             }
             catch (AggregateException exception)
             {
-                // Make sure the response was HTTP 400 Bad Request 
+                // Make sure the response was HTTP 400 Bad Request
                 SendwithusClientTest.ValidateException(exception, HttpStatusCode.BadRequest);
             }
         }
