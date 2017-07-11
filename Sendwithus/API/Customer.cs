@@ -89,7 +89,9 @@ namespace Sendwithus
 
             // Convert the JSON result into an object
             var serializer = new JavaScriptSerializer();
-            return serializer.Deserialize<GenericApiCallStatus>(jsonResponse);
+            var data = serializer.Deserialize<GenericApiCallStatus>(jsonResponse);
+            Console.WriteLine(data);
+            return data;
         }
 
         /// <summary>

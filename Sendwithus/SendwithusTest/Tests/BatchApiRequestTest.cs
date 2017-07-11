@@ -13,8 +13,12 @@ namespace SendwithusTest
     [TestFixture]
     public class BatchApiRequestTest
     {
-        private const string DEFAULT_ESP_ACCOUNT_ID = "esp_e3ut7pFtWttcN4HNoQ8Vgm";
+        private const string DEFAULT_ESP_ACCOUNT_ID = "esp_pmUQQ7aRUhWYUrfeJqwPwB";
         private const string DEFAULT_EMAIL_ADDRESS = "sendwithus.test@gmail.com";
+        private const string DEFAULT_SNIPPET_ID = "snp_bn8c87iXuFWdtYLGJrBAWW";
+        private const string NEW_SNIPPET_NAME = "My First Snippet";
+        private const string NEW_SNIPPET_BODY = "<h1>Welcome!</h1>";
+        private const int UNIQUE_ID_LENGTH = 10;
 
         /// <summary>
         /// Sets the API
@@ -67,6 +71,8 @@ namespace SendwithusTest
         {
             Trace.WriteLine("POST /batch");
 
+            var uniqueName = String.Format("{0}-{1}", NEW_SNIPPET_NAME, SendwithusClientTest.RandomString(UNIQUE_ID_LENGTH));
+
             // Start the batch request
             BatchApiRequest.StartNewBatchRequest();
 
@@ -78,7 +84,7 @@ namespace SendwithusTest
                 await Customer.GetCustomerAsync(CustomerTest.DEFAULT_CUSTOMER_EMAIL_ADDRESS); // GET
                 await RenderTest.BuildAndSendRenderTemplateRequestWithAllParametersId(); // POST
                 await Log.GetLogsAsync(); // GET
-                await EspAccount.SetDefaultEspAccountAsync(DEFAULT_ESP_ACCOUNT_ID); // PUT
+                await Snippet.UpdateSnippetAsync(DEFAULT_SNIPPET_ID, uniqueName, NEW_SNIPPET_BODY); // PUT
                 await EmailTest.BuildAndSendEmailWithAllParametersAsync(); // POST
                 await DripCampaign.GetDripCampaignsAsync(); // GET
                 await CustomerTest.BuildAndSendCreateCustomerRequest(); // POST
@@ -96,7 +102,7 @@ namespace SendwithusTest
                 ValidateIndividualBatchedApiCallResponse<Customer>(batchResponses[2]);
                 ValidateIndividualBatchedApiCallResponse<RenderTemplateResponse>(batchResponses[3]);
                 ValidateIndividualBatchedApiCallResponse<List<Log>>(batchResponses[4]);
-                ValidateIndividualBatchedApiCallResponse<EspAccountResponse>(batchResponses[5]);
+                ValidateIndividualBatchedApiCallResponse<SnippetResponse>(batchResponses[5]);
                 ValidateIndividualBatchedApiCallResponse<EmailResponse>(batchResponses[6]);
                 ValidateIndividualBatchedApiCallResponse<List<DripCampaignDetails>>(batchResponses[7]);
                 ValidateIndividualBatchedApiCallResponse<GenericApiCallStatus>(batchResponses[8]);
@@ -117,6 +123,8 @@ namespace SendwithusTest
         {
             Trace.WriteLine("POST /batch");
 
+            var uniqueName = String.Format("{0}-{1}", NEW_SNIPPET_NAME, SendwithusClientTest.RandomString(UNIQUE_ID_LENGTH));
+
             // Start the batch request
             BatchApiRequest.StartNewBatchRequest();
 
@@ -128,7 +136,7 @@ namespace SendwithusTest
                 await Customer.GetCustomerAsync(CustomerTest.DEFAULT_CUSTOMER_EMAIL_ADDRESS); // GET
                 await RenderTest.BuildAndSendRenderTemplateRequestWithAllParametersId(); // POST
                 await Log.GetLogsAsync(); // GET
-                await EspAccount.SetDefaultEspAccountAsync(DEFAULT_ESP_ACCOUNT_ID); // PUT
+                await Snippet.UpdateSnippetAsync(DEFAULT_SNIPPET_ID, uniqueName, NEW_SNIPPET_BODY); // PUT
                 await EmailTest.BuildAndSendEmailWithAllParametersAsync(); // POST
                 await DripCampaign.GetDripCampaignsAsync(); // GET
                 await CustomerTest.BuildAndSendCreateCustomerRequest(); // POST
@@ -157,7 +165,7 @@ namespace SendwithusTest
                 ValidateIndividualBatchedApiCallResponse<Customer>(batchResponses[2]);
                 ValidateIndividualBatchedApiCallResponse<RenderTemplateResponse>(batchResponses[3]);
                 ValidateIndividualBatchedApiCallResponse<List<Log>>(batchResponses[4]);
-                ValidateIndividualBatchedApiCallResponse<EspAccountResponse>(batchResponses[5]);
+                ValidateIndividualBatchedApiCallResponse<SnippetResponse>(batchResponses[5]);
                 ValidateIndividualBatchedApiCallResponse<EmailResponse>(batchResponses[6]);
                 ValidateIndividualBatchedApiCallResponse<List<DripCampaignDetails>>(batchResponses[7]);
                 ValidateIndividualBatchedApiCallResponse<GenericApiCallStatus>(batchResponses[8]);
@@ -178,6 +186,8 @@ namespace SendwithusTest
         {
             Trace.WriteLine("POST /batch");
 
+            var uniqueName = String.Format("{0}-{1}", NEW_SNIPPET_NAME, SendwithusClientTest.RandomString(UNIQUE_ID_LENGTH));
+
             // Start the batch request
             BatchApiRequest.StartNewBatchRequest();
 
@@ -192,7 +202,7 @@ namespace SendwithusTest
                 await Customer.GetCustomerAsync(CustomerTest.DEFAULT_CUSTOMER_EMAIL_ADDRESS); // GET
                 await RenderTest.BuildAndSendRenderTemplateRequestWithAllParametersId(); // POST
                 await Log.GetLogsAsync(); // GET
-                await EspAccount.SetDefaultEspAccountAsync(DEFAULT_ESP_ACCOUNT_ID); // PUT
+                await Snippet.UpdateSnippetAsync(DEFAULT_SNIPPET_ID, uniqueName, NEW_SNIPPET_BODY); // PUT
                 await EmailTest.BuildAndSendEmailWithAllParametersAsync(); // POST
                 await DripCampaign.GetDripCampaignsAsync(); // GET
                 await CustomerTest.BuildAndSendCreateCustomerRequest(); // POST
@@ -211,7 +221,7 @@ namespace SendwithusTest
                 ValidateIndividualBatchedApiCallResponse<Customer>(batchResponses[2]);
                 ValidateIndividualBatchedApiCallResponse<RenderTemplateResponse>(batchResponses[3]);
                 ValidateIndividualBatchedApiCallResponse<List<Log>>(batchResponses[4]);
-                ValidateIndividualBatchedApiCallResponse<EspAccountResponse>(batchResponses[5]);
+                ValidateIndividualBatchedApiCallResponse<SnippetResponse>(batchResponses[5]);
                 ValidateIndividualBatchedApiCallResponse<EmailResponse>(batchResponses[6]);
                 ValidateIndividualBatchedApiCallResponse<List<DripCampaignDetails>>(batchResponses[7]);
                 ValidateIndividualBatchedApiCallResponse<GenericApiCallStatus>(batchResponses[8]);

@@ -29,10 +29,10 @@ namespace SendwithusTest
         private const string DEFAULT_TAG_3 = "tag3";
         private const string DEFAULT_VERSION_NAME = "New Version";
         private const string DEFAULT_LOCALE = "en-US";
-        private const string DEFAULT_ESP_ACCOUNT_ID = "esp_e3ut7pFtWttcN4HNoQ8Vgm";
+        private const string DEFAULT_ESP_ACCOUNT_ID = "esp_pmUQQ7aRUhWYUrfeJqwPwB";
 
         /// <summary>
-        /// Sets the API 
+        /// Sets the API
         /// </summary>
         [SetUp]
         public void InitializeUnitTesting()
@@ -53,10 +53,10 @@ namespace SendwithusTest
             // Build the drip campaign object
             var recipient = new EmailRecipient(DEFAULT_RECIPIENT_EMAIL_ADDRESS);
             var dripCampaign = new DripCampaign(recipient);
-            
+
             // Make the API call
             try
-            { 
+            {
                 var dripCampaignResponse = await dripCampaign.ActivateAsync(DEFAULT_CAMPAIGN_ID);
 
                 // Validate the response
@@ -96,7 +96,7 @@ namespace SendwithusTest
 
             // Make the API call
             try
-            { 
+            {
                 var dripCampaignResponse = await dripCampaign.ActivateAsync(DEFAULT_CAMPAIGN_ID);
 
                 // Validate the response
@@ -122,7 +122,7 @@ namespace SendwithusTest
             var dripCampaign = new DripCampaign(recipient);
 
             // Make the API call
-            try { 
+            try {
                 var response = await dripCampaign.ActivateAsync(INVALID_CAMPAIGN_ID);
             }
             catch (AggregateException exception)
@@ -143,7 +143,7 @@ namespace SendwithusTest
 
             // Make the API call
             try
-            { 
+            {
                 var dripCampaignResponse = await DripCampaign.DeactivateFromCampaignAsync(DEFAULT_CAMPAIGN_ID, DEFAULT_RECIPIENT_EMAIL_ADDRESS);
 
                 // Validate the response
@@ -189,7 +189,7 @@ namespace SendwithusTest
 
             // Make the API call
             try
-            { 
+            {
                 var dripCampaignDetails = await DripCampaign.GetDripCampaignsAsync();
 
                 // Validate the response
@@ -212,7 +212,7 @@ namespace SendwithusTest
 
             // Make the API call
             try
-            { 
+            {
                 var response = await DripCampaign.GetDripCampaignAsync(DEFAULT_CAMPAIGN_ID);
 
                 // Validate the response

@@ -22,7 +22,7 @@ namespace SendwithusTest
         private const string INVALID_API_KEY = "invalid_api_key";
 
         /// <summary>
-        /// Sets the API 
+        /// Sets the API
         /// </summary>
         [SetUp]
         public void InitializeUnitTesting()
@@ -41,7 +41,7 @@ namespace SendwithusTest
             // Make the API call
             Trace.WriteLine("GET /templates");
             try
-            { 
+            {
                 var templates = await Template.GetTemplatesAsync();
 
                 // Validate the response
@@ -94,7 +94,7 @@ namespace SendwithusTest
             // Make the API call
             Trace.WriteLine(String.Format("GET /templates/{0}", DEFAULT_TEMPLATE_ID));
             try
-            { 
+            {
                 var template = await Template.GetTemplateAsync(DEFAULT_TEMPLATE_ID);
 
                 // Validate the response
@@ -122,7 +122,7 @@ namespace SendwithusTest
             }
             catch (AggregateException exception)
             {
-                // Make sure the response was HTTP 400 Bad Request 
+                // Make sure the response was HTTP 400 Bad Request
                 SendwithusClientTest.ValidateException(exception, HttpStatusCode.BadRequest);
             }
         }
@@ -137,7 +137,7 @@ namespace SendwithusTest
             // Make the API call
             Trace.WriteLine(String.Format("GET /templates/{0}/locales/{1}", DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE));
             try
-            { 
+            {
                 var template = await Template.GetTemplateAsync(DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE);
 
                 // Validate the response
@@ -180,7 +180,7 @@ namespace SendwithusTest
             // Make the API call
             Trace.WriteLine(String.Format("GET /templates/{0}/versions", DEFAULT_TEMPLATE_ID));
             try
-            { 
+            {
                 var template = await Template.GetTemplateVersionsAsync(DEFAULT_TEMPLATE_ID);
 
                 // Validate the response
@@ -202,7 +202,7 @@ namespace SendwithusTest
             // Make the API call
             Trace.WriteLine(String.Format("GET /templates/{0}/locales/{1}/versions", DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE));
             try
-            { 
+            {
                 var templateVersions = await Template.GetTemplateVersionsAsync(DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE);
 
                 // Validate the response
@@ -246,7 +246,7 @@ namespace SendwithusTest
             // Make the API call
             Trace.WriteLine(String.Format("GET /templates/{0}/locales/{1}/versions/{2}", DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE, DEFAULT_VERSION_ID));
             try
-            { 
+            {
                 var templateVersion = await Template.GetTemplateVersionAsync(DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE, DEFAULT_VERSION_ID);
 
                 // Validate the response
@@ -273,7 +273,7 @@ namespace SendwithusTest
             updatedTemplateVersion.html = "<html><head></head><body><h1>NEW TEMPLATE VERSION</h1></body></html>";
             updatedTemplateVersion.text = "some text";
             try
-            { 
+            {
                 var templateVersion = await Template.UpdateTemplateVersionAsync(DEFAULT_TEMPLATE_ID, DEFAULT_VERSION_ID, updatedTemplateVersion);
 
                 // Validate the response
@@ -404,7 +404,7 @@ namespace SendwithusTest
             updatedTemplateVersion.html = "<html><head></head><body><h1>UPDATE</h1></body></html>";
             updatedTemplateVersion.text = "sometext";
             try
-            { 
+            {
                 var templateVersion = await Template.UpdateTemplateVersionAsync(DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE, DEFAULT_VERSION_ID, updatedTemplateVersion);
 
                 // Validate the response
@@ -448,7 +448,7 @@ namespace SendwithusTest
             // Make the API call
             Trace.WriteLine(String.Format("PUT /templates/"));
             try
-            { 
+            {
                 var template = await BuildAndSendCreateTemplateRequestWithAllParametersAsync();
 
                 // Validate the response
@@ -465,7 +465,7 @@ namespace SendwithusTest
         /// </summary>
         /// <returns>The asynchronous task</returns>
         [Test]
-        public async Task TestAddLocaleToTemplateWithMinimumParmetersAsync()
+        public async Task TestAddLocaleToTemplateWithMinimumParametersAsync()
         {
             // Create a new template to add a locale to
             // Otherwise, if an existing template were used, this test might fail because the new locale could already exist on the template
@@ -496,7 +496,7 @@ namespace SendwithusTest
         /// </summary>
         /// <returns>The asynchronous task</returns>
         [Test]
-        public async Task TestAddLocaleToTemplateWithAllParmetersAsync()
+        public async Task TestAddLocaleToTemplateWithAllParametersAsync()
         {
             // Create a new template to add a locale to
             // Otherwise, if an existing template were used, this test might fail because the new locale could already exist on the template
@@ -512,7 +512,7 @@ namespace SendwithusTest
             updatedTemplateVersion.text = "un texte";
 
             try
-            { 
+            {
                 var template = await Template.AddLocaleToTemplate(templateId, ALTERNATE_LOCALE, updatedTemplateVersion);
 
                 // Validate the response
@@ -670,7 +670,7 @@ namespace SendwithusTest
             updatedTemplateVersion.html = "<html><head></head><body><h1>NEW TEMPLATE VERSION</h1></body></html>";
             updatedTemplateVersion.text = "some text";
             try
-            { 
+            {
                 var templateVersion = await Template.CreateTemplateVersion(DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE, updatedTemplateVersion);
 
                 // Validate the response
@@ -697,7 +697,7 @@ namespace SendwithusTest
             // Make the API call
             Trace.WriteLine(String.Format("DELETE /templates/{0}", templateId));
             try
-            { 
+            {
                 var genericApiCallStatus = await Template.DeleteTemplate(templateId);
 
                 // Validate the response
@@ -723,7 +723,7 @@ namespace SendwithusTest
 
             // Make the API call
             Trace.WriteLine(String.Format("DELETE /templates/{0}/locales/{1}", templateId, DEFAULT_LOCALE));
-            try { 
+            try {
                 var response = await Template.DeleteTemplate(templateId, DEFAULT_LOCALE);
 
                 // Validate the response
