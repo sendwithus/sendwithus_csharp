@@ -14,7 +14,7 @@ namespace SendwithusTest
     [TestFixture]
     public class EmailTest
     {
-        private const string DEFAULT_ESP_ACCOUNT = "esp_EsgkbqQdDg7F3ncbz9EHW7";
+        private const string DEFAULT_ESP_ACCOUNT = "esp_pmUQQ7aRUhWYUrfeJqwPwB";
         private const string DEFAULT_TEMPLATE_ID = "tem_yn2viZ8Gm2uaydMK9pgR2B";
         private const string INVALID_TEMPLATE_ID = "invalid_template_id";
         private const string DEFAULT_LOCALE = "en-US";

@@ -28,7 +28,7 @@ namespace SendwithusTest
         public void InitializeUnitTesting()
         {
             // Set the API key
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
+            SendwithusClient.ApiKey = "CSHARP_CUSTOMER_TEST_API_KEY";
         }
 
         /// <summary>

@@ -78,11 +78,11 @@ namespace SendwithusTest
                 await Customer.GetCustomerAsync(CustomerTest.DEFAULT_CUSTOMER_EMAIL_ADDRESS); // GET
                 await RenderTest.BuildAndSendRenderTemplateRequestWithAllParametersId(); // POST
                 await Log.GetLogsAsync(); // GET
-                await EspAccount.SetDefaultEspAccountAsync(DEFAULT_ESP_ACCOUNT_ID); // PUT
+                await Customer.GetCustomerAsync(CustomerTest.DEFAULT_CUSTOMER_EMAIL_ADDRESS); // GET
                 await EmailTest.BuildAndSendEmailWithAllParametersAsync(); // POST
                 await DripCampaign.GetDripCampaignsAsync(); // GET
-                await CustomerTest.BuildAndSendCreateCustomerRequest(); // POST
-                await Customer.DeleteCustomerAsync(CustomerTest.NEW_CUSTOMER_EMAIL_ADDRESS); // DELETE
+                await Customer.GetCustomerAsync(CustomerTest.DEFAULT_CUSTOMER_EMAIL_ADDRESS); // GET
+                await Customer.GetCustomerAsync(CustomerTest.DEFAULT_CUSTOMER_EMAIL_ADDRESS); // GET
 
                 // Make the batch Api Reqeust
                 var batchResponses = await BatchApiRequest.SendBatchApiRequest();
@@ -96,11 +96,11 @@ namespace SendwithusTest
                 ValidateIndividualBatchedApiCallResponse<Customer>(batchResponses[2]);
                 ValidateIndividualBatchedApiCallResponse<RenderTemplateResponse>(batchResponses[3]);
                 ValidateIndividualBatchedApiCallResponse<List<Log>>(batchResponses[4]);
-                ValidateIndividualBatchedApiCallResponse<EspAccountResponse>(batchResponses[5]);
+                ValidateIndividualBatchedApiCallResponse<Customer>(batchResponses[5]);
                 ValidateIndividualBatchedApiCallResponse<EmailResponse>(batchResponses[6]);
                 ValidateIndividualBatchedApiCallResponse<List<DripCampaignDetails>>(batchResponses[7]);
-                ValidateIndividualBatchedApiCallResponse<GenericApiCallStatus>(batchResponses[8]);
-                ValidateIndividualBatchedApiCallResponse<GenericApiCallStatus>(batchResponses[9]);
+                ValidateIndividualBatchedApiCallResponse<Customer>(batchResponses[8]);
+                ValidateIndividualBatchedApiCallResponse<Customer>(batchResponses[9]);
             }
             catch (AggregateException exception)
             {
@@ -128,11 +128,11 @@ namespace SendwithusTest
                 await Customer.GetCustomerAsync(CustomerTest.DEFAULT_CUSTOMER_EMAIL_ADDRESS); // GET
                 await RenderTest.BuildAndSendRenderTemplateRequestWithAllParametersId(); // POST
                 await Log.GetLogsAsync(); // GET
-                await EspAccount.SetDefaultEspAccountAsync(DEFAULT_ESP_ACCOUNT_ID); // PUT
+                await Customer.GetCustomerAsync(CustomerTest.DEFAULT_CUSTOMER_EMAIL_ADDRESS); // GET
                 await EmailTest.BuildAndSendEmailWithAllParametersAsync(); // POST
                 await DripCampaign.GetDripCampaignsAsync(); // GET
-                await CustomerTest.BuildAndSendCreateCustomerRequest(); // POST
-                await Customer.DeleteCustomerAsync(CustomerTest.NEW_CUSTOMER_EMAIL_ADDRESS); // DELETE
+                await Customer.GetCustomerAsync(CustomerTest.DEFAULT_CUSTOMER_EMAIL_ADDRESS); // GET
+                await Customer.GetCustomerAsync(CustomerTest.DEFAULT_CUSTOMER_EMAIL_ADDRESS); // GET
 
                 // Add the 11th API Request
                 try
@@ -157,11 +157,11 @@ namespace SendwithusTest
                 ValidateIndividualBatchedApiCallResponse<Customer>(batchResponses[2]);
                 ValidateIndividualBatchedApiCallResponse<RenderTemplateResponse>(batchResponses[3]);
                 ValidateIndividualBatchedApiCallResponse<List<Log>>(batchResponses[4]);
-                ValidateIndividualBatchedApiCallResponse<EspAccountResponse>(batchResponses[5]);
+                ValidateIndividualBatchedApiCallResponse<Customer>(batchResponses[5]);
                 ValidateIndividualBatchedApiCallResponse<EmailResponse>(batchResponses[6]);
                 ValidateIndividualBatchedApiCallResponse<List<DripCampaignDetails>>(batchResponses[7]);
-                ValidateIndividualBatchedApiCallResponse<GenericApiCallStatus>(batchResponses[8]);
-                ValidateIndividualBatchedApiCallResponse<GenericApiCallStatus>(batchResponses[9]);
+                ValidateIndividualBatchedApiCallResponse<Customer>(batchResponses[8]);
+                ValidateIndividualBatchedApiCallResponse<Customer>(batchResponses[9]);
             }
             catch (AggregateException exception)
             {
@@ -192,11 +192,11 @@ namespace SendwithusTest
                 await Customer.GetCustomerAsync(CustomerTest.DEFAULT_CUSTOMER_EMAIL_ADDRESS); // GET
                 await RenderTest.BuildAndSendRenderTemplateRequestWithAllParametersId(); // POST
                 await Log.GetLogsAsync(); // GET
-                await EspAccount.SetDefaultEspAccountAsync(DEFAULT_ESP_ACCOUNT_ID); // PUT
+                await Customer.GetCustomerAsync(CustomerTest.DEFAULT_CUSTOMER_EMAIL_ADDRESS); // GET
                 await EmailTest.BuildAndSendEmailWithAllParametersAsync(); // POST
                 await DripCampaign.GetDripCampaignsAsync(); // GET
-                await CustomerTest.BuildAndSendCreateCustomerRequest(); // POST
-                await Customer.DeleteCustomerAsync(CustomerTest.NEW_CUSTOMER_EMAIL_ADDRESS); // DELETE
+                await Customer.GetCustomerAsync(CustomerTest.DEFAULT_CUSTOMER_EMAIL_ADDRESS); // GET
+                await Customer.GetCustomerAsync(CustomerTest.DEFAULT_CUSTOMER_EMAIL_ADDRESS); // GET
                 await Customer.GetCustomerAsync(CustomerTest.DEFAULT_CUSTOMER_EMAIL_ADDRESS); // GET
 
                 // Make the batch Api Request
@@ -211,11 +211,11 @@ namespace SendwithusTest
                 ValidateIndividualBatchedApiCallResponse<Customer>(batchResponses[2]);
                 ValidateIndividualBatchedApiCallResponse<RenderTemplateResponse>(batchResponses[3]);
                 ValidateIndividualBatchedApiCallResponse<List<Log>>(batchResponses[4]);
-                ValidateIndividualBatchedApiCallResponse<EspAccountResponse>(batchResponses[5]);
+                ValidateIndividualBatchedApiCallResponse<Customer>(batchResponses[5]);
                 ValidateIndividualBatchedApiCallResponse<EmailResponse>(batchResponses[6]);
                 ValidateIndividualBatchedApiCallResponse<List<DripCampaignDetails>>(batchResponses[7]);
-                ValidateIndividualBatchedApiCallResponse<GenericApiCallStatus>(batchResponses[8]);
-                ValidateIndividualBatchedApiCallResponse<GenericApiCallStatus>(batchResponses[9]);
+                ValidateIndividualBatchedApiCallResponse<Customer>(batchResponses[8]);
+                ValidateIndividualBatchedApiCallResponse<Customer>(batchResponses[9]);
                 ValidateIndividualBatchedApiCallResponse<Customer>(batchResponses[10]);
             }
             catch (InvalidOperationException exception)

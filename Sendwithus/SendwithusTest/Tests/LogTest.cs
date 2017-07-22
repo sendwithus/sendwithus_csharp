@@ -15,7 +15,7 @@ namespace SendwithusTest
     [TestFixture]
     public class LogTest
     {
-        private const string DEFAULT_LOG_ID = "log_88be2c0f8b5c6d3933dd578b6a0f13e5";
+        private const string DEFAULT_LOG_ID = "log_e7c783fc7efca27006e043ca12282e9f-3";
         private const int DEFAULT_COUNT = 5;
         private const int DEFAULT_OFFSET = 1;
         private const string INVALID_COUNT = "12345";

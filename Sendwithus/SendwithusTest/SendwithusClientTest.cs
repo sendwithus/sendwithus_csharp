@@ -70,6 +70,13 @@ namespace SendwithusTest
               .Select(s => s[_random.Next(s.Length)]).ToArray());
         }
 
+        public static string TimeStampAndRandomNumber()
+        {
+            var now = DateTimeOffset.UtcNow.ToUniversalTime().ToString();
+            var random = new Random();
+            return String.Format("{0}_{1}", now, random.Next(0, 1000000));
+        }
+
         /// <summary>
         /// Validates an aggregated exception.
         /// Checks the number of inner exceptions included in it, and the type of each of those exceptions.
