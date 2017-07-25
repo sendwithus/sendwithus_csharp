@@ -23,31 +23,6 @@ namespace Sendwithus
         public string email_version { get; set; }
 
         /// <summary>
-        /// Get all the logs associated with the account.
-        /// GET /logs
-        /// </summary>
-        /// <param name="queryParameters">The query parameters to include with the request, options include:
-        /// count (optional) – The number of logs to return. Max: 100, Default: 100.
-        /// offset(optional) – Offset the number of logs to return. Default: 0.
-        /// created_gt(optional) – Return logs created strictly after the given Unix Timestamp.
-        /// created_gte (optional) – Return logs created on or after the given Unix Timestamp.
-        /// created_lt(optional) – Return logs created strictly before the given Unix Timestamp.
-        /// created_lte (optional) – Return logs created on or before the given Unix Timestamp.</param>
-        /// <returns>A list of all the logs that match the given filters</returns>
-        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
-        /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
-        public static async Task<List<Log>> GetLogsAsync(Dictionary<string, object> queryParameters)
-        {
-            // Send the GET request
-            var resource = "logs";
-            var jsonResponse = await RequestManager.SendGetRequestAsync(resource, queryParameters);
-
-            // Convert the JSON result into an object
-            var serializer = new JavaScriptSerializer();
-            return serializer.Deserialize<List<Log>>(jsonResponse);
-        }
-
-        /// <summary>
         /// Get all the logs associated with the account without any query parameters
         /// GET /logs
         /// </summary>
