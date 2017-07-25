@@ -386,40 +386,6 @@ catch (AggregateException exception)
 }
 ```
 ## Logs
-### Get a list of logs
-#### GET /logs
-Example with no filter parameters:
-```csharp
-try
-{
-    var logs = await Log.GetLogsAsync();
-}
-catch (AggregateException exception)
-{
-    // Exception handling
-}
-```
-Example with all the filter parameters:
-```csharp
-// Build the query parameters (each is optional)
-Dictionary<string, object> queryParameters = new Dictionary<string, object>();
-queryParameters.Add("count", DEFAULT_COUNT);
-queryParameters.Add("offset", DEFAULT_OFFSET);
-queryParameters.Add("created_gt", LOG_CREATED_AFTER_TIME);
-queryParameters.Add("created_gte", LOG_CREATED_AFTER_TIME);
-queryParameters.Add("created_lt", LOG_CREATED_BEFORE_TIME);
-queryParameters.Add("created_lte", LOG_CREATED_BEFORE_TIME);
-
-// Make the API call
-try
-{
-    var logs = await Log.GetLogsAsync(queryParameters);
-}
-catch (AggregateException exception)
-{
-    // Exception handling
-}
-```
 ### Get a specific log + metadata
 #### GET /logs/(:log_id)
 ```csharp

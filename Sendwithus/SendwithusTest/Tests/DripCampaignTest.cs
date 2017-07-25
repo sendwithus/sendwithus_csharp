@@ -29,7 +29,7 @@ namespace SendwithusTest
         private const string DEFAULT_TAG_3 = "tag3";
         private const string DEFAULT_VERSION_NAME = "New Version";
         private const string DEFAULT_LOCALE = "en-US";
-        private const string DEFAULT_ESP_ACCOUNT_ID = "esp_e3ut7pFtWttcN4HNoQ8Vgm";
+        private const string DEFAULT_ESP_ACCOUNT_ID = "esp_pmUQQ7aRUhWYUrfeJqwPwB";
 
         /// <summary>
         /// Sets the API 

@@ -533,7 +533,7 @@ namespace SendwithusTest
         {
             // Make the API call
             Trace.WriteLine(String.Format("POST /templates/{0}/versions", DEFAULT_TEMPLATE_ID));
-            var templateVersionName = "New Template Version";
+            var templateVersionName = "New Template Version" + SendwithusClientTest.TimeStampAndRandomNumber();
             var templateSubject = "New Version!";
             var updatedTemplateVersion = new TemplateVersion(templateVersionName, templateSubject);
             updatedTemplateVersion.html = "<html><head></head><body><h1>NEW TEMPLATE VERSION</h1></body></html>";
@@ -559,7 +559,7 @@ namespace SendwithusTest
         {
             // Make the API call
             Trace.WriteLine(String.Format("POST /templates/{0}/versions", DEFAULT_TEMPLATE_ID));
-            var templateVersionName = "New Template Version";
+            var templateVersionName = "New Template Version" + SendwithusClientTest.TimeStampAndRandomNumber();
             var templateSubject = "New Version!";
             var updatedTemplateVersion = new TemplateVersion(templateVersionName, templateSubject);
             updatedTemplateVersion.text = "some text";
@@ -585,7 +585,7 @@ namespace SendwithusTest
         {
             // Make the API call
             Trace.WriteLine(String.Format("POST /templates/{0}/versions", DEFAULT_TEMPLATE_ID));
-            var templateVersionName = "New Template Version";
+            var templateVersionName = "New Template Version " + SendwithusClientTest.TimeStampAndRandomNumber();
             var templateSubject = "New Version!";
             var updatedTemplateVersion = new TemplateVersion(templateVersionName, templateSubject);
             updatedTemplateVersion.html = "<html><head></head><body><h1>NEW TEMPLATE VERSION</h1></body></html>";
@@ -612,7 +612,7 @@ namespace SendwithusTest
         {
             // Make the API call
             Trace.WriteLine(String.Format("POST /templates/{0}/locales/{1}/versions", DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE));
-            var templateVersionName = "New Template Version";
+            var templateVersionName = "New Template Version" + SendwithusClientTest.TimeStampAndRandomNumber();
             var templateSubject = "New Version!";
             var updatedTemplateVersion = new TemplateVersion(templateVersionName, templateSubject);
             updatedTemplateVersion.html = "<html><head></head><body><h1>NEW TEMPLATE VERSION</h1></body></html>";
@@ -638,7 +638,7 @@ namespace SendwithusTest
         {
             // Make the API call
             Trace.WriteLine(String.Format("POST /templates/{0}/locales/{1}/versions", DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE));
-            var templateVersionName = "New Template Version";
+            var templateVersionName = "New Template Version" + SendwithusClientTest.TimeStampAndRandomNumber();
             var templateSubject = "New Version!";
             var updatedTemplateVersion = new TemplateVersion(templateVersionName, templateSubject);
             updatedTemplateVersion.text = "some text";
@@ -664,7 +664,7 @@ namespace SendwithusTest
         {
             // Make the API call
             Trace.WriteLine(String.Format("POST /templates/{0}/locales/{1}/versions", DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE));
-            var templateVersionName = "New Template Version";
+            var templateVersionName = "New Template Version" + SendwithusClientTest.TimeStampAndRandomNumber();
             var templateSubject = "New Version!";
             var updatedTemplateVersion = new TemplateVersion(templateVersionName, templateSubject);
             updatedTemplateVersion.html = "<html><head></head><body><h1>NEW TEMPLATE VERSION</h1></body></html>";
@@ -748,6 +748,18 @@ namespace SendwithusTest
             updatedTemplateVersion.text = "some text";
             updatedTemplateVersion.locale = DEFAULT_LOCALE;
             return await Template.CreateTemplateAsync(updatedTemplateVersion);
+        }
+
+        /// <summary>
+        /// Builds a new template with all parameters and sends the Create Template request
+        /// </summary>
+        /// <returns>The response to the Create Template API request</returns>
+        public static async Task<TemplateVersion> UpdateTemplateVersionAsync()
+        {
+            var templateVersion = await Template.GetTemplateVersionAsync(DEFAULT_TEMPLATE_ID, DEFAULT_VERSION_ID);
+            var updatedTemplateVersion = Template.UpdateTemplateVersionAsync(DEFAULT_TEMPLATE_ID, DEFAULT_VERSION_ID, templateVersion);
+            return await updatedTemplateVersion;
+
         }
 
         /// <summary>

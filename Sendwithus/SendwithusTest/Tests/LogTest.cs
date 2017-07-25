@@ -15,7 +15,7 @@ namespace SendwithusTest
     [TestFixture]
     public class LogTest
     {
-        private const string DEFAULT_LOG_ID = "log_88be2c0f8b5c6d3933dd578b6a0f13e5";
+        private const string DEFAULT_LOG_ID = "log_e7c783fc7efca27006e043ca12282e9f-3";
         private const int DEFAULT_COUNT = 5;
         private const int DEFAULT_OFFSET = 1;
         private const string INVALID_COUNT = "12345";
@@ -30,88 +30,6 @@ namespace SendwithusTest
         {
             // Set the API key
             SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
-        }
-
-        /// <summary>
-        /// Tests the API call GET /logs without any parameters
-        /// </summary>
-        /// <returns>The associated task</returns>
-        [Test]
-        public async Task TestGetLogsWithNoParametersAsync()
-        {
-            Trace.WriteLine("GET /logs");
-
-            // Make the API call
-            try
-            { 
-                var logs = await Log.GetLogsAsync();
-
-                // Validate the response
-                SendwithusClientTest.ValidateResponse(logs);
-            }
-            catch (AggregateException exception)
-            {
-                Assert.Fail(exception.ToString());
-            }
-        }
-
-
-        /// <summary>
-        /// Tests the API call GET /logs with all parameters included
-        /// </summary>
-        /// <returns>The associated task</returns>
-        [Test]
-        public async Task TestGetLogsWithAllParametersAsync()
-        {
-            Trace.WriteLine("GET /logs");
-
-            // Build the query parameters
-            Dictionary<string, object> queryParameters = new Dictionary<string, object>();
-            queryParameters.Add("count", DEFAULT_COUNT);
-            queryParameters.Add("offset", DEFAULT_OFFSET);
-            queryParameters.Add("created_gt", LOG_CREATED_AFTER_TIME);
-            queryParameters.Add("created_gte", LOG_CREATED_AFTER_TIME);
-            queryParameters.Add("created_lt", LOG_CREATED_BEFORE_TIME);
-            queryParameters.Add("created_lte", LOG_CREATED_BEFORE_TIME);
-
-            // Make the API call
-            try
-            {
-                var logs = await Log.GetLogsAsync(queryParameters);
-
-                // Validate the response
-                SendwithusClientTest.ValidateResponse(logs);
-            }
-            catch (AggregateException exception)
-            {
-                Assert.Fail(exception.ToString());
-            }
-        }
-
-        /// <summary>
-        /// Tests the API call GET /logs with an invalid count number (passes a string instead of an int)
-        /// </summary>
-        /// <returns>The associated task</returns>
-        [Test]
-        public async Task TestGetLogsWithInvalidCountAsync()
-        {
-            Trace.WriteLine("GET /logs");
-
-            // Build the query parameters
-            Dictionary<string, object> queryParameters = new Dictionary<string, object>();
-            queryParameters.Add("count", INVALID_COUNT);
-
-            // Make the API call
-            try
-            {
-                var logs = await Log.GetLogsAsync(queryParameters);
-                Assert.Fail("Failed to throw exception");
-            }
-            catch (AggregateException exception)
-            {
-                // Make sure the response was HTTP 500 Internal Server Error
-                SendwithusClientTest.ValidateException(exception, HttpStatusCode.InternalServerError);
-            }
         }
 
         /// <summary>

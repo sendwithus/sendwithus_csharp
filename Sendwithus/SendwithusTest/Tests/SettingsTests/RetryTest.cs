@@ -15,7 +15,7 @@ namespace SendwithusTest
     {
         private const int FAILURE_TIMEOUT_MILLISECONDS = 1; // 1ms
         private const string DEFAULT_TEMPLATE_ID = "tem_SxZKpxJSHPbYDWRSQnAQUR";
-        private const string DEFAULT_ESP_ACCOUNT_ID = "esp_e3ut7pFtWttcN4HNoQ8Vgm";
+        private const string DEFAULT_ESP_ACCOUNT_ID = "esp_pmUQQ7aRUhWYUrfeJqwPwB";
         private const int NON_DEFAULT_RETRY_COUNT = SendwithusClient.DEFAULT_RETRY_COUNT + 2;
         private const int NON_DEFAULT_RETRY_INTERVAL_MILLISECONDS = 1000; // 1 second
 
@@ -76,7 +76,7 @@ namespace SendwithusTest
             // Send a PUT request
             try
             {
-                var setDefaultEspAccountResponse = await EspAccount.SetDefaultEspAccountAsync(DEFAULT_ESP_ACCOUNT_ID);
+                var updateTemplateResponse = await TemplateTest.UpdateTemplateVersionAsync();
             }
             catch (Exception ex)
             {
