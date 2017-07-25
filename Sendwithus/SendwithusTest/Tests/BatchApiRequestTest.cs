@@ -15,6 +15,7 @@ namespace SendwithusTest
     {
         private const string DEFAULT_ESP_ACCOUNT_ID = "esp_e3ut7pFtWttcN4HNoQ8Vgm";
         private const string DEFAULT_EMAIL_ADDRESS = "sendwithus.test@gmail.com";
+        private const string DEFAULT_LOG_ID = "log_e7c783fc7efca27006e043ca12282e9f-3";
 
         /// <summary>
         /// Sets the API
@@ -77,7 +78,7 @@ namespace SendwithusTest
                 await Snippet.GetSnippetsAsync(); // GET
                 await Customer.GetCustomerAsync(CustomerTest.DEFAULT_CUSTOMER_EMAIL_ADDRESS); // GET
                 await RenderTest.BuildAndSendRenderTemplateRequestWithAllParametersId(); // POST
-                await Log.GetLogsAsync(); // GET
+                await Log.GetLogEventsAsync(BatchApiRequestTest.DEFAULT_LOG_ID); // GET
                 await Customer.GetCustomerAsync(CustomerTest.DEFAULT_CUSTOMER_EMAIL_ADDRESS); // GET
                 await EmailTest.BuildAndSendEmailWithAllParametersAsync(); // POST
                 await DripCampaign.GetDripCampaignsAsync(); // GET
@@ -127,7 +128,7 @@ namespace SendwithusTest
                 await Snippet.GetSnippetsAsync(); // GET
                 await Customer.GetCustomerAsync(CustomerTest.DEFAULT_CUSTOMER_EMAIL_ADDRESS); // GET
                 await RenderTest.BuildAndSendRenderTemplateRequestWithAllParametersId(); // POST
-                await Log.GetLogsAsync(); // GET
+                await Log.GetLogEventsAsync(BatchApiRequestTest.DEFAULT_LOG_ID); // GET
                 await Customer.GetCustomerAsync(CustomerTest.DEFAULT_CUSTOMER_EMAIL_ADDRESS); // GET
                 await EmailTest.BuildAndSendEmailWithAllParametersAsync(); // POST
                 await DripCampaign.GetDripCampaignsAsync(); // GET
@@ -156,7 +157,7 @@ namespace SendwithusTest
                 ValidateIndividualBatchedApiCallResponse<List<Snippet>>(batchResponses[1]);
                 ValidateIndividualBatchedApiCallResponse<Customer>(batchResponses[2]);
                 ValidateIndividualBatchedApiCallResponse<RenderTemplateResponse>(batchResponses[3]);
-                ValidateIndividualBatchedApiCallResponse<List<Log>>(batchResponses[4]);
+                await Log.GetLogEventsAsync(BatchApiRequestTest.DEFAULT_LOG_ID); // GET
                 ValidateIndividualBatchedApiCallResponse<Customer>(batchResponses[5]);
                 ValidateIndividualBatchedApiCallResponse<EmailResponse>(batchResponses[6]);
                 ValidateIndividualBatchedApiCallResponse<List<DripCampaignDetails>>(batchResponses[7]);
@@ -191,7 +192,7 @@ namespace SendwithusTest
                 await Snippet.GetSnippetsAsync(); // GET
                 await Customer.GetCustomerAsync(CustomerTest.DEFAULT_CUSTOMER_EMAIL_ADDRESS); // GET
                 await RenderTest.BuildAndSendRenderTemplateRequestWithAllParametersId(); // POST
-                await Log.GetLogsAsync(); // GET
+                await Log.GetLogEventsAsync(BatchApiRequestTest.DEFAULT_LOG_ID); // GET
                 await Customer.GetCustomerAsync(CustomerTest.DEFAULT_CUSTOMER_EMAIL_ADDRESS); // GET
                 await EmailTest.BuildAndSendEmailWithAllParametersAsync(); // POST
                 await DripCampaign.GetDripCampaignsAsync(); // GET

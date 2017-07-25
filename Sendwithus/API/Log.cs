@@ -23,18 +23,6 @@ namespace Sendwithus
         public string email_version { get; set; }
 
         /// <summary>
-        /// Get all the logs associated with the account without any query parameters
-        /// GET /logs
-        /// </summary>
-        /// <returns>A list of all the logs that match the given filters</returns>
-        /// <exception cref="AggregateException">Thrown when the API response status code is not success or when the API call times out</exception>
-        /// <exception cref="InvalidOperationException">Thrown when making a Batch API Request that has already reached the maxmimum API calls per batch request</exception>
-        public static async Task<List<Log>> GetLogsAsync()
-        {
-            return await GetLogsAsync(null);
-        }
-
-        /// <summary>
         /// Get the log with the given log ID.
         /// GET /logs/(:log_id)
         /// </summary>
