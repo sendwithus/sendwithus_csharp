@@ -18,8 +18,8 @@ namespace Sendwithus
         public Collection<EmailRecipient> bcc { get; set; }
         public EmailSender sender { get; set; }
         public Collection<string> tags { get; set; }
-        public Dictionary<string, string> headers { get; set; }  // TODO: Confirm that this is the right representation for headers (looks like it is from the python library's usage)
-        public EmailFileData inline { get; set; }   // TODO: is this the right representation of inline?  Should it be a list of EmailFileData? Are other fields possibe beyond ID and Data?
+        public Dictionary<string, object> headers { get; set; }
+        public EmailFileData inline { get; set; }
         public Collection<EmailFileData> files { get; set; }
         public string esp_account { get; set; }
         public string locale { get; set; }
@@ -39,8 +39,8 @@ namespace Sendwithus
             cc = new Collection<EmailRecipient>();
             bcc = new Collection<EmailRecipient>();
             tags = new Collection<string>();
-            headers = new Dictionary<string, string>();
-            inline = new EmailFileData();   // TODO: is this the right representation of inline?  Should it be a list of EmailFileData? Are other fields possibe beyond ID and Data?
+            headers = new Dictionary<string, object>();
+            inline = new EmailFileData();
             files = new Collection<EmailFileData>();
         }
 

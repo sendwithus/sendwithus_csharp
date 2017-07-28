@@ -32,6 +32,7 @@ namespace SendwithusTest
         private const string DEFAULT_TAG_3 = "tag3";
         private const string DEFAULT_HEADER_NAME = "X-HEADER-ONE";
         private const string DEFAULT_HEADER_VALUE = "header-value";
+        private const string DEFAULT_COMPLEX_HEADER_NAME = "options";
         private const string DEFAULT_INLINE_ID = "pixel.gif";
         private const string DEFAULT_INLINE_DATA = "R0lGODdhAQABAPAAAH//ACZFySH5BAEAAAEALAAAAAABAAEAAAICRAEAOw==";
         private const string DEFAULT_FILE_NAME_1 = "doct.txt";
@@ -164,6 +165,9 @@ namespace SendwithusTest
             email.tags.Add(DEFAULT_TAG_2);
             email.tags.Add(DEFAULT_TAG_3);
             email.headers.Add(DEFAULT_HEADER_NAME, DEFAULT_HEADER_VALUE);
+            var complex_header = new Dictionary<string, bool>();
+            complex_header.Add("transactional", true);
+            email.headers.Add(DEFAULT_COMPLEX_HEADER_NAME, complex_header);
             email.inline.id = DEFAULT_INLINE_ID;
             email.inline.data = DEFAULT_INLINE_DATA;
             email.files.Add(new EmailFileData(DEFAULT_FILE_NAME_1, DEFAULT_FILE_DATA));
