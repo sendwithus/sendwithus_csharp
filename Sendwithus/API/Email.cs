@@ -40,7 +40,7 @@ namespace Sendwithus
             bcc = new Collection<EmailRecipient>();
             tags = new Collection<string>();
             headers = new Dictionary<string, object>();
-            inline = new EmailFileData();   // TODO: is this the right representation of inline?  Should it be a list of EmailFileData? Are other fields possibe beyond ID and Data?
+            inline = new EmailFileData();
             files = new Collection<EmailFileData>();
         }
 
