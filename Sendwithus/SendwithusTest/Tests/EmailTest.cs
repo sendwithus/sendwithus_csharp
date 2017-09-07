@@ -98,6 +98,29 @@ namespace SendwithusTest
         }
 
         /// <summary>
+        /// Tests the API call POST /send with an object's properties to serialize as the template data instead of a dictionary.
+        /// </summary>
+        /// <returns>The asynchronous task</returns>
+        [Test]
+        public async Task TestSendEmailWithObjectPropertiesAsync()
+        {
+            Trace.WriteLine("POST /send");
+
+            // Construct and send an email with all of the optional data
+            try
+            {
+                var response = await BuildAndSendEmailWithObjectTemplateDataAsync();
+
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(response);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
+        }
+
+        /// <summary>
         /// Tests the POST /send API call with an invalid template ID
         /// </summary>
         /// <returns>The asynchronous task</returns>
@@ -146,13 +169,14 @@ namespace SendwithusTest
         {
             var email = BuildBarebonesEmail();
 
-            email.template_data.Add("first_name", "Chuck");
-            email.template_data.Add("last_name", "Norris");
-            email.template_data.Add("img", "http://placekitten.com/50/60");
+            var templateDataDictionary = email.template_data as Dictionary<string, object>;
+            templateDataDictionary.Add("first_name", "Chuck");
+            templateDataDictionary.Add("last_name", "Norris");
+            templateDataDictionary.Add("img", "http://placekitten.com/50/60");
             var link = new Dictionary<string, string>();
             link.Add("url", "https://www.sendwithus.com");
             link.Add("text", "sendwithus!");
-            email.template_data.Add("link", link);
+            templateDataDictionary.Add("link", link);
             email.recipient.name = DEFAULT_EMAIL_NAME;
             email.cc.Add(new EmailRecipient(DEFAULT_CC_EMAIL_ADDRESS_1, DEFAULT_EMAIL_NAME));
             email.cc.Add(new EmailRecipient(DEFAULT_CC_EMAIL_ADDRESS_2, DEFAULT_EMAIL_NAME));
@@ -176,6 +200,30 @@ namespace SendwithusTest
             email.locale = DEFAULT_LOCALE;
             email.esp_account = DEFAULT_ESP_ACCOUNT;
 
+            // Make the API call
+            return await email.Send();
+        }
+
+        /// <summary>
+        /// Build and send an email with all of the parameters included
+        /// Public so that it can also be used by the BatchApiRequestTest library
+        /// </summary>
+        /// <returns>The API response to the Email Send call</returns>
+        public static async Task<EmailResponse> BuildAndSendEmailWithObjectTemplateDataAsync()
+        {
+            var email = BuildBarebonesEmail();
+            email.template_data = new
+            {
+                first_name = "Chuck",
+                last_name = "Norris",
+                img = "http://placekitten.com/50/60",
+                link = new
+                {
+                    url = "https://www.sendwithus.com",
+                    text = "sendwithus!"
+                }
+            };
+            
             // Make the API call
             return await email.Send();
         }
