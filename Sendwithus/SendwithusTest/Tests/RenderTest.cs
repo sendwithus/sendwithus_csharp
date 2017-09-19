@@ -102,6 +102,29 @@ namespace SendwithusTest
         }
 
         /// <summary>
+        /// Tests the API call POST /render with an object's properties to serialize as the template data instead of a dictionary.
+        /// </summary>
+        /// <returns>The asynchronous task</returns>
+        [Test]
+        public async Task TestRenderTemplateWithObjectPropertiesAsync()
+        {
+            Trace.WriteLine("POST /render");
+
+            // Make the API call
+            try
+            {
+                var renderTemplateResponse = await BuildAndSendRenderTemplateRequestWithObjectTemplateData();
+
+                // Validate the response
+                SendwithusClientTest.ValidateResponse(renderTemplateResponse);
+            }
+            catch (AggregateException exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
+        }
+
+        /// <summary>
         /// Tests the API call POST /render with an invalid template ID
         /// </summary>
         /// <returns>The asynchronous task</returns>
@@ -155,6 +178,21 @@ namespace SendwithusTest
             var renderTemplate = new Render(DEFAULT_TEMPLATE_ID, templateData);
             renderTemplate.version_name = DEFAULT_VERSION_NAME;
             renderTemplate.locale = DEFAULT_LOCALE;
+            renderTemplate.strict = true;
+            return await renderTemplate.RenderTemplateAsync();
+        }
+
+        /// <summary>
+        /// Builds and sends a RenderTemplate request with an anonymous object as the template data instead of a dictionary.
+        /// </summary>
+        /// <returns>A response containing the status of API call and the newly rendered template</returns>
+        private static async Task<RenderTemplateResponse> BuildAndSendRenderTemplateRequestWithObjectTemplateData()
+        {
+            var templateData = new
+            {
+                amount = "$12.00"
+            };
+            var renderTemplate = new Render(DEFAULT_TEMPLATE_ID, templateData);
             renderTemplate.strict = true;
             return await renderTemplate.RenderTemplateAsync();
         }

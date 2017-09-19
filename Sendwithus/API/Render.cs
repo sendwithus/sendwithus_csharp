@@ -13,7 +13,7 @@ namespace Sendwithus
     public class Render
     {
         public string template { get; set; }
-        public Dictionary<string, object> template_data  { get; set; }
+        public object template_data  { get; set; }
         public string version_id { get; set; }
         public string version_name { get; set; }
         public string locale { get; set; }
@@ -24,7 +24,7 @@ namespace Sendwithus
         /// </summary>
         /// <param name="templateId">The ID of the template</param>
         /// <param name="templateData">The template data</param>
-        public Render(string templateId, Dictionary<string, object> templateData)
+        public Render(string templateId, object templateData)
         {
             this.template = templateId;
             this.template_data = templateData;
@@ -33,6 +33,15 @@ namespace Sendwithus
             locale = String.Empty;
             strict = false;
         }
+
+        /// <summary>
+        /// Constructor for render data with a dictionary of template values
+        /// </summary>
+        /// <param name="templateId">The ID of the template</param>
+        /// <param name="templateData">The template data</param>
+        public Render(string templateId, Dictionary<string, object> templateData)
+            : this(templateId, (object)templateData)
+        { }
 
         /// <summary>
         /// Render a Template with data.

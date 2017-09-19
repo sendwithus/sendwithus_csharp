@@ -12,7 +12,7 @@ namespace Sendwithus
     public class Email
     {
         public string template { get; set; } // The template ID
-        public Dictionary<string, object> template_data { get; set; }
+        public object template_data { get; set; }
         public EmailRecipient recipient { get; set; }
         public Collection<EmailRecipient> cc { get; set; }
         public Collection<EmailRecipient> bcc { get; set; }
@@ -30,7 +30,7 @@ namespace Sendwithus
         /// </summary>
         /// <param name="template">The template ID to send</param>
         /// <param name="templateData">Object containing email template data</param>
-        public Email(string template, Dictionary<string, object> templateData, EmailRecipient recipient)
+        public Email(string template, object templateData, EmailRecipient recipient)
         {
             this.template = template;
             this.template_data = templateData;
@@ -42,6 +42,17 @@ namespace Sendwithus
             headers = new Dictionary<string, object>();
             inline = new EmailFileData();
             files = new Collection<EmailFileData>();
+        }
+
+        /// <summary>
+        /// Constructor for an email
+        /// </summary>
+        /// <param name="template">The template ID to send</param>
+        /// <param name="templateData">Object containing email template data</param>
+        public Email(string template, Dictionary<string, object> templateData, EmailRecipient recipient)
+            : this(template, (object)templateData, recipient)
+        {
+
         }
 
         /// <summary>
