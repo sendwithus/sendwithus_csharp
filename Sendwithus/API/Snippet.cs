@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Web.Script.Serialization;
+using Newtonsoft.Json;
 
 namespace Sendwithus
 {
@@ -42,9 +42,8 @@ namespace Sendwithus
             var resource = "snippets";
             var jsonResponse = await RequestManager.SendGetRequestAsync(resource);
 
-            // Convert the JSON result into an object
-            var serializer = new JavaScriptSerializer();
-            return serializer.Deserialize<List<Snippet>>(jsonResponse);
+            // Convert the JSON result into an object         
+            return JsonConvert.DeserializeObjectList<Snippet>>(jsonResponse);
         }
 
         /// <summary>
@@ -62,8 +61,7 @@ namespace Sendwithus
             var jsonResponse = await RequestManager.SendGetRequestAsync(resource);
 
             // Convert the JSON result into an object
-            var serializer = new JavaScriptSerializer();
-            return serializer.Deserialize<Snippet>(jsonResponse);
+            return JsonConvert.DeserializeObject<Snippet>(jsonResponse);
         }
 
         /// <summary>
@@ -85,8 +83,7 @@ namespace Sendwithus
             var jsonResponse = await RequestManager.SendPostRequestAsync(resource, newSnippet);
 
             // Convert the JSON result into an object
-            var serializer = new JavaScriptSerializer();
-            return serializer.Deserialize<SnippetResponse>(jsonResponse);
+            return JsonConvert.DeserializeObject<SnippetResponse>(jsonResponse);
         }
 
         /// <summary>
@@ -109,8 +106,7 @@ namespace Sendwithus
             var jsonResponse = await RequestManager.SendPutRequestAsync(resource, newSnippet);
 
             // Convert the JSON result into an object
-            var serializer = new JavaScriptSerializer();
-            return serializer.Deserialize<SnippetResponse>(jsonResponse);
+            return JsonConvert.DeserializeObject<SnippetResponse>(jsonResponse);
         }
 
         /// <summary>
@@ -128,8 +124,7 @@ namespace Sendwithus
             var jsonResponse = await RequestManager.SendDeleteRequestAsync(resource);
 
             // Convert the JSON result into an object
-            var serializer = new JavaScriptSerializer();
-            return serializer.Deserialize<GenericApiCallStatus>(jsonResponse);
+            return JsonConvert.DeserializeObject<GenericApiCallStatus>(jsonResponse);
         }
     }
 }

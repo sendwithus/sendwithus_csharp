@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using System.Web.Script.Serialization;
+using Newtonsoft.Json;
 
 namespace Sendwithus
 {
@@ -69,8 +69,7 @@ namespace Sendwithus
             var jsonResponse = await RequestManager.SendPostRequestAsync(resource, this);
 
             // Convert the JSON result into an object
-            var serializer = new JavaScriptSerializer();
-            var response = serializer.Deserialize<EmailResponse>(jsonResponse);
+            var response = JsonConvert.DeserializeObject<EmailResponse>(jsonResponse);
             return response;
         }
     }

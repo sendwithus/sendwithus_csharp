@@ -1,9 +1,8 @@
 ﻿using Sendwithus.Net;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using System.Web.Script.Serialization;
+using Newtonsoft.Json;
 
 namespace Sendwithus
 {
@@ -23,7 +22,7 @@ namespace Sendwithus
         public Customer() : this(String.Empty) { }
 
         /// <summary>
-        /// Constructor wtih the customer's email address given
+        /// Constructor with the customer's email address given
         /// </summary>
         /// <param name="email">The customer's email address</param>
         public Customer(string email)
@@ -49,8 +48,7 @@ namespace Sendwithus
             var jsonResponse = await RequestManager.SendGetRequestAsync(resource);
 
             // Convert the JSON result into an object
-            var serializer = new JavaScriptSerializer();
-            return serializer.Deserialize<CustomerResponse>(jsonResponse);
+            return JsonConvert.DeserializeObject<CustomerResponse>(jsonResponse);
         }
 
         /// <summary>
@@ -69,8 +67,7 @@ namespace Sendwithus
             var jsonResponse = await RequestManager.SendPostRequestAsync(resource, customer);
 
             // Convert the JSON result into an object
-            var serializer = new JavaScriptSerializer();
-            return serializer.Deserialize<GenericApiCallStatus>(jsonResponse);
+            return JsonConvert.DeserializeObject<GenericApiCallStatus>(jsonResponse);
         }
 
         /// <summary>
@@ -88,8 +85,7 @@ namespace Sendwithus
             var jsonResponse = await RequestManager.SendDeleteRequestAsync(resource);
 
             // Convert the JSON result into an object
-            var serializer = new JavaScriptSerializer();
-            return serializer.Deserialize<GenericApiCallStatus>(jsonResponse);
+            return JsonConvert.DeserializeObject<GenericApiCallStatus>(jsonResponse);
         }
 
         /// <summary>
@@ -111,8 +107,7 @@ namespace Sendwithus
             var jsonResponse = await RequestManager.SendGetRequestAsync(resource, queryParameters);
 
             // Convert the JSON result into an object
-            var serializer = new JavaScriptSerializer();
-            return serializer.Deserialize<CustomerEmailLogsResponse>(jsonResponse);
+            return JsonConvert.DeserializeObject<CustomerEmailLogsResponse>(jsonResponse);
         }
 
         /// <summary>

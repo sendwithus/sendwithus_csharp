@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using System.Web.Script.Serialization;
+using Newtonsoft.Json;
 
 namespace Sendwithus
 {
@@ -43,8 +43,7 @@ namespace Sendwithus
             var jsonResponse = await RequestManager.SendGetRequestAsync(resource);
             
             // Convert the JSON result into an object
-            var serializer = new JavaScriptSerializer();
-            var templateList = serializer.Deserialize<List<Template>>(jsonResponse);
+            var templateList = JsonConvert.DeserializeObject<List<Template>>(jsonResponse);
             return templateList;
         }
 
@@ -63,8 +62,7 @@ namespace Sendwithus
             var jsonResponse = await RequestManager.SendGetRequestAsync(resource);
 
             // Convert the JSON result into an object
-            var serializer = new JavaScriptSerializer();
-            var template = serializer.Deserialize<Template>(jsonResponse);
+            var template = JsonConvert.DeserializeObject<Template>(jsonResponse);
             return template;
         }
 
@@ -84,8 +82,7 @@ namespace Sendwithus
             var jsonResponse = await RequestManager.SendGetRequestAsync(resource);
 
             // Convert the JSON result into an object
-            var serializer = new JavaScriptSerializer();
-            var template = serializer.Deserialize<Template>(jsonResponse);
+            var template = JsonConvert.DeserializeObject<Template>(jsonResponse);
             return template;
         }
 
@@ -104,8 +101,7 @@ namespace Sendwithus
             var jsonResponse = await RequestManager.SendGetRequestAsync(resource);
 
             // Convert the JSON result into an object
-            var serializer = new JavaScriptSerializer();
-            var versions = serializer.Deserialize<List<TemplateVersion>>(jsonResponse);
+            var versions = JsonConvert.DeserializeObject<List<TemplateVersion>>(jsonResponse);
             return versions;
         }
 
@@ -125,8 +121,7 @@ namespace Sendwithus
             var jsonResponse = await RequestManager.SendGetRequestAsync(resource);
 
             // Convert the JSON result into an object
-            var serializer = new JavaScriptSerializer();
-            var versions = serializer.Deserialize<List<TemplateVersion>>(jsonResponse);
+            var versions = JsonConvert.DeserializeObject<List<TemplateVersion>>(jsonResponse);
             return versions;
         }
 
@@ -146,8 +141,7 @@ namespace Sendwithus
             var jsonResponse = await RequestManager.SendGetRequestAsync(resource);
 
             // Convert the JSON result into an object
-            var serializer = new JavaScriptSerializer();
-            var response = serializer.Deserialize<TemplateVersion>(jsonResponse);
+            var response = JsonConvert.DeserializeObject<TemplateVersion>(jsonResponse);
             return response;
         }
 
@@ -168,8 +162,7 @@ namespace Sendwithus
             var jsonResponse = await RequestManager.SendGetRequestAsync(resource);
 
             // Convert the JSON result into an object
-            var serializer = new JavaScriptSerializer();
-            var response = serializer.Deserialize<TemplateVersion>(jsonResponse);
+            var response = JsonConvert.DeserializeObject<TemplateVersion>(jsonResponse);
             return response;
         }
 
@@ -190,8 +183,7 @@ namespace Sendwithus
             var jsonResponse = await RequestManager.SendPutRequestAsync(resource, updatedTemplateVersion);
 
             // Convert the JSON result into an object
-            var serializer = new JavaScriptSerializer();
-            var response = serializer.Deserialize<TemplateVersion>(jsonResponse);
+            var response = JsonConvert.DeserializeObject<TemplateVersion>(jsonResponse);
             return response;
         }
 
@@ -213,8 +205,7 @@ namespace Sendwithus
             var jsonResponse = await RequestManager.SendPutRequestAsync(resource, updatedTemplateVersion);
 
             // Convert the JSON result into an object
-            var serializer = new JavaScriptSerializer();
-            var response = serializer.Deserialize<TemplateVersion>(jsonResponse);
+            var response = JsonConvert.DeserializeObject<TemplateVersion>(jsonResponse);
             return response;
         }
 
@@ -233,8 +224,7 @@ namespace Sendwithus
             var jsonResponse = await RequestManager.SendPostRequestAsync(resource, newTemplateVersion);
 
             // Convert the JSON result into an object
-            var serializer = new JavaScriptSerializer();
-            var response = serializer.Deserialize<Template>(jsonResponse);
+            var response = JsonConvert.DeserializeObject<Template>(jsonResponse);
             return response;
         }
 
@@ -256,8 +246,7 @@ namespace Sendwithus
             var jsonResponse = await RequestManager.SendPostRequestAsync(resource, templateVersion);
 
             // Convert the JSON result into an object
-            var serializer = new JavaScriptSerializer();
-            var response = serializer.Deserialize<Template>(jsonResponse);
+            var response = JsonConvert.DeserializeObject<Template>(jsonResponse);
             return response;
         }
 
@@ -277,8 +266,7 @@ namespace Sendwithus
             var jsonResponse = await RequestManager.SendPostRequestAsync(resource, templateVersion);
 
             // Convert the JSON result into an object
-            var serializer = new JavaScriptSerializer();
-            var response = serializer.Deserialize<TemplateVersion>(jsonResponse);
+            var response = JsonConvert.DeserializeObject<TemplateVersion>(jsonResponse);
             return response;
         }
 
@@ -299,8 +287,7 @@ namespace Sendwithus
             var jsonResponse = await RequestManager.SendPostRequestAsync(resource, templateVersion);
 
             // Convert the JSON result into an object
-            var serializer = new JavaScriptSerializer();
-            var response = serializer.Deserialize<TemplateVersion>(jsonResponse);
+            var response = JsonConvert.DeserializeObject<TemplateVersion>(jsonResponse);
             return response;
         }
 
@@ -319,8 +306,7 @@ namespace Sendwithus
             var jsonResponse = await RequestManager.SendDeleteRequestAsync(resource);
 
             // Convert the JSON result into an object
-            var serializer = new JavaScriptSerializer();
-            var response = serializer.Deserialize<GenericApiCallStatus>(jsonResponse);
+            var response = JsonConvert.DeserializeObject<GenericApiCallStatus>(jsonResponse);
             return response;
         }
 
@@ -340,8 +326,7 @@ namespace Sendwithus
             var jsonResponse = await RequestManager.SendDeleteRequestAsync(resource);
 
             // Convert the JSON result into an object
-            var serializer = new JavaScriptSerializer();
-            var response = serializer.Deserialize<GenericApiCallStatus>(jsonResponse);
+            var response = JsonConvert.DeserializeObject<GenericApiCallStatus>(jsonResponse);
             return response;
         }
     }

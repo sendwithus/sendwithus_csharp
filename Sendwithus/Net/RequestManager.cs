@@ -273,9 +273,9 @@ namespace Sendwithus.Net
                     queryString.Append(parameter.Value.ToString());
                 }
                 // Otherwise, convert the value into a JSON string
-                else if (converter.CanConvert(parameter.GetType()))
+                else if (converter.CanConvert(parameter.Value.GetType()))
                 { 
-                    queryString.Append(converter.ConvertValueToString(parameter.Value, parameter.GetType()));
+                    queryString.Append(converter.ConvertValueToString(parameter.Value, parameter.Value.GetType()));
                 }
             }
             return queryString.ToString();

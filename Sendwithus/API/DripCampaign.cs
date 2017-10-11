@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using System.Web.Script.Serialization;
+using Newtonsoft.Json;
 
 namespace Sendwithus
 {
@@ -50,9 +50,8 @@ namespace Sendwithus
             var resource = String.Format("drip_campaigns/{0}/activate", dripCampaignId);
             var jsonResponse = await RequestManager.SendPostRequestAsync(resource, this);
 
-            // Convert the JSON result into an object
-            var serializer = new JavaScriptSerializer();
-            var response = serializer.Deserialize<DripCampaignResponse>(jsonResponse);
+            // Convert the JSON result into an object            
+            var response = JsonConvert.DeserializeObject<DripCampaignResponse>(jsonResponse);
             return response;
         }
 
@@ -77,8 +76,7 @@ namespace Sendwithus
             var jsonResponse = await RequestManager.SendPostRequestAsync(resource, recipient);
 
             // Convert the JSON result into an object
-            var serializer = new JavaScriptSerializer();
-            var response = serializer.Deserialize<DripCampaignResponse>(jsonResponse);
+            var response = JsonConvert.DeserializeObject<DripCampaignResponse>(jsonResponse);
             return response;
         }
 
@@ -102,8 +100,7 @@ namespace Sendwithus
             var jsonResponse = await RequestManager.SendPostRequestAsync(resource, recipient);
 
             // Convert the JSON result into an object
-            var serializer = new JavaScriptSerializer();
-            var response = serializer.Deserialize<DripCampaignDeactivateAllResponse>(jsonResponse);
+            var response = JsonConvert.DeserializeObject<DripCampaignDeactivateAllResponse>(jsonResponse);
             return response;
         }
 
@@ -121,8 +118,7 @@ namespace Sendwithus
             var jsonResponse = await RequestManager.SendGetRequestAsync(resource);
 
             // Convert the JSON result into an object
-            var serializer = new JavaScriptSerializer();
-            var response = serializer.Deserialize<List<DripCampaignDetails>>(jsonResponse);
+            var response = JsonConvert.DeserializeObject<List<DripCampaignDetails>>(jsonResponse);
             return response;
         }
 
@@ -141,8 +137,7 @@ namespace Sendwithus
             var jsonResponse = await RequestManager.SendGetRequestAsync(resource);
 
             // Convert the JSON result into an object
-            var serializer = new JavaScriptSerializer();
-            var response = serializer.Deserialize<DripCampaignDetails>(jsonResponse);
+            var response = JsonConvert.DeserializeObject<DripCampaignDetails>(jsonResponse);
             return response;
         }
     }

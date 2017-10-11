@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Web.Script.Serialization;
+using Newtonsoft.Json;
 
 namespace Sendwithus
 {
@@ -37,8 +37,7 @@ namespace Sendwithus
             var jsonResponse = await RequestManager.SendGetRequestAsync(resource);
 
             // Convert the JSON result into an object
-            var serializer = new JavaScriptSerializer();
-            return serializer.Deserialize<Log>(jsonResponse);
+            return JsonConvert.DeserializeObject<Log>(jsonResponse);
         }
 
         /// <summary>
@@ -56,8 +55,7 @@ namespace Sendwithus
             var jsonResponse = await RequestManager.SendGetRequestAsync(resource);
 
             // Convert the JSON result into an object
-            var serializer = new JavaScriptSerializer();
-            return serializer.Deserialize<List<LogEvent>>(jsonResponse);
+            return JsonConvert.DeserializeObject<List<LogEvent>>(jsonResponse);
         }
 
         /// <summary>
@@ -76,8 +74,7 @@ namespace Sendwithus
             var jsonResponse = await RequestManager.SendPostRequestAsync(resource, logIdParameter);
 
             // Convert the JSON result into an object
-            var serializer = new JavaScriptSerializer();
-            return serializer.Deserialize<LogResendResponse>(jsonResponse);
+            return JsonConvert.DeserializeObject<LogResendResponse>(jsonResponse);
         }
     }
 }
