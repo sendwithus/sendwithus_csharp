@@ -43,7 +43,7 @@ namespace Sendwithus
             var jsonResponse = await RequestManager.SendGetRequestAsync(resource);
 
             // Convert the JSON result into an object         
-            return JsonConvert.DeserializeObjectList<Snippet>>(jsonResponse);
+            return JsonConvert.DeserializeObject<List<Snippet>>(jsonResponse);
         }
 
         /// <summary>

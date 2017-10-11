@@ -8,7 +8,7 @@ using System.ServiceModel.Dispatcher;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Web.Script.Serialization;
+using Newtonsoft.Json;
 
 namespace Sendwithus.Net
 {
@@ -228,9 +228,8 @@ namespace Sendwithus.Net
         /// <param name="content">The content to convert to HttpContent</param>
         /// <returns>A StringContent (a subclass of HttpContent) representation of the object</returns>
         private static StringContent ConvertObjectToJsonHttpContent(object content)
-        {
-            var serializer = new JavaScriptSerializer();
-            var contentString = serializer.Serialize(content);
+        {            
+            var contentString = JsonConvert.SerializeObject(content);
             var stringContent = new StringContent(contentString);
             stringContent.Headers.ContentType = new MediaTypeWithQualityHeaderValue("application/json");
             return stringContent;
