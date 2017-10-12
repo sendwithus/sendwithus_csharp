@@ -11,5 +11,5 @@ packages/
 *.sqlite
 *.sqlite
 /.vs/VSWorkspaceState.json
+*.json
 .vs/
-project.lock.json
