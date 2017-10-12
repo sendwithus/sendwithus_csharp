@@ -9,9 +9,7 @@ TestResults/
 packages/
 *.userprefs
 *.sqlite
-/.vs/slnx.sqlite
 *.sqlite
-/.vs/slnx.sqlite
-/.vs
 /.vs/VSWorkspaceState.json
 *.json
+.vs/
