@@ -1,10 +1,10 @@
-﻿using NUnit.Framework;
+﻿using Newtonsoft.Json;
+using NUnit.Framework;
 using Sendwithus;
 using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
-using Newtonsoft.Json;
 
 [assembly: CLSCompliant(true)]
 namespace SendwithusTest

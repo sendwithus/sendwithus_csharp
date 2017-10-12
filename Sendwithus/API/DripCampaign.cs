@@ -1,9 +1,9 @@
-﻿using Sendwithus.Net;
+﻿using Newtonsoft.Json;
+using Sendwithus.Net;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 
 namespace Sendwithus
 {
@@ -51,8 +51,7 @@ namespace Sendwithus
             var jsonResponse = await RequestManager.SendPostRequestAsync(resource, this);
 
             // Convert the JSON result into an object            
-            var response = JsonConvert.DeserializeObject<DripCampaignResponse>(jsonResponse);
-            return response;
+            return JsonConvert.DeserializeObject<DripCampaignResponse>(jsonResponse);
         }
 
         /// <summary>
@@ -76,8 +75,7 @@ namespace Sendwithus
             var jsonResponse = await RequestManager.SendPostRequestAsync(resource, recipient);
 
             // Convert the JSON result into an object
-            var response = JsonConvert.DeserializeObject<DripCampaignResponse>(jsonResponse);
-            return response;
+            return JsonConvert.DeserializeObject<DripCampaignResponse>(jsonResponse);
         }
 
         /// <summary>
@@ -100,8 +98,7 @@ namespace Sendwithus
             var jsonResponse = await RequestManager.SendPostRequestAsync(resource, recipient);
 
             // Convert the JSON result into an object
-            var response = JsonConvert.DeserializeObject<DripCampaignDeactivateAllResponse>(jsonResponse);
-            return response;
+            return JsonConvert.DeserializeObject<DripCampaignDeactivateAllResponse>(jsonResponse);
         }
 
         /// <summary>
@@ -118,8 +115,7 @@ namespace Sendwithus
             var jsonResponse = await RequestManager.SendGetRequestAsync(resource);
 
             // Convert the JSON result into an object
-            var response = JsonConvert.DeserializeObject<List<DripCampaignDetails>>(jsonResponse);
-            return response;
+            return JsonConvert.DeserializeObject<List<DripCampaignDetails>>(jsonResponse);
         }
 
         /// <summary>
@@ -137,8 +133,7 @@ namespace Sendwithus
             var jsonResponse = await RequestManager.SendGetRequestAsync(resource);
 
             // Convert the JSON result into an object
-            var response = JsonConvert.DeserializeObject<DripCampaignDetails>(jsonResponse);
-            return response;
+            return JsonConvert.DeserializeObject<DripCampaignDetails>(jsonResponse);
         }
     }
 }

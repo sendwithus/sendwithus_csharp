@@ -1,8 +1,8 @@
-﻿using Sendwithus.Net;
+﻿using Newtonsoft.Json;
+using Sendwithus.Net;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 
 namespace Sendwithus
 {
@@ -69,8 +69,7 @@ namespace Sendwithus
             var jsonResponse = await RequestManager.SendPostRequestAsync(resource, this);
 
             // Convert the JSON result into an object
-            var response = JsonConvert.DeserializeObject<EmailResponse>(jsonResponse);
-            return response;
+            return JsonConvert.DeserializeObject<EmailResponse>(jsonResponse);
         }
     }
 }
