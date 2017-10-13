@@ -1,4 +1,4 @@
-﻿using System.Web.Script.Serialization;
+﻿using Newtonsoft.Json;
 
 namespace Sendwithus
 {
@@ -18,10 +18,9 @@ namespace Sendwithus
         /// <typeparam name="T">The type to convert the body to</typeparam>
         /// <returns>An object of the given type, based on the contents of the batch API response body</returns>
         public T GetBody<T>()
-        {
-            var serializer = new JavaScriptSerializer();
-            var bodyString = serializer.Serialize(body);
-            return (T)serializer.Deserialize(bodyString, typeof(T));
+        {            
+            var bodyString = JsonConvert.SerializeObject(body);
+            return (T)JsonConvert.DeserializeObject(bodyString, typeof(T));
         }
     }
 }

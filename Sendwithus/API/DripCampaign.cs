@@ -1,9 +1,9 @@
-﻿using Sendwithus.Net;
+﻿using Newtonsoft.Json;
+using Sendwithus.Net;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using System.Web.Script.Serialization;
 
 namespace Sendwithus
 {
@@ -50,10 +50,8 @@ namespace Sendwithus
             var resource = String.Format("drip_campaigns/{0}/activate", dripCampaignId);
             var jsonResponse = await RequestManager.SendPostRequestAsync(resource, this);
 
-            // Convert the JSON result into an object
-            var serializer = new JavaScriptSerializer();
-            var response = serializer.Deserialize<DripCampaignResponse>(jsonResponse);
-            return response;
+            // Convert the JSON result into an object            
+            return JsonConvert.DeserializeObject<DripCampaignResponse>(jsonResponse);
         }
 
         /// <summary>
@@ -77,9 +75,7 @@ namespace Sendwithus
             var jsonResponse = await RequestManager.SendPostRequestAsync(resource, recipient);
 
             // Convert the JSON result into an object
-            var serializer = new JavaScriptSerializer();
-            var response = serializer.Deserialize<DripCampaignResponse>(jsonResponse);
-            return response;
+            return JsonConvert.DeserializeObject<DripCampaignResponse>(jsonResponse);
         }
 
         /// <summary>
@@ -102,9 +98,7 @@ namespace Sendwithus
             var jsonResponse = await RequestManager.SendPostRequestAsync(resource, recipient);
 
             // Convert the JSON result into an object
-            var serializer = new JavaScriptSerializer();
-            var response = serializer.Deserialize<DripCampaignDeactivateAllResponse>(jsonResponse);
-            return response;
+            return JsonConvert.DeserializeObject<DripCampaignDeactivateAllResponse>(jsonResponse);
         }
 
         /// <summary>
@@ -121,9 +115,7 @@ namespace Sendwithus
             var jsonResponse = await RequestManager.SendGetRequestAsync(resource);
 
             // Convert the JSON result into an object
-            var serializer = new JavaScriptSerializer();
-            var response = serializer.Deserialize<List<DripCampaignDetails>>(jsonResponse);
-            return response;
+            return JsonConvert.DeserializeObject<List<DripCampaignDetails>>(jsonResponse);
         }
 
         /// <summary>
@@ -141,9 +133,7 @@ namespace Sendwithus
             var jsonResponse = await RequestManager.SendGetRequestAsync(resource);
 
             // Convert the JSON result into an object
-            var serializer = new JavaScriptSerializer();
-            var response = serializer.Deserialize<DripCampaignDetails>(jsonResponse);
-            return response;
+            return JsonConvert.DeserializeObject<DripCampaignDetails>(jsonResponse);
         }
     }
 }

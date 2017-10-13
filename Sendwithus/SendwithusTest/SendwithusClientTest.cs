@@ -1,10 +1,10 @@
-﻿using NUnit.Framework;
+﻿using Newtonsoft.Json;
+using NUnit.Framework;
 using Sendwithus;
 using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
-using System.Web.Script.Serialization;
 
 [assembly: CLSCompliant(true)]
 namespace SendwithusTest
@@ -12,7 +12,7 @@ namespace SendwithusTest
     public static class SendwithusClientTest
     {
         public const string API_KEY_TEST = "test_3e7ae15aeb9b8a4b50bce7138c88d81c696edd0d"; // Must use this account for all of the unit tests to work
-        private static Random _random = new Random();
+        static Random _random = new Random();
 
         /// <summary>
         /// Validates the response from an API call
@@ -21,8 +21,7 @@ namespace SendwithusTest
         public static void ValidateResponse(object response)
         {
             // Print the response
-            var serializer = new JavaScriptSerializer();
-            Trace.WriteLine(String.Format("Response: {0}", serializer.Serialize(response)));
+            Trace.WriteLine(String.Format("Response: {0}", JsonConvert.SerializeObject(response)));
 
             // Validate the response
             Assert.IsNotNull(response);
@@ -109,8 +108,8 @@ namespace SendwithusTest
         /// </summary>
         /// <param name="measuredExecutionTimeMilliseconds">The measured execution time of the API call</param>
         public static void ValidateApiCallExecutionTime(double measuredExecutionTimeMilliseconds)
-        {
-            const int DURATION_WINDOW_SIZE_MILLISECONDS = 500; // 500ms A large window to handle variability in run time
+        {            
+            const int DURATION_WINDOW_SIZE_MILLISECONDS = 1000; // 1000ms A large window to handle variability in run time
 
             // Print the relevant parameters
             var retryCount = SendwithusClient.RetryCount;

@@ -1,9 +1,9 @@
-﻿using Sendwithus.Net;
+﻿using Newtonsoft.Json;
+using Sendwithus.Net;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using System.Web.Script.Serialization;
 
 namespace Sendwithus
 {
@@ -76,8 +76,7 @@ namespace Sendwithus
             _batchApiRequests.Clear();
 
             // Convert the JSON result into an object and return it
-            var serializer = new JavaScriptSerializer();
-            return serializer.Deserialize<List<BatchApiResponse>>(jsonResponse);
+            return JsonConvert.DeserializeObject<List<BatchApiResponse>>(jsonResponse);
         }
 
         /// <summary>
