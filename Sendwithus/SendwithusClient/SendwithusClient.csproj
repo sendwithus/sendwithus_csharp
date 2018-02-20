@@ -4,17 +4,7 @@
     <TargetFrameworks>netstandard2.0</TargetFrameworks>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <NoWarn>1701;1702;1705;1591</NoWarn>
-    <PackageId>SendwithusClient.Core</PackageId>
-    <PackageVersion>2.1.106-pre</PackageVersion>
-    <Description>sendwithus client (netstandard)</Description>
-    <Copyright>Copyright 2016</Copyright>
-    <PackageProjectUrl>https://github.com/sendwithus/sendwithus_csharp</PackageProjectUrl>
-    <PackageIconUrl>https://raw.githubusercontent.com/sendwithus/sendwithus_csharp/master/swu-logo.png</PackageIconUrl>
-    <RepositoryUrl>https://github.com/similarweb/sendwithus_csharp</RepositoryUrl>
-    <LicenseUrl>https://github.com/sendwithus/sendwithus_csharp/blob/master/LICENSE</LicenseUrl>
-    <PackageTags>sendwithus C# API Client REST VB.NET Visual Basic CLS .NET</PackageTags>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>  </PropertyGroup>
+  </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.1" />
