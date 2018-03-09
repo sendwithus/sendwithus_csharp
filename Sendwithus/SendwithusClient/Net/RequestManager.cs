@@ -4,7 +4,6 @@ using System.Globalization;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.ServiceModel.Dispatcher;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -249,7 +248,6 @@ namespace Sendwithus.Net
             }
 
             // Build the query parameter string
-            var converter = new JsonQueryStringConverter();
             var queryString = new StringBuilder();
             bool isFirstItem = true;
             foreach (KeyValuePair<string, object> parameter in parameters)
@@ -269,12 +267,11 @@ namespace Sendwithus.Net
                 // Handle the "esp_type" parameter separately as it must be sent without quotations "" around the value
                 if (parameter.Key == "esp_type")
                 {
-                    queryString.Append(parameter.Value.ToString());
+                    queryString.Append(parameter.Value);
                 }
-                // Otherwise, convert the value into a JSON string
-                else if (converter.CanConvert(parameter.Value.GetType()))
-                { 
-                    queryString.Append(converter.ConvertValueToString(parameter.Value, parameter.Value.GetType()));
+                else
+                {
+                    queryString.Append(WebUtility.UrlEncode(JsonConvert.SerializeObject(parameter.Value,Formatting.None)));
                 }
             }
             return queryString.ToString();

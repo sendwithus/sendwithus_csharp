@@ -13,3 +13,4 @@ packages/
 /.vs/VSWorkspaceState.json
 *.json
 .vs/
+_ReSharper*
