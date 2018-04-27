@@ -153,7 +153,7 @@ hosts:
 # enable patching of AssemblyInfo.cs files
 assembly_info:
   patch: true
-  file: AssemblyInfo.cs
+  file: AssemblyInfo.cs 
   assembly_version: '{version}'
   assembly_file_version: '{version}'
   assembly_informational_version: '{version}'
@@ -192,9 +192,9 @@ build:
 #  publish_wap: true               # package Web Application Projects (WAP) for Web Deploy
 #  publish_wap_xcopy: true         # package Web Application Projects (WAP) for XCopy deployment
 #  publish_azure: true             # package Azure Cloud Service projects and push to artifacts
-  publish_nuget: true             # package projects with .nuspec files and push to artifacts
-  publish_nuget_symbols: true     # generate and publish NuGet symbol packages
-  include_nuget_references: true  # add -IncludeReferencedProjects option while packaging NuGet artifacts
+#  publish_nuget: true             # package projects with .nuspec files and push to artifacts
+#  publish_nuget_symbols: true     # generate and publish NuGet symbol packages
+#  include_nuget_references: true  # add -IncludeReferencedProjects option while packaging NuGet artifacts
 
   # MSBuild verbosity level
   #verbosity: quiet|minimal|normal|detailed
