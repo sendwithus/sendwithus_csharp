@@ -52,20 +52,9 @@ before_package:
 # scripts to run after build
 after_build:
   
+  
 # to run your custom scripts instead of automatic MSBuild
 build_script:
-
-#---------------------------------#
-#      artifacts configuration    #
-#---------------------------------#
-
-artifacts:
-  - path: '**\*.nupkg'
-
-
-#---------------------------------#
-#     deployment configuration    #
-#---------------------------------#
 
 deploy:
  - provider: NuGet

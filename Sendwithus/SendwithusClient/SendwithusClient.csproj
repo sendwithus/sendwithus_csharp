@@ -5,6 +5,15 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <NoWarn>1701;1702;1705;1591</NoWarn>
     <IsPackable>true</IsPackable>
+
+    <Authors>chennig;sendwithus</Authors>
+    <PackageLicenseUrl>https://github.com/sendwithus/sendwithus_csharp/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/sendwithus/sendwithus_csharp</PackageProjectUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/sendwithus/sendwithus_csharp/master/swu-logo.png</PackageIconUrl>
+    <PackageTags>sendwithus C# API Client REST VB.NET Visual Basic CLS .NET</PackageTags>
+    <PackageDescription>Sendwithus C# Client Library</PackageDescription>
+    <RepositoryUrl>https://github.com/sendwithus/sendwithus_csharp</RepositoryUrl>
+    <Copyright>Copyright 2016</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
