@@ -24,6 +24,15 @@ assembly_info:
   assembly_file_version: '{version}'
   assembly_informational_version: '{version}'
 
+dotnet_csproj:
+  patch: true
+  file: '**\*.csproj'
+  version: '{version}'
+  package_version: '{version}'
+  assembly_version: '{version}'
+  file_version: '{version}'
+  informational_version: '{version}'
+
 
 # Automatically register private account and/or project AppVeyor NuGet feeds.
 nuget:
@@ -63,8 +72,6 @@ deploy:
    artifact: /.*\.nupkg/
    on:
      branch: master
-     platform: Any CPU
-     configuration: Release
 
 # scripts to run before deployment
 before_deploy:
