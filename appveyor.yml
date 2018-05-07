@@ -51,7 +51,7 @@ before_package:
 
 # scripts to run after build
 after_build:
-  
+  dotnet pack SendwithusClient/SendwithusClient.csproj
   
 # to run your custom scripts instead of automatic MSBuild
 build_script:

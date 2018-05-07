@@ -13,6 +13,7 @@
     <PackageTags>sendwithus C# API Client REST VB.NET Visual Basic CLS .NET</PackageTags>
     <PackageDescription>Sendwithus C# Client Library</PackageDescription>
     <RepositoryUrl>https://github.com/sendwithus/sendwithus_csharp</RepositoryUrl>
+    <PackageOutputPath>../../</PackageOutputPath>
     <Copyright>Copyright 2016</Copyright>
   </PropertyGroup>
 
