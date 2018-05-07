@@ -61,14 +61,14 @@ before_package:
 # scripts to run after build
 after_build:
   dotnet pack Sendwithus/SendwithusClient/SendwithusClient.csproj
-  
-# to run your custom scripts instead of automatic MSBuild
-build_script:
+
+artifacts:
+  - path: **\*.nupkg
 
 deploy:
  - provider: NuGet
    api_key:
-   secure: UnIpUxrxUuG1hbRiYfNvFCXJCsgQUDugWIQuR4Jcd+HwFykVhQGrbhYctR5seAdW
+    secure: UnIpUxrxUuG1hbRiYfNvFCXJCsgQUDugWIQuR4Jcd+HwFykVhQGrbhYctR5seAdW
    artifact: /.*\.nupkg/
    on:
      branch: master
