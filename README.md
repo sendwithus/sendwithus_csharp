@@ -10,7 +10,7 @@ sendwithus C# Client
 none
 
 ## .NET Framework Support
-Target framework is 4.5.2
+Target framework is .NET Standard 2.0
 
 ## API Coverage
 With one exception, this client covers all of the sendwithus API calls documented at: https://www.sendwithus.com/docs/api#overview
