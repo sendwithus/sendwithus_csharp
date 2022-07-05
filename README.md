@@ -170,6 +170,7 @@ var templateSubject = "edited!";
 var updatedTemplateVersion = new TemplateVersion(templateVersionName, templateSubject);
 updatedTemplateVersion.html = "<html><head></head><body><h1>UPDATE</h1></body></html>"; // optional
 updatedTemplateVersion.text = "sometext"; // optional
+updatedTemplateVersion.preheader = "some preheader"; // optional
 try
 {
     var templateVersion = await Template.UpdateTemplateVersionAsync(templateId, versionId, updatedTemplateVersion);
@@ -190,6 +191,7 @@ var templateSubject = "edited!";
 var updatedTemplateVersion = new TemplateVersion(templateVersionName, templateSubject);
 updatedTemplateVersion.html = "<html><head></head><body><h1>UPDATE</h1></body></html>"; // optional
 updatedTemplateVersion.text = "sometext"; // optional
+updatedTemplateVersion.preheader = "some preheader"; // optional
 try
 {
     var templateVersion = await Template.UpdateTemplateVersionAsync(templateId, versionId, updatedTemplateVersion);
@@ -207,6 +209,7 @@ var templateSubject = "New Version!";
 var updatedTemplateVersion = new TemplateVersion(templateVersionName, templateSubject);
 updatedTemplateVersion.html = "<html><head></head><body><h1>NEW TEMPLATE VERSION</h1></body></html>"; // optional
 updatedTemplateVersion.text = "some text"; // optional
+updatedTemplateVersion.preheader = "some preheader"; // optional
 updatedTemplateVersion.locale = "en-US"; // optional
 try
 {
@@ -227,6 +230,7 @@ var templateSubject = "Ce est un nouveau modèle!";
 var updatedTemplateVersion = new TemplateVersion(templateVersionName, templateSubject);
 updatedTemplateVersion.html = "<html><head></head><body><h1>Nouveau modèle!</h1></body></html>"; // optional
 updatedTemplateVersion.text = "un texte"; // optional
+updatedTemplateVersion.preheader = "some preheader"; // optional
 try
 {
     var template = await Template.AddLocaleToTemplate(templateId, locale, updatedTemplateVersion);
@@ -246,6 +250,7 @@ var templateSubject = "New Version!";
 var updatedTemplateVersion = new TemplateVersion(templateVersionName, templateSubject);
 updatedTemplateVersion.html = "<html><head></head><body><h1>NEW TEMPLATE VERSION</h1></body></html>"; // optional
 updatedTemplateVersion.text = "some text"; // optional
+updatedTemplateVersion.preheader = "some preheader"; // optional
 try
 {
     var templateVersion = await Template.CreateTemplateVersion(templateId, updatedTemplateVersion);
@@ -265,6 +270,7 @@ var templateSubject = "New Version!";
 var updatedTemplateVersion = new TemplateVersion(templateVersionName, templateSubject);
 updatedTemplateVersion.html = "<html><head></head><body><h1>NEW TEMPLATE VERSION</h1></body></html>"; // optional
 updatedTemplateVersion.text = "some text"; // optional
+updatedTemplateVersion.preheader = "some preheader"; // optional
 try
 {
     var templateVersion = await Template.CreateTemplateVersion(templateId, locale, updatedTemplateVersion);
