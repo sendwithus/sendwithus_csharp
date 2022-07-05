@@ -229,6 +229,9 @@ namespace SendwithusTest
 
                 // Validate the response
                 SendwithusClientTest.ValidateResponse(templateVersion);
+
+                // Check for presence of expected fields
+                Assert.AreEqual(templateVersion.preheader, "A preheader test");
             }
             catch (AggregateException exception)
             {
@@ -251,6 +254,9 @@ namespace SendwithusTest
 
                 // Validate the response
                 SendwithusClientTest.ValidateResponse(templateVersion);
+
+                // Check for presence of expected fields
+                Assert.AreEqual(templateVersion.preheader, "A preheader test");
             }
             catch (AggregateException exception)
             {
@@ -272,6 +278,7 @@ namespace SendwithusTest
             var updatedTemplateVersion = new TemplateVersion(templateVersionName, templateSubject);
             updatedTemplateVersion.html = "<html><head></head><body><h1>NEW TEMPLATE VERSION</h1></body></html>";
             updatedTemplateVersion.text = "some text";
+            updatedTemplateVersion.preheader = "A Test Preheader";
             try
             { 
                 var templateVersion = await Template.UpdateTemplateVersionAsync(DEFAULT_TEMPLATE_ID, DEFAULT_VERSION_ID, updatedTemplateVersion);
@@ -403,6 +410,7 @@ namespace SendwithusTest
             var updatedTemplateVersion = new TemplateVersion(templateVersionName, templateSubject);
             updatedTemplateVersion.html = "<html><head></head><body><h1>UPDATE</h1></body></html>";
             updatedTemplateVersion.text = "sometext";
+            updatedTemplateVersion.preheader = "A Test Preheader";
             try
             { 
                 var templateVersion = await Template.UpdateTemplateVersionAsync(DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE, DEFAULT_VERSION_ID, updatedTemplateVersion);
@@ -510,6 +518,7 @@ namespace SendwithusTest
             var updatedTemplateVersion = new TemplateVersion(templateVersionName, templateSubject);
             updatedTemplateVersion.html = "<html><head></head><body><h1>Nouveau modèle!</h1></body></html>";
             updatedTemplateVersion.text = "un texte";
+            updatedTemplateVersion.preheader = "A French Preheader";
 
             try
             { 
@@ -590,6 +599,7 @@ namespace SendwithusTest
             var updatedTemplateVersion = new TemplateVersion(templateVersionName, templateSubject);
             updatedTemplateVersion.html = "<html><head></head><body><h1>NEW TEMPLATE VERSION</h1></body></html>";
             updatedTemplateVersion.text = "some text";
+            updatedTemplateVersion.preheader = "A Test Preheader";
             try
             {
                 var templateVersion = await Template.CreateTemplateVersion(DEFAULT_TEMPLATE_ID, updatedTemplateVersion);
@@ -669,6 +679,7 @@ namespace SendwithusTest
             var updatedTemplateVersion = new TemplateVersion(templateVersionName, templateSubject);
             updatedTemplateVersion.html = "<html><head></head><body><h1>NEW TEMPLATE VERSION</h1></body></html>";
             updatedTemplateVersion.text = "some text";
+            updatedTemplateVersion.preheader = "A Test Preheader";
             try
             { 
                 var templateVersion = await Template.CreateTemplateVersion(DEFAULT_TEMPLATE_ID, DEFAULT_LOCALE, updatedTemplateVersion);
@@ -747,6 +758,7 @@ namespace SendwithusTest
             updatedTemplateVersion.html = "<html><head></head><body><h1>NEW TEMPLATE VERSION</h1></body></html>";
             updatedTemplateVersion.text = "some text";
             updatedTemplateVersion.locale = DEFAULT_LOCALE;
+            updatedTemplateVersion.preheader = "Test Preheader";
             return await Template.CreateTemplateAsync(updatedTemplateVersion);
         }
 
