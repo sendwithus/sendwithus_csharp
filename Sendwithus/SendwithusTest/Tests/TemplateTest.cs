@@ -229,9 +229,6 @@ namespace SendwithusTest
 
                 // Validate the response
                 SendwithusClientTest.ValidateResponse(templateVersion);
-
-                // Check for presence of expected fields
-                Assert.AreEqual(templateVersion.preheader, "A preheader test");
             }
             catch (AggregateException exception)
             {
@@ -254,9 +251,6 @@ namespace SendwithusTest
 
                 // Validate the response
                 SendwithusClientTest.ValidateResponse(templateVersion);
-
-                // Check for presence of expected fields
-                Assert.AreEqual(templateVersion.preheader, "A preheader test");
             }
             catch (AggregateException exception)
             {
