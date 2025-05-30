@@ -327,14 +327,14 @@ var templateId = "tem_SxZKpxJSHPbYDWRSQnAQUR";
 
 // Construct the template data
 // The content of the template data is all optional and is based on the template being used
-var template_data = new Dictionary<string, object>();
-template_data.Add("first_name", "Chuck");
-template_data.Add("last_name", "Norris");
-template_data.Add("img", "http://placekitten.com/50/60");
+var templateData = new Dictionary<string, object>();
+templateData.Add("first_name", "Chuck");
+templateData.Add("last_name", "Norris");
+templateData.Add("img", "http://placekitten.com/50/60");
 var link = new Dictionary<string, string>();
 link.Add("url", "https://www.sendwithus.com");
 link.Add("text", "sendwithus!");
-template_data.Add("link", link);
+templateData.Add("link", link);
 
 // Construct the recipient
 var recipient = new EmailRecipient(DEFAULT_RECIPIENT_EMAIL_ADDRESS);
@@ -358,14 +358,14 @@ var templateId = "tem_SxZKpxJSHPbYDWRSQnAQUR";
 
 // Construct the template data
 // The content of the template data is all optional and is based on the template being used
-var template_data = new Dictionary<string, object>();
-template_data.Add("first_name", "Chuck");
-template_data.Add("last_name", "Norris");
-template_data.Add("img", "http://placekitten.com/50/60");
+var templateData = new Dictionary<string, object>();
+templateData.Add("first_name", "Chuck");
+templateData.Add("last_name", "Norris");
+templateData.Add("img", "http://placekitten.com/50/60");
 var link = new Dictionary<string, string>();
 link.Add("url", "https://www.sendwithus.com");
 link.Add("text", "sendwithus!");
-template_data.Add("link", link);
+templateData.Add("link", link);
 
 // Construct the recipient
 var recipient = new EmailRecipient(DEFAULT_RECIPIENT_EMAIL_ADDRESS);
@@ -516,11 +516,11 @@ catch (AggregateException exception)
 var templateId = "tem_SxZKpxJSHPbYDWRSQnAQUR";
 
 // Create the template data
-var template_data = new Dictionary<string, object>();
-template_data.Add("amount", "$12.00");
+var templateData = new Dictionary<string, object>();
+templateData.Add("amount", "$12.00");
 
 // Create the render object
-var renderTemplate = new Render(templateId, template_data);
+var renderTemplate = new Render(templateId, templateData);
 renderTemplate.version_id = "ver_ET3j2snkKhqsjRjtK6bXJE"; // optional.  Can use either version_id or version_name to specify a version, but not both
 renderTemplate.locale = "en-US"; // optional
 renderTemplate.strict = true; // optional.  Strict defaults to false if not set
