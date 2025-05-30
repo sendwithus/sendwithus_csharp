@@ -340,7 +340,7 @@ templateData.Add("link", link);
 var recipient = new EmailRecipient(DEFAULT_RECIPIENT_EMAIL_ADDRESS);
 
 // Construct the email object
-var email = new Email(templateId, template_data, recipient);
+var email = new Email(templateId, templateData, recipient);
 
 // Send the email
 try
@@ -371,7 +371,7 @@ templateData.Add("link", link);
 var recipient = new EmailRecipient(DEFAULT_RECIPIENT_EMAIL_ADDRESS);
 
 // Construct the email object
-var email = new Email(templateId, template_data, recipient);
+var email = new Email(templateId, templateData, recipient);
 email.cc.Add(new EmailRecipient("cc_one@email.com", "CC One"));
 email.cc.Add(new EmailRecipient("cc_two@email.com", "CC Two"));
 email.bcc.Add(new EmailRecipient("bcc_one@email.com", "BCC One"));
