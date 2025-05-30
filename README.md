@@ -167,10 +167,14 @@ var versionId = "ver_ET3j2snkKhqsjRjtK6bXJE";
 var updatedTemplateVersion = new TemplateVersion();
 var templateVersionName = "New Version";
 var templateSubject = "edited!";
+// Create the template data
+var template_data = new Dictionary<string, object>();
+template_data.Add("amount", "$12.00");
 var updatedTemplateVersion = new TemplateVersion(templateVersionName, templateSubject);
 updatedTemplateVersion.html = "<html><head></head><body><h1>UPDATE</h1></body></html>"; // optional
 updatedTemplateVersion.text = "sometext"; // optional
 updatedTemplateVersion.preheader = "some preheader"; // optional
+updatedTemplateVersion.template_data = template_data; // optional
 try
 {
     var templateVersion = await Template.UpdateTemplateVersionAsync(templateId, versionId, updatedTemplateVersion);
@@ -206,11 +210,14 @@ catch (AggregateException exception)
 ```csharp
 var templateVersionName = "New Template Version";
 var templateSubject = "New Version!";
+var template_data = new Dictionary<string, object>();
+template_data.Add("amount", "$12.00");
 var updatedTemplateVersion = new TemplateVersion(templateVersionName, templateSubject);
 updatedTemplateVersion.html = "<html><head></head><body><h1>NEW TEMPLATE VERSION</h1></body></html>"; // optional
 updatedTemplateVersion.text = "some text"; // optional
 updatedTemplateVersion.preheader = "some preheader"; // optional
 updatedTemplateVersion.locale = "en-US"; // optional
+updatedTemplateVersion.template_data = template_data; // optional
 try
 {
     var template = await Template.CreateTemplateAsync(updatedTemplateVersion);
@@ -247,10 +254,13 @@ catch (AggregateException exception)
 var templateId = "tem_SxZKpxJSHPbYDWRSQnAQUR";
 var templateVersionName = "New Template Version";
 var templateSubject = "New Version!";
+var template_data = new Dictionary<string, object>();
+template_data.Add("amount", "$12.00");
 var updatedTemplateVersion = new TemplateVersion(templateVersionName, templateSubject);
 updatedTemplateVersion.html = "<html><head></head><body><h1>NEW TEMPLATE VERSION</h1></body></html>"; // optional
 updatedTemplateVersion.text = "some text"; // optional
 updatedTemplateVersion.preheader = "some preheader"; // optional
+updatedTemplateVersion.template_data = template_data; // optional
 try
 {
     var templateVersion = await Template.CreateTemplateVersion(templateId, updatedTemplateVersion);
@@ -317,20 +327,20 @@ var templateId = "tem_SxZKpxJSHPbYDWRSQnAQUR";
 
 // Construct the template data
 // The content of the template data is all optional and is based on the template being used
-var templateData = new Dictionary<string, object>();
-templateData.Add("first_name", "Chuck");
-templateData.Add("last_name", "Norris");
-templateData.Add("img", "http://placekitten.com/50/60");
+var template_data = new Dictionary<string, object>();
+template_data.Add("first_name", "Chuck");
+template_data.Add("last_name", "Norris");
+template_data.Add("img", "http://placekitten.com/50/60");
 var link = new Dictionary<string, string>();
 link.Add("url", "https://www.sendwithus.com");
 link.Add("text", "sendwithus!");
-templateData.Add("link", link);
+template_data.Add("link", link);
 
 // Construct the recipient
 var recipient = new EmailRecipient(DEFAULT_RECIPIENT_EMAIL_ADDRESS);
 
 // Construct the email object
-var email = new Email(templateId, templateData, recipient);
+var email = new Email(templateId, template_data, recipient);
 
 // Send the email
 try
@@ -348,20 +358,20 @@ var templateId = "tem_SxZKpxJSHPbYDWRSQnAQUR";
 
 // Construct the template data
 // The content of the template data is all optional and is based on the template being used
-var templateData = new Dictionary<string, object>();
-templateData.Add("first_name", "Chuck");
-templateData.Add("last_name", "Norris");
-templateData.Add("img", "http://placekitten.com/50/60");
+var template_data = new Dictionary<string, object>();
+template_data.Add("first_name", "Chuck");
+template_data.Add("last_name", "Norris");
+template_data.Add("img", "http://placekitten.com/50/60");
 var link = new Dictionary<string, string>();
 link.Add("url", "https://www.sendwithus.com");
 link.Add("text", "sendwithus!");
-templateData.Add("link", link);
+template_data.Add("link", link);
 
 // Construct the recipient
 var recipient = new EmailRecipient(DEFAULT_RECIPIENT_EMAIL_ADDRESS);
 
 // Construct the email object
-var email = new Email(templateId, templateData, recipient);
+var email = new Email(templateId, template_data, recipient);
 email.cc.Add(new EmailRecipient("cc_one@email.com", "CC One"));
 email.cc.Add(new EmailRecipient("cc_two@email.com", "CC Two"));
 email.bcc.Add(new EmailRecipient("bcc_one@email.com", "BCC One"));
@@ -506,11 +516,11 @@ catch (AggregateException exception)
 var templateId = "tem_SxZKpxJSHPbYDWRSQnAQUR";
 
 // Create the template data
-var templateData = new Dictionary<string, object>();
-templateData.Add("amount", "$12.00");
+var template_data = new Dictionary<string, object>();
+template_data.Add("amount", "$12.00");
 
 // Create the render object
-var renderTemplate = new Render(templateId, templateData);
+var renderTemplate = new Render(templateId, template_data);
 renderTemplate.version_id = "ver_ET3j2snkKhqsjRjtK6bXJE"; // optional.  Can use either version_id or version_name to specify a version, but not both
 renderTemplate.locale = "en-US"; // optional
 renderTemplate.strict = true; // optional.  Strict defaults to false if not set
