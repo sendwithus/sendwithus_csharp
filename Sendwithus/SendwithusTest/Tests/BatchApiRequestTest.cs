@@ -15,16 +15,36 @@ namespace SendwithusTest
     {
         private const string DEFAULT_ESP_ACCOUNT_ID = "esp_e3ut7pFtWttcN4HNoQ8Vgm";
         private const string DEFAULT_EMAIL_ADDRESS = "sendwithus.test@gmail.com";
-        private const string DEFAULT_LOG_ID = "log_e7c783fc7efca27006e043ca12282e9f-3";
+        private const string DEFAULT_TEMPLATE_ID = "tem_yn2viZ8Gm2uaydMK9pgR2B";
+        private string DEFAULT_LOG_ID;
 
         /// <summary>
         /// Sets the API
         /// </summary>
         [SetUp]
-        public void InitializeUnitTesting()
+        public async void InitializeUnitTesting()
         {
             // Set the API key
             SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
+            try
+            { 
+                // Construct the template data
+                var templateData = new Dictionary<string, object>();
+
+                // Construct the recipient
+                var recipient = new EmailRecipient(DEFAULT_EMAIL_ADDRESS);
+
+                // Construct and return the email
+                var email = new Email(DEFAULT_TEMPLATE_ID, templateData, recipient);
+                var emailResponse = await email.Send();
+
+                DEFAULT_LOG_ID = emailResponse.receipt_id;
+            }
+            catch (Exception exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
+
         }
 
         /// <summary>
@@ -78,7 +98,7 @@ namespace SendwithusTest
                 await Snippet.GetSnippetsAsync(); // GET
                 await Customer.GetCustomerAsync(CustomerTest.DEFAULT_CUSTOMER_EMAIL_ADDRESS); // GET
                 await RenderTest.BuildAndSendRenderTemplateRequestWithAllParametersId(); // POST
-                await Log.GetLogEventsAsync(BatchApiRequestTest.DEFAULT_LOG_ID); // GET
+                await Log.GetLogEventsAsync(this.DEFAULT_LOG_ID); // GET
                 await Customer.GetCustomerAsync(CustomerTest.DEFAULT_CUSTOMER_EMAIL_ADDRESS); // GET
                 await EmailTest.BuildAndSendEmailWithAllParametersAsync(); // POST
                 await DripCampaign.GetDripCampaignsAsync(); // GET
@@ -128,7 +148,7 @@ namespace SendwithusTest
                 await Snippet.GetSnippetsAsync(); // GET
                 await Customer.GetCustomerAsync(CustomerTest.DEFAULT_CUSTOMER_EMAIL_ADDRESS); // GET
                 await RenderTest.BuildAndSendRenderTemplateRequestWithAllParametersId(); // POST
-                await Log.GetLogEventsAsync(BatchApiRequestTest.DEFAULT_LOG_ID); // GET
+                await Log.GetLogEventsAsync(this.DEFAULT_LOG_ID); // GET
                 await Customer.GetCustomerAsync(CustomerTest.DEFAULT_CUSTOMER_EMAIL_ADDRESS); // GET
                 await EmailTest.BuildAndSendEmailWithAllParametersAsync(); // POST
                 await DripCampaign.GetDripCampaignsAsync(); // GET
@@ -157,7 +177,7 @@ namespace SendwithusTest
                 ValidateIndividualBatchedApiCallResponse<List<Snippet>>(batchResponses[1]);
                 ValidateIndividualBatchedApiCallResponse<Customer>(batchResponses[2]);
                 ValidateIndividualBatchedApiCallResponse<RenderTemplateResponse>(batchResponses[3]);
-                await Log.GetLogEventsAsync(BatchApiRequestTest.DEFAULT_LOG_ID); // GET
+                await Log.GetLogEventsAsync(this.DEFAULT_LOG_ID); // GET
                 ValidateIndividualBatchedApiCallResponse<Customer>(batchResponses[5]);
                 ValidateIndividualBatchedApiCallResponse<EmailResponse>(batchResponses[6]);
                 ValidateIndividualBatchedApiCallResponse<List<DripCampaignDetails>>(batchResponses[7]);
@@ -192,7 +212,7 @@ namespace SendwithusTest
                 await Snippet.GetSnippetsAsync(); // GET
                 await Customer.GetCustomerAsync(CustomerTest.DEFAULT_CUSTOMER_EMAIL_ADDRESS); // GET
                 await RenderTest.BuildAndSendRenderTemplateRequestWithAllParametersId(); // POST
-                await Log.GetLogEventsAsync(BatchApiRequestTest.DEFAULT_LOG_ID); // GET
+                await Log.GetLogEventsAsync(this.DEFAULT_LOG_ID); // GET
                 await Customer.GetCustomerAsync(CustomerTest.DEFAULT_CUSTOMER_EMAIL_ADDRESS); // GET
                 await EmailTest.BuildAndSendEmailWithAllParametersAsync(); // POST
                 await DripCampaign.GetDripCampaignsAsync(); // GET
