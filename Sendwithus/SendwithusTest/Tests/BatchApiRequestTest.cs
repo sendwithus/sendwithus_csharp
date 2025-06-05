@@ -38,7 +38,7 @@ namespace SendwithusTest
                 var email = new Email(DEFAULT_TEMPLATE_ID, templateData, recipient);
                 var emailResponse = await email.Send();
 
-                DEFAULT_LOG_ID = emailResponse.receipt_id;
+                this.DEFAULT_LOG_ID = emailResponse.receipt_id;
             }
             catch (Exception exception)
             {
