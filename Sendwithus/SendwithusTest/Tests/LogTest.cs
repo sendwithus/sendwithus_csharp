@@ -25,61 +25,34 @@ namespace SendwithusTest
         private const Int64 LOG_CREATED_BEFORE_TIME = 9876543210;
 
 
+        /// <summary>
+        /// Sets the API
+        /// </summary>
         [OneTimeSetUp]
-public async Task InitializeUnitTesting()
-{
-            // Set the API key
-            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
-    try
-    {
-        var task = Task.Run(async () =>
+        public void InitializeUnitTesting()
         {
-            // your existing async logic
-            var templateData = new Dictionary<string, object>();
-            var recipient = new EmailRecipient(DEFAULT_EMAIL_ADDRESS);
-            var email = new Email(DEFAULT_TEMPLATE_ID, templateData, recipient);
-            var emailResponse = await email.Send();
-            this.DEFAULT_LOG_ID = emailResponse.receipt_id;
-            await Task.Delay(1000);
-        });
+                    // Set the API key
+                    SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
+            try
+            {
+                var task = Task.Run(async () =>
+                {
+                    // your existing async logic
+                    var templateData = new Dictionary<string, object>();
+                    var recipient = new EmailRecipient(DEFAULT_EMAIL_ADDRESS);
+                    var email = new Email(DEFAULT_TEMPLATE_ID, templateData, recipient);
+                    var emailResponse = await email.Send();
+                    this.DEFAULT_LOG_ID = emailResponse.receipt_id;
+                    await Task.Delay(1000);
+                });
 
-        task.Wait(); // synchronously block
-    }
-    catch (Exception ex)
-    {
-        Assert.Fail(ex.ToString());
-    }
-}
-
-        // /// <summary>
-        // /// Sets the API 
-        // /// </summary>
-        // [SetUp]
-        // public async Task InitializeUnitTesting()
-        // {
-        //     // Set the API key
-        //     SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
-        //     try
-        //     {
-        //         // Construct the template data
-        //         var templateData = new Dictionary<string, object>();
-
-        //         // Construct the recipient
-        //         var recipient = new EmailRecipient(DEFAULT_EMAIL_ADDRESS);
-
-        //         // Construct and return the email
-        //         var email = new Email(DEFAULT_TEMPLATE_ID, templateData, recipient);
-        //         var emailResponse = await email.Send();
-
-        //         this.DEFAULT_LOG_ID = emailResponse.receipt_id;
-                
-        //         await Task.Delay(1000);
-        //     }
-        //     catch (Exception exception)
-        //     {
-        //         Assert.Fail(exception.ToString());
-        //     }
-        // }
+                task.Wait(); // synchronously block
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail(ex.ToString());
+            }
+        }
 
         /// <summary>
         /// Tests the API call GET /logs/(:log_id)
