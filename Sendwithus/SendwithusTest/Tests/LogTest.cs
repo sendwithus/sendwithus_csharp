@@ -32,8 +32,8 @@ namespace SendwithusTest
         {
             // Set the API key
             SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
-                        try
-            { 
+            try
+            {
                 // Construct the template data
                 var templateData = new Dictionary<string, object>();
 
@@ -45,6 +45,8 @@ namespace SendwithusTest
                 var emailResponse = await email.Send();
 
                 this.DEFAULT_LOG_ID = emailResponse.receipt_id;
+                
+                await Task.Delay(1000);
             }
             catch (Exception exception)
             {
