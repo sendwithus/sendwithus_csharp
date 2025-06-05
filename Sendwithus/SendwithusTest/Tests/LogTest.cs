@@ -15,7 +15,9 @@ namespace SendwithusTest
     [TestFixture]
     public class LogTest
     {
-        private const string DEFAULT_LOG_ID = "log_e7c783fc7efca27006e043ca12282e9f-3";
+        private string DEFAULT_LOG_ID;
+        private const string DEFAULT_EMAIL_ADDRESS = "sendwithus.test@gmail.com";
+        private const string DEFAULT_TEMPLATE_ID = "tem_yn2viZ8Gm2uaydMK9pgR2B";
         private const int DEFAULT_COUNT = 5;
         private const int DEFAULT_OFFSET = 1;
         private const string INVALID_COUNT = "12345";
@@ -26,10 +28,28 @@ namespace SendwithusTest
         /// Sets the API 
         /// </summary>
         [SetUp]
-        public void InitializeUnitTesting()
+        public async void InitializeUnitTesting()
         {
             // Set the API key
             SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
+                        try
+            { 
+                // Construct the template data
+                var templateData = new Dictionary<string, object>();
+
+                // Construct the recipient
+                var recipient = new EmailRecipient(DEFAULT_EMAIL_ADDRESS);
+
+                // Construct and return the email
+                var email = new Email(DEFAULT_TEMPLATE_ID, templateData, recipient);
+                var emailResponse = await email.Send();
+
+                DEFAULT_LOG_ID = emailResponse.receipt_id;
+            }
+            catch (Exception exception)
+            {
+                Assert.Fail(exception.ToString());
+            }
         }
 
         /// <summary>
@@ -39,12 +59,12 @@ namespace SendwithusTest
         [Test]
         public async Task TestGetLogAsync()
         {
-            Trace.WriteLine(String.Format("GET /logs/{0}", DEFAULT_LOG_ID));
+            Trace.WriteLine(String.Format("GET /logs/{0}", this.DEFAULT_LOG_ID));
 
             // Make the API call
             try
             { 
-                var log = await Log.GetLogAsync(DEFAULT_LOG_ID);
+                var log = await Log.GetLogAsync(this.DEFAULT_LOG_ID);
 
                 // Validate the response
                 SendwithusClientTest.ValidateResponse(log);
@@ -62,12 +82,12 @@ namespace SendwithusTest
         [Test]
         public async Task TestGetLogEventsAsync()
         {
-            Trace.WriteLine(String.Format("GET /logs/{0}/events", DEFAULT_LOG_ID));
+            Trace.WriteLine(String.Format("GET /logs/{0}/events", this.DEFAULT_LOG_ID));
 
             // Make the API call
             try
             { 
-                var logEvents = await Log.GetLogEventsAsync(DEFAULT_LOG_ID);
+                var logEvents = await Log.GetLogEventsAsync(this.DEFAULT_LOG_ID);
 
                 // Validate the response
                 SendwithusClientTest.ValidateResponse(logEvents);
@@ -90,7 +110,7 @@ namespace SendwithusTest
             // Make the API call
             try
             { 
-                var logResendResponse = await Log.ResendLogAsync(DEFAULT_LOG_ID);
+                var logResendResponse = await Log.ResendLogAsync(this.DEFAULT_LOG_ID);
 
                 // Validate the response
                 SendwithusClientTest.ValidateResponse(logResendResponse);

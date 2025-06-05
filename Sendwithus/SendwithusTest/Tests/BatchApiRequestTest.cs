@@ -44,7 +44,6 @@ namespace SendwithusTest
             {
                 Assert.Fail(exception.ToString());
             }
-
         }
 
         /// <summary>
