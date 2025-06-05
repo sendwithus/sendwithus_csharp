@@ -24,8 +24,8 @@ namespace SendwithusTest
         [OneTimeSetUp]
         public void InitializeUnitTesting()
         {
-                    // Set the API key
-                    SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
+            // Set the API key
+            SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
             try
             {
                 var task = Task.Run(async () =>
