@@ -18,12 +18,9 @@ namespace SendwithusTest
         private const string DEFAULT_TEMPLATE_ID = "tem_yn2viZ8Gm2uaydMK9pgR2B";
         private string DEFAULT_LOG_ID;
 
-        /// <summary>
-        /// Sets the API
-        /// </summary>
-        [SetUp]
-        public async Task InitializeUnitTesting()
-        {
+[OneTimeSetUp]
+public async Task InitializeUnitTesting()
+{
             // Set the API key
             SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
             try
@@ -44,8 +41,38 @@ namespace SendwithusTest
             catch (Exception exception)
             {
                 Assert.Fail(exception.ToString());
-            }
-        }
+            }    
+}
+
+
+        // /// <summary>
+        // /// Sets the API
+        // /// </summary>
+        // [SetUp]
+        // public async Task InitializeUnitTesting()
+        // {
+        //     // Set the API key
+        //     // SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
+        //     // try
+        //     // {
+        //     //     // Construct the template data
+        //     //     var templateData = new Dictionary<string, object>();
+
+        //     //     // Construct the recipient
+        //     //     var recipient = new EmailRecipient(DEFAULT_EMAIL_ADDRESS);
+
+        //     //     // Construct and return the email
+        //     //     var email = new Email(DEFAULT_TEMPLATE_ID, templateData, recipient);
+        //     //     var emailResponse = await email.Send();
+
+        //     //     this.DEFAULT_LOG_ID = emailResponse.receipt_id;
+        //     //     await Task.Delay(1000);
+        //     // }
+        //     // catch (Exception exception)
+        //     // {
+        //     //     Assert.Fail(exception.ToString());
+        //     // }
+        // }
 
         /// <summary>
         /// Tests the API call POST /batch with one API call
