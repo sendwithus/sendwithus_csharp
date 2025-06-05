@@ -33,6 +33,7 @@ public async Task InitializeUnitTesting()
             var email = new Email(DEFAULT_TEMPLATE_ID, templateData, recipient);
             var emailResponse = await email.Send();
             this.DEFAULT_LOG_ID = emailResponse.receipt_id;
+            await Task.Delay(1000);
         });
 
         task.Wait(); // synchronously block
