@@ -23,25 +23,24 @@ public async Task InitializeUnitTesting()
 {
             // Set the API key
             SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
-            try
-            {
-                // Construct the template data
-                var templateData = new Dictionary<string, object>();
+    try
+    {
+        var task = Task.Run(async () =>
+        {
+            // your existing async logic
+            var templateData = new Dictionary<string, object>();
+            var recipient = new EmailRecipient(DEFAULT_EMAIL_ADDRESS);
+            var email = new Email(DEFAULT_TEMPLATE_ID, templateData, recipient);
+            var emailResponse = await email.Send();
+            this.DEFAULT_LOG_ID = emailResponse.receipt_id;
+        });
 
-                // Construct the recipient
-                var recipient = new EmailRecipient(DEFAULT_EMAIL_ADDRESS);
-
-                // Construct and return the email
-                var email = new Email(DEFAULT_TEMPLATE_ID, templateData, recipient);
-                var emailResponse = await email.Send();
-
-                this.DEFAULT_LOG_ID = emailResponse.receipt_id;
-                await Task.Delay(1000);
-            }
-            catch (Exception exception)
-            {
-                Assert.Fail(exception.ToString());
-            }    
+        task.Wait(); // synchronously block
+    }
+    catch (Exception ex)
+    {
+        Assert.Fail(ex.ToString());
+    }
 }
 
 
