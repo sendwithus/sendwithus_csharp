@@ -10,6 +10,7 @@ namespace SendwithusTest
     /// <summary>
     /// Unit testing class for the Customer Groups API calls
     /// </summary>
+    [NonParallelizable]
     [TestFixture]
     public class BatchApiRequestTest
     {
@@ -36,10 +37,14 @@ namespace SendwithusTest
                     var email = new Email(DEFAULT_TEMPLATE_ID, templateData, recipient);
                     var emailResponse = await email.Send();
                     this.DEFAULT_LOG_ID = emailResponse.receipt_id;
-                    await Task.Delay(2000);
+                    await Task.Delay(5000);
                 });
 
                 task.Wait(); // synchronously block
+
+                if (this.DEFAULT_LOG_ID == null) {
+                    Assert.Fail("Could not get log id");
+                }
             }
             catch (Exception ex)
             {
