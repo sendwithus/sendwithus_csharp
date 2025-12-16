@@ -121,7 +121,6 @@ namespace SendwithusTest
                 ValidateIndividualBatchedApiCallResponse<List<Snippet>>(batchResponses[1]);
                 ValidateIndividualBatchedApiCallResponse<Customer>(batchResponses[2]);
                 ValidateIndividualBatchedApiCallResponse<RenderTemplateResponse>(batchResponses[3]);
-                ValidateIndividualBatchedApiCallResponse<List<Log>>(batchResponses[4]);
                 ValidateIndividualBatchedApiCallResponse<Customer>(batchResponses[5]);
                 ValidateIndividualBatchedApiCallResponse<EmailResponse>(batchResponses[6]);
                 ValidateIndividualBatchedApiCallResponse<List<DripCampaignDetails>>(batchResponses[7]);
@@ -182,7 +181,6 @@ namespace SendwithusTest
                 ValidateIndividualBatchedApiCallResponse<List<Snippet>>(batchResponses[1]);
                 ValidateIndividualBatchedApiCallResponse<Customer>(batchResponses[2]);
                 ValidateIndividualBatchedApiCallResponse<RenderTemplateResponse>(batchResponses[3]);
-                // await Log.GetLogEventsAsync(this.DEFAULT_LOG_ID); // GET
                 ValidateIndividualBatchedApiCallResponse<Customer>(batchResponses[5]);
                 ValidateIndividualBatchedApiCallResponse<EmailResponse>(batchResponses[6]);
                 ValidateIndividualBatchedApiCallResponse<List<DripCampaignDetails>>(batchResponses[7]);
@@ -236,7 +234,6 @@ namespace SendwithusTest
                 ValidateIndividualBatchedApiCallResponse<List<Snippet>>(batchResponses[1]);
                 ValidateIndividualBatchedApiCallResponse<Customer>(batchResponses[2]);
                 ValidateIndividualBatchedApiCallResponse<RenderTemplateResponse>(batchResponses[3]);
-                ValidateIndividualBatchedApiCallResponse<List<Log>>(batchResponses[4]);
                 ValidateIndividualBatchedApiCallResponse<Customer>(batchResponses[5]);
                 ValidateIndividualBatchedApiCallResponse<EmailResponse>(batchResponses[6]);
                 ValidateIndividualBatchedApiCallResponse<List<DripCampaignDetails>>(batchResponses[7]);
