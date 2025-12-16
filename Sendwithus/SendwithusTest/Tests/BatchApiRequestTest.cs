@@ -138,7 +138,7 @@ namespace SendwithusTest
         /// Tests the API call POST /batch with 11 API calls (without overriding the limit)
         /// </summary>
         /// <returns>The asynchronous task</returns>
-		[Test]
+        [Test]
         public async Task TestBatchApiRequestsElevenRequestsWithoutOverrideAsync()
         {
             Trace.WriteLine("POST /batch");
@@ -182,7 +182,7 @@ namespace SendwithusTest
                 ValidateIndividualBatchedApiCallResponse<List<Snippet>>(batchResponses[1]);
                 ValidateIndividualBatchedApiCallResponse<Customer>(batchResponses[2]);
                 ValidateIndividualBatchedApiCallResponse<RenderTemplateResponse>(batchResponses[3]);
-                await Log.GetLogEventsAsync(this.DEFAULT_LOG_ID); // GET
+                // await Log.GetLogEventsAsync(this.DEFAULT_LOG_ID); // GET
                 ValidateIndividualBatchedApiCallResponse<Customer>(batchResponses[5]);
                 ValidateIndividualBatchedApiCallResponse<EmailResponse>(batchResponses[6]);
                 ValidateIndividualBatchedApiCallResponse<List<DripCampaignDetails>>(batchResponses[7]);

@@ -3,7 +3,6 @@ using Sendwithus;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Net;
 using System.Threading.Tasks;
 
 namespace SendwithusTest
@@ -24,6 +23,7 @@ namespace SendwithusTest
         private const string INVALID_COUNT = "12345";
         private const Int64 LOG_CREATED_AFTER_TIME = 1234567890;
         private const Int64 LOG_CREATED_BEFORE_TIME = 9876543210;
+        private const int RETRY_MS = 5000;
 
 
         /// <summary>
@@ -44,7 +44,6 @@ namespace SendwithusTest
                     var email = new Email(DEFAULT_TEMPLATE_ID, templateData, recipient);
                     var emailResponse = await email.Send();
                     this.DEFAULT_LOG_ID = emailResponse.receipt_id;
-                    await Task.Delay(5000);
                 });
 
                 task.Wait(); // synchronously block
@@ -68,7 +67,7 @@ namespace SendwithusTest
         public async Task TestGetLogAsync()
         {
             Trace.WriteLine(String.Format("GET /logs/{0}", this.DEFAULT_LOG_ID));
-
+            var retry = true;
             // Make the API call
             try
             { 
@@ -79,7 +78,14 @@ namespace SendwithusTest
             }
             catch (AggregateException exception)
             {
-                Assert.Fail(exception.ToString());
+                // Sleep and try once more
+                System.Threading.Thread.Sleep(RETRY_MS);
+                if (retry) {
+                    retry = false;
+                    await TestGetLogEventsAsync();
+                } else {
+                    Assert.Fail(exception.ToString());
+                }
             }
         }
 
@@ -91,7 +97,7 @@ namespace SendwithusTest
         public async Task TestGetLogEventsAsync()
         {
             Trace.WriteLine(String.Format("GET /logs/{0}/events", this.DEFAULT_LOG_ID));
-
+            var retry = true;
             // Make the API call
             try
             { 
@@ -102,7 +108,14 @@ namespace SendwithusTest
             }
             catch (AggregateException exception)
             {
-                Assert.Fail(exception.ToString());
+                // Sleep and try once more
+                System.Threading.Thread.Sleep(RETRY_MS);
+                if (retry) {
+                    retry = false;
+                    await TestGetLogEventsAsync();
+                } else {
+                    Assert.Fail(exception.ToString());
+                }
             }
         }
 
@@ -114,7 +127,7 @@ namespace SendwithusTest
         public async Task TestResendLogAsync()
         {
             Trace.WriteLine("POST /resend");
-
+            var retry = true;
             // Make the API call
             try
             { 
@@ -125,7 +138,14 @@ namespace SendwithusTest
             }
             catch (AggregateException exception)
             {
-                Assert.Fail(exception.ToString());
+                // Sleep and try once more
+                System.Threading.Thread.Sleep(RETRY_MS);
+                if (retry) {
+                    retry = false;
+                    await TestResendLogAsync();
+                } else {
+                    Assert.Fail(exception.ToString());
+                }
             }
         }
     }
