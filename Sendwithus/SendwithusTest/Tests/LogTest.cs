@@ -24,6 +24,7 @@ namespace SendwithusTest
         private const Int64 LOG_CREATED_AFTER_TIME = 1234567890;
         private const Int64 LOG_CREATED_BEFORE_TIME = 9876543210;
         private const int RETRY_MS = 5000;
+        private const int MAX_RETRY_ATTEMPTS = 12; // retry for up to ~1 minute
 
 
         /// <summary>
@@ -67,24 +68,27 @@ namespace SendwithusTest
         public async Task TestGetLogAsync()
         {
             Trace.WriteLine(String.Format("GET /logs/{0}", this.DEFAULT_LOG_ID));
-            var retry = true;
-            // Make the API call
-            try
-            { 
-                var log = await Log.GetLogAsync(this.DEFAULT_LOG_ID);
 
-                // Validate the response
-                SendwithusClientTest.ValidateResponse(log);
-            }
-            catch (AggregateException exception)
+            for (int attempt = 1; attempt <= MAX_RETRY_ATTEMPTS; attempt++)
             {
-                // Sleep and try once more
-                System.Threading.Thread.Sleep(RETRY_MS);
-                if (retry) {
-                    retry = false;
-                    await TestGetLogEventsAsync();
-                } else {
-                    Assert.Fail(exception.ToString());
+                try
+                {
+                    var log = await Log.GetLogAsync(this.DEFAULT_LOG_ID);
+
+                    // Validate the response
+                    SendwithusClientTest.ValidateResponse(log);
+                    return;
+                }
+                catch (Exception exception)
+                {
+                    if (attempt == MAX_RETRY_ATTEMPTS)
+                    {
+                        Assert.Fail(exception.ToString());
+                    }
+                    else
+                    {
+                        await Task.Delay(RETRY_MS);
+                    }
                 }
             }
         }
@@ -97,24 +101,27 @@ namespace SendwithusTest
         public async Task TestGetLogEventsAsync()
         {
             Trace.WriteLine(String.Format("GET /logs/{0}/events", this.DEFAULT_LOG_ID));
-            var retry = true;
-            // Make the API call
-            try
-            { 
-                var logEvents = await Log.GetLogEventsAsync(this.DEFAULT_LOG_ID);
 
-                // Validate the response
-                SendwithusClientTest.ValidateResponse(logEvents);
-            }
-            catch (AggregateException exception)
+            for (int attempt = 1; attempt <= MAX_RETRY_ATTEMPTS; attempt++)
             {
-                // Sleep and try once more
-                System.Threading.Thread.Sleep(RETRY_MS);
-                if (retry) {
-                    retry = false;
-                    await TestGetLogEventsAsync();
-                } else {
-                    Assert.Fail(exception.ToString());
+                try
+                {
+                    var logEvents = await Log.GetLogEventsAsync(this.DEFAULT_LOG_ID);
+
+                    // Validate the response
+                    SendwithusClientTest.ValidateResponse(logEvents);
+                    return;
+                }
+                catch (Exception exception)
+                {
+                    if (attempt == MAX_RETRY_ATTEMPTS)
+                    {
+                        Assert.Fail(exception.ToString());
+                    }
+                    else
+                    {
+                        await Task.Delay(RETRY_MS);
+                    }
                 }
             }
         }
@@ -127,24 +134,27 @@ namespace SendwithusTest
         public async Task TestResendLogAsync()
         {
             Trace.WriteLine("POST /resend");
-            var retry = true;
-            // Make the API call
-            try
-            { 
-                var logResendResponse = await Log.ResendLogAsync(this.DEFAULT_LOG_ID);
 
-                // Validate the response
-                SendwithusClientTest.ValidateResponse(logResendResponse);
-            }
-            catch (AggregateException exception)
+            for (int attempt = 1; attempt <= MAX_RETRY_ATTEMPTS; attempt++)
             {
-                // Sleep and try once more
-                System.Threading.Thread.Sleep(RETRY_MS);
-                if (retry) {
-                    retry = false;
-                    await TestResendLogAsync();
-                } else {
-                    Assert.Fail(exception.ToString());
+                try
+                {
+                    var logResendResponse = await Log.ResendLogAsync(this.DEFAULT_LOG_ID);
+
+                    // Validate the response
+                    SendwithusClientTest.ValidateResponse(logResendResponse);
+                    return;
+                }
+                catch (Exception exception)
+                {
+                    if (attempt == MAX_RETRY_ATTEMPTS)
+                    {
+                        Assert.Fail(exception.ToString());
+                    }
+                    else
+                    {
+                        await Task.Delay(RETRY_MS);
+                    }
                 }
             }
         }
