@@ -13,7 +13,12 @@ namespace SendwithusTest
     [TestFixture]
     public class RetryTest
     {
+        #if NET461
+        private const int FAILURE_TIMEOUT_MILLISECONDS = 100; // Older versions of .NET require a higher value
+        #else
         private const int FAILURE_TIMEOUT_MILLISECONDS = 1; // 1ms
+        #endif
+
         private const string DEFAULT_TEMPLATE_ID = "tem_SxZKpxJSHPbYDWRSQnAQUR";
         private const string DEFAULT_ESP_ACCOUNT_ID = "esp_pmUQQ7aRUhWYUrfeJqwPwB";
         private const int NON_DEFAULT_RETRY_COUNT = SendwithusClient.DEFAULT_RETRY_COUNT + 2;

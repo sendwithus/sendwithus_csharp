@@ -13,7 +13,11 @@ namespace SendwithusTest
     public class TimeoutTest
     {
         private const string DEFAULT_TEMPLATE_ID = "tem_SxZKpxJSHPbYDWRSQnAQUR";
+        #if NET461
+        private const int FAILURE_TIMEOUT_MILLISECONDS = 100; // Older versions of .NET require a higher value
+        #else
         private const int FAILURE_TIMEOUT_MILLISECONDS = 1; // 1ms
+        #endif
 
         /// <summary>
         /// Sets the API 
