@@ -3,7 +3,6 @@ using Sendwithus;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Net;
 using System.Threading.Tasks;
 
 namespace SendwithusTest
@@ -12,24 +11,53 @@ namespace SendwithusTest
     /// <summary>
     /// Unit testing class for the Log API calls
     /// </summary>
+    [NonParallelizable]
     [TestFixture]
     public class LogTest
     {
-        private const string DEFAULT_LOG_ID = "log_e7c783fc7efca27006e043ca12282e9f-3";
+        private string DEFAULT_LOG_ID;
+        private const string DEFAULT_EMAIL_ADDRESS = "sendwithus.test@gmail.com";
+        private const string DEFAULT_TEMPLATE_ID = "tem_yn2viZ8Gm2uaydMK9pgR2B";
         private const int DEFAULT_COUNT = 5;
         private const int DEFAULT_OFFSET = 1;
         private const string INVALID_COUNT = "12345";
         private const Int64 LOG_CREATED_AFTER_TIME = 1234567890;
         private const Int64 LOG_CREATED_BEFORE_TIME = 9876543210;
+        private const int RETRY_MS = 5000;
+        private const int MAX_RETRY_ATTEMPTS = 12; // retry for up to ~1 minute
+
 
         /// <summary>
-        /// Sets the API 
+        /// Sets the API
         /// </summary>
-        [SetUp]
+        [OneTimeSetUp]
         public void InitializeUnitTesting()
         {
             // Set the API key
             SendwithusClient.ApiKey = SendwithusClientTest.API_KEY_TEST;
+            try
+            {
+                var task = Task.Run(async () =>
+                {
+                    // your existing async logic
+                    var templateData = new Dictionary<string, object>();
+                    var recipient = new EmailRecipient(DEFAULT_EMAIL_ADDRESS);
+                    var email = new Email(DEFAULT_TEMPLATE_ID, templateData, recipient);
+                    var emailResponse = await email.Send();
+                    this.DEFAULT_LOG_ID = emailResponse.receipt_id;
+                });
+
+                task.Wait(); // synchronously block
+
+                if (this.DEFAULT_LOG_ID == null) {
+                    Assert.Fail("Could not get log id");
+                }
+            }
+
+            catch (Exception ex)
+            {
+                Assert.Fail(ex.ToString());
+            }
         }
 
         /// <summary>
@@ -39,19 +67,29 @@ namespace SendwithusTest
         [Test]
         public async Task TestGetLogAsync()
         {
-            Trace.WriteLine(String.Format("GET /logs/{0}", DEFAULT_LOG_ID));
+            Trace.WriteLine(String.Format("GET /logs/{0}", this.DEFAULT_LOG_ID));
 
-            // Make the API call
-            try
-            { 
-                var log = await Log.GetLogAsync(DEFAULT_LOG_ID);
-
-                // Validate the response
-                SendwithusClientTest.ValidateResponse(log);
-            }
-            catch (AggregateException exception)
+            for (int attempt = 1; attempt <= MAX_RETRY_ATTEMPTS; attempt++)
             {
-                Assert.Fail(exception.ToString());
+                try
+                {
+                    var log = await Log.GetLogAsync(this.DEFAULT_LOG_ID);
+
+                    // Validate the response
+                    SendwithusClientTest.ValidateResponse(log);
+                    return;
+                }
+                catch (Exception exception)
+                {
+                    if (attempt == MAX_RETRY_ATTEMPTS)
+                    {
+                        Assert.Fail(exception.ToString());
+                    }
+                    else
+                    {
+                        await Task.Delay(RETRY_MS);
+                    }
+                }
             }
         }
 
@@ -62,19 +100,29 @@ namespace SendwithusTest
         [Test]
         public async Task TestGetLogEventsAsync()
         {
-            Trace.WriteLine(String.Format("GET /logs/{0}/events", DEFAULT_LOG_ID));
+            Trace.WriteLine(String.Format("GET /logs/{0}/events", this.DEFAULT_LOG_ID));
 
-            // Make the API call
-            try
-            { 
-                var logEvents = await Log.GetLogEventsAsync(DEFAULT_LOG_ID);
-
-                // Validate the response
-                SendwithusClientTest.ValidateResponse(logEvents);
-            }
-            catch (AggregateException exception)
+            for (int attempt = 1; attempt <= MAX_RETRY_ATTEMPTS; attempt++)
             {
-                Assert.Fail(exception.ToString());
+                try
+                {
+                    var logEvents = await Log.GetLogEventsAsync(this.DEFAULT_LOG_ID);
+
+                    // Validate the response
+                    SendwithusClientTest.ValidateResponse(logEvents);
+                    return;
+                }
+                catch (Exception exception)
+                {
+                    if (attempt == MAX_RETRY_ATTEMPTS)
+                    {
+                        Assert.Fail(exception.ToString());
+                    }
+                    else
+                    {
+                        await Task.Delay(RETRY_MS);
+                    }
+                }
             }
         }
 
@@ -87,17 +135,27 @@ namespace SendwithusTest
         {
             Trace.WriteLine("POST /resend");
 
-            // Make the API call
-            try
-            { 
-                var logResendResponse = await Log.ResendLogAsync(DEFAULT_LOG_ID);
-
-                // Validate the response
-                SendwithusClientTest.ValidateResponse(logResendResponse);
-            }
-            catch (AggregateException exception)
+            for (int attempt = 1; attempt <= MAX_RETRY_ATTEMPTS; attempt++)
             {
-                Assert.Fail(exception.ToString());
+                try
+                {
+                    var logResendResponse = await Log.ResendLogAsync(this.DEFAULT_LOG_ID);
+
+                    // Validate the response
+                    SendwithusClientTest.ValidateResponse(logResendResponse);
+                    return;
+                }
+                catch (Exception exception)
+                {
+                    if (attempt == MAX_RETRY_ATTEMPTS)
+                    {
+                        Assert.Fail(exception.ToString());
+                    }
+                    else
+                    {
+                        await Task.Delay(RETRY_MS);
+                    }
+                }
             }
         }
     }

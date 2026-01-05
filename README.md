@@ -167,10 +167,14 @@ var versionId = "ver_ET3j2snkKhqsjRjtK6bXJE";
 var updatedTemplateVersion = new TemplateVersion();
 var templateVersionName = "New Version";
 var templateSubject = "edited!";
+// Create the template data
+var template_data = new Dictionary<string, object>();
+template_data.Add("amount", "$12.00");
 var updatedTemplateVersion = new TemplateVersion(templateVersionName, templateSubject);
 updatedTemplateVersion.html = "<html><head></head><body><h1>UPDATE</h1></body></html>"; // optional
 updatedTemplateVersion.text = "sometext"; // optional
 updatedTemplateVersion.preheader = "some preheader"; // optional
+updatedTemplateVersion.template_data = template_data; // optional
 try
 {
     var templateVersion = await Template.UpdateTemplateVersionAsync(templateId, versionId, updatedTemplateVersion);
@@ -206,11 +210,14 @@ catch (AggregateException exception)
 ```csharp
 var templateVersionName = "New Template Version";
 var templateSubject = "New Version!";
+var template_data = new Dictionary<string, object>();
+template_data.Add("amount", "$12.00");
 var updatedTemplateVersion = new TemplateVersion(templateVersionName, templateSubject);
 updatedTemplateVersion.html = "<html><head></head><body><h1>NEW TEMPLATE VERSION</h1></body></html>"; // optional
 updatedTemplateVersion.text = "some text"; // optional
 updatedTemplateVersion.preheader = "some preheader"; // optional
 updatedTemplateVersion.locale = "en-US"; // optional
+updatedTemplateVersion.template_data = template_data; // optional
 try
 {
     var template = await Template.CreateTemplateAsync(updatedTemplateVersion);
@@ -247,10 +254,13 @@ catch (AggregateException exception)
 var templateId = "tem_SxZKpxJSHPbYDWRSQnAQUR";
 var templateVersionName = "New Template Version";
 var templateSubject = "New Version!";
+var template_data = new Dictionary<string, object>();
+template_data.Add("amount", "$12.00");
 var updatedTemplateVersion = new TemplateVersion(templateVersionName, templateSubject);
 updatedTemplateVersion.html = "<html><head></head><body><h1>NEW TEMPLATE VERSION</h1></body></html>"; // optional
 updatedTemplateVersion.text = "some text"; // optional
 updatedTemplateVersion.preheader = "some preheader"; // optional
+updatedTemplateVersion.template_data = template_data; // optional
 try
 {
     var templateVersion = await Template.CreateTemplateVersion(templateId, updatedTemplateVersion);

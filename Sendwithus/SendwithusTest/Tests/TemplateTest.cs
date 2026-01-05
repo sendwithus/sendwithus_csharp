@@ -4,6 +4,7 @@ using System;
 using System.Diagnostics;
 using System.Net;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace SendwithusTest
 {
@@ -269,10 +270,13 @@ namespace SendwithusTest
             Trace.WriteLine(String.Format("PUT /templates/{0}/versions/{1}", DEFAULT_TEMPLATE_ID, DEFAULT_VERSION_ID));
             var templateVersionName = "New Template Version";
             var templateSubject = "New Version!";
+            var template_data = new Dictionary<string, object>();
+            template_data.Add("amount", "$12.00");
             var updatedTemplateVersion = new TemplateVersion(templateVersionName, templateSubject);
             updatedTemplateVersion.html = "<html><head></head><body><h1>NEW TEMPLATE VERSION</h1></body></html>";
             updatedTemplateVersion.text = "some text";
             updatedTemplateVersion.preheader = "A Test Preheader";
+            updatedTemplateVersion.template_data = template_data;
             try
             { 
                 var templateVersion = await Template.UpdateTemplateVersionAsync(DEFAULT_TEMPLATE_ID, DEFAULT_VERSION_ID, updatedTemplateVersion);
@@ -590,10 +594,13 @@ namespace SendwithusTest
             Trace.WriteLine(String.Format("POST /templates/{0}/versions", DEFAULT_TEMPLATE_ID));
             var templateVersionName = "New Template Version " + SendwithusClientTest.TimeStampAndRandomNumber();
             var templateSubject = "New Version!";
+            var template_data = new Dictionary<string, object>();
+            template_data.Add("amount", "$12.00");
             var updatedTemplateVersion = new TemplateVersion(templateVersionName, templateSubject);
             updatedTemplateVersion.html = "<html><head></head><body><h1>NEW TEMPLATE VERSION</h1></body></html>";
             updatedTemplateVersion.text = "some text";
             updatedTemplateVersion.preheader = "A Test Preheader";
+            updatedTemplateVersion.template_data = template_data;
             try
             {
                 var templateVersion = await Template.CreateTemplateVersion(DEFAULT_TEMPLATE_ID, updatedTemplateVersion);
@@ -748,11 +755,14 @@ namespace SendwithusTest
         {
             var templateVersionName = "New Template Version";
             var templateSubject = "New Version!";
+            var template_data = new Dictionary<string, object>();
+            template_data.Add("amount", "$12.00");
             var updatedTemplateVersion = new TemplateVersion(templateVersionName, templateSubject);
             updatedTemplateVersion.html = "<html><head></head><body><h1>NEW TEMPLATE VERSION</h1></body></html>";
             updatedTemplateVersion.text = "some text";
             updatedTemplateVersion.locale = DEFAULT_LOCALE;
             updatedTemplateVersion.preheader = "Test Preheader";
+            updatedTemplateVersion.template_data = template_data;
             return await Template.CreateTemplateAsync(updatedTemplateVersion);
         }
 

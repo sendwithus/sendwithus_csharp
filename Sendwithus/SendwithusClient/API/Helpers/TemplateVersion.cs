@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Sendwithus
 {
@@ -17,6 +18,7 @@ namespace Sendwithus
         public string text { get; set; }
         public string subject { get; set; }
         public string preheader { get; set; }
+        public Dictionary<string, object> template_data { get; set; }
         public string locale { get; set; }
         public bool published { get; set; }
 
@@ -37,6 +39,8 @@ namespace Sendwithus
             html = String.Empty;
             text = String.Empty;
             preheader = String.Empty;
+            template_data = new Dictionary<string, object>();
+            ;
             locale = String.Empty;
             published = false;
         }
